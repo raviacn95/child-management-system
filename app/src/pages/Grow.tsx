@@ -4,6 +4,7 @@ import { clothingNeeds, recommendedItems, sizeForChild } from '../data/catalog'
 import { gamesFor, homeMeals, SKILLS, skillActivity, tricksFor } from '../data/grow'
 import { Avatar, Badge, Button, PageHead, inputClass } from '../components/ui'
 import { ageYears, bmiProfile, childName, clothingSize, money } from '../lib'
+import { packOf } from '../data/country'
 import { useStore } from '../store'
 import type { SkillId } from '../types'
 
@@ -49,7 +50,7 @@ export function Grow() {
     <div>
       <PageHead
         title="Grow at home"
-        subtitle="Parent tools by age: BMI-aware meals, clothes, games, tricks, and ten skills for a well-rounded kid."
+        subtitle="Parent tools by age: IAP-aware meals, Willow Mart COD kits, games, tricks, and ten skills."
       />
       <div className="mb-5 flex flex-wrap gap-2">
         {kids.map((c) => (
@@ -107,7 +108,7 @@ export function Grow() {
         </div>
       </div>
       <p className="mb-4 text-xs text-muted">
-        BMI bands here are a simple home screen, not a medical diagnosis. Ask your pediatrician before changing diet.
+        BMI bands here are a simple home screen, not a medical diagnosis. {packOf(state.countryCode).growthStandard}.
       </p>
 
       <div className="mb-4 flex flex-wrap gap-2">
@@ -141,7 +142,7 @@ export function Grow() {
       {tab === 'dress' ? (
         <section className="card p-5">
           <p className="text-sm text-muted">
-            Size {clothingSize(child.dob)}. Orders go to the clothing shop cart.
+            Size {clothingSize(child.dob)}. Recommended to buy on COD when the PIN is serviceable.
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             {needs.map((n) => (
@@ -156,16 +157,17 @@ export function Grow() {
                 <p className="font-semibold">{item.name}</p>
                 <p className="text-xs text-muted">{item.why}</p>
                 <p className="mt-1 text-sm">
-                  {money(item.price)} · {sizeForChild(item, child)}
+                  {money(item.price, state.countryCode)} · {sizeForChild(item, child)}
+                  {item.codOk ? ' · COD' : ''}
                 </p>
                 <Button className="mt-2" variant="soft" onClick={() => addToCart(item.id, child.id, sizeForChild(item, child))}>
-                  Add to dress order
+                  Add — buy on COD
                 </Button>
               </article>
             ))}
           </div>
           <Link to="/shop" className="mt-4 inline-block text-sm font-semibold text-pine">
-            Open full clothing shop →
+            Open Willow Mart (COD recommended) →
           </Link>
         </section>
       ) : null}

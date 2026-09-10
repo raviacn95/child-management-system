@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Button, Field, PageHead, inputClass } from '../components/ui'
 import { childName } from '../lib'
+import { packOf } from '../data/country'
 import { useStore } from '../store'
 
 export function Learning() {
@@ -8,7 +9,7 @@ export function Learning() {
   const user = state.users.find((u) => u.id === state.currentUserId)!
   const kids = state.children.filter((c) => (user.role === 'parent' ? user.childIds.includes(c.id) : c.siteId === state.currentSiteId && c.status === 'enrolled'))
   const [childId, setChildId] = useState(kids[0]?.id ?? '')
-  const [domain, setDomain] = useState('Language')
+  const [domain, setDomain] = useState(packOf(state.countryCode).learningDomains[0])
   const [notes, setNotes] = useState('')
   const [nextSteps, setNextSteps] = useState('')
 
@@ -16,7 +17,7 @@ export function Learning() {
 
   return (
     <div>
-      <PageHead title="Learning journeys" subtitle="Observations, next steps, and early-years domains (language, physical, numeracy, social)." />
+      <PageHead title="Learning journeys" subtitle={`${packOf(state.countryCode).name} domains: ${packOf(state.countryCode).learningDomains.join(', ')}.`} />
       {user.role !== 'parent' ? (
         <form
           className="card mb-6 grid gap-3 p-4 md:grid-cols-2"
@@ -45,11 +46,9 @@ export function Learning() {
           </Field>
           <Field label="Domain">
             <select className={inputClass} value={domain} onChange={(e) => setDomain(e.target.value)}>
-              <option>Language</option>
-              <option>Physical</option>
-              <option>Numeracy</option>
-              <option>Social-emotional</option>
-              <option>Creative</option>
+              {packOf(state.countryCode).learningDomains.map((d) => (
+                <option key={d}>{d}</option>
+              ))}
             </select>
           </Field>
           <Field label="Observation">

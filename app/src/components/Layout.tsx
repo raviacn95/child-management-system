@@ -1,4 +1,5 @@
 import {
+  Bus,
   Baby,
   Bot,
   BarChart3,
@@ -25,6 +26,7 @@ import {
 import { useMemo, useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { canSee, formatTime } from '../lib'
+import { packOf } from '../data/country'
 import { useStore } from '../store'
 import { Avatar, Badge } from './ui'
 
@@ -44,7 +46,8 @@ const NAV = [
   { to: '/calendar', key: 'calendar', label: 'Calendar', icon: CalendarDays },
   { to: '/learning', key: 'learning', label: 'Learning', icon: BookOpen },
   { to: '/meals', key: 'meals', label: 'Meals', icon: UtensilsCrossed },
-  { to: '/shop', key: 'shop', label: 'Clothing shop', icon: ShoppingBag },
+  { to: '/shop', key: 'shop', label: 'Willow Mart', icon: ShoppingBag },
+  { to: '/transport', key: 'transport', label: 'Van routes', icon: Bus },
   { to: '/documents', key: 'documents', label: 'Documents', icon: FileText },
   { to: '/inventory', key: 'inventory', label: 'Supplies', icon: Package },
   { to: '/reports', key: 'reports', label: 'Reports', icon: BarChart3 },
@@ -57,6 +60,7 @@ export function Layout() {
   const [openNotifs, setOpenNotifs] = useState(false)
   const user = state.users.find((u) => u.id === state.currentUserId)
   const site = state.sites.find((s) => s.id === state.currentSiteId)
+  const pack = packOf(state.countryCode)
 
   const items = useMemo(() => {
     if (!user) return []
@@ -84,7 +88,7 @@ export function Layout() {
             </span>
             <div>
               <p className="font-display text-lg leading-none font-semibold">Willow</p>
-              <p className="mt-1 text-[11px] tracking-wide text-muted uppercase">Childcare OS</p>
+              <p className="mt-1 text-[11px] tracking-wide text-muted uppercase">{pack.nativeName} · Childcare OS</p>
             </div>
           </div>
           {user.role === 'director' ? (
@@ -146,7 +150,9 @@ export function Layout() {
       <div className="min-w-0 flex-1">
         <header className="sticky top-0 z-20 flex items-center justify-between border-b border-line bg-[rgba(243,238,230,0.86)] px-8 py-3 backdrop-blur">
           <div>
-            <p className="text-sm text-muted">{site?.name}</p>
+            <p className="text-sm text-muted">
+              {site?.name} · {pack.name}
+            </p>
             <p className="text-xs text-muted">{site?.address}</p>
           </div>
           <div className="relative flex items-center gap-3">

@@ -1,4 +1,5 @@
 import { Badge, Button, PageHead, Stat } from '../components/ui'
+import { packOf } from '../data/country'
 import { childName, money } from '../lib'
 import { useStore } from '../store'
 
@@ -12,6 +13,8 @@ const TONE = {
 
 export function Billing() {
   const { state, payInvoice } = useStore()
+  const pack = packOf(state.countryCode)
+  const rupee = (n: number) => money(n, state.countryCode)
   const user = state.users.find((u) => u.id === state.currentUserId)!
   const invoices =
     user.role === 'parent'
@@ -21,10 +24,16 @@ export function Billing() {
 
   return (
     <div>
-      <PageHead title="Billing" subtitle="Tuition, subsidies, late pickup, invoices, and receipts." />
+      <PageHead
+        title="Fees & GST"
+        subtitle={`${pack.name} fee heads: ${pack.feeHeads.slice(0, 5).join(', ')}. Tuition often GST-exempt; transport and shop extras attract GST. Pay by ${pack.payments
+          .map((p) => p.label)
+          .slice(0, 4)
+          .join(', ')}.`}
+      />
       <div className="mb-6 grid gap-4 sm:grid-cols-3">
-        <Stat label="Outstanding" value={money(outstanding)} />
-        <Stat label="Collected (sample)" value={money(invoices.reduce((s, i) => s + i.paid, 0))} />
+        <Stat label="Outstanding" value={rupee(outstanding)} />
+        <Stat label="Collected (sample)" value={rupee(invoices.reduce((s, i) => s + i.paid, 0))} />
         <Stat label="Overdue families" value={invoices.filter((i) => i.status === 'overdue').length} />
       </div>
       <div className="space-y-3">
@@ -51,16 +60,27 @@ export function Billing() {
               {inv.items.map((it) => (
                 <li key={it.desc} className="flex justify-between py-0.5">
                   <span>{it.desc}</span>
-                  <span>{money(it.amount)}</span>
+                  <span>{rupee(it.amount)}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
+            {inv.gstAmount ? <p className="text-xs text-muted">GST component {rupee(inv.gstAmount)}</p> : null}
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-3">
               <p className="text-sm">
-                {money(inv.paid)} paid of {money(inv.amount)}
+                {rupee(inv.paid)} paid of {rupee(inv.amount)}
+                {inv.upiRef ? ` · ${inv.upiRef}` : ''}
               </p>
               {inv.status !== 'paid' ? (
-                <Button onClick={() => payInvoice(inv.id, inv.amount - inv.paid)}>Record payment</Button>
+                <div className="flex gap-2">
+                  {pack.payments
+                    .filter((p) => p.id === 'upi' || p.id === 'cash' || p.id === 'neft' || p.id === 'card')
+                    .slice(0, 2)
+                    .map((p) => (
+                      <Button key={p.id} onClick={() => payInvoice(inv.id, inv.amount - inv.paid, p.id)}>
+                        Pay {p.id.toUpperCase()}
+                      </Button>
+                    ))}
+                </div>
               ) : (
                 <span className="text-sm text-pine">Receipt on file</span>
               )}

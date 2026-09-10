@@ -1,11 +1,14 @@
 import { PageHead, Stat } from '../components/ui'
 import { today } from '../data/seed'
 import { money } from '../lib'
+import { packOf } from '../data/country'
 import { useStore } from '../store'
 
 export function Reports() {
   const { state } = useStore()
   const t = today()
+  const rupee = (n: number) => money(n, state.countryCode)
+  const pack = packOf(state.countryCode)
   const enrolled = state.children.filter((c) => c.status === 'enrolled' && c.siteId === state.currentSiteId)
   const present = enrolled.filter((c) =>
     state.attendance.some((a) => a.childId === c.id && a.date === t && a.checkIn && !a.checkOut),
@@ -21,13 +24,13 @@ export function Reports() {
 
   return (
     <div>
-      <PageHead title="Reports" subtitle="Occupancy, attendance, billing collection, and immunization compliance." />
+      <PageHead title="Reports" subtitle={`${pack.name}: occupancy, attendance, fee collection, and ${pack.vaccineProgram.split(' ')[0]} immunization compliance.`} />
       <div className="mb-6 grid gap-4 sm:grid-cols-4">
         <Stat label="Occupancy now" value={`${occupancy}%`} hint={`${present}/${enrolled.length} present`} />
         <Stat
           label="Collection rate"
           value={`${billed ? Math.round((collected / billed) * 100) : 0}%`}
-          hint={`${money(collected)} of ${money(billed)}`}
+          hint={`${rupee(collected)} of ${rupee(billed)}`}
         />
         <Stat
           label="Vaccine complete"

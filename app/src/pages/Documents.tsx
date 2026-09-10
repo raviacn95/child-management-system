@@ -1,5 +1,6 @@
 import { Badge, Button, PageHead } from '../components/ui'
 import { childName } from '../lib'
+import { packOf } from '../data/country'
 import { useStore } from '../store'
 
 export function Documents() {
@@ -12,7 +13,10 @@ export function Documents() {
 
   return (
     <div>
-      <PageHead title="Records & documents" subtitle="Health forms, custody papers, feeding plans, with approval and expiry tracking." />
+      <PageHead
+        title="Records & documents"
+        subtitle={`${packOf(state.countryCode).name} admission file: ${packOf(state.countryCode).documents.map((d) => d.title).join(', ')}. ${packOf(state.countryCode).idHint}`}
+      />
       <div className="space-y-2">
         {docs.map((d) => {
           const child = state.children.find((c) => c.id === d.childId)

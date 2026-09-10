@@ -14,7 +14,9 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173).
+Open [http://localhost:5173](http://localhost:5173). **Settings → country pack** switches India / UAE / Singapore / UK / US (currency, GST/VAT, vaccines, stages, COD). Reset demo if you still see old USD data.
+
+**Willow Mart Auto Order** quotes nearby dark stores (Zepto / Blinkit / Instamart **sandbox partner adapters** — not live consumer APIs). Optional middleware: `node middleware/server.mjs` (Vite proxies `/qc-api` → `:8790`).
 
 | Role | Email | Password |
 |------|--------|----------|
@@ -66,7 +68,9 @@ Production-shaped references used for depth: eVaka, Sunshine Care, Safari Leader
 - **Staff**: time clock, shifts, certifications, PD hours, **licensing ratios**
 - **Teacher workers**: five caseload teachers auto-monitor assigned children, then write a report plus meal, health, and education plans
 - **Grow at home (parents)**: age-based BMI meal plans, dress orders, games, tricks, and **ten skills** (language, numeracy, motor, fine motor, social, music, art, science, focus, leadership)
-- **Clothing shop**: buy kids’ clothes by age band and child needs (spare cubby set, easy-on, cotton, rain, bibs)
+- **Willow Mart (FirstCry-style shop)**: fashion, diapers, feeding, toys, gear, school — age + child-file recommendations, **Cash on Delivery**, GST, PIN-code delivery, and **Auto Order** quotes from Zepto / Blinkit / Instamart sandbox partner APIs
+- **Country packs**: India (default) plus UAE, Singapore, UK, US — currency, stages, vaccines, meals, documents, holidays, payments
+- Playgroup / Nursery / LKG / UKG, **GST + UPI fees**, **UIP/IAP vaccines**, FSSAI tiffin, **van routes**, WhatsApp notices, DPDP-minimised ID last-4
 - Rooms/programs, messages + announcements, calendar, **learning observations**
 - **CACFP-style menus** with allergen flags, documents with approval/expiry
 - Supplies/inventory, occupancy & collection **reports**

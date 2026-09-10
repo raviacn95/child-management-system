@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Badge, Button, Field, PageHead, inputClass } from '../components/ui'
 import { useStore } from '../store'
+import { packOf } from '../data/country'
 import type { ApplicationStatus } from '../types'
 
 const PIPELINE: ApplicationStatus[] = ['inquiry', 'tour', 'applied', 'waitlist', 'accepted', 'enrolled', 'declined']
@@ -24,7 +25,10 @@ export function Enrollment() {
     <div>
       <PageHead
         title="Admissions pipeline"
-        subtitle="Inquiry → tour → application → waitlist → offer → enrolled."
+        subtitle={`${packOf(state.countryCode).name}: inquiry → tour → application → waitlist → offer → enrolled. Age check against ${packOf(state.countryCode).stages.map((s) => s.label).join(', ')}. Collect ${packOf(state.countryCode).documents
+          .slice(0, 3)
+          .map((d) => d.title)
+          .join(', ')}.`}
         actions={<Button onClick={() => setShow(true)}>New inquiry</Button>}
       />
       <div className="scrollbar-thin flex gap-4 overflow-x-auto pb-4">

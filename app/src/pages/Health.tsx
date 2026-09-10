@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Badge, Button, Field, PageHead, inputClass } from '../components/ui'
+import { packOf } from '../data/country'
 import { childName } from '../lib'
 import { useStore } from '../store'
 import type { IncidentSeverity } from '../types'
@@ -13,10 +14,14 @@ export function Health() {
   const [inc, setInc] = useState({ childId: visibleKids[0]?.id ?? '', type: 'Fall', severity: 'low' as IncidentSeverity, description: '', action: '' })
 
   const staffId = state.staff.find((s) => s.email === user.email)?.id ?? 's-maya'
+  const pack = packOf(state.countryCode)
 
   return (
     <div>
-      <PageHead title="Health & safety" subtitle="Immunizations, medication administration, incidents, and behavior notes." />
+      <PageHead
+        title="Health & safety"
+        subtitle={`${pack.vaccineProgram}. ${pack.growthStandard}. Medication only with parent consent.`}
+      />
       <div className="mb-5 flex flex-wrap gap-2">
         {(['vaccines', 'meds', 'incidents', 'discipline'] as const).map((t) => (
           <Button key={t} variant={tab === t ? 'primary' : 'ghost'} onClick={() => setTab(t)}>
@@ -31,7 +36,7 @@ export function Health() {
             <thead className="bg-sand text-xs tracking-wide text-muted uppercase">
               <tr>
                 <th className="px-4 py-3">Child</th>
-                <th>Vaccine</th>
+                <th>Vaccine ({pack.code})</th>
                 <th>Due</th>
                 <th>Status</th>
                 <th />

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Badge, Button, Field, PageHead, inputClass } from '../components/ui'
 import { useStore } from '../store'
+import { packOf } from '../data/country'
 import type { CalendarEvent } from '../types'
 
 const TONE: Record<CalendarEvent['type'], 'pine' | 'clay' | 'sky' | 'gold' | 'rose'> = {
@@ -21,7 +22,7 @@ export function CalendarPage() {
 
   return (
     <div>
-      <PageHead title="Calendar" subtitle="Closures, trips, picture day, staff meetings, and family events." />
+      <PageHead title="Calendar" subtitle={`${packOf(state.countryCode).name} academic year ${packOf(state.countryCode).academicYear}. Festivals, closures, trips, and PTMs.`} />
       {user.role !== 'parent' ? (
         <form
           className="card mb-6 flex flex-wrap items-end gap-3 p-4"

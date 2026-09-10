@@ -45,6 +45,9 @@ export function gamesFor(dob: string) {
     { id: 'storydice', name: 'Story dice / three pictures', minutes: 10, bands: ['preschool'], skill: 'language' as SkillId, how: 'Child tells a story that uses all three.' },
     { id: 'pattern', name: 'Bead / block patterns', minutes: 8, bands: ['toddler', 'preschool'], skill: 'numeracy' as SkillId, how: 'Red-blue-red-blue, then they make the next.' },
     { id: 'helper', name: 'Family helper race', minutes: 8, bands: ['toddler', 'preschool'], skill: 'leadership' as SkillId, how: 'Put away 5 things before the song ends.' },
+    { id: 'rangoli', name: 'Floor rangoli dots', minutes: 10, bands: ['preschool'], skill: 'fineMotor' as SkillId, how: 'Dot-to-dot rangoli with chalk. Fine motor + festival culture.' },
+    { id: 'kho', name: 'Garden kho-kho / freeze tag', minutes: 12, bands: ['preschool'], skill: 'motor' as SkillId, how: 'Short bursts, then water. Indian playground classic.' },
+    { id: 'akshar', name: 'Akshara hunt', minutes: 8, bands: ['toddler', 'preschool'], skill: 'language' as SkillId, how: 'Find 3 letters in the room — English or mother tongue.' },
   ]
   return all.filter((g) => g.bands.includes(band))
 }
@@ -103,10 +106,10 @@ export function homeMeals(child: Child, band: BmiBand) {
   return {
     focus: extra,
     days: [
-      { meal: 'Breakfast', menu: `Oats or toast + ${spread} + fruit + ${milk}` },
-      { meal: 'Lunch', menu: `Rice or quinoa + ${protein} + two vegetables` },
-      { meal: 'Snack', menu: band === 'under' ? `Cheese or hummus + crackers + banana` : `Cucumber + hummus + water` },
-      { meal: 'Dinner', menu: `Family plate with ${protein}, veg, grain — same spices, smaller cut` },
+      { meal: 'Breakfast', menu: `Poha or idli + fruit + ${milk}` },
+      { meal: 'Lunch', menu: `Dal + rice or roti + two sabzi (${protein})` },
+      { meal: 'Snack', menu: band === 'under' ? `Banana + roasted chana (if no peanut) + ${milk}` : `Cucumber + buttermilk or water` },
+      { meal: 'Dinner', menu: `Family thali with ${protein}, sabzi, grain — same spices, smaller cut. No packaged juice.` },
     ],
   }
 }

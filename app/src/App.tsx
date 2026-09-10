@@ -20,6 +20,7 @@ import { Messages } from './pages/Messages'
 import { Reports } from './pages/Reports'
 import { SettingsPage } from './pages/Settings'
 import { Shop } from './pages/Shop'
+import { TransportPage } from './pages/Transport'
 import { StaffPage } from './pages/Staff'
 import { Workers } from './pages/Workers'
 import { StoreProvider, useStore } from './store'
@@ -70,6 +71,7 @@ function AppRoutes() {
         <Route path="/learning" element={<Learning />} />
         <Route path="/meals" element={<Meals />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/transport" element={<TransportPage />} />
         <Route path="/documents" element={<Documents />} />
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/reports" element={<Reports />} />

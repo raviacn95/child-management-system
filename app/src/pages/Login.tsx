@@ -6,8 +6,8 @@ import { useStore } from '../store'
 
 const ACCOUNTS = [
   { role: 'Director', email: 'director@willow.care', note: 'Full operations, all sites' },
-  { role: 'Teacher', email: 'teacher@willow.care', note: 'Oaks classroom, daily care' },
-  { role: 'Parent', email: 'parent@willow.care', note: 'Leo & Mira — grow-at-home coach' },
+  { role: 'Teacher', email: 'teacher@willow.care', note: 'LKG/UKG classroom, daily care' },
+  { role: 'Parent', email: 'parent@willow.care', note: 'Leo & Mira — Mart COD + grow-at-home' },
 ]
 
 export function Login() {
@@ -28,16 +28,16 @@ export function Login() {
             <span className="font-display text-2xl">Willow</span>
           </div>
           <h1 className="font-display mt-16 max-w-md text-5xl leading-tight font-semibold">
-            One system for the whole childhood day.
+            One system for the Indian childhood day.
           </h1>
-          <p className="mt-5 max-w-md text-sm leading-relaxed text-white/80">
-            Enrollment, secure handoff, daily diaries, health, billing, staff ratios, meals, and
-            family messaging — the union of the most-forked childcare platforms on GitHub, in one
-            operating picture.
+          <p className="mt-5 max-w-md text-sm leading-relaxed text-white/85">
+            Playgroup–UKG operations like Pathshala / Fledgly / Zenox, plus a FirstCry-style shop with
+            Cash on Delivery recommendations. GST, UPI, FSSAI tiffin, UIP vaccines, and van routes —
+            switch country in Settings.
           </p>
         </div>
         <ul className="relative grid max-w-lg grid-cols-2 gap-3 text-sm">
-          {['PIN pickup', 'CACFP menus', 'Immunizations', 'Learning journeys', 'Multi-site', 'Parent portal'].map(
+          {['PIN pickup', 'UIP vaccines', 'GST + UPI fees', 'Willow Mart COD', 'Van routes', 'WhatsApp notices'].map(
             (item) => (
               <li key={item} className="rounded-xl bg-white/10 px-3 py-2">
                 {item}

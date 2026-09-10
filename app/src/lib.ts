@@ -1,4 +1,5 @@
 import type { BmiBand, Child, Role } from './types'
+import { packOf } from './data/country'
 
 export function initials(name: string) {
   return name
@@ -25,15 +26,16 @@ export function ageMonths(dob: string) {
 
 export function clothingSize(dob: string) {
   const m = Math.max(0, ageMonths(dob))
-  if (m < 6) return '0–6M'
+  if (m < 3) return '0–3M'
+  if (m < 6) return '3–6M'
   if (m < 12) return '6–12M'
   if (m < 18) return '12–18M'
   if (m < 24) return '18–24M'
-  if (m < 36) return '2T'
-  if (m < 48) return '3T'
-  if (m < 60) return '4T'
-  if (m < 72) return '5T'
-  return '6/7'
+  if (m < 36) return '2–3Y'
+  if (m < 48) return '3–4Y'
+  if (m < 60) return '4–5Y'
+  if (m < 72) return '5–6Y'
+  return '6–7Y'
 }
 
 export function ageYears(dob: string) {
@@ -70,8 +72,15 @@ export function formatTime(isoOrHm: string) {
   return d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })
 }
 
-export function money(n: number) {
-  return n.toLocaleString(undefined, { style: 'currency', currency: 'USD' })
+export function money(n: number, country?: string | null) {
+  const pack = packOf(country)
+  const whole = pack.currency === 'INR'
+  return n.toLocaleString(pack.locale, {
+    style: 'currency',
+    currency: pack.currency,
+    maximumFractionDigits: whole ? 0 : 2,
+    minimumFractionDigits: whole ? 0 : 2,
+  })
 }
 
 export function canSee(role: Role, module: string) {
@@ -91,6 +100,7 @@ export function canSee(role: Role, module: string) {
     'workers',
     'shop',
     'grow',
+    'transport',
   ]
   const parent = [
     'dashboard',
@@ -106,6 +116,7 @@ export function canSee(role: Role, module: string) {
     'workers',
     'shop',
     'grow',
+    'transport',
   ]
   if (role === 'teacher') return teacher.includes(module)
   return parent.includes(module)

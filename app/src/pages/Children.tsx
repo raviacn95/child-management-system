@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Avatar, Badge, Button, Field, PageHead, inputClass } from '../components/ui'
 import { ageYears, childName } from '../lib'
+import { packOf } from '../data/country'
 import { useStore } from '../store'
 import type { ChildStatus } from '../types'
 
@@ -40,7 +41,7 @@ export function ChildrenPage() {
     <div>
       <PageHead
         title="Children"
-        subtitle="Profiles, allergies, custody, authorized pickup, and enrollment status."
+        subtitle={`Profiles with ${packOf(state.countryCode).idLabel}, blood group, mother tongue, diet, tiffin, van route, and ${packOf(state.countryCode).stages.map((s) => s.label).join('/')} stage — as in Indian preschool ERPs.`}
         actions={
           user.role !== 'parent' ? (
             <Button onClick={() => setAdding(true)}>Add child</Button>
@@ -104,6 +105,12 @@ export function ChildrenPage() {
             <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
               <Info label="Room" value={state.classrooms.find((r) => r.id === selected.classroomId)?.name ?? '—'} />
               <Info label="Status" value={selected.status} />
+              <Info label="Stage" value={selected.stage ?? '—'} />
+              <Info label="Blood group" value={selected.bloodGroup ?? '—'} />
+              <Info label="Mother tongue" value={selected.motherTongue ?? '—'} />
+              <Info label="Diet" value={selected.dietType || selected.foodPreferences || 'No notes'} />
+              <Info label="Tiffin" value={selected.tiffin ? 'Yes' : 'Home packed / milk'} />
+              <Info label={packOf(state.countryCode).idLabel} value={selected.idLast4 ? `••••${selected.idLast4}` : 'Not on file'} />
               <Info label="Food" value={selected.foodPreferences || 'No notes'} />
               <Info label="Medical" value={selected.medicalNotes || 'None'} />
             </div>

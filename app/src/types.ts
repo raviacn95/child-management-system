@@ -27,6 +27,9 @@ export interface User {
   siteId: string
 }
 
+export type CountryCode = 'IN' | 'US' | 'AE' | 'SG' | 'GB'
+export type PayMethod = 'cod' | 'upi' | 'card' | 'netbanking' | 'wallet' | 'cash' | 'neft' | 'cheque'
+
 export interface Site {
   id: string
   name: string
@@ -34,6 +37,14 @@ export interface Site {
   phone: string
   license: string
   capacity: number
+  country?: CountryCode
+  state?: string
+  pincode?: string
+  gstin?: string
+  udise?: string
+  affiliation?: string
+  fssai?: string
+  whatsapp?: string
 }
 
 export interface Classroom {
@@ -70,6 +81,16 @@ export interface Child {
   parentIds: string[]
   weeklySchedule: boolean[]
   avatarHue: number
+  bloodGroup?: string
+  motherTongue?: string
+  religion?: string
+  category?: string
+  idLast4?: string
+  nationality?: string
+  transportRouteId?: string
+  tiffin?: boolean
+  stage?: string
+  dietType?: string
 }
 
 export interface Guardian {
@@ -194,6 +215,10 @@ export interface Invoice {
   dueDate: string
   issuedDate: string
   items: InvoiceItem[]
+  gstRate?: number
+  gstAmount?: number
+  paymentMethod?: PayMethod
+  upiRef?: string
 }
 
 export interface StaffMember {
@@ -231,7 +256,7 @@ export interface Message {
   body: string
   at: string
   read: boolean
-  kind: 'direct' | 'announcement'
+  kind: 'direct' | 'announcement' | 'whatsapp'
 }
 
 export interface CalendarEvent {
@@ -387,20 +412,42 @@ export interface EducationPlan {
   homeIdeas: string[]
 }
 
-export type ShopCategory = 'tops' | 'bottoms' | 'outerwear' | 'shoes' | 'care' | 'uniform'
-export type ShopOrderStatus = 'cart' | 'placed' | 'packed' | 'delivered' | 'cancelled'
+export type ShopCategory =
+  | 'fashion'
+  | 'footwear'
+  | 'diapering'
+  | 'feeding'
+  | 'bath'
+  | 'toys'
+  | 'gear'
+  | 'nursery'
+  | 'school'
+  | 'books'
+  | 'moms'
+  | 'uniform'
+export type ShopOrderStatus = 'cart' | 'placed' | 'packed' | 'shipped' | 'delivered' | 'cancelled'
 
 export interface ShopItem {
   id: string
   name: string
+  brand: string
   category: ShopCategory
   minMonths: number
   maxMonths: number
   sizes: string[]
+  mrp: number
   price: number
   stock: number
   tags: string[]
   why: string
+  emoji: string
+  rating: number
+  sold: number
+  codOk: boolean
+  gstRate: number
+  comboWith: string[]
+  deliveryDays: number
+  badge?: string
 }
 
 export interface ShopNeed {
@@ -436,6 +483,105 @@ export interface ShopOrder {
   status: ShopOrderStatus
   placedAt: string
   notes: string
+  payment?: PayMethod
+  pincode?: string
+  address?: string
+  codFee?: number
+  gst?: number
+  coins?: number
+}
+
+export interface TransportRoute {
+  id: string
+  siteId: string
+  name: string
+  vehicle: string
+  attendant: string
+  am: string
+  pm: string
+  stops: string[]
+  fee: number
+  seats: number
+  occupied: number
+}
+
+export interface ShopWish {
+  itemId: string
+  childId: string
+}
+
+export type QcAppId = 'zepto' | 'blinkit' | 'instamart'
+export type QcOrderStatus = 'quoted' | 'confirmed' | 'packed' | 'rider' | 'delivered' | 'cancelled'
+
+export interface QcOffer {
+  app: QcAppId
+  sku: string
+  name: string
+  brand: string
+  price: number
+  mrp: number
+  etaMin: number
+  stock: number
+  codOk: boolean
+  veg: boolean
+  allergens: string[]
+}
+
+export interface QcLinePick {
+  needId: string
+  label: string
+  chosen: QcOffer
+  runners: QcOffer[]
+  score: number
+  reason: string
+}
+
+export interface QcDecision {
+  app: QcAppId
+  appName: string
+  etaMin: number
+  subtotal: number
+  allCod: boolean
+  why: string
+}
+
+export interface QcQuote {
+  picks: QcLinePick[]
+  comparison: QcOffer[]
+  decision: QcDecision
+  mode: 'sandbox' | 'middleware'
+}
+
+export interface QcWebhookEvent {
+  at: string
+  status: QcOrderStatus
+  note: string
+}
+
+export interface QcOrderLine {
+  sku: string
+  name: string
+  needId: string
+  price: number
+  app: QcAppId
+}
+
+export interface QcOrder {
+  id: string
+  childId: string
+  userId: string
+  app: QcAppId
+  appName: string
+  status: QcOrderStatus
+  payment: PayMethod
+  pincode: string
+  address: string
+  lines: QcOrderLine[]
+  total: number
+  etaMin: number
+  placedAt: string
+  mode: 'sandbox' | 'middleware'
+  events: QcWebhookEvent[]
 }
 
 export type SkillId =
@@ -484,6 +630,10 @@ export interface TrickDone {
 }
 
 export interface AppState {
+  countryCode: CountryCode
+  shopPincode: string
+  shopWishlist: ShopWish[]
+  transportRoutes: TransportRoute[]
   users: User[]
   currentUserId: string | null
   sites: Site[]
@@ -520,6 +670,7 @@ export interface AppState {
   shopCatalog: ShopItem[]
   shopCart: ShopCartLine[]
   shopOrders: ShopOrder[]
+  quickOrders: QcOrder[]
   growthRecords: GrowthRecord[]
   skillProgress: SkillProgress[]
   gamePlays: GamePlay[]

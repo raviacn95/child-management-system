@@ -2,12 +2,15 @@ import { AlertTriangle, ArrowUpRight, Bot } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Avatar, Badge, PageHead, Stat } from '../components/ui'
 import { today } from '../data/seed'
+import { packOf } from '../data/country'
 import { ageYears, childName, money } from '../lib'
 import { useStore } from '../store'
 
 export function Dashboard() {
   const { state } = useStore()
   const user = state.users.find((u) => u.id === state.currentUserId)!
+  const pack = packOf(state.countryCode)
+  const rupee = (n: number) => money(n, state.countryCode)
   const siteChildren = state.children.filter(
     (c) => c.siteId === state.currentSiteId && (user.role !== 'parent' || user.childIds.includes(c.id)),
   )
@@ -36,8 +39,8 @@ export function Dashboard() {
         title={user.role === 'parent' ? `Hi, ${user.name.split(' ')[0]}` : 'Today at a glance'}
         subtitle={
           user.role === 'parent'
-            ? 'Home coach for Leo & Mira: meals, clothes, games, and ten skills.'
-            : `${present.length} children in the building · ${rooms.length} rooms open`
+            ? 'Home coach for Leo & Mira: tiffin, Willow Mart COD, games, and ten skills.'
+            : `${present.length} children in the building · ${rooms.length} rooms open · ${pack.name}`
         }
       />
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -45,16 +48,16 @@ export function Dashboard() {
         <Stat label="Waitlist" value={state.applications.filter((a) => a.status === 'waitlist').length} />
         <Stat
           label="Tuition due"
-          value={money(
+          value={rupee(
             state.invoices
               .filter((i) => i.status !== 'paid')
               .reduce((s, i) => s + (i.amount - i.paid), 0),
           )}
         />
         <Stat
-          label="Clothing orders"
+          label="Mart orders"
           value={(state.shopOrders ?? []).filter((o) => o.status !== 'delivered' && o.status !== 'cancelled').length}
-          hint="open shop orders"
+          hint="open COD / prepaid"
         />
       </div>
 
@@ -155,7 +158,10 @@ export function Dashboard() {
               <Bot size={14} /> Open worker desk
             </Link>
             <Link to="/grow" className="mt-2 flex items-center gap-1 text-sm font-semibold text-pine">
-              Grow at home — meals, games, 10 skills →
+              Grow at home — tiffin, games, 10 skills →
+            </Link>
+            <Link to="/shop" className="mt-2 flex items-center gap-1 text-sm font-semibold text-pine">
+              Willow Mart — buy on COD →
             </Link>
           </div>
           <div className="card p-5">

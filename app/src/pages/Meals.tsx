@@ -1,11 +1,13 @@
 import { Badge, PageHead } from '../components/ui'
+import { packOf } from '../data/country'
 import { useStore } from '../store'
 
 export function Meals() {
   const { state } = useStore()
+  const pack = packOf(state.countryCode)
   return (
     <div>
-      <PageHead title="Meals & CACFP" subtitle="Peanut-free kitchen, allergen flags, and daily menus for breakfast through PM snack." />
+      <PageHead title={pack.mealsTitle} subtitle={pack.mealsNote} />
       <div className="grid gap-4 md:grid-cols-2">
         {state.menus.map((m) => (
           <article key={m.id} className="card p-5">
@@ -14,10 +16,9 @@ export function Meals() {
               <Badge tone="gold">{m.allergens}</Badge>
             </div>
             <dl className="space-y-2 text-sm">
-              <Row k="Breakfast" v={m.breakfast} />
-              <Row k="AM snack" v={m.amSnack} />
-              <Row k="Lunch" v={m.lunch} />
-              <Row k="PM snack" v={m.pmSnack} />
+              {pack.mealSlots.map((slot) => (
+                <Row key={slot.key} k={slot.label} v={m[slot.key]} />
+              ))}
             </dl>
           </article>
         ))}

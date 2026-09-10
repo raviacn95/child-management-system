@@ -1,23 +1,28 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
 import { createShopCatalog } from './data/catalog'
 import { createSeed } from './data/seed'
+import { convertInr, holidayDate, packOf } from './data/country'
 import type {
   AppState,
   Application,
   ApplicationStatus,
   AttendanceMethod,
   Child,
+  CountryCode,
   DailyLog,
   Incident,
   Invoice,
   MealLog,
   Message,
   Observation,
+  PayMethod,
+  QcOrder,
   SkillId,
 } from './types'
+import { nextWebhook } from './lib/autoOrder'
 import { applyWorkerRun } from './workers/engine'
 
-const KEY = 'willow-cms-v4'
+const KEY = 'willow-cms-v5'
 
 function migrate(parsed: AppState): AppState {
   const seeded = createSeed()
@@ -35,11 +40,40 @@ function migrate(parsed: AppState): AppState {
       educationPlans: parsed.educationPlans ?? [],
     })
   }
-  if (!next.shopCatalog?.length) {
+  if (!parsed.countryCode) {
     next = {
       ...next,
-      shopCatalog: createShopCatalog(),
-      shopCart: next.shopCart ?? [],
+      countryCode: 'IN',
+      shopPincode: seeded.shopPincode,
+      shopWishlist: seeded.shopWishlist,
+      transportRoutes: seeded.transportRoutes,
+      sites: seeded.sites,
+      invoices: seeded.invoices,
+      vaccinations: seeded.vaccinations,
+      menus: seeded.menus,
+      events: seeded.events,
+      documents: seeded.documents,
+      shopCatalog: seeded.shopCatalog,
+      shopCart: seeded.shopCart,
+      shopOrders: seeded.shopOrders,
+      classrooms: seeded.classrooms,
+      children: seeded.children,
+      guardians: seeded.guardians,
+      pickups: seeded.pickups,
+      emergencies: seeded.emergencies,
+      applications: seeded.applications,
+      inventory: seeded.inventory,
+      notifications: seeded.notifications,
+      staff: seeded.staff,
+    }
+  }
+  const country = (next.countryCode as CountryCode) || 'IN'
+  const catalogLooksOld = !next.shopCatalog?.length || next.shopCatalog.some((i) => !('brand' in i) || !('mrp' in i))
+  if (catalogLooksOld) {
+    next = {
+      ...next,
+      shopCatalog: createShopCatalog(country),
+      shopCart: (next.shopCart ?? []).filter((l) => createShopCatalog(country).some((i) => i.id === l.itemId)),
       shopOrders: next.shopOrders ?? seeded.shopOrders,
     }
   }
@@ -52,13 +86,23 @@ function migrate(parsed: AppState): AppState {
       tricksDone: next.tricksDone ?? [],
     }
   }
-  return next
+  if (!next.transportRoutes?.length) {
+    next = { ...next, transportRoutes: seeded.transportRoutes }
+  }
+  return {
+    ...next,
+    countryCode: country,
+    shopPincode: next.shopPincode || seeded.shopPincode,
+    shopWishlist: next.shopWishlist ?? [],
+    quickOrders: next.quickOrders ?? [],
+  }
 }
 
 function load(): AppState {
   try {
     const raw =
       localStorage.getItem(KEY) ??
+      localStorage.getItem('willow-cms-v4') ??
       localStorage.getItem('willow-cms-v3') ??
       localStorage.getItem('willow-cms-v2') ??
       localStorage.getItem('willow-cms-v1')
@@ -97,7 +141,7 @@ interface StoreApi {
   markVaccineGiven: (id: string) => void
   sendMessage: (msg: Omit<Message, 'id' | 'at' | 'read'>) => void
   markMessageRead: (id: string) => void
-  payInvoice: (id: string, amount: number) => void
+  payInvoice: (id: string, amount: number, method?: PayMethod) => void
   addInvoice: (inv: Omit<Invoice, 'id'>) => void
   updateApplication: (id: string, status: ApplicationStatus) => void
   addApplication: (app: Omit<Application, 'id'>) => void
@@ -111,8 +155,13 @@ interface StoreApi {
   completeWorkerTask: (id: string, done?: boolean) => void
   addToCart: (itemId: string, childId: string, size: string, qty?: number) => void
   setCartQty: (id: string, qty: number) => void
-  placeShopOrder: (notes?: string) => void
+  placeShopOrder: (opts?: { notes?: string; payment?: PayMethod; pincode?: string; address?: string }) => void
   setShopOrderStatus: (id: string, status: AppState['shopOrders'][number]['status']) => void
+  setCountry: (code: CountryCode) => void
+  setShopPincode: (pin: string) => void
+  toggleWish: (itemId: string, childId: string) => void
+  recordQuickOrder: (order: QcOrder) => void
+  tickQuickOrder: (id: string) => void
   logGrowth: (childId: string, heightCm: number, weightKg: number) => void
   practiceSkill: (childId: string, skillId: SkillId) => void
   logGame: (childId: string, gameId: string, minutes: number) => void
@@ -292,14 +341,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           ...s,
           messages: s.messages.map((m) => (m.id === id ? { ...m, read: true } : m)),
         })),
-      payInvoice: (id, amount) =>
+      payInvoice: (id, amount, method) =>
         patch((s) => ({
           ...s,
           invoices: s.invoices.map((inv) => {
             if (inv.id !== id) return inv
             const paid = Math.min(inv.amount, inv.paid + amount)
             const status = paid >= inv.amount ? 'paid' : paid > 0 ? 'partial' : inv.status
-            return { ...inv, paid, status }
+            return { ...inv, paid, status, paymentMethod: method ?? inv.paymentMethod }
           }),
         })),
       addInvoice: (inv) =>
@@ -381,9 +430,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           ...s,
           shopCart: qty <= 0 ? s.shopCart.filter((l) => l.id !== id) : s.shopCart.map((l) => (l.id === id ? { ...l, qty } : l)),
         })),
-      placeShopOrder: (notes = '') =>
+      placeShopOrder: (opts = {}) =>
         patch((s) => {
           if (!s.shopCart.length || !s.currentUserId) return s
+          const pack = packOf(s.countryCode)
           const lines = s.shopCart.map((l) => {
             const item = s.shopCatalog.find((i) => i.id === l.itemId)
             return {
@@ -395,7 +445,18 @@ export function StoreProvider({ children }: { children: ReactNode }) {
               childId: l.childId,
             }
           })
-          const total = lines.reduce((n, l) => n + l.price * l.qty, 0)
+          const subtotal = lines.reduce((n, l) => n + l.price * l.qty, 0)
+          const gst = s.shopCart.reduce((n, l) => {
+            const item = s.shopCatalog.find((i) => i.id === l.itemId)
+            return n + Math.round((item?.price ?? 0) * l.qty * (item?.gstRate ?? 0))
+          }, 0)
+          const payment = opts.payment ?? (pack.cod.enabled ? 'cod' : pack.defaultPay)
+          const pin = opts.pincode ?? s.shopPincode
+          let codFee = 0
+          if (payment === 'cod' && pack.cod.enabled) {
+            if (subtotal < pack.cod.freeAbove) codFee = convertInr(pack.cod.fee, pack)
+          }
+          const total = subtotal + gst + codFee
           const stocked = s.shopCatalog.map((item) => {
             const used = lines.filter((l) => l.itemId === item.id).reduce((n, l) => n + l.qty, 0)
             return { ...item, stock: Math.max(0, item.stock - used) }
@@ -413,7 +474,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                 total,
                 status: 'placed',
                 placedAt: new Date().toISOString(),
-                notes,
+                notes: opts.notes ?? '',
+                payment,
+                pincode: pin,
+                address: opts.address ?? '',
+                codFee,
+                gst,
+                coins: Math.floor(subtotal * pack.clubRate),
               },
               ...s.shopOrders,
             ],
@@ -424,6 +491,41 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           ...s,
           shopOrders: s.shopOrders.map((o) => (o.id === id ? { ...o, status } : o)),
         })),
+      setCountry: (code) =>
+        patch((s) => {
+          const pack = packOf(code)
+          const year = new Date().getFullYear()
+          const holidayEvents = pack.holidays.map((h) => ({
+            id: `hol-${code}-${h.month}-${h.day}`,
+            title: h.title,
+            date: holidayDate(year, h.month, h.day),
+            start: '00:00',
+            end: '23:59',
+            type: 'holiday' as const,
+            siteId: s.currentSiteId,
+          }))
+          const kept = s.events.filter((e) => !e.id.startsWith('hol-'))
+          return {
+            ...s,
+            countryCode: code,
+            shopCatalog: createShopCatalog(code),
+            shopCart: [],
+            events: [...holidayEvents, ...kept],
+            sites: s.sites.map((site) => ({ ...site, country: code })),
+          }
+        }),
+      setShopPincode: (pin) => patch((s) => ({ ...s, shopPincode: pin })),
+      toggleWish: (itemId, childId) =>
+        patch((s) => {
+          const list = s.shopWishlist ?? []
+          const exists = list.some((w) => w.itemId === itemId && w.childId === childId)
+          return {
+            ...s,
+            shopWishlist: exists
+              ? list.filter((w) => !(w.itemId === itemId && w.childId === childId))
+              : [...list, { itemId, childId }],
+          }
+        }),
       logGrowth: (childId, heightCm, weightKg) =>
         patch((s) => ({
           ...s,
@@ -475,6 +577,28 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             tricksDone: [{ id: uid('tr'), childId, trickId, at: new Date().toISOString() }, ...(s.tricksDone ?? [])],
           }
         }),
+      recordQuickOrder: (order) =>
+        patch((s) => ({
+          ...s,
+          quickOrders: [order, ...(s.quickOrders ?? [])],
+          notifications: [
+            {
+              id: uid('n'),
+              userId: s.currentUserId ?? order.userId,
+              title: `${order.appName} auto-order ${order.id}`,
+              body: `${order.lines.length} SKUs · ${order.payment.toUpperCase()} · ~${order.etaMin} min (sandbox)`,
+              at: new Date().toISOString(),
+              read: false,
+              href: '/shop',
+            },
+            ...s.notifications,
+          ],
+        })),
+      tickQuickOrder: (id) =>
+        patch((s) => ({
+          ...s,
+          quickOrders: (s.quickOrders ?? []).map((o) => (o.id === id ? nextWebhook(o) : o)),
+        })),
     }
   }, [state])
 

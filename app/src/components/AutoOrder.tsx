@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Truck, Zap } from 'lucide-react'
+import { ExternalLink, Truck, Zap } from 'lucide-react'
 import { clothingNeeds } from '../data/catalog'
 import { packOf } from '../data/country'
-import { autoOrderRemote, buildOrder, placeOrderRemote, QC_APPS } from '../lib/autoOrder'
+import { autoOrderRemote, buildOrder, partnerShopUrl, placeOrderRemote, QC_APPS } from '../lib/autoOrder'
 import { childName, money } from '../lib'
 import { useStore } from '../store'
 import type { Child, PayMethod, QcQuote } from '../types'
@@ -18,8 +18,9 @@ export function AutoOrderPanel({ child }: { child: Child }) {
   const [via, setVia] = useState<'middleware' | 'local' | null>(null)
   const [error, setError] = useState('')
   const [pay, setPay] = useState<PayMethod>(pack.cod.enabled ? 'cod' : 'upi')
-  const [address, setAddress] = useState(state.sites.find((s) => s.id === state.currentSiteId)?.address ?? '')
+  const [address, setAddress] = useState('')
   const orders = (state.quickOrders ?? []).filter((o) => o.childId === child.id)
+  const winnerApp = quote?.decision.app ?? 'zepto'
 
   useEffect(() => {
     const open = (state.quickOrders ?? []).filter((o) => o.status !== 'delivered' && o.status !== 'cancelled')
@@ -61,7 +62,7 @@ export function AutoOrderPanel({ child }: { child: Child }) {
         quote,
         payment: pay,
         pincode: state.shopPincode,
-        address,
+        address: address || `PIN ${state.shopPincode} (sandbox — not sent to ${quote.decision.appName})`,
       })
       const placed = await placeOrderRemote(built)
       recordQuickOrder(placed)
@@ -83,15 +84,16 @@ export function AutoOrderPanel({ child }: { child: Child }) {
     <div className="mt-5 rounded-2xl border border-clay/25 bg-clay-soft/40 p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold tracking-wide text-clay uppercase">Quick-commerce auto order</p>
-          <h3 className="font-display text-xl">Send {child.firstName}’s needs to nearby dark stores</h3>
+          <p className="text-xs font-semibold tracking-wide text-clay uppercase">Quick-commerce quote (sandbox)</p>
+          <h3 className="font-display text-xl">Compare {child.firstName}’s needs on nearby dark stores</h3>
           <p className="mt-1 text-xs text-muted">
-            Maps cubby needs → SKUs, quotes Zepto / Blinkit / Instamart sandbox partner APIs, then picks the best ETA ×
-            price × COD. No public order APIs exist — this is the partner-shaped sandbox. Live placement needs a commercial agreement.
+            Willow does not have Zepto’s consumer login, so Auto Order cannot dispatch a real rider. Confirming here only
+            runs a local timeline. To get groceries at your door, checkout in the official Zepto / Blinkit / Instamart
+            app after setting PIN {state.shopPincode || '560105'}.
           </p>
         </div>
         <Button onClick={runQuote} disabled={busy || !state.shopPincode}>
-          <Zap size={16} /> {busy ? 'Quoting…' : 'Auto Order'}
+          <Zap size={16} /> {busy ? 'Quoting…' : 'Get sandbox quote'}
         </Button>
       </div>
       <p className="mt-2 text-[11px] text-muted">
@@ -104,11 +106,12 @@ export function AutoOrderPanel({ child }: { child: Child }) {
         <div className="mt-4 space-y-3">
           <div className="rounded-xl bg-paper p-3">
             <p className="text-sm font-semibold">
-              Decision: {quote.decision.appName} · {quote.decision.etaMin} min · {rupee(quote.decision.subtotal)}
+              Sandbox pick: {quote.decision.appName} · {quote.decision.etaMin} min · {rupee(quote.decision.subtotal)}
             </p>
             <p className="text-xs text-muted">{quote.decision.why}</p>
-            <Badge tone={via === 'middleware' ? 'pine' : 'gold'}>{via === 'middleware' ? 'middleware' : 'local sandbox'}</Badge>
-            {quote.decision.allCod ? <Badge tone="gold">COD eligible</Badge> : <Badge>Prepaid / UPI</Badge>}
+            <Badge tone="gold">not sent to {quote.decision.appName}</Badge>
+            <Badge tone={via === 'middleware' ? 'pine' : 'sand'}>{via === 'middleware' ? 'middleware' : 'local sandbox'}</Badge>
+            {quote.decision.allCod ? <Badge>COD would be eligible</Badge> : <Badge>Prepaid / UPI</Badge>}
           </div>
           <ul className="space-y-2">
             {quote.picks.map((p) => (
@@ -120,6 +123,14 @@ export function AutoOrderPanel({ child }: { child: Child }) {
                   </span>
                 </div>
                 <p className="text-xs text-muted">{p.reason}</p>
+                <a
+                  className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-pine"
+                  href={partnerShopUrl(winnerApp, p.chosen.name)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open “{p.chosen.name}” on {quote.decision.appName} <ExternalLink size={12} />
+                </a>
                 {p.runners.length ? (
                   <p className="text-[11px] text-muted">
                     Also: {p.runners.map((r) => `${r.app} ${rupee(r.price)} / ${r.etaMin}m`).join(' · ')}
@@ -129,26 +140,41 @@ export function AutoOrderPanel({ child }: { child: Child }) {
             ))}
           </ul>
           <div className="grid gap-3 sm:grid-cols-2">
-            <Field label="Pay with">
+            <Field label="Pay with (sandbox only)">
               <select className={inputClass} value={pay} onChange={(e) => setPay(e.target.value as PayMethod)}>
                 <option value="cod">Cash on delivery</option>
                 <option value="upi">UPI</option>
                 <option value="card">Card</option>
               </select>
             </Field>
-            <Field label="Deliver to">
-              <input className={inputClass} value={address} onChange={(e) => setAddress(e.target.value)} />
+            <Field label="Deliver to (saved in Willow only)">
+              <input
+                className={inputClass}
+                value={address}
+                placeholder="Your home address — not sent to Zepto"
+                onChange={(e) => setAddress(e.target.value)}
+              />
             </Field>
           </div>
-          <Button onClick={confirm} disabled={busy || !quote.picks.length}>
-            <Truck size={16} /> Confirm {pay.toUpperCase()} on {quote.decision.appName}
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <a
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-pine px-3.5 py-2 text-sm font-semibold text-white"
+              href={partnerShopUrl(winnerApp, quote.picks[0]?.chosen.name ?? 'baby wipes')}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ExternalLink size={16} /> Place a real order on {quote.decision.appName}
+            </a>
+            <Button variant="soft" onClick={confirm} disabled={busy || !quote.picks.length}>
+              <Truck size={16} /> Only simulate in Willow
+            </Button>
+          </div>
         </div>
       ) : null}
 
       {orders.length ? (
         <div className="mt-4">
-          <p className="text-xs font-semibold tracking-wide text-muted uppercase">Webhook tracking</p>
+          <p className="text-xs font-semibold tracking-wide text-muted uppercase">Sandbox tracking (not a real rider)</p>
           <ul className="mt-2 space-y-2">
             {orders.slice(0, 4).map((o) => (
               <li key={o.id} className="rounded-xl bg-paper px-3 py-2 text-sm">
@@ -156,7 +182,7 @@ export function AutoOrderPanel({ child }: { child: Child }) {
                   <span className="font-semibold">
                     {o.id} · {o.appName}
                   </span>
-                  <Badge tone={o.status === 'delivered' ? 'pine' : o.status === 'rider' ? 'sky' : 'gold'}>{o.status}</Badge>
+                  <Badge tone={o.status === 'delivered' ? 'gold' : 'sand'}>sandbox {o.status}</Badge>
                 </div>
                 <p className="text-xs text-muted">
                   {rupee(o.total)} · {o.payment.toUpperCase()} · {o.lines.length} SKUs · {o.events.at(-1)?.note}
@@ -166,11 +192,6 @@ export function AutoOrderPanel({ child }: { child: Child }) {
           </ul>
         </div>
       ) : null}
-
-      <p className="mt-3 text-[11px] text-muted">
-        Optional live middleware: run <code>node middleware/server.mjs</code>. In Vite
-        the Shop UI proxies <code>/qc-api</code> to it automatically.
-      </p>
     </div>
   )
 }

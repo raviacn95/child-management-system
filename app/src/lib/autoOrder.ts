@@ -174,6 +174,13 @@ export function appName(id: string) {
   return catalog.apps.find((a) => a.id === id)?.name ?? id
 }
 
+export function partnerShopUrl(app: QcAppId, query: string) {
+  const q = encodeURIComponent(query)
+  if (app === 'zepto') return `https://www.zeptonow.com/search?query=${q}`
+  if (app === 'blinkit') return `https://blinkit.com/s/?q=${q}`
+  return `https://www.swiggy.com/instamart/search?query=${q}`
+}
+
 function newId() {
   return `QC-${Math.floor(2400 + Math.random() * 700)}`
 }
@@ -187,7 +194,13 @@ export function buildOrder(input: {
   address: string
 }): QcOrder {
   const now = new Date().toISOString()
-  const events: QcWebhookEvent[] = [{ at: now, status: 'confirmed', note: `${input.quote.decision.appName} sandbox accepted the cart.` }]
+  const events: QcWebhookEvent[] = [
+    {
+      at: now,
+      status: 'confirmed',
+      note: `Sandbox only — ${input.quote.decision.appName} did not receive this cart. No rider will come.`,
+    },
+  ]
   return {
     id: newId(),
     childId: input.childId,
@@ -221,10 +234,10 @@ export function nextWebhook(order: QcOrder): QcOrder {
   const status = QC_PIPELINE[i + 1]
   const note =
     status === 'packed'
-      ? 'Dark store packed the SKUs.'
+      ? 'Sandbox: pretended the dark store packed the SKUs. Nothing was sent to Zepto / Blinkit / Instamart.'
       : status === 'rider'
-        ? 'Rider assigned. Live location is sandbox-only.'
-        : 'Delivered to the PIN on file.'
+        ? 'Sandbox: pretended a rider was assigned. No live location, no real rider.'
+        : 'Sandbox: marked delivered in Willow only. The delivery app never saw this order.'
   return {
     ...order,
     status,

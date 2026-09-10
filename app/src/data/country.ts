@@ -187,6 +187,7 @@ export const COUNTRIES: Record<CountryCode, CountryPack> = {
     fxFromInr: 1,
     samplePincodes: [
       { code: '560038', area: 'Indiranagar, Bengaluru', days: 1, cod: true },
+      { code: '560105', area: 'Electronic City Phase 1, Bengaluru', days: 1, cod: true },
       { code: '560102', area: 'HSR Layout, Bengaluru', days: 1, cod: true },
       { code: '400050', area: 'Bandra West, Mumbai', days: 2, cod: true },
       { code: '110048', area: 'Greater Kailash, Delhi', days: 2, cod: true },

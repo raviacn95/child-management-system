@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --color-ink: #1a1612;
+  --color-muted: #6b6158;
+  --color-sand: #f3eee6;
+  --color-paper: #fffaf4;
+  --color-line: #e6ddd2;
+  --color-pine: #1c6b57;
+  --color-pine-soft: #e4f3ec;
+  --color-clay: #c45c26;
+  --color-clay-soft: #fde8d8;
+  --color-sky: #3a6d8c;
+  --color-sky-soft: #e4eef5;
+  --color-rose: #b4234a;
+  --color-rose-soft: #fde8ee;
+  --color-gold: #9a6b12;
+  --color-gold-soft: #f8edd2;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-sand);
+  color: var(--color-ink);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.card {
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: 1.15rem;
+  box-shadow: 0 1px 0 rgba(26, 22, 18, 0.03);
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #d4c8ba;
+  border-radius: 99px;
+}

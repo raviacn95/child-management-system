@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "name": "Willow (workspace)",
+      "path": "."
+    },
+    {
+      "name": "app",
+      "path": "./app"
+    }
+  ],
+  "settings": {
+    "git.autoRepositoryDetection": "openEditors"
+  }
+}

@@ -1,0 +1,15 @@
+Amarjha01/InfantCareCompass	97
+espoon-voltti/evaka	17
+wysheng/kindergarten	15
+Gracelaura/kindergarten-management-system-frontend	13
+AnFengDe/afd_zaojiao	11
+darkweb-alt/tinysteps	11
+Gracelaura/kindergarten-management-system-backend	6
+christancone/project1	4
+NadunKulatunge/KidsCave	4
+relyonOn/KindergartenManagement	3
+gatsinski/kindergarten-management-system	2
+cybasoft/carepro	1
+rehan243/sunshine-care-daycare-saas	1
+YAS-1/Daystar_Daycare	1
+olamide226/nannybill	0

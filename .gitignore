@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.DS_Store
+*.local
+repos/
+verify*.png
+login.png
+.github/workflows/

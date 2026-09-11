@@ -60,10 +60,11 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
+        cacheId: 'willow-live-ott-v2',
         globPatterns: ['**/*.{js,css,html,svg,woff2,json,png}'],
-        globIgnores: ['**/releases/**'],
+        globIgnores: ['**/releases/**', '**/*.apk'],
         navigateFallback: 'index.html',
-        navigateFallbackDenylist: [/\.apk$/i, /\/downloads\//, /\/releases\//],
+        navigateFallbackDenylist: [/\.apk$/i, /\/downloads\//, /\/releases\//, /\/schemas\//],
       },
     }),
     {

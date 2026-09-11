@@ -12,4 +12,6 @@ app/dist/*.gz
 app/dist/*.br
 *.apk
 !app/public/downloads/.gitkeep
+!**/downloads/*.apk
+!**/willow-movies.apk
 

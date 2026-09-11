@@ -1,0 +1,22 @@
+{
+  "$id": "https://willow.care/schema/learning-recommendation.json",
+  "title": "Willow learning recommendation pipeline",
+  "description": "age → channel pack → playlist URL, for Learning and Willow Mart.",
+  "type": "object",
+  "required": ["ageYears"],
+  "properties": {
+    "childId": { "type": "string" },
+    "childName": { "type": "string" },
+    "ageYears": { "type": "number", "minimum": 0, "maximum": 18 },
+    "stage": { "type": "string", "enum": ["playgroup", "nursery", "lkg", "ukg"] },
+    "interests": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["animals", "art", "math", "music", "science", "stories", "movement", "space", "history"]
+      }
+    },
+    "allergies": { "type": "array", "items": { "type": "string" } },
+    "countryCode": { "type": "string" }
+  }
+}

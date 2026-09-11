@@ -25,3 +25,4 @@ dist-ssr
 
 *.apk
 !public/downloads/.gitkeep
+!**/downloads/*.apk

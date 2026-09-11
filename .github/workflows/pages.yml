@@ -47,8 +47,6 @@ jobs:
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
-          mkdir -p ../dist/downloads
-          cp app/build/outputs/apk/debug/app-debug.apk ../dist/downloads/willow-movies.apk
       - name: Keep previous live release for crash fallback
         continue-on-error: true
         working-directory: .
@@ -58,6 +56,32 @@ jobs:
           git archive gh-pages | tar -x -C /tmp/willow-prev
           rsync -a --delete --exclude 'releases' /tmp/willow-prev/ app/dist/releases/previous/
           printf '{"fallback":"previous"}\n' > app/dist/release.json
+      - name: Publish Fire Stick APK into the live site
+        continue-on-error: true
+        working-directory: .
+        run: |
+          mkdir -p app/dist/downloads
+          APK=$(find app/android -name 'app-debug.apk' | head -n 1)
+          if [ -z "$APK" ]; then
+            echo "No APK produced"
+            find app/android -name '*.apk' || true
+            exit 0
+          fi
+          cp -f "$APK" app/dist/downloads/willow-movies.apk
+          printf '*\n!downloads/\n!downloads/**\n' > app/dist/.gitignore
+          ls -lh app/dist/downloads
+      - uses: softprops/action-gh-release@v2
+        continue-on-error: true
+        with:
+          tag_name: willow-live-${{ github.run_number }}
+          name: Willow live ${{ github.run_number }}
+          files: app/dist/downloads/willow-movies.apk
+          make_latest: true
+          body: |
+            Fire Stick / Android APK (loads the live GitHub Pages app).
+            Windows live app: https://raviacn95.github.io/child-management-system/?v=ott2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

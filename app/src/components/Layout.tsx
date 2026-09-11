@@ -40,6 +40,11 @@ import { ThemeToggle } from './ThemeToggle'
 
 const NAV = [
   { to: '/', key: 'dashboard', label: 'Home', icon: LayoutDashboard },
+  { to: '/movies', key: 'movies', label: 'Movies', icon: Clapperboard },
+  { to: '/tv', key: 'tv', label: 'TV tonight', icon: Tv },
+  { to: '/ott', key: 'ott', label: 'My OTTs', icon: Wallet },
+  { to: '/parent-feed', key: 'parent-feed', label: 'Parent feed', icon: Compass },
+  { to: '/learning', key: 'learning', label: 'Learning', icon: BookOpen },
   { to: '/grow', key: 'grow', label: 'Grow at home', icon: Sprout },
   { to: '/children', key: 'children', label: 'Children', icon: Baby },
   { to: '/workers', key: 'workers', label: 'Teacher workers', icon: Bot },
@@ -52,11 +57,6 @@ const NAV = [
   { to: '/classrooms', key: 'classrooms', label: 'Rooms', icon: School },
   { to: '/messages', key: 'messages', label: 'Messages', icon: MessageSquare },
   { to: '/calendar', key: 'calendar', label: 'Calendar', icon: CalendarDays },
-  { to: '/learning', key: 'learning', label: 'Learning', icon: BookOpen },
-  { to: '/parent-feed', key: 'parent-feed', label: 'Parent feed', icon: Compass },
-  { to: '/movies', key: 'movies', label: 'Movies', icon: Clapperboard },
-  { to: '/tv', key: 'tv', label: 'TV tonight', icon: Tv },
-  { to: '/ott', key: 'ott', label: 'My OTTs', icon: Wallet },
   { to: '/meals', key: 'meals', label: 'Meals', icon: UtensilsCrossed },
   { to: '/shop', key: 'shop', label: 'Willow Mart', icon: ShoppingBag },
   { to: '/transport', key: 'transport', label: 'Van routes', icon: Bus },

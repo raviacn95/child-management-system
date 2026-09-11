@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://willow.care/schema/movie-recommendations.json",
+  "title": "Willow movie & series recommendations",
+  "description": "Scalable catalog: 50+ official storefronts, critic + audience + YouTube + Instagram influencer scores. Watch links are official search URLs — never pirate streams. GET /api/movies/recommend returns 100 titles.",
+  "type": "object",
+  "required": ["schemaVersion", "platforms", "titles"],
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "platforms": {
+      "type": "array",
+      "minItems": 50,
+      "items": { "$ref": "#/$defs/platform" }
+    },
+    "titles": {
+      "type": "array",
+      "minItems": 100,
+      "items": { "$ref": "#/$defs/title" }
+    }
+  },
+  "$defs": {
+    "lang": { "type": "string", "enum": ["en", "hi", "ml", "ta", "te", "kn", "bn", "mr", "pa", "fr", "es", "it", "ja", "ko", "de", "zh", "sv", "da", "pl", "pt"] },
+    "kind": { "type": "string", "enum": ["movie", "series"] },
+    "shelf": { "type": "string", "enum": ["family", "erotic"] },
+    "platform": {
+      "type": "object",
+      "required": ["id", "name", "region", "searchUrl"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "region": { "type": "string" },
+        "searchUrl": { "type": "string", "description": "Use {q} for the encoded title." }
+      }
+    },
+    "scores": {
+      "type": "object",
+      "required": ["critic", "audience", "youtube", "instagram"],
+      "properties": {
+        "critic": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Editorial stand-in for RT/Metacritic/Indian critics." },
+        "audience": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "youtube": { "type": "integer", "minimum": 0, "maximum": 100, "description": "YouTube critic/essay/recap heat." },
+        "instagram": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Instagram reel / influencer mention heat." },
+        "erotic": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Editorial explicit-intimacy heat for the 18+ shelf only." }
+      }
+    },
+    "title": {
+      "type": "object",
+      "required": ["id", "title", "year", "kind", "languages", "genres", "platformIds", "scores"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "year": { "type": "integer" },
+        "kind": { "$ref": "#/$defs/kind" },
+        "languages": { "type": "array", "items": { "$ref": "#/$defs/lang" }, "minItems": 1 },
+        "genres": { "type": "array", "items": { "type": "string" } },
+        "platformIds": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "scores": { "$ref": "#/$defs/scores" },
+        "why": { "type": "string" },
+        "adult": { "type": "boolean" },
+        "shelf": { "$ref": "#/$defs/shelf" }
+      }
+    },
+    "recommendRequest": {
+      "description": "POST /api/movies/recommend — family shelf returns 100; shelf=erotic returns 150 18+ titles",
+      "type": "object",
+      "properties": {
+        "shelf": { "$ref": "#/$defs/shelf", "default": "family" },
+        "limit": { "type": "integer", "default": 100, "minimum": 1, "maximum": 150 },
+        "languages": { "type": "array", "items": { "$ref": "#/$defs/lang" } },
+        "kind": { "$ref": "#/$defs/kind" },
+        "platformId": { "type": "string" },
+        "decade": { "type": "integer", "description": "e.g. 1990 for 1990–1999. Erotic shelf still backfills to 150." },
+        "weights": {
+          "type": "object",
+          "properties": {
+            "critic": { "type": "number" },
+            "audience": { "type": "number" },
+            "youtube": { "type": "number" },
+            "instagram": { "type": "number" },
+            "erotic": { "type": "number" }
+          }
+        },
+        "seed": { "type": "string", "description": "Change seed to reshuffle. Default: date+hour." }
+      }
+    }
+  }
+}

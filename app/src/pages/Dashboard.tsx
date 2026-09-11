@@ -5,7 +5,7 @@ import { LearningPacksPanel } from '../features/learning/LearningPacksPanel'
 import { FamilyMealsPanel } from '../features/meals/FamilyMealsPanel'
 import { HorizonsPanel } from '../features/grow/HorizonActivities'
 import { ParentFeedPanel } from '../features/parent-feed/ParentGrowthFeed'
-import { MovieShelfPanel } from '../features/movies/MovieShelf'
+import { MovieShelf } from '../features/movies/MovieShelf'
 import { today } from '../data/seed'
 import { packOf } from '../data/country'
 import { ageYears, bmiProfile, childName, money } from '../lib'
@@ -181,7 +181,21 @@ export function Dashboard() {
             }}
           />
           <ParentFeedPanel />
-          <MovieShelfPanel />
+          <div className="card p-5">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+              <h2 className="font-display text-xl">Movies & OTT</h2>
+              <div className="flex gap-3 text-sm font-semibold text-pine">
+                <Link to="/ott">My OTTs →</Link>
+                <Link to="/tv">TV tonight →</Link>
+                <Link to="/movies">Full shelf →</Link>
+              </div>
+            </div>
+            <p className="mb-4 text-xs text-muted">
+              100 ranked titles with official Prime, JioHotstar, SonyLIV and 50+ watch links. Same catalogs as Parent
+              feed, Learning, Meals and Horizons.
+            </p>
+            <MovieShelf compact />
+          </div>
           <div className="card p-5">
             <h2 className="font-display text-xl">Coming up</h2>
             <ul className="mt-3 space-y-2">

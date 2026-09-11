@@ -1,4 +1,4 @@
-import { LIVE_SITE } from './assets'
+import { LIVE_APP_URL } from './assets'
 
 export type LauncherFile = {
   filename: string
@@ -6,7 +6,7 @@ export type LauncherFile = {
   body: string
 }
 
-export function launcherFor(userAgent: string, liveUrl = LIVE_SITE): LauncherFile {
+export function launcherFor(userAgent: string, liveUrl = LIVE_APP_URL): LauncherFile {
   const live = liveUrl.endsWith('/') ? liveUrl : `${liveUrl}/`
   if (/Mac OS X|Macintosh/i.test(userAgent) && !/iPhone|iPad|iPod/i.test(userAgent)) {
     return {
@@ -62,7 +62,7 @@ export function launcherFor(userAgent: string, liveUrl = LIVE_SITE): LauncherFil
   }
 }
 
-export function downloadLiveLauncher(userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : 'Windows', liveUrl = LIVE_SITE) {
+export function downloadLiveLauncher(userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : 'Windows', liveUrl = LIVE_APP_URL) {
   const file = launcherFor(userAgent, liveUrl)
   const blob = new Blob([file.body], { type: `${file.mime};charset=utf-8` })
   const href = URL.createObjectURL(blob)
@@ -78,7 +78,7 @@ export function downloadLiveLauncher(userAgent = typeof navigator !== 'undefined
   return file.filename
 }
 
-export function openLiveAppWindow(liveUrl = LIVE_SITE) {
+export function openLiveAppWindow(liveUrl = LIVE_APP_URL) {
   const features = 'popup=yes,noopener,noreferrer,width=1440,height=900'
   const opened = window.open(liveUrl, 'willow-live-app', features)
   return Boolean(opened)

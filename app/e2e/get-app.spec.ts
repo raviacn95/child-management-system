@@ -14,7 +14,7 @@ test('get the app downloads a laptop launcher and opens live Willow', async ({ p
   await expect(page.getByTestId('laptop-install-help')).toContainText(/Downloaded/i)
   await expect(page.getByTestId('apk-download')).toHaveAttribute(
     'href',
-    'https://raviacn95.github.io/child-management-system/downloads/willow-movies.apk',
+    'https://github.com/raviacn95/child-management-system/releases/latest/download/willow-movies.apk',
   )
 })
 

@@ -16,6 +16,10 @@ export const en = {
     messages: 'Messages',
     calendar: 'Calendar',
     learning: 'Learning',
+    'parent-feed': 'Parent feed',
+    movies: 'Movies',
+    tv: 'TV tonight',
+    ott: 'My OTTs',
     meals: 'Meals',
     shop: 'Willow Mart',
     transport: 'Van routes',
@@ -23,6 +27,7 @@ export const en = {
     inventory: 'Supplies',
     reports: 'Reports',
     settings: 'Settings',
+    getApp: 'Get the app',
   },
   learning: {
     title: 'Learning journeys',
@@ -39,6 +44,13 @@ export const en = {
     copyJson: 'Copy recommendation JSON',
     copied: 'Copied',
     empty: 'Add a child on file to build a pack.',
+  },
+  meals: {
+    title: 'Family meal planner',
+    subtitle: 'Pediatric targets, shared plates, grocery list.',
+  },
+  grow: {
+    horizons: 'Horizons',
   },
   settings: {
     appearance: 'Appearance',
@@ -76,6 +88,10 @@ export const hi = {
     messages: 'संदेश',
     calendar: 'कैलेंडर',
     learning: 'सीखना',
+    'parent-feed': 'पेरेंट फ़ीड',
+    movies: 'फ़िल्में',
+    tv: 'टीवी',
+    ott: 'माई OTT',
     meals: 'भोजन',
     shop: 'विलो मार्ट',
     transport: 'वैन रूट',
@@ -83,6 +99,7 @@ export const hi = {
     inventory: 'सामग्री',
     reports: 'रिपोर्ट',
     settings: 'सेटिंग्स',
+    getApp: 'ऐप पाएँ',
   },
   learning: {
     title: 'सीखने की यात्रा',
@@ -99,6 +116,13 @@ export const hi = {
     copyJson: 'JSON कॉपी करें',
     copied: 'कॉपी हो गया',
     empty: 'पैक बनाने के लिए बच्चे का चयन करें।',
+  },
+  meals: {
+    title: 'पारिवारिक भोजन योजना',
+    subtitle: 'बाल पोषण लक्ष्य, साझा थाली, किराना सूची।',
+  },
+  grow: {
+    horizons: 'क्षितिज',
   },
   settings: {
     appearance: 'दिखावट',

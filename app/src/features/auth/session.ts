@@ -6,37 +6,77 @@ export interface SessionPayload {
   email: string
   iat: number
   exp: number
+  persist: boolean
 }
 
-const KEY = 'willow-session'
+const SESSION_KEY = 'willow-session'
+const LAST_EMAIL_KEY = 'willow-last-email'
+const NINETY_DAYS = 90 * 24 * 60 * 60 * 1000
+const EIGHT_HOURS = 8 * 60 * 60 * 1000
 
-export function issueSession(user: { id: string; role: Role; email: string }) {
+function write(storage: Storage, payload: SessionPayload) {
+  storage.setItem(SESSION_KEY, btoa(JSON.stringify(payload)))
+}
+
+export function issueSession(
+  user: { id: string; role: Role; email: string },
+  opts: { persist?: boolean } = {},
+) {
+  const persist = opts.persist !== false
   const payload: SessionPayload = {
     sub: user.id,
     role: user.role,
     email: user.email,
     iat: Date.now(),
-    exp: Date.now() + 8 * 60 * 60 * 1000,
+    exp: Date.now() + (persist ? NINETY_DAYS : EIGHT_HOURS),
+    persist,
   }
-  sessionStorage.setItem(KEY, btoa(JSON.stringify(payload)))
+  try {
+    write(localStorage, payload)
+    write(sessionStorage, payload)
+    localStorage.setItem(LAST_EMAIL_KEY, user.email)
+  } catch {
+    /* private mode */
+  }
   return payload
 }
 
 export function clearSession() {
-  sessionStorage.removeItem(KEY)
+  try {
+    localStorage.removeItem(SESSION_KEY)
+    sessionStorage.removeItem(SESSION_KEY)
+  } catch {
+    /* ignore */
+  }
 }
 
-export function readSession(): SessionPayload | null {
-  const raw = sessionStorage.getItem(KEY)
+function parse(raw: string | null): SessionPayload | null {
   if (!raw) return null
   try {
     const payload = JSON.parse(atob(raw)) as SessionPayload
-    if (!payload.exp || payload.exp < Date.now()) {
-      clearSession()
-      return null
-    }
+    if (!payload.exp || payload.exp < Date.now()) return null
     return payload
   } catch {
     return null
+  }
+}
+
+export function readSession(): SessionPayload | null {
+  try {
+    const lasting = parse(localStorage.getItem(SESSION_KEY))
+    if (lasting) return lasting
+    const tab = parse(sessionStorage.getItem(SESSION_KEY))
+    if (tab) return tab
+  } catch {
+    /* ignore */
+  }
+  return null
+}
+
+export function readLastEmail() {
+  try {
+    return localStorage.getItem(LAST_EMAIL_KEY) ?? ''
+  } catch {
+    return ''
   }
 }

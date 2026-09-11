@@ -5,10 +5,13 @@ import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Button, Field, inputClass } from '../../components/ui'
 import { useStore } from '../../store'
+import { readLastEmail } from './session'
+import { homePath } from '../../lib/tv'
 
 const schema = z.object({
   email: z.email('Enter a valid email'),
   password: z.string().min(3, 'Password is required'),
+  remember: z.boolean(),
 })
 
 type FormValues = z.infer<typeof schema>
@@ -25,7 +28,7 @@ export function LoginForm() {
   const [error, setError] = useState('')
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { email: 'director@willow.care', password: 'demo' },
+    defaultValues: { email: readLastEmail() || 'director@willow.care', password: 'demo', remember: true },
   })
 
   return (
@@ -33,12 +36,12 @@ export function LoginForm() {
       <form
         className="mt-8 space-y-4"
         onSubmit={form.handleSubmit((values) => {
-          const id = login(values.email, values.password)
+          const id = login(values.email, values.password, values.remember)
           if (!id) {
             setError('Unknown email or password.')
             return
           }
-          navigate('/')
+          navigate(homePath())
         })}
       >
         <Field label="Email">
@@ -51,6 +54,10 @@ export function LoginForm() {
           <p className="text-sm text-rose">{form.formState.errors.email.message}</p>
         ) : null}
         {error ? <p className="text-sm text-rose">{error}</p> : null}
+        <label className="flex items-center gap-2 text-sm">
+          <input type="checkbox" {...form.register('remember')} />
+          Keep me signed in on this TV / device
+        </label>
         <Button className="w-full" type="submit">
           Sign in
         </Button>

@@ -1,32 +1,40 @@
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import { clothingNeeds, recommendedItems, sizeForChild } from '../data/catalog'
-import { gamesFor, homeMeals, SKILLS, skillActivity, tricksFor } from '../data/grow'
+import { gamesFor, SKILLS, skillActivity, tricksFor } from '../data/grow'
+import { HorizonActivities, SkillHorizonLine } from '../features/grow/HorizonActivities'
+import { childToPlanInput, planFamilyMeals } from '../features/meals/plan'
 import { Avatar, Badge, Button, PageHead, inputClass } from '../components/ui'
 import { ageYears, bmiProfile, childName, clothingSize, money } from '../lib'
 import { packOf } from '../data/country'
 import { useStore } from '../store'
-import type { SkillId } from '../types'
 
-const TABS = ['meals', 'dress', 'games', 'tricks', 'skills'] as const
+const TABS = ['meals', 'horizons', 'dress', 'games', 'tricks', 'skills'] as const
 
 export function Grow() {
-  const { state, logGrowth, practiceSkill, logGame, completeTrick, addToCart } = useStore()
+  const { state, logGrowth, practiceSkill, logGame, completeTrick, addToCart, logHorizon } = useStore()
   const user = state.users.find((u) => u.id === state.currentUserId)!
   const kids = state.children.filter((c) => {
     if (c.status !== 'enrolled') return false
     if (user.role === 'parent') return user.childIds.includes(c.id)
     return c.siteId === state.currentSiteId
   })
+  const [params, setParams] = useSearchParams()
+  const tabParam = params.get('tab')
+  const tab = TABS.includes(tabParam as (typeof TABS)[number]) ? (tabParam as (typeof TABS)[number]) : 'meals'
   const [childId, setChildId] = useState(kids[0]?.id ?? '')
-  const [tab, setTab] = useState<(typeof TABS)[number]>('meals')
   const [cm, setCm] = useState('')
   const [kg, setKg] = useState('')
   const child = kids.find((c) => c.id === childId) ?? kids[0]
   const growth = (state.growthRecords ?? []).filter((g) => g.childId === child?.id)
   const latest = growth[0]
-  const profile = latest && child ? bmiProfile(child.dob, latest.weightKg, latest.heightCm) : null
-  const meals = child && profile ? homeMeals(child, profile.band) : child ? homeMeals(child, 'healthy') : null
+  const profile = latest && child ? bmiProfile(child.dob, latest.weightKg, latest.heightCm, child.gender) : null
+  const day = child
+    ? planFamilyMeals({
+        children: [childToPlanInput(child, latest)],
+        filters: [],
+      }).children[0]
+    : null
   const games = child ? gamesFor(child.dob) : []
   const tricks = child ? tricksFor(child) : []
   const skills = (state.skillProgress ?? []).filter((s) => s.childId === child?.id)
@@ -50,7 +58,7 @@ export function Grow() {
     <div>
       <PageHead
         title="Grow at home"
-        subtitle="Parent tools by age: IAP-aware meals, Willow Mart COD kits, games, tricks, and ten skills."
+        subtitle="Age-banded meals, 15 horizon activities (BMI-aware), Willow Mart COD kits, games, tricks, and ten skills."
       />
       <div className="mb-5 flex flex-wrap gap-2">
         {kids.map((c) => (
@@ -74,8 +82,10 @@ export function Grow() {
           <p className="text-xs text-muted">{ageYears(child.dob)}</p>
         </div>
         <div className="card p-4">
-          <p className="text-xs font-semibold tracking-wide text-muted uppercase">BMI screen</p>
-          <p className="font-display mt-1 text-2xl">{profile ? profile.bmi.toFixed(1) : '—'}</p>
+          <p className="text-xs font-semibold tracking-wide text-muted uppercase">BMI percentile</p>
+          <p className="font-display mt-1 text-2xl">
+            {profile?.percentile != null ? Math.round(profile.percentile) : '—'}
+          </p>
           <p className="text-xs text-muted">{profile?.label ?? 'Log height and weight'}</p>
         </div>
         <div className="card p-4">
@@ -113,30 +123,58 @@ export function Grow() {
 
       <div className="mb-4 flex flex-wrap gap-2">
         {TABS.map((t) => (
-          <Button key={t} variant={tab === t ? 'primary' : 'ghost'} onClick={() => setTab(t)}>
-            {t === 'meals' ? 'Meal plan' : t === 'dress' ? 'Dress orders' : t === 'games' ? 'Games' : t === 'tricks' ? 'Tricks & plans' : '10 skills'}
+          <Button key={t} variant={tab === t ? 'primary' : 'ghost'} onClick={() => setParams({ tab: t })}>
+            {t === 'meals'
+              ? 'Meal plan'
+              : t === 'horizons'
+                ? 'Horizons'
+                : t === 'dress'
+                  ? 'Dress orders'
+                  : t === 'games'
+                    ? 'Games'
+                    : t === 'tricks'
+                      ? 'Tricks & plans'
+                      : '10 skills'}
           </Button>
         ))}
       </div>
 
-      {tab === 'meals' && meals ? (
+      {tab === 'meals' && day ? (
         <section className="card p-5">
-          <Badge tone={profile?.band === 'under' ? 'gold' : profile?.band === 'high' || profile?.band === 'watch' ? 'rose' : 'pine'}>
-            {profile?.band ?? 'healthy'} plate
-          </Badge>
-          <p className="mt-2 text-sm">{meals.focus}</p>
-          {child.allergies.length ? (
-            <p className="mt-2 text-sm text-rose">Never serve: {child.allergies.map((a) => a.name).join(', ')}.</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge tone={day.bmiBand === 'under' ? 'gold' : day.bmiBand === 'high' || day.bmiBand === 'watch' ? 'rose' : 'pine'}>
+              Growth score {day.scores.overall}
+            </Badge>
+            <Badge tone="sand">{day.ageBand} · {day.bmiBand}</Badge>
+          </div>
+          <p className="mt-2 text-sm">{day.growthCue}</p>
+          {day.neverServe.length ? (
+            <p className="mt-2 text-sm text-rose">Never serve: {day.neverServe.join(', ')}.</p>
           ) : null}
           <ul className="mt-4 space-y-2">
-            {meals.days.map((d) => (
-              <li key={d.meal} className="flex justify-between gap-4 border-b border-line py-2 text-sm">
-                <span className="font-semibold">{d.meal}</span>
-                <span className="text-right">{d.menu}</span>
+            {day.meals.map((d) => (
+              <li key={`${d.slot}-${d.recipeId}`} className="flex justify-between gap-4 border-b border-line py-2 text-sm">
+                <span className="font-semibold">{d.slot}</span>
+                <span className="text-right">
+                  {d.recipeName}
+                  {d.swap ? <span className="block text-xs text-rose">{d.swap}</span> : null}
+                </span>
               </li>
             ))}
           </ul>
+          <Link to="/meals" className="mt-4 inline-block text-sm font-semibold text-pine">
+            Open family planner (shared meals + grocery) →
+          </Link>
         </section>
+      ) : null}
+
+      {tab === 'horizons' ? (
+        <HorizonActivities
+          child={child}
+          bmiBand={profile?.band}
+          logs={state.horizonLogs ?? []}
+          onDone={(activityId, skillId, minutes) => logHorizon(child.id, activityId, skillId, minutes)}
+        />
       ) : null}
 
       {tab === 'dress' ? (
@@ -226,6 +264,7 @@ export function Grow() {
                 </div>
                 <p className="mt-1 text-xs text-muted">{skill.why}</p>
                 <p className="mt-2 text-sm">{skillActivity(skill, child.dob)}</p>
+                <SkillHorizonLine child={child} skillId={skill.id} />
                 <div className="mt-3 h-2 rounded-full bg-sand">
                   <div className="h-2 rounded-full bg-pine" style={{ width: `${Math.min(100, (xp % 50) * 2)}%` }} />
                 </div>

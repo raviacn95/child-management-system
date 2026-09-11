@@ -1,4 +1,5 @@
-import { Sparkles } from 'lucide-react'
+import { Download, Sparkles } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { LoginForm } from '../features/auth/LoginForm'
 
 export function Login() {
@@ -22,7 +23,7 @@ export function Login() {
           </p>
         </div>
         <ul className="relative grid max-w-lg grid-cols-2 gap-3 text-sm">
-          {['PIN pickup', 'UIP vaccines', 'GST + UPI fees', 'Willow Mart COD', 'Van routes', 'Watch together'].map(
+          {['PIN pickup', 'UIP vaccines', 'GST + UPI fees', 'Install as an app', 'Fire Stick download', 'Watch together'].map(
             (item) => (
               <li key={item} className="rounded-xl bg-white/10 px-3 py-2">
                 {item}
@@ -35,6 +36,17 @@ export function Login() {
         <div className="w-full max-w-md">
           <p className="font-display text-3xl font-semibold">Welcome back</p>
           <p className="mt-1 text-sm text-muted">Demo password for every account is `demo`.</p>
+          <Link
+            to="/get-app"
+            className="mt-5 flex items-center justify-between rounded-2xl border border-pine/30 bg-pine-soft px-4 py-3 text-left hover:border-pine"
+            data-testid="get-app-login-cta"
+          >
+            <span>
+              <span className="block text-sm font-semibold text-pine">Install Willow as an app</span>
+              <span className="text-xs text-muted">Laptop, phone, or Fire Stick — live, ready to use</span>
+            </span>
+            <Download className="text-pine" size={18} />
+          </Link>
           <LoginForm />
         </div>
       </section>

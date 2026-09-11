@@ -1,5 +1,6 @@
 import type { BmiBand, Child } from './types'
 import { packOf } from './data/country'
+import { bmiPercentileFromMeasures, growthLabel } from './features/meals/bmiPercentile'
 
 export function initials(name: string) {
   return name
@@ -91,15 +92,14 @@ export function bodyMassIndex(kg: number, cm: number) {
   return kg / (m * m)
 }
 
-export function bmiProfile(dob: string, kg: number, cm: number): { bmi: number; band: BmiBand; label: string } {
-  const bmi = bodyMassIndex(kg, cm)
-  if (ageMonths(dob) < 24) {
-    return { bmi, band: 'infant', label: 'Under 2 — follow feeding plan, not adult BMI cuts' }
-  }
-  if (bmi < 14.5) return { bmi, band: 'under', label: 'Needs extra energy (simplified screen)' }
-  if (bmi < 17.5) return { bmi, band: 'healthy', label: 'Healthy range (simplified screen)' }
-  if (bmi < 19) return { bmi, band: 'watch', label: 'Watch portions and daily movement' }
-  return { bmi, band: 'high', label: 'More veg, water, and active play' }
+export function bmiProfile(
+  dob: string,
+  kg: number,
+  cm: number,
+  gender?: string,
+): { bmi: number; band: BmiBand; label: string; percentile: number | null } {
+  const { bmi, band, percentile } = bmiPercentileFromMeasures(ageMonths(dob), kg, cm, gender)
+  return { bmi, band, label: growthLabel(band, percentile), percentile }
 }
 
 export function hueStyle(hue: number) {

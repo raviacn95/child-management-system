@@ -6,7 +6,10 @@ import {
   Bell,
   BookOpen,
   CalendarDays,
+  Clapperboard,
+  Compass,
   ClipboardCheck,
+  Download,
   FileText,
   HeartPulse,
   LayoutDashboard,
@@ -19,6 +22,7 @@ import {
   Sparkles,
   Sprout,
   SunMedium,
+  Tv,
   Users,
   UtensilsCrossed,
   Wallet,
@@ -49,6 +53,10 @@ const NAV = [
   { to: '/messages', key: 'messages', label: 'Messages', icon: MessageSquare },
   { to: '/calendar', key: 'calendar', label: 'Calendar', icon: CalendarDays },
   { to: '/learning', key: 'learning', label: 'Learning', icon: BookOpen },
+  { to: '/parent-feed', key: 'parent-feed', label: 'Parent feed', icon: Compass },
+  { to: '/movies', key: 'movies', label: 'Movies', icon: Clapperboard },
+  { to: '/tv', key: 'tv', label: 'TV tonight', icon: Tv },
+  { to: '/ott', key: 'ott', label: 'My OTTs', icon: Wallet },
   { to: '/meals', key: 'meals', label: 'Meals', icon: UtensilsCrossed },
   { to: '/shop', key: 'shop', label: 'Willow Mart', icon: ShoppingBag },
   { to: '/transport', key: 'transport', label: 'Van routes', icon: Bus },
@@ -165,6 +173,15 @@ export function Layout() {
             <p className="text-xs text-muted">{site?.address}</p>
           </div>
           <div className="relative flex items-center gap-3">
+            <NavLink
+              to="/get-app"
+              onMouseEnter={() => prefetchRoute('/get-app')}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-paper px-2.5 py-1.5 text-xs font-semibold hover:border-pine"
+              data-testid="header-get-app"
+            >
+              <Download size={14} />
+              {t('nav.getApp')}
+            </NavLink>
             <Badge tone="pine">{user.role}</Badge>
             <button
               type="button"

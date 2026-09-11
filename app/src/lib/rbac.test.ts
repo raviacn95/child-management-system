@@ -6,11 +6,18 @@ describe('RBAC', () => {
     expect(canSee('director', 'settings')).toBe(true)
     expect(canSee('teacher', 'settings')).toBe(false)
     expect(canSee('parent', 'attendance')).toBe(false)
+    expect(canSee('parent', 'erotic')).toBe(true)
+    expect(canSee('teacher', 'erotic')).toBe(false)
   })
 
   it('maps paths to modules', () => {
     expect(moduleFromPath('/')).toBe('dashboard')
     expect(moduleFromPath('/learning')).toBe('learning')
+    expect(moduleFromPath('/parent-feed')).toBe('parent-feed')
+    expect(moduleFromPath('/movies')).toBe('movies')
+    expect(moduleFromPath('/tv')).toBe('tv')
+    expect(moduleFromPath('/ott')).toBe('ott')
+    expect(moduleFromPath('/erotic')).toBe('erotic')
     expect(moduleFromPath('/daily-care/foo')).toBe('daily-care')
   })
 

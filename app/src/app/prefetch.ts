@@ -13,6 +13,11 @@ export const PAGE_LOADERS: Record<string, () => Promise<unknown>> = {
   '/messages': () => import('../pages/Messages'),
   '/calendar': () => import('../pages/Calendar'),
   '/learning': () => import('../pages/Learning'),
+  '/parent-feed': () => import('../pages/ParentFeed'),
+  '/movies': () => import('../pages/Movies'),
+  '/tv': () => import('../pages/TvHome'),
+  '/ott': () => import('../pages/Ott'),
+  '/erotic': () => import('../pages/Erotic'),
   '/meals': () => import('../pages/Meals'),
   '/shop': () => import('../pages/Shop'),
   '/transport': () => import('../pages/Transport'),
@@ -20,6 +25,7 @@ export const PAGE_LOADERS: Record<string, () => Promise<unknown>> = {
   '/inventory': () => import('../pages/Inventory'),
   '/reports': () => import('../pages/Reports'),
   '/settings': () => import('../pages/Settings'),
+  '/get-app': () => import('../pages/GetApp'),
 }
 
 export function prefetchRoute(to: string) {

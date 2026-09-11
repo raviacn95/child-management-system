@@ -1,18 +1,33 @@
 import { Badge, PageHead } from '../components/ui'
 import { packOf } from '../data/country'
+import { MealPlanner } from '../features/meals/MealPlanner'
 import { useStore } from '../store'
 
 export function Meals() {
   const { state } = useStore()
   const pack = packOf(state.countryCode)
+  const user = state.users.find((u) => u.id === state.currentUserId)!
+  const kids = state.children.filter((c) => {
+    if (c.status !== 'enrolled') return false
+    if (user.role === 'parent') return user.childIds.includes(c.id)
+    return c.siteId === state.currentSiteId
+  })
+
   return (
     <div>
-      <PageHead title={pack.mealsTitle} subtitle={pack.mealsNote} />
+      <PageHead
+        title="Family meal planner"
+        subtitle="Age-specific pediatric targets, BMI percentile, shared plates, and allergen filters — growth fuel, not calorie ceilings."
+      />
+      <MealPlanner kids={kids} />
+
+      <h2 className="font-display mt-10 mb-3 text-2xl">{pack.mealsTitle}</h2>
+      <p className="mb-4 text-sm text-muted">{pack.mealsNote}</p>
       <div className="grid gap-4 md:grid-cols-2">
         {state.menus.map((m) => (
           <article key={m.id} className="card p-5">
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="font-display text-xl">{m.date}</h2>
+              <h3 className="font-display text-xl">{m.date}</h3>
               <Badge tone="gold">{m.allergens}</Badge>
             </div>
             <dl className="space-y-2 text-sm">

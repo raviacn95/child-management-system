@@ -10,4 +10,6 @@ playwright-report/
 test-results/
 app/dist/*.gz
 app/dist/*.br
+*.apk
+!app/public/downloads/.gitkeep
 

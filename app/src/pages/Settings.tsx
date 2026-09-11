@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import { COUNTRIES, packOf, type CountryCode } from '../data/country'
 import { Badge, Button, PageHead, inputClass } from '../components/ui'
 import { persistLanguage } from '../i18n'
 import { PRODUCTION_CSP } from '../lib/csp'
 import { DEFAULT_FLAGS, readFlags, writeFlags, type FeatureFlags } from '../lib/flags'
 import { formatTime } from '../lib'
+import { isTvMode, setTvMode } from '../lib/tv'
 import { useStore } from '../store'
 import { useTheme, type ThemeChoice } from '../theme/ThemeProvider'
 
@@ -15,6 +17,7 @@ export function SettingsPage() {
   const { theme, setTheme } = useTheme()
   const pack = packOf(state.countryCode)
   const [flags, setFlags] = useState<FeatureFlags>(() => readFlags())
+  const [tv, setTv] = useState(() => isTvMode())
 
   function toggleFlag(key: keyof FeatureFlags) {
     const next = { ...flags, [key]: !flags[key] }
@@ -69,6 +72,29 @@ export function SettingsPage() {
           <p className="mt-2 text-xs text-muted">Production builds inject a CSP meta tag. Dev keeps HMR unblocked.</p>
           <p className="mt-2 font-mono text-[10px] leading-relaxed break-all text-muted">{PRODUCTION_CSP}</p>
         </div>
+      </div>
+
+      <div className="card mb-6 p-5">
+        <h2 className="font-display text-xl">Fire TV / living room</h2>
+        <p className="mt-1 text-sm text-muted">
+          Use Willow Movies as the daily TV app instead of Google Play Movies. Keep me signed in, D-pad focus, and open
+          Prime/Netflix/SonyLIV on the Stick.
+        </p>
+        <Link to="/get-app" className="mt-3 inline-block text-sm font-semibold text-pine">
+          Download / install Willow for laptop and Fire Stick →
+        </Link>
+        <button
+          type="button"
+          className={`mt-3 rounded-full px-3 py-1 text-xs font-semibold ${tv ? 'bg-pine text-white' : 'bg-sand text-muted'}`}
+          onClick={() => {
+            const next = !tv
+            setTv(next)
+            setTvMode(next)
+          }}
+          aria-pressed={tv}
+        >
+          {tv ? 'TV mode on' : 'TV mode off'}
+        </button>
       </div>
 
       <div className="card mb-6 p-5">

@@ -2,7 +2,7 @@
 
 **Live site:** [https://raviacn95.github.io/child-management-system/](https://raviacn95.github.io/child-management-system/)
 
-Push to `main` deploys that URL via GitHub Pages (`.github/workflows/pages.yml`). After a deploy, open **Learning** and **Home → Learning packs**. Installable PWA: Chrome → **Install Willow**. Privacy notice: [privacy.html](https://raviacn95.github.io/child-management-system/privacy.html).
+Push to `main` deploys that URL via GitHub Pages (`.github/workflows/pages.yml`). After a deploy, open **Learning**, **Meals** (family planner), and **Home → Learning packs**. Installable PWA: Chrome → **Install Willow**. Privacy notice: [privacy.html](https://raviacn95.github.io/child-management-system/privacy.html).
 
 ## Play Store (Android)
 
@@ -82,7 +82,7 @@ Production-shaped references used for depth: eVaka, Sunshine Care, Safari Leader
 - **Billing**: invoices, partial pay, overdue, receipts
 - **Staff**: time clock, shifts, certifications, PD hours, **licensing ratios**
 - **Teacher workers**: five caseload teachers auto-monitor assigned children, then write a report plus meal, health, and education plans
-- **Grow at home (parents)**: age-based BMI meal plans, dress orders, games, tricks, and **ten skills** (language, numeracy, motor, fine motor, social, music, art, science, focus, leadership)
+- **Grow at home (parents)**: age-based BMI meal plans, **15 horizon activities** (2–5 / 6–9 / 10–13, BMI overlay), dress orders, games, tricks, and **ten skills**
 - **Willow Mart (FirstCry-style shop)**: fashion, diapers, feeding, toys, gear, school — age + child-file recommendations, **Cash on Delivery**, GST, PIN-code delivery, and **Auto Order** quotes from Zepto / Blinkit / Instamart sandbox partner APIs
 - **Country packs**: India (default) plus UAE, Singapore, UK, US — currency, stages, vaccines, meals, documents, holidays, payments
 - Playgroup / Nursery / LKG / UKG, **GST + UPI fees**, **UIP/IAP vaccines**, FSSAI tiffin, **van routes**, WhatsApp notices, DPDP-minimised ID last-4

@@ -655,6 +655,19 @@ export interface GrowthRecord {
   weightKg: number
 }
 
+export type FamilyMealSource = 'shared' | 'photo' | 'chat'
+
+export interface FamilyMealLog {
+  id: string
+  date: string
+  recipeId: string
+  recipeName: string
+  slot: 'breakfast' | 'lunch' | 'snack' | 'dinner'
+  childIds: string[]
+  source: FamilyMealSource
+  note?: string
+}
+
 export interface SkillProgress {
   childId: string
   skillId: SkillId
@@ -676,6 +689,46 @@ export interface TrickDone {
   childId: string
   trickId: string
   at: string
+}
+
+export interface HorizonLog {
+  id: string
+  childId: string
+  activityId: string
+  skillId: SkillId
+  at: string
+  minutes: number
+}
+
+export type ParentCategory = 'movies' | 'learning' | 'parenting' | 'finance' | 'health'
+export type ParentGoal = 'wealth' | 'parenting' | 'learning' | 'health' | 'career'
+export type ParentTimeMode = 'short' | 'long' | 'mixed'
+export type ParentLang = 'en' | 'hi'
+
+export interface ParentFeedProfile {
+  userId: string
+  ageYears: number
+  interests: ParentCategory[]
+  goals: ParentGoal[]
+  timeMode: ParentTimeMode
+  languages: ParentLang[]
+}
+
+export interface ParentFeedRating {
+  id: string
+  userId: string
+  itemId: string
+  rating: 1 | -1
+  at: string
+}
+
+export interface OttAccount {
+  id: string
+  userId: string
+  platformId: string
+  email: string
+  connected: boolean
+  lastOpenedAt?: string
 }
 
 export interface AppState {
@@ -721,8 +774,13 @@ export interface AppState {
   shopOrders: ShopOrder[]
   quickOrders: QcOrder[]
   growthRecords: GrowthRecord[]
+  familyMealLogs: FamilyMealLog[]
   skillProgress: SkillProgress[]
   gamePlays: GamePlay[]
   tricksDone: TrickDone[]
+  horizonLogs: HorizonLog[]
+  parentFeedProfiles: ParentFeedProfile[]
+  parentFeedRatings: ParentFeedRating[]
+  ottAccounts: OttAccount[]
   auditLog: AuditEntry[]
 }

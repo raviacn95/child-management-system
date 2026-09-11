@@ -757,6 +757,11 @@ export function createSeed(): AppState {
       { id: 'gp2', childId: 'c-mira', gameId: 'peekaboo', at: `${t}T09:40:00`, minutes: 5 },
     ],
     tricksDone: [],
+    familyMealLogs: [],
+    horizonLogs: [],
+    parentFeedProfiles: [],
+    parentFeedRatings: [],
+    ottAccounts: [],
     auditLog: [],
   }
   return applyWorkerRun(state)

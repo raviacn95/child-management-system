@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { lazy, Suspense } from 'react'
 import { HashRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -7,6 +7,9 @@ import { ErrorBoundary } from './components/ErrorBoundary'
 import { Layout } from './components/Layout'
 import { PageFallback } from './components/PageFallback'
 import { moduleFromPath, canSee } from './lib/rbac'
+import { applyTvMode, homePath } from './lib/tv'
+import { markBootSuccess } from './lib/releaseGuard'
+import { InstallProvider } from './features/install/InstallProvider'
 import { StoreProvider, useStore } from './store'
 import { ThemeProvider } from './theme/ThemeProvider'
 
@@ -24,6 +27,12 @@ const Health = lazy(() => import('./pages/Health').then((m) => ({ default: m.Hea
 const Inventory = lazy(() => import('./pages/Inventory').then((m) => ({ default: m.Inventory })))
 const Learning = lazy(() => import('./pages/Learning').then((m) => ({ default: m.Learning })))
 const Login = lazy(() => import('./pages/Login').then((m) => ({ default: m.Login })))
+const GetApp = lazy(() => import('./pages/GetApp').then((m) => ({ default: m.GetApp })))
+const ParentFeedPage = lazy(() => import('./pages/ParentFeed').then((m) => ({ default: m.ParentFeedPage })))
+const MoviesPage = lazy(() => import('./pages/Movies').then((m) => ({ default: m.MoviesPage })))
+const TvHome = lazy(() => import('./pages/TvHome').then((m) => ({ default: m.TvHome })))
+const OttPage = lazy(() => import('./pages/Ott').then((m) => ({ default: m.OttPage })))
+const EroticPage = lazy(() => import('./pages/Erotic').then((m) => ({ default: m.EroticPage })))
 const Meals = lazy(() => import('./pages/Meals').then((m) => ({ default: m.Meals })))
 const Messages = lazy(() => import('./pages/Messages').then((m) => ({ default: m.Messages })))
 const Reports = lazy(() => import('./pages/Reports').then((m) => ({ default: m.Reports })))
@@ -45,7 +54,7 @@ function Guard({ children }: { children: ReactNode }) {
 
 function Guest({ children }: { children: ReactNode }) {
   const { state } = useStore()
-  if (state.currentUserId) return <Navigate to="/" replace />
+  if (state.currentUserId) return <Navigate to={homePath()} replace />
   return children
 }
 
@@ -61,6 +70,7 @@ function AppRoutes() {
             </Guest>
           }
         />
+        <Route path="/get-app" element={<GetApp />} />
         <Route
           element={
             <Guard>
@@ -82,6 +92,11 @@ function AppRoutes() {
           <Route path="/messages" element={<Messages />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/learning" element={<Learning />} />
+          <Route path="/parent-feed" element={<ParentFeedPage />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/tv" element={<TvHome />} />
+          <Route path="/ott" element={<OttPage />} />
+          <Route path="/erotic" element={<EroticPage />} />
           <Route path="/meals" element={<Meals />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/transport" element={<TransportPage />} />
@@ -97,14 +112,20 @@ function AppRoutes() {
 }
 
 export default function App() {
+  useEffect(() => {
+    applyTvMode()
+    markBootSuccess()
+  }, [])
   return (
     <ErrorBoundary>
       <ThemeProvider>
         <QueryClientProvider client={queryClient}>
           <StoreProvider>
-            <HashRouter>
-              <AppRoutes />
-            </HashRouter>
+            <InstallProvider>
+              <HashRouter>
+                <AppRoutes />
+              </HashRouter>
+            </InstallProvider>
           </StoreProvider>
         </QueryClientProvider>
       </ThemeProvider>

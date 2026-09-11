@@ -18,11 +18,15 @@ import type {
   PayMethod,
   QcOrder,
   SkillId,
+  FamilyMealLog,
+  HorizonLog,
+  ParentFeedProfile,
+  OttAccount,
 } from './types'
 import { nextWebhook } from './lib/autoOrder'
 import { applyWorkerRun } from './workers/engine'
 import { makeAudit, prependAudit } from './lib/audit'
-import { clearSession, issueSession } from './features/auth/session'
+import { clearSession, issueSession, readSession } from './features/auth/session'
 
 const KEY = 'willow-cms-v5'
 
@@ -98,6 +102,11 @@ function migrate(parsed: AppState): AppState {
     shopWishlist: next.shopWishlist ?? [],
     quickOrders: next.quickOrders ?? [],
     auditLog: next.auditLog ?? [],
+    familyMealLogs: next.familyMealLogs ?? [],
+    horizonLogs: next.horizonLogs ?? [],
+    parentFeedProfiles: next.parentFeedProfiles ?? [],
+    parentFeedRatings: next.parentFeedRatings ?? [],
+    ottAccounts: next.ottAccounts ?? [],
     children: next.children.map((c) => ({ ...c, interests: c.interests ?? [] })),
   }
 }
@@ -112,12 +121,25 @@ function load(): AppState {
       localStorage.getItem('willow-cms-v1')
     if (raw) {
       const parsed = JSON.parse(raw) as AppState
-      if (parsed?.sites?.length && parsed?.children?.length) return migrate(parsed)
+      if (parsed?.sites?.length && parsed?.children?.length) return restoreSession(migrate(parsed))
     }
   } catch {
     /* ignore */
   }
-  return createSeed()
+  return restoreSession(createSeed())
+}
+
+function restoreSession(state: AppState): AppState {
+  const session = readSession()
+  if (session) {
+    const user = state.users.find((u) => u.id === session.sub)
+    if (user) return { ...state, currentUserId: user.id, currentSiteId: user.siteId || state.currentSiteId }
+  }
+  if (state.currentUserId) {
+    const user = state.users.find((u) => u.id === state.currentUserId)
+    if (user) issueSession(user, { persist: true })
+  }
+  return state
 }
 
 function persist(state: AppState) {
@@ -130,7 +152,7 @@ function uid(prefix: string) {
 
 interface StoreApi {
   state: AppState
-  login: (email: string, password: string) => string | null
+  login: (email: string, password: string, remember?: boolean) => string | null
   logout: () => void
   setSite: (id: string) => void
   resetDemo: () => void
@@ -167,9 +189,16 @@ interface StoreApi {
   recordQuickOrder: (order: QcOrder) => void
   tickQuickOrder: (id: string) => void
   logGrowth: (childId: string, heightCm: number, weightKg: number) => void
+  logSharedMeal: (log: Omit<FamilyMealLog, 'id'>) => void
   practiceSkill: (childId: string, skillId: SkillId) => void
   logGame: (childId: string, gameId: string, minutes: number) => void
   completeTrick: (childId: string, trickId: string) => void
+  logHorizon: (childId: string, activityId: string, skillId: SkillId, minutes: number) => void
+  upsertParentFeedProfile: (profile: ParentFeedProfile) => void
+  rateParentFeed: (userId: string, itemId: string, rating: 1 | -1) => void
+  upsertOttAccount: (account: Omit<OttAccount, 'id'> & { id?: string }) => void
+  disconnectOtt: (id: string) => void
+  touchOtt: (id: string) => void
   logAudit: (action: string, details: string) => void
 }
 
@@ -188,12 +217,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
     return {
       state,
-      login: (email, password) => {
+      login: (email, password, remember = true) => {
         const user = state.users.find(
           (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password,
         )
         if (!user) return null
-        issueSession(user)
+        issueSession(user, { persist: remember })
         commit({
           ...state,
           currentUserId: user.id,
@@ -562,6 +591,53 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             ...s.growthRecords,
           ],
         })),
+      logSharedMeal: (log) =>
+        patch((s) => {
+          const entry: FamilyMealLog = { ...log, id: uid('fm') }
+          let next = {
+            ...s,
+            familyMealLogs: [entry, ...(s.familyMealLogs ?? [])],
+          }
+          const amount = log.childIds.length > 1 ? 'most' : 'all'
+          for (const childId of log.childIds) {
+            const meal: MealLog = {
+              time: new Date().toTimeString().slice(0, 5),
+              type: log.slot,
+              items: log.recipeName,
+              amount,
+            }
+            const existing = next.dailyLogs.find((d) => d.childId === childId && d.date === log.date)
+            if (!existing) {
+              next = {
+                ...next,
+                dailyLogs: [
+                  {
+                    id: uid('d'),
+                    childId,
+                    date: log.date,
+                    meals: [meal],
+                    naps: [],
+                    diapers: [],
+                    mood: '',
+                    activities: [],
+                    notes: log.note ?? '',
+                    photos: log.source === 'photo' ? 1 : 0,
+                    authorId: next.currentUserId ?? 's-jordan',
+                  },
+                  ...next.dailyLogs,
+                ],
+              }
+            } else {
+              next = {
+                ...next,
+                dailyLogs: next.dailyLogs.map((d) =>
+                  d.id === existing.id ? { ...d, meals: [...d.meals, meal] } : d,
+                ),
+              }
+            }
+          }
+          return next
+        }),
       practiceSkill: (childId, skillId: SkillId) =>
         patch((s) => {
           const list = s.skillProgress ?? []
@@ -599,6 +675,59 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             tricksDone: [{ id: uid('tr'), childId, trickId, at: new Date().toISOString() }, ...(s.tricksDone ?? [])],
           }
         }),
+      logHorizon: (childId, activityId, skillId, minutes) =>
+        patch((s) => {
+          const now = new Date().toISOString()
+          const log: HorizonLog = { id: uid('hz'), childId, activityId, skillId, at: now, minutes }
+          const list = s.skillProgress ?? []
+          const existing = list.find((p) => p.childId === childId && p.skillId === skillId)
+          const skillProgress = existing
+            ? list.map((p) => {
+                if (p.childId !== childId || p.skillId !== skillId) return p
+                const xp = p.xp + 15
+                return { ...p, xp, level: Math.min(5, 1 + Math.floor(xp / 50)), lastPractice: now }
+              })
+            : [{ childId, skillId, level: 1, xp: 15, lastPractice: now }, ...list]
+          return {
+            ...s,
+            horizonLogs: [log, ...(s.horizonLogs ?? [])],
+            skillProgress,
+          }
+        }),
+      upsertParentFeedProfile: (profile) =>
+        patch((s) => {
+          const list = s.parentFeedProfiles ?? []
+          const exists = list.some((p) => p.userId === profile.userId)
+          return {
+            ...s,
+            parentFeedProfiles: exists
+              ? list.map((p) => (p.userId === profile.userId ? profile : p))
+              : [profile, ...list],
+          }
+        }),
+      rateParentFeed: (userId, itemId, rating) =>
+        patch((s) => ({
+          ...s,
+          parentFeedRatings: [
+            ...(s.parentFeedRatings ?? []).filter((r) => !(r.userId === userId && r.itemId === itemId)),
+            { userId, itemId, rating, at: new Date().toISOString(), id: uid('pfr') },
+          ],
+        })),
+      upsertOttAccount: (account) =>
+        patch((s) => {
+          const id = account.id ?? uid('ott')
+          const row: OttAccount = { ...account, id, connected: true }
+          const list = s.ottAccounts ?? []
+          const idx = list.findIndex((a) => a.id === id || (a.userId === row.userId && a.platformId === row.platformId))
+          const ottAccounts = idx >= 0 ? list.map((a, i) => (i === idx ? { ...a, ...row, id: a.id } : a)) : [...list, row]
+          return { ...s, ottAccounts }
+        }),
+      disconnectOtt: (id) => patch((s) => ({ ...s, ottAccounts: (s.ottAccounts ?? []).filter((a) => a.id !== id) })),
+      touchOtt: (id) =>
+        patch((s) => ({
+          ...s,
+          ottAccounts: (s.ottAccounts ?? []).map((a) => (a.id === id ? { ...a, lastOpenedAt: new Date().toISOString() } : a)),
+        })),
       logAudit: (action, details) =>
         patch((s) => ({
           ...s,

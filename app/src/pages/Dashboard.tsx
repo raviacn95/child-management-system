@@ -2,9 +2,13 @@ import { AlertTriangle, ArrowUpRight, Bot } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Avatar, Badge, PageHead, Stat } from '../components/ui'
 import { LearningPacksPanel } from '../features/learning/LearningPacksPanel'
+import { FamilyMealsPanel } from '../features/meals/FamilyMealsPanel'
+import { HorizonsPanel } from '../features/grow/HorizonActivities'
+import { ParentFeedPanel } from '../features/parent-feed/ParentGrowthFeed'
+import { MovieShelfPanel } from '../features/movies/MovieShelf'
 import { today } from '../data/seed'
 import { packOf } from '../data/country'
-import { ageYears, childName, money } from '../lib'
+import { ageYears, bmiProfile, childName, money } from '../lib'
 import { useStore } from '../store'
 
 export function Dashboard() {
@@ -40,7 +44,7 @@ export function Dashboard() {
         title={user.role === 'parent' ? `Hi, ${user.name.split(' ')[0]}` : 'Today at a glance'}
         subtitle={
           user.role === 'parent'
-            ? 'Home coach for Leo & Mira: tiffin, Willow Mart COD, games, and ten skills.'
+            ? 'Home coach: tiffin, horizons, parent growth feed, Willow Mart COD.'
             : `${present.length} children in the building · ${rooms.length} rooms open · ${pack.name}`
         }
       />
@@ -158,14 +162,26 @@ export function Dashboard() {
             <Link to="/workers" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-pine">
               <Bot size={14} /> Open worker desk
             </Link>
-            <Link to="/grow" className="mt-2 flex items-center gap-1 text-sm font-semibold text-pine">
-              Grow at home — tiffin, games, 10 skills →
+            <Link to="/grow?tab=horizons" className="mt-2 flex items-center gap-1 text-sm font-semibold text-pine">
+              Grow at home — tiffin, horizons, 10 skills →
             </Link>
             <Link to="/shop" className="mt-2 flex items-center gap-1 text-sm font-semibold text-pine">
               Willow Mart — buy on COD →
             </Link>
           </div>
           {user.role !== 'parent' ? <LearningPacksPanel /> : null}
+          <FamilyMealsPanel kids={enrolled} growthRecords={state.growthRecords ?? []} />
+          <HorizonsPanel
+            kids={enrolled}
+            growthBand={(id) => {
+              const c = enrolled.find((x) => x.id === id)
+              const g = (state.growthRecords ?? []).find((r) => r.childId === id)
+              if (!c || !g) return undefined
+              return bmiProfile(c.dob, g.weightKg, g.heightCm, c.gender).band
+            }}
+          />
+          <ParentFeedPanel />
+          <MovieShelfPanel />
           <div className="card p-5">
             <h2 className="font-display text-xl">Coming up</h2>
             <ul className="mt-3 space-y-2">

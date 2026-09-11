@@ -101,7 +101,7 @@ export function Field({
 }
 
 export const inputClass =
-  'w-full rounded-xl border border-line bg-white px-3 py-2 text-sm text-ink outline-none focus:border-pine'
+  'w-full rounded-xl border border-line bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-pine'
 
 export function Empty({ title, body }: { title: string; body: string }) {
   return (

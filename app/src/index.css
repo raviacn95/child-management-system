@@ -20,6 +20,32 @@
   --color-gold-soft: #f8edd2;
 }
 
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --color-sidebar: #fbf7f1;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ink: #f4efe8;
+  --color-muted: #b8aea3;
+  --color-sand: #161310;
+  --color-paper: #221e19;
+  --color-sidebar: #1c1916;
+  --color-line: #3c342c;
+  --color-pine: #1c6b57;
+  --color-pine-soft: #1c3d34;
+  --color-clay: #e08a55;
+  --color-clay-soft: #3a2418;
+  --color-sky: #7eabc4;
+  --color-sky-soft: #1c2c36;
+  --color-rose: #e56b8a;
+  --color-rose-soft: #3a1c26;
+  --color-gold: #e0b45a;
+  --color-gold-soft: #3a3018;
+}
+
 html,
 body,
 #root {
@@ -51,4 +77,16 @@ body {
 .scrollbar-thin::-webkit-scrollbar-thumb {
   background: #d4c8ba;
   border-radius: 99px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

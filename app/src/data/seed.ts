@@ -223,6 +223,7 @@ export function createSeed(): AppState {
         tiffin: true,
         stage: 'ukg',
         dietType: 'Vegetarian',
+        interests: ['math', 'science', 'stories'],
       },
       {
         id: 'c-mira',
@@ -250,6 +251,7 @@ export function createSeed(): AppState {
         tiffin: false,
         stage: 'playgroup',
         dietType: 'Vegetarian',
+        interests: ['music', 'movement', 'stories'],
       },
       {
         id: 'c-noah',
@@ -755,6 +757,7 @@ export function createSeed(): AppState {
       { id: 'gp2', childId: 'c-mira', gameId: 'peekaboo', at: `${t}T09:40:00`, minutes: 5 },
     ],
     tricksDone: [],
+    auditLog: [],
   }
   return applyWorkerRun(state)
 }

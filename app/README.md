@@ -1,32 +1,73 @@
-# React + TypeScript + Vite
+# Willow — production app skeleton
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + TypeScript + Vite childcare OS. This folder is the product.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Open [http://localhost:5173](http://localhost:5173). Demo password is `demo`.
+
+| Role | Email |
+|------|--------|
+| Director | `director@willow.care` |
+| Teacher | `teacher@willow.care` |
+| Parent | `parent@willow.care` |
+
+## Scripts
+
+| Command | What it does |
+|---------|----------------|
+| `npm run dev` | Vite + HMR (Tailwind, MSW in development) |
+| `npm run build` | Typecheck, minify, PWA, gzip/brotli |
+| `npm run test` | Vitest unit tests |
+| `npm run test:e2e` | Playwright (install browsers first) |
+| `npm run lint` / `lint:eslint` | Oxlint + ESLint a11y |
+| `npm run analyze` | Bundle visualizer → `dist/stats.html` |
+| `npm run audit:deps` | `npm audit` |
+
+Copy `.env.example` to `.env`. Values are validated with Zod in `src/env.ts`.
+
+## 35-feature layout
+
+```
+app/
+  edge/recommend.ts          # 21. Edge function for recommendations
+  e2e/                       # 13. Playwright
+  public/offline.html        # 10. PWA fallback
+  src/
+    api/                     # 14. react-query + Zod client; graphql stub
+    app/prefetch.ts          # 6/21. route prefetch
+    components/              # Error boundary, registry, theme toggle
+    data/learning-channels.ts
+    data/recommendation-schema.json
+    features/
+      auth/                  # 13/14. session JWT-shaped + RHF login
+      learning/              # YouTube age-band pipeline
+    i18n/                    # 17. en + hi
+    lib/                     # rbac, audit, flags, csp, vitals, realtime
+    mocks/                   # 20. MSW handlers
+    pages/                   # lazy-loaded routes
+    test/                    # 11/12. Vitest + Testing Library setup
+    theme/                   # 18. light/dark/system
+    env.ts                   # 4. typed env
+  vite.config.ts             # aliases, PWA, compression, imagetools, analyzer, CSP
+  eslint.config.js           # 2/15. Prettier + jsx-a11y
+  playwright.config.ts
+```
+
+Optional later: `npx storybook@latest init` (stories live beside components), Sentry DSN in `VITE_SENTRY_DSN`, Apollo via `src/api/graphql/client.ts`.
+
+## Learning recommendation pipeline
+
+`Learning → Watch together` maps child age, stage, interests, and allergies to a curated YouTube pack (2–5 / 5–8 / 8–12). Output is JSON you can copy into Willow Mart.
+
+Director **Home** loads packs from `GET /api/learning-packs` (MSW in dev, local JSON fallback).
+
+- Catalog: `src/data/learning-packs.json`
+- JSON Schema: `src/data/learning-packs.schema.json`
+- Service: `src/features/learning/learningPacks.ts`
+- Autoplay stays off on outbound links
+- YouTube Kids deep links when the channel supports them
+- India pack includes the Anekal preschool tip

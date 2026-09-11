@@ -24,11 +24,15 @@ import {
   Wallet,
 } from 'lucide-react'
 import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { prefetchRoute } from '../app/prefetch'
+import { persistLanguage } from '../i18n'
 import { canSee, formatTime } from '../lib'
 import { packOf } from '../data/country'
 import { useStore } from '../store'
 import { Avatar, Badge } from './ui'
+import { ThemeToggle } from './ThemeToggle'
 
 const NAV = [
   { to: '/', key: 'dashboard', label: 'Home', icon: LayoutDashboard },
@@ -55,6 +59,7 @@ const NAV = [
 ]
 
 export function Layout() {
+  const { t, i18n } = useTranslation()
   const { state, logout, setSite, markNotifRead } = useStore()
   const navigate = useNavigate()
   const [openNotifs, setOpenNotifs] = useState(false)
@@ -80,20 +85,22 @@ export function Layout() {
 
   return (
     <div className="flex min-h-screen">
-      <aside className="sticky top-0 flex h-screen w-[248px] shrink-0 flex-col border-r border-line bg-[#fbf7f1]">
+      <aside className="sticky top-0 flex h-screen w-[248px] shrink-0 flex-col border-r border-line bg-[var(--color-sidebar)]">
         <div className="px-5 pt-6 pb-4">
           <div className="flex items-center gap-2.5">
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-pine text-paper">
               <Sparkles size={18} />
             </span>
             <div>
-              <p className="font-display text-lg leading-none font-semibold">Willow</p>
-              <p className="mt-1 text-[11px] tracking-wide text-muted uppercase">{pack.nativeName} · Childcare OS</p>
+              <p className="font-display text-lg leading-none font-semibold">{t('brand')}</p>
+              <p className="mt-1 text-[11px] tracking-wide text-muted uppercase">
+                {pack.nativeName} · {t('tagline')}
+              </p>
             </div>
           </div>
           {user.role === 'director' ? (
             <select
-              className="mt-4 w-full rounded-xl border border-line bg-white px-2.5 py-2 text-sm"
+              className="mt-4 w-full rounded-xl border border-line bg-paper px-2.5 py-2 text-sm"
               value={state.currentSiteId}
               onChange={(e) => setSite(e.target.value)}
             >
@@ -115,6 +122,8 @@ export function Layout() {
                 key={item.to}
                 to={item.to}
                 end={item.to === '/'}
+                onMouseEnter={() => prefetchRoute(item.to)}
+                onFocus={() => prefetchRoute(item.to)}
                 className={({ isActive }) =>
                   `mb-0.5 flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium ${
                     isActive ? 'bg-pine text-white' : 'text-ink/80 hover:bg-white'
@@ -122,13 +131,13 @@ export function Layout() {
                 }
               >
                 <Icon size={16} />
-                {item.label}
+                {t(`nav.${item.key}`)}
               </NavLink>
             )
           })}
         </nav>
         <div className="border-t border-line p-3">
-          <div className="flex items-center gap-2 rounded-xl bg-white px-2 py-2">
+          <div className="flex items-center gap-2 rounded-xl bg-paper px-2 py-2">
             <Avatar name={user.name} hue={user.avatarHue} size={32} />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold">{user.name}</p>
@@ -140,7 +149,7 @@ export function Layout() {
                 logout()
                 navigate('/login')
               }}
-              aria-label="Sign out"
+              aria-label={t('common.signOut')}
             >
               <LogOut size={16} />
             </button>
@@ -148,7 +157,7 @@ export function Layout() {
         </div>
       </aside>
       <div className="min-w-0 flex-1">
-        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-line bg-[rgba(243,238,230,0.86)] px-8 py-3 backdrop-blur">
+        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-line bg-[color-mix(in_srgb,var(--color-sand)_86%,transparent)] px-8 py-3 backdrop-blur">
           <div>
             <p className="text-sm text-muted">
               {site?.name} · {pack.name}
@@ -158,9 +167,18 @@ export function Layout() {
           <div className="relative flex items-center gap-3">
             <Badge tone="pine">{user.role}</Badge>
             <button
-              className="relative rounded-xl border border-line bg-white p-2"
+              type="button"
+              className="rounded-xl border border-line bg-paper px-2 py-1 text-xs font-semibold"
+              onClick={() => persistLanguage(i18n.language === 'hi' ? 'en' : 'hi')}
+              aria-label={t('settings.language')}
+            >
+              {i18n.language === 'hi' ? 'EN' : 'हिं'}
+            </button>
+            <ThemeToggle />
+            <button
+              className="relative rounded-xl border border-line bg-paper p-2"
               onClick={() => setOpenNotifs((v) => !v)}
-              aria-label="Notifications"
+              aria-label={t('common.notifications')}
             >
               <Bell size={18} />
               {unread > 0 ? (

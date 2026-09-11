@@ -1,13 +1,19 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Button, Field, PageHead, inputClass } from '../components/ui'
+import { ChannelPack } from '../features/learning/ChannelPack'
+import { isOn } from '../lib/flags'
 import { childName } from '../lib'
 import { packOf } from '../data/country'
 import { useStore } from '../store'
 
 export function Learning() {
+  const { t } = useTranslation()
   const { state, addObservation } = useStore()
   const user = state.users.find((u) => u.id === state.currentUserId)!
-  const kids = state.children.filter((c) => (user.role === 'parent' ? user.childIds.includes(c.id) : c.siteId === state.currentSiteId && c.status === 'enrolled'))
+  const kids = state.children.filter((c) =>
+    user.role === 'parent' ? user.childIds.includes(c.id) : c.siteId === state.currentSiteId && c.status === 'enrolled',
+  )
   const [childId, setChildId] = useState(kids[0]?.id ?? '')
   const [domain, setDomain] = useState(packOf(state.countryCode).learningDomains[0])
   const [notes, setNotes] = useState('')
@@ -17,7 +23,10 @@ export function Learning() {
 
   return (
     <div>
-      <PageHead title="Learning journeys" subtitle={`${packOf(state.countryCode).name} domains: ${packOf(state.countryCode).learningDomains.join(', ')}.`} />
+      <PageHead
+        title={t('learning.title')}
+        subtitle={`${packOf(state.countryCode).name} domains: ${packOf(state.countryCode).learningDomains.join(', ')}.`}
+      />
       {user.role !== 'parent' ? (
         <form
           className="card mb-6 grid gap-3 p-4 md:grid-cols-2"
@@ -35,7 +44,7 @@ export function Learning() {
             setNextSteps('')
           }}
         >
-          <Field label="Child">
+          <Field label={t('learning.pickChild')}>
             <select className={inputClass} value={childId} onChange={(e) => setChildId(e.target.value)}>
               {kids.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -75,6 +84,7 @@ export function Learning() {
           )
         })}
       </div>
+      {isOn('learningChannels') ? <ChannelPack kids={kids} /> : null}
     </div>
   )
 }

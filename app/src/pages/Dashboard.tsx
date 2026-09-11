@@ -1,6 +1,7 @@
 import { AlertTriangle, ArrowUpRight, Bot } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Avatar, Badge, PageHead, Stat } from '../components/ui'
+import { LearningPacksPanel } from '../features/learning/LearningPacksPanel'
 import { today } from '../data/seed'
 import { packOf } from '../data/country'
 import { ageYears, childName, money } from '../lib'
@@ -164,6 +165,7 @@ export function Dashboard() {
               Willow Mart — buy on COD →
             </Link>
           </div>
+          {user.role !== 'parent' ? <LearningPacksPanel /> : null}
           <div className="card p-5">
             <h2 className="font-display text-xl">Coming up</h2>
             <ul className="mt-3 space-y-2">

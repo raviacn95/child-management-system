@@ -1,4 +1,4 @@
-import type { BmiBand, Child, Role } from './types'
+import type { BmiBand, Child } from './types'
 import { packOf } from './data/country'
 
 export function initials(name: string) {
@@ -83,44 +83,7 @@ export function money(n: number, country?: string | null) {
   })
 }
 
-export function canSee(role: Role, module: string) {
-  if (role === 'director') return true
-  const teacher = [
-    'dashboard',
-    'children',
-    'attendance',
-    'daily-care',
-    'health',
-    'classrooms',
-    'messages',
-    'calendar',
-    'learning',
-    'meals',
-    'staff',
-    'workers',
-    'shop',
-    'grow',
-    'transport',
-  ]
-  const parent = [
-    'dashboard',
-    'children',
-    'daily-care',
-    'health',
-    'billing',
-    'messages',
-    'calendar',
-    'documents',
-    'learning',
-    'meals',
-    'workers',
-    'shop',
-    'grow',
-    'transport',
-  ]
-  if (role === 'teacher') return teacher.includes(module)
-  return parent.includes(module)
-}
+export { canSee } from './lib/rbac'
 
 export function bodyMassIndex(kg: number, cm: number) {
   const m = cm / 100

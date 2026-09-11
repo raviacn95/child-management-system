@@ -2,6 +2,21 @@
 
 **Live site:** [https://raviacn95.github.io/child-management-system/](https://raviacn95.github.io/child-management-system/)
 
+Push to `main` deploys that URL via GitHub Pages (`.github/workflows/pages.yml`). After a deploy, open **Learning** and **Home → Learning packs**. Installable PWA: Chrome → **Install Willow**. Privacy notice: [privacy.html](https://raviacn95.github.io/child-management-system/privacy.html).
+
+## Play Store (Android)
+
+The web app is wrapped with Capacitor (`app/android`, application id `care.willow.childcare`). Publishing still needs your Google Play Console account — this repo prepares the bundle, it cannot submit the listing for you.
+
+```bash
+cd app
+npm install
+npm run android:sync
+npm run android:open
+```
+
+In Android Studio: **Build → Generate Signed App Bundle**. Use `app/public/play-icon-512.png` (and `play-icon-1024.png`) as store graphics. Point the listing privacy policy at the Pages `privacy.html` URL above.
+
 This folder used to list the **world’s most-forked GitHub repos in general** (TensorFlow, Bootstrap, Spoon-Knife, and so on). None of those are childcare systems.
 
 What lives here now is a working **child / daycare / kindergarten management app** whose modules match the union of features in the most-forked GitHub projects actually about managing children.
@@ -71,7 +86,7 @@ Production-shaped references used for depth: eVaka, Sunshine Care, Safari Leader
 - **Willow Mart (FirstCry-style shop)**: fashion, diapers, feeding, toys, gear, school — age + child-file recommendations, **Cash on Delivery**, GST, PIN-code delivery, and **Auto Order** quotes from Zepto / Blinkit / Instamart sandbox partner APIs
 - **Country packs**: India (default) plus UAE, Singapore, UK, US — currency, stages, vaccines, meals, documents, holidays, payments
 - Playgroup / Nursery / LKG / UKG, **GST + UPI fees**, **UIP/IAP vaccines**, FSSAI tiffin, **van routes**, WhatsApp notices, DPDP-minimised ID last-4
-- Rooms/programs, messages + announcements, calendar, **learning observations**
+- Rooms/programs, messages + announcements, calendar, **learning observations** plus **Watch together** YouTube packs by age (2–5 / 5–8 / 8–12)
 - **CACFP-style menus** with allergen flags, documents with approval/expiry
 - Supplies/inventory, occupancy & collection **reports**
 

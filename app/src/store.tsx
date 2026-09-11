@@ -21,6 +21,8 @@ import type {
 } from './types'
 import { nextWebhook } from './lib/autoOrder'
 import { applyWorkerRun } from './workers/engine'
+import { makeAudit, prependAudit } from './lib/audit'
+import { clearSession, issueSession } from './features/auth/session'
 
 const KEY = 'willow-cms-v5'
 
@@ -95,6 +97,8 @@ function migrate(parsed: AppState): AppState {
     shopPincode: next.shopPincode || seeded.shopPincode,
     shopWishlist: next.shopWishlist ?? [],
     quickOrders: next.quickOrders ?? [],
+    auditLog: next.auditLog ?? [],
+    children: next.children.map((c) => ({ ...c, interests: c.interests ?? [] })),
   }
 }
 
@@ -166,6 +170,7 @@ interface StoreApi {
   practiceSkill: (childId: string, skillId: SkillId) => void
   logGame: (childId: string, gameId: string, minutes: number) => void
   completeTrick: (childId: string, trickId: string) => void
+  logAudit: (action: string, details: string) => void
 }
 
 const Ctx = createContext<StoreApi | null>(null)
@@ -188,10 +193,23 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password,
         )
         if (!user) return null
-        commit({ ...state, currentUserId: user.id, currentSiteId: user.siteId })
+        issueSession(user)
+        commit({
+          ...state,
+          currentUserId: user.id,
+          currentSiteId: user.siteId,
+          auditLog: prependAudit(state.auditLog, makeAudit(user.id, 'auth.login', user.email)),
+        })
         return user.id
       },
-      logout: () => commit({ ...state, currentUserId: null }),
+      logout: () => {
+        clearSession()
+        commit({
+          ...state,
+          currentUserId: null,
+          auditLog: prependAudit(state.auditLog, makeAudit(state.currentUserId, 'auth.logout', 'signed out')),
+        })
+      },
       setSite: (id) => commit({ ...state, currentSiteId: id }),
       resetDemo: () => {
         localStorage.removeItem(KEY)
@@ -373,7 +391,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           ),
         })),
       addObservation: (obs) =>
-        patch((s) => ({ ...s, observations: [{ ...obs, id: uid('o') }, ...s.observations] })),
+        patch((s) => ({
+          ...s,
+          observations: [{ ...obs, id: uid('o') }, ...s.observations],
+          auditLog: prependAudit(s.auditLog, makeAudit(s.currentUserId, 'learning.observe', obs.domain)),
+        })),
       markNotifRead: (id) =>
         patch((s) => ({
           ...s,
@@ -577,6 +599,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             tricksDone: [{ id: uid('tr'), childId, trickId, at: new Date().toISOString() }, ...(s.tricksDone ?? [])],
           }
         }),
+      logAudit: (action, details) =>
+        patch((s) => ({
+          ...s,
+          auditLog: prependAudit(s.auditLog, makeAudit(s.currentUserId, action, details)),
+        })),
       recordQuickOrder: (order) =>
         patch((s) => ({
           ...s,

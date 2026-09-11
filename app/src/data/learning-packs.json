@@ -1,0 +1,75 @@
+{
+  "$schema": "./learning-packs.schema.json",
+  "schemaVersion": "1.0.0",
+  "packs": [
+    {
+      "id": "pack-2-5",
+      "ageBand": "2-5",
+      "ageMin": 2,
+      "ageMax": 5,
+      "label": "Toddlers & preschool",
+      "focus": ["Nursery rhymes", "Phonics", "Simple math"],
+      "featuredChannelIds": ["numberblocks", "alphablocks", "super-simple-songs"],
+      "channelIds": [
+        "cocomelon",
+        "super-simple-songs",
+        "sesame-street",
+        "numberblocks",
+        "alphablocks",
+        "cosmic-kids-yoga",
+        "pbs-kids"
+      ],
+      "playlistUrl": "https://www.youtube.com/@Numberblocks/playlists",
+      "anekalTip": "India (Anekal) · preschool 2–5: start with Numberblocks + Super Simple Songs."
+    },
+    {
+      "id": "pack-5-8",
+      "ageBand": "5-8",
+      "ageMin": 5,
+      "ageMax": 8,
+      "label": "Early elementary",
+      "focus": ["Science explainers", "Art tutorials", "Geography songs"],
+      "featuredChannelIds": ["scishow-kids", "art-for-kids-hub", "kids-learning-tube"],
+      "channelIds": [
+        "sesame-street",
+        "numberblocks",
+        "alphablocks",
+        "pbs-kids",
+        "nat-geo-kids",
+        "art-for-kids-hub",
+        "scishow-kids",
+        "kids-learning-tube",
+        "homeschool-pop",
+        "storyline-online",
+        "freeschool"
+      ],
+      "playlistUrl": "https://www.youtube.com/@ArtforKidsHub/playlists",
+      "anekalTip": "India (Anekal) · LKG/UKG 5–8: Art for Kids Hub + SciShow Kids, with autoplay off."
+    },
+    {
+      "id": "pack-8-12",
+      "ageBand": "8-12",
+      "ageMin": 8,
+      "ageMax": 12,
+      "label": "Upper elementary",
+      "focus": ["STEM projects", "History", "Space exploration"],
+      "featuredChannelIds": ["crash-course-kids", "ted-ed", "nasa"],
+      "channelIds": [
+        "nat-geo-kids",
+        "art-for-kids-hub",
+        "scishow-kids",
+        "homeschool-pop",
+        "freeschool",
+        "crash-course-kids",
+        "ted-ed",
+        "khan-academy",
+        "bbc-earth",
+        "mark-rober",
+        "nasa",
+        "smithsonian"
+      ],
+      "playlistUrl": "https://www.youtube.com/@crashcoursekids/playlists",
+      "anekalTip": "India (Anekal) · older children 8–12: Crash Course Kids + TED-Ed, previewed by a parent."
+    }
+  ]
+}

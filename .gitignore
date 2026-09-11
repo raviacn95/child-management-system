@@ -5,4 +5,9 @@ dist/
 repos/
 verify*.png
 login.png
-.github/workflows/
+coverage/
+playwright-report/
+test-results/
+app/dist/*.gz
+app/dist/*.br
+

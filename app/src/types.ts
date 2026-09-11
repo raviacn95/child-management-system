@@ -1,4 +1,52 @@
 export type Role = 'director' | 'teacher' | 'parent'
+export type AgeBand = '2-5' | '5-8' | '8-12'
+export type LearningInterest =
+  | 'animals'
+  | 'art'
+  | 'math'
+  | 'music'
+  | 'science'
+  | 'stories'
+  | 'movement'
+  | 'space'
+  | 'history'
+
+export interface LearningChannel {
+  id: string
+  name: string
+  handle?: string
+  ageBands: AgeBand[]
+  interests: LearningInterest[]
+  description: string
+  youtubeUrl: string
+  playlistUrl?: string
+  youtubeKids: boolean
+  adLight: boolean
+  autoplaySafe: boolean
+  coViewingTip: string
+}
+
+export interface RankedChannel extends LearningChannel {
+  score: number
+  reasons: string[]
+}
+
+export interface RecommendationOutput {
+  ageBand: AgeBand
+  childName?: string
+  channels: RankedChannel[]
+  playlist: { channelId: string; url: string }[]
+  safeguards: string[]
+  anekalTip?: string
+}
+
+export interface AuditEntry {
+  id: string
+  at: string
+  userId: string | null
+  action: string
+  details: string
+}
 
 export type ChildStatus = 'inquiry' | 'waitlist' | 'enrolled' | 'withdrawn'
 export type ApplicationStatus =
@@ -91,6 +139,7 @@ export interface Child {
   tiffin?: boolean
   stage?: string
   dietType?: string
+  interests?: LearningInterest[]
 }
 
 export interface Guardian {
@@ -675,4 +724,5 @@ export interface AppState {
   skillProgress: SkillProgress[]
   gamePlays: GamePlay[]
   tricksDone: TrickDone[]
+  auditLog: AuditEntry[]
 }

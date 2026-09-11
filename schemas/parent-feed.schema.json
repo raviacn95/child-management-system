@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://willow.care/schema/parent-feed.json",
+  "title": "Willow parent growth feed (ages 33–50, India)",
+  "description": "Curated movies, learning, parenting, finance, and health for Indian parents. Ranked by impact score + profile. Official links only — no piracy.",
+  "type": "object",
+  "required": ["schemaVersion", "audience", "items"],
+  "properties": {
+    "schemaVersion": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "source": { "type": "string" },
+    "audience": {
+      "type": "object",
+      "required": ["ageMin", "ageMax", "region"],
+      "properties": {
+        "ageMin": { "type": "integer" },
+        "ageMax": { "type": "integer" },
+        "region": { "type": "string" }
+      }
+    },
+    "items": { "type": "array", "minItems": 15, "maxItems": 15, "items": { "$ref": "#/$defs/item" } }
+  },
+  "$defs": {
+    "category": { "type": "string", "enum": ["movies", "learning", "parenting", "finance", "health"] },
+    "format": { "type": "string", "enum": ["clip", "film", "series", "course", "podcast"] },
+    "language": { "type": "string", "enum": ["en", "hi"] },
+    "goal": { "type": "string", "enum": ["wealth", "parenting", "learning", "health", "career"] },
+    "item": {
+      "type": "object",
+      "required": ["id", "n", "title", "category", "format", "durationMin", "languages", "goals", "impactScore", "why", "url", "platform"],
+      "properties": {
+        "id": { "type": "string" },
+        "n": { "type": "integer", "minimum": 1, "maximum": 15 },
+        "title": { "type": "string" },
+        "category": { "$ref": "#/$defs/category" },
+        "format": { "$ref": "#/$defs/format" },
+        "durationMin": { "type": "integer", "minimum": 1 },
+        "languages": { "type": "array", "items": { "$ref": "#/$defs/language" }, "minItems": 1 },
+        "goals": { "type": "array", "items": { "$ref": "#/$defs/goal" }, "minItems": 1 },
+        "impactScore": { "type": "integer", "minimum": 1, "maximum": 100 },
+        "why": { "type": "string" },
+        "evidence": { "type": "string" },
+        "indiaNote": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "platform": { "type": "string" }
+      }
+    },
+    "planRequest": {
+      "description": "POST /api/parent-feed/plan",
+      "type": "object",
+      "required": ["ageYears"],
+      "properties": {
+        "ageYears": { "type": "number", "minimum": 18, "maximum": 80 },
+        "interests": { "type": "array", "items": { "$ref": "#/$defs/category" } },
+        "goals": { "type": "array", "items": { "$ref": "#/$defs/goal" } },
+        "timeMode": { "type": "string", "enum": ["short", "long", "mixed"] },
+        "languages": { "type": "array", "items": { "$ref": "#/$defs/language" } },
+        "date": { "type": "string" },
+        "ratings": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "enum": [-1, 1] }
+        }
+      }
+    }
+  }
+}

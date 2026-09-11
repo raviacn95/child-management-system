@@ -45,12 +45,14 @@
     },
     "title": {
       "type": "object",
-      "required": ["id", "title", "year", "kind", "languages", "genres", "platformIds", "scores"],
+      "required": ["id", "title", "year", "kind", "originalLang", "languages", "genres", "platformIds", "scores"],
       "properties": {
         "id": { "type": "string" },
         "title": { "type": "string" },
         "year": { "type": "integer" },
         "kind": { "$ref": "#/$defs/kind" },
+        "originalLang": { "$ref": "#/$defs/lang", "description": "First-release language. Language chips filter on this, never on dubbed tracks." },
+        "storyId": { "type": "string", "description": "Shared remake/plot id so Drishyam and Papanasam are not listed as two originals." },
         "languages": { "type": "array", "items": { "$ref": "#/$defs/lang" }, "minItems": 1 },
         "genres": { "type": "array", "items": { "type": "string" } },
         "platformIds": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
@@ -67,9 +69,10 @@
         "shelf": { "$ref": "#/$defs/shelf", "default": "family" },
         "limit": { "type": "integer", "default": 100, "minimum": 1, "maximum": 150 },
         "languages": { "type": "array", "items": { "$ref": "#/$defs/lang" } },
+        "originalsOnly": { "type": "boolean", "default": true, "description": "When languages is set, keep originalLang matches only — no dubbed copies." },
         "kind": { "$ref": "#/$defs/kind" },
         "platformId": { "type": "string" },
-        "decade": { "type": "integer", "description": "e.g. 1990 for 1990–1999. Erotic shelf still backfills to 150." },
+        "decade": { "type": "integer", "description": "e.g. 1990 for 1990–1999. Does not pad with other decades or languages." },
         "weights": {
           "type": "object",
           "properties": {

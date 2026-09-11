@@ -38,10 +38,21 @@ describe('movie catalog scale', () => {
     }
   })
 
-  it('can bias to Malayalam and still fill 100', () => {
-    const out = recommendMovies({ limit: 100, languages: ['ml'], seed: 'ml-1' })
-    expect(out.count).toBe(100)
-    expect(out.titles.filter((t) => t.languages.includes('ml')).length).toBeGreaterThanOrEqual(40)
+  it('language chips keep original-language titles only — no dubbed remakes', () => {
+    const ml = recommendMovies({ limit: 100, languages: ['ml'], seed: 'ml-1' })
+    expect(ml.originalsOnly).toBe(true)
+    expect(ml.count).toBeGreaterThanOrEqual(50)
+    expect(ml.count).toBeLessThan(100)
+    expect(ml.titles.every((t) => t.originalLang === 'ml')).toBe(true)
+    expect(ml.titles.some((t) => t.id === 'papanasam')).toBe(false)
+    expect(ml.titles.some((t) => t.id === 'drishyam')).toBe(true)
+
+    const bn = recommendMovies({ shelf: 'erotic', limit: 150, languages: ['bn'], seed: 'bn-1' })
+    expect(bn.originalsOnly).toBe(true)
+    expect(bn.count).toBeGreaterThanOrEqual(10)
+    expect(bn.titles.every((t) => t.originalLang === 'bn')).toBe(true)
+    expect(bn.titles.some((t) => t.id === 'er-belle-de-jour')).toBe(false)
+    expect(bn.titles.some((t) => t.id === 'er-chokher-bali')).toBe(true)
   })
 
   it('erotic shelf returns 150 adult titles with official links and no family mix-in by default', () => {
@@ -52,8 +63,9 @@ describe('movie catalog scale', () => {
     expect(out.titles.every((t) => t.adult)).toBe(true)
     expect(out.titles.every((t) => t.genres.includes('erotic'))).toBe(true)
     expect(new Set(out.titles.map((t) => t.id)).size).toBe(150)
-    expect(out.titles.some((t) => t.languages.includes('ml'))).toBe(true)
-    expect(out.titles.some((t) => t.languages.includes('hi'))).toBe(true)
+    expect(out.originalsOnly).toBe(false)
+    expect(out.titles.some((t) => t.originalLang === 'ml')).toBe(true)
+    expect(out.titles.some((t) => t.originalLang === 'hi')).toBe(true)
     expect(out.titles.some((t) => t.year < 1980)).toBe(true)
     expect(out.titles.some((t) => t.year >= 2020)).toBe(true)
     for (const t of out.titles) {

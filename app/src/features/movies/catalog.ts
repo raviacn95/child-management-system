@@ -1,8 +1,26 @@
 import platformsJson from '../../data/streaming-platforms.json'
 import { MOVIE_ROWS, type MovieRow } from '../../data/movies-data'
 import { EROTIC_ROWS, type EroticRow } from '../../data/erotic-movies-data'
-import { platformSchema, titleSchema, type MovieLang, type MovieShelfKind, type MovieTitle } from './schema'
+import {
+  LANG_LABEL,
+  platformSchema,
+  titleSchema,
+  type MovieLang,
+  type MovieShelfKind,
+  type MovieTitle,
+} from './schema'
 import { z } from 'zod'
+
+/** Remake / shared-story clusters so we do not list the same plot twice as if it were two originals. */
+const STORY_ID: Record<string, string> = {
+  drishyam: 'drishyam-2013',
+  papanasam: 'drishyam-2013',
+  'drishyam-2': 'drishyam-2',
+  'er-arjun-reddy': 'arjun-reddy',
+  'er-kabir-singh': 'arjun-reddy',
+  'er-lady-chatterley-06': 'lady-chatterley',
+  'er-lady-chatterley-22': 'lady-chatterley',
+}
 
 export const platforms = z.array(platformSchema).min(50).parse(platformsJson.platforms)
 
@@ -30,6 +48,7 @@ function hydrate(rows: Array<MovieRow | EroticRow>, shelf: MovieShelfKind): Movi
         title: row[1],
         year: row[2],
         kind: row[3],
+        originalLang: langs[0],
         languages: langs,
         genres: split(row[5]),
         platformIds: platformList.length ? platformList : ['youtube', 'play', 'prime'],
@@ -37,6 +56,7 @@ function hydrate(rows: Array<MovieRow | EroticRow>, shelf: MovieShelfKind): Movi
         why: row[11],
         adult: shelf === 'erotic',
         shelf,
+        storyId: STORY_ID[row[0]],
       }),
     )
   }
@@ -55,12 +75,12 @@ export function fillSearchUrl(template: string, query: string) {
   return `${template}${sep}q=${encoded}`
 }
 
-export function watchQuery(movieTitle: string, year?: number) {
-  return [movieTitle.trim(), year].filter(Boolean).join(' ')
+export function watchQuery(movieTitle: string, year?: number, originalLang?: MovieLang) {
+  return [movieTitle.trim(), year, originalLang ? LANG_LABEL[originalLang] : null].filter(Boolean).join(' ')
 }
 
-export function watchUrl(platformId: string, movieTitle: string, year?: number) {
-  const query = watchQuery(movieTitle, year)
+export function watchUrl(platformId: string, movieTitle: string, year?: number, originalLang?: MovieLang) {
+  const query = watchQuery(movieTitle, year, originalLang)
   const p = platforms.find((x) => x.id === platformId)
   if (!p) return `https://www.youtube.com/results?search_query=${encodeURIComponent(`${query} movie`)}`
   return fillSearchUrl(p.searchUrl, query)
@@ -82,7 +102,7 @@ export function watchLinks(title: MovieTitle, opts?: { tv?: boolean; connectedId
     return {
       platformId: id,
       platformName: p?.name ?? id,
-      url: watchUrl(id, title.title, title.year),
+      url: watchUrl(id, title.title, title.year, title.originalLang),
     }
   })
 }
@@ -93,7 +113,7 @@ export function catalogStats() {
     platformCount: platforms.length,
     titleCount: titles.length,
     eroticTitleCount: eroticTitles.length,
-    malayalam: titles.filter((t) => t.languages.includes('ml')).length,
-    eroticMalayalam: eroticTitles.filter((t) => t.languages.includes('ml')).length,
+    malayalam: titles.filter((t) => t.originalLang === 'ml').length,
+    eroticMalayalam: eroticTitles.filter((t) => t.originalLang === 'ml').length,
   }
 }

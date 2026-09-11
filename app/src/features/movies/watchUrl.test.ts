@@ -4,10 +4,11 @@ import { fireTvIntent } from '../ott/fireTv'
 
 describe('official watch links', () => {
   it('puts the movie title into JioHotstar search, not a blank /search page', () => {
-    const url = watchUrl('hotstar', 'Drishyam', 2013)
+    const url = watchUrl('hotstar', 'Drishyam', 2013, 'ml')
     expect(url).toContain('jiohotstar.com')
     expect(url).toContain('search_query=Drishyam')
     expect(url).toContain('2013')
+    expect(decodeURIComponent(url)).toContain('Malayalam')
     expect(url).not.toMatch(/\/search$/)
   })
 

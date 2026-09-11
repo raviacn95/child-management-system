@@ -25,6 +25,29 @@ export const movieLangSchema = z.enum([
 export const movieKindSchema = z.enum(['movie', 'series'])
 export const movieShelfSchema = z.enum(['family', 'erotic'])
 
+export const LANG_LABEL: Record<z.infer<typeof movieLangSchema>, string> = {
+  en: 'English',
+  hi: 'Hindi',
+  ml: 'Malayalam',
+  ta: 'Tamil',
+  te: 'Telugu',
+  kn: 'Kannada',
+  bn: 'Bengali',
+  mr: 'Marathi',
+  pa: 'Punjabi',
+  fr: 'French',
+  es: 'Spanish',
+  it: 'Italian',
+  ja: 'Japanese',
+  ko: 'Korean',
+  de: 'German',
+  zh: 'Chinese',
+  sv: 'Swedish',
+  da: 'Danish',
+  pl: 'Polish',
+  pt: 'Portuguese',
+}
+
 export const platformSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -45,6 +68,7 @@ export const titleSchema = z.object({
   title: z.string(),
   year: z.number().int(),
   kind: movieKindSchema,
+  originalLang: movieLangSchema,
   languages: z.array(movieLangSchema).min(1),
   genres: z.array(z.string()),
   platformIds: z.array(z.string()).min(1),
@@ -52,6 +76,7 @@ export const titleSchema = z.object({
   why: z.string(),
   adult: z.boolean().optional().default(false),
   shelf: movieShelfSchema.optional(),
+  storyId: z.string().optional(),
 })
 
 export const watchLinkSchema = z.object({
@@ -70,6 +95,7 @@ export const movieRecommendRequestSchema = z.object({
   shelf: movieShelfSchema.optional(),
   limit: z.number().int().min(1).max(150).optional(),
   languages: z.array(movieLangSchema).optional(),
+  originalsOnly: z.boolean().optional(),
   kind: movieKindSchema.optional(),
   platformId: z.string().optional(),
   decade: z.number().int().optional(),
@@ -88,12 +114,13 @@ export const movieRecommendRequestSchema = z.object({
 })
 
 export const movieRecommendResponseSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
+  schemaVersion: z.literal('1.1.0'),
   generatedAt: z.string(),
   seed: z.string(),
   platformCount: z.number(),
   totalCatalog: z.number(),
   count: z.number(),
+  originalsOnly: z.boolean(),
   titles: z.array(rankedTitleSchema),
   safeguards: z.array(z.string()),
 })

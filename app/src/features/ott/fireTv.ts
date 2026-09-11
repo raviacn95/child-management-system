@@ -1,4 +1,5 @@
 import { watchUrl } from '../movies/catalog'
+import type { MovieLang } from '../movies/schema'
 
 /** Native Fire TV / Android TV packages. Playback stays in the official app (already logged in on the Stick). */
 export const FIRE_TV_PACKAGES: Record<string, string> = {
@@ -21,9 +22,9 @@ export const FIRE_TV_PACKAGES: Record<string, string> = {
   appletv: 'com.apple.atve.amazon.appletv',
 }
 
-export function fireTvIntent(platformId: string, movieTitle?: string, year?: number) {
+export function fireTvIntent(platformId: string, movieTitle?: string, year?: number, originalLang?: MovieLang) {
   const pkg = FIRE_TV_PACKAGES[platformId]
-  const web = watchUrl(platformId, movieTitle || platformId, year)
+  const web = watchUrl(platformId, movieTitle || platformId, year, originalLang)
   if (!pkg) return web
   const fallback = encodeURIComponent(web)
   try {

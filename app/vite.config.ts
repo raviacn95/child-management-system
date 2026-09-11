@@ -60,7 +60,7 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        cacheId: 'willow-live-ott-v2',
+        cacheId: 'willow-live-ott-v3',
         globPatterns: ['**/*.{js,css,html,svg,woff2,json,png}'],
         globIgnores: ['**/releases/**', '**/*.apk'],
         navigateFallback: 'index.html',

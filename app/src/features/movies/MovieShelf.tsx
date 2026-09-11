@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ExternalLink, RefreshCw } from 'lucide-react'
 import { Badge, Button, Field, inputClass } from '../../components/ui'
 import { platforms, recommendMovies } from './recommend'
-import type { MovieKind, MovieLang, MovieShelfKind } from './schema'
+import { LANG_LABEL, type MovieKind, type MovieLang, type MovieShelfKind } from './schema'
 import { useStore } from '../../store'
 import { isTvMode } from '../../lib/tv'
 import { fireTvIntent } from '../ott/fireTv'
@@ -16,6 +16,7 @@ const FAMILY_LANGS: { id: MovieLang | 'all'; label: string }[] = [
   { id: 'ta', label: 'Tamil' },
   { id: 'te', label: 'Telugu' },
   { id: 'kn', label: 'Kannada' },
+  { id: 'bn', label: 'Bengali' },
 ]
 
 const EROTIC_LANGS: { id: MovieLang | 'all'; label: string }[] = [
@@ -54,7 +55,7 @@ export function MovieShelf({
     .join(',')
   const limit = erotic ? 150 : 100
   const langs = erotic ? EROTIC_LANGS : FAMILY_LANGS
-  const [lang, setLang] = useState<MovieLang | 'all'>(erotic ? 'all' : 'ml')
+  const [lang, setLang] = useState<MovieLang | 'all'>('all')
   const [kind, setKind] = useState<MovieKind | 'all'>('all')
   const [platformId, setPlatformId] = useState('')
   const [decade, setDecade] = useState<number | 'all'>('all')
@@ -78,6 +79,7 @@ export function MovieShelf({
       shelf,
       limit,
       languages: lang === 'all' ? undefined : [lang],
+      originalsOnly: lang !== 'all',
       kind: kind === 'all' ? undefined : kind,
       platformId: platformId || undefined,
       decade: decade === 'all' ? undefined : decade,
@@ -88,6 +90,11 @@ export function MovieShelf({
     })
   }, [shelf, limit, lang, kind, platformId, decade, sort, seed, erotic, tv, connectedKey])
 
+  const langLabel = lang === 'all' ? null : LANG_LABEL[lang]
+  const countLine = langLabel
+    ? `Showing ${result.count} original ${langLabel} titles`
+    : `Showing ${result.count} titles`
+
   return (
     <section className={compact ? '' : 'mt-10'} data-testid={erotic ? 'erotic-shelf' : 'movie-shelf'}>
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
@@ -96,8 +103,9 @@ export function MovieShelf({
             <h2 className="font-display text-2xl">{erotic ? '150 erotic titles (18+)' : '100 movies & series'}</h2>
           )}
           <p className={`${compact ? '' : 'mt-1 '}text-sm text-muted`}>
-            {result.platformCount} official storefronts · catalog {result.totalCatalog} · ranked by critics, audience,
-            YouTube{erotic ? ', Instagram and erotic heat' : ' and Instagram heat'}. New {limit} each refresh.
+            {result.platformCount} official storefronts · catalog {result.totalCatalog} · ranked by critic/audience
+            agreement, hidden gems and diversity{erotic ? ', plus erotic heat' : ''}. A language chip is originals only —
+            no dubbed copies.
           </p>
         </div>
         <Button onClick={() => setSeed(`live-${Date.now()}`)} aria-label={`Shuffle ${limit} titles`}>
@@ -112,6 +120,11 @@ export function MovieShelf({
           </Button>
         ))}
       </div>
+      {langLabel ? (
+        <p className="mb-4 text-xs font-semibold text-pine" data-testid="originals-only">
+          Original {langLabel} only — remakes and dubbed copies of the same story are hidden.
+        </p>
+      ) : null}
       {erotic ? (
         <div className="mb-4 flex flex-wrap gap-2">
           <Button variant={decade === 'all' ? 'primary' : 'ghost'} onClick={() => setDecade('all')}>
@@ -135,7 +148,7 @@ export function MovieShelf({
         <Field label="Rank by">
           <select className={inputClass} value={sort} onChange={(e) => setSort(e.target.value as typeof sort)}>
             {erotic ? <option value="erotic">Erotic / nude heat first</option> : null}
-            <option value="mix">Critics + YT + Insta mix</option>
+            <option value="mix">Taste + diversity mix</option>
             <option value="critic">Critics first</option>
             <option value="youtube">YouTube recs</option>
             <option value="instagram">Instagram recs</option>
@@ -154,7 +167,7 @@ export function MovieShelf({
       </div>
 
       <p className="mb-3 text-xs text-muted" data-testid={erotic ? 'erotic-count' : 'movie-count'}>
-        Showing {result.count} titles · seed {result.seed}
+        {countLine} · seed {result.seed}
       </p>
       <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         {result.titles.map((t, i) => (
@@ -163,10 +176,10 @@ export function MovieShelf({
               <h3 className="font-semibold">
                 {i + 1}. {t.title}
               </h3>
-              <Badge tone={erotic ? 'clay' : t.languages.includes('ml') ? 'pine' : 'sand'}>{t.kind}</Badge>
+              <Badge tone={erotic ? 'clay' : t.originalLang === 'ml' ? 'pine' : 'sand'}>{t.kind}</Badge>
             </div>
             <p className="mt-1 text-xs text-muted">
-              {t.year} · {t.languages.join(', ')} · {t.genres.slice(0, 2).join(', ')}
+              {t.year} · Original {LANG_LABEL[t.originalLang]} · {t.genres.slice(0, 2).join(', ')}
             </p>
             <p className="mt-2 text-sm">{t.why}</p>
             <p className="mt-1 text-xs text-pine">
@@ -177,7 +190,7 @@ export function MovieShelf({
                 <a
                   key={w.platformId}
                   className="rounded-lg border border-line px-2 py-1 text-xs font-semibold text-pine hover:border-pine"
-                  href={tv ? fireTvIntent(w.platformId, t.title, t.year) : w.url}
+                  href={tv ? fireTvIntent(w.platformId, t.title, t.year, t.originalLang) : w.url}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -209,7 +222,8 @@ export function MovieShelfPanel() {
         </Link>
       </div>
       <p className="text-xs text-muted">
-        Malayalam-first mix across Prime, Google Movies, SonyLIV and 50+ official channels. Shuffle a new 100 anytime.
+        Original-language shelf across Prime, Google Movies, SonyLIV and 50+ official channels. Pick Malayalam or
+        Bengali and you only get that cinema — not dubbed copies.
       </p>
     </section>
   )

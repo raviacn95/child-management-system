@@ -1,7 +1,8 @@
 {
-  "id": "90c5d29a27dd0e609f56e391070a102076153c51",
-  "run": 21,
-  "builtAt": "2026-09-12T09:12:44.792Z",
+  "id": "80e4ea2a452abaeb985cbbc8a5fd96a142779bdc",
+  "run": 28,
+  "builtAt": "2026-09-12T10:32:14.217Z",
   "channel": "live",
-  "fallback": "previous"
+  "fallback": "previous",
+  "integrity": "sha256:a9505fb414ffb8de41610d850b71498533b5a8780ad62fa1d3ac85664e8aa3fc"
 }

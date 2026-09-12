@@ -4,6 +4,10 @@ import { spawnSync } from 'node:child_process'
 
 const root = process.cwd()
 const android = join(root, 'android')
+spawnSync(process.execPath, [join(root, 'scripts/strip-android-compressed-assets.mjs')], {
+  cwd: root,
+  stdio: 'inherit',
+})
 const gradlew = process.platform === 'win32' ? 'gradlew.bat' : './gradlew'
 const result = spawnSync(gradlew, ['assembleDebug', '--no-daemon'], {
   cwd: android,

@@ -28,9 +28,9 @@ export function siteAssetUrl(relativePath: string, fromHref?: string) {
 }
 
 export function apkDownloadUrl() {
-  return APK_RELEASE_URL
+  return `${LIVE_SITE}${APK_FILE}`
 }
 
 export function apkTvDownloadUrl() {
-  return APK_TV_RELEASE_URL
+  return `${LIVE_SITE}downloads/${APK_TV_FILENAME}`
 }

@@ -37,15 +37,27 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: android-actions/setup-android@v3
-      - name: Assemble Android APK
+        with:
+          packages: tools platform-tools platforms;android-36 build-tools;35.0.0
+      - name: Point Gradle at the Android SDK
+        working-directory: app/android
+        run: |
+          test -n "$ANDROID_SDK_ROOT"
+          printf 'sdk.dir=%s\n' "$ANDROID_SDK_ROOT" > local.properties
+          cat local.properties
+      - name: Sync Capacitor Android project
         working-directory: app
         env:
           WILLOW_LIVE_SHELL: '1'
         run: |
           npx cap sync android
-          cd android
+          node scripts/strip-android-compressed-assets.mjs
+      - name: Assemble Android APK
+        working-directory: app/android
+        continue-on-error: true
+        run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --no-daemon --stacktrace
       - name: Keep previous live release for crash fallback
         continue-on-error: true
         working-directory: .
@@ -59,10 +71,14 @@ jobs:
         working-directory: .
         run: |
           mkdir -p app/dist/downloads
-          APK=app/android/app/build/outputs/apk/debug/app-debug.apk
-          test -s "$APK"
-          cp -f "$APK" app/dist/downloads/willow.apk
-          cp -f "$APK" app/dist/downloads/willow-movies.apk
+          BUILT=app/android/app/build/outputs/apk/debug/app-debug.apk
+          CHECKED=app/public/downloads/willow.apk
+          if [ -s "$BUILT" ]; then SRC="$BUILT"
+          elif [ -s "$CHECKED" ]; then SRC="$CHECKED"
+          else echo "No willow.apk was built or checked in"; exit 1
+          fi
+          cp -f "$SRC" app/dist/downloads/willow.apk
+          cp -f "$SRC" app/dist/downloads/willow-movies.apk
           printf 'releases/\n*.map\n' > app/dist/.gitignore
           ls -lh app/dist/downloads
       - uses: softprops/action-gh-release@v2

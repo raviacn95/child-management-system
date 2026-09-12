@@ -42,6 +42,10 @@ Anyone can open **Get the app** without signing in: [/#/get-app](https://raviacn
 
 Direct phone APK after each site deploy:
 
+`https://raviacn95.github.io/child-management-system/downloads/willow.apk`
+
+GitHub Releases copy:
+
 `https://github.com/raviacn95/child-management-system/releases/latest/download/willow.apk`
 
 On a Stick, the Downloader app can fetch that address if Silk blocks the file. Enable apps from unknown sources if Fire OS asks.

@@ -27,7 +27,7 @@ test('phone get-the-app offers willow.apk and never a desktop launcher', async (
   await expect(page.getByTestId('phone-apk-download')).toBeVisible()
   await expect(page.getByTestId('phone-apk-download')).toHaveAttribute(
     'href',
-    'https://github.com/raviacn95/child-management-system/releases/latest/download/willow.apk',
+    'https://raviacn95.github.io/child-management-system/downloads/willow.apk',
   )
   await expect(page.getByTestId('phone-apk-download')).toContainText('Download Willow.apk')
   await expect(page.getByTestId('pwa-install')).toHaveCount(0)

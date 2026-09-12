@@ -2,7 +2,7 @@ import { Download, Monitor, Smartphone, Sparkles, Tv } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../components/ui'
-import { apkDownloadUrl, apkTvDownloadUrl, LIVE_SITE } from '../features/install/assets'
+import { APK_RELEASE_URL, apkDownloadUrl, apkTvDownloadUrl, LIVE_SITE } from '../features/install/assets'
 import { installSurface, isIosSafari, prefersApkInstall } from '../features/install/detect'
 import { useInstallPrompt } from '../features/install/InstallProvider'
 import { downloadLiveLauncher, launchPlan, openLiveAppWindow } from '../features/install/launcher'
@@ -84,10 +84,11 @@ export function GetApp() {
             Download Willow.apk
           </a>
           <p className="mt-3 break-all font-mono text-[11px] text-muted">{apkHref}</p>
+          <p className="mt-1 break-all font-mono text-[11px] text-muted">{APK_RELEASE_URL}</p>
           {apkReady === false ? (
             <p className="mt-2 text-xs text-clay">
-              The APK publishes with each site release. If Install fails, open the file from Downloads and allow
-              unknown apps for Chrome / Files.
+              If this link is not ready yet, use the GitHub Releases copy below after the site finishes publishing.
+              Then open the .apk from Downloads — never a Willow-Live-App text file.
             </p>
           ) : null}
           <ol className="mt-4 list-decimal space-y-1 pl-5 text-xs text-muted">

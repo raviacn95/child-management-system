@@ -57,6 +57,11 @@ test('settings can drop a stuck live cache', async ({ page }) => {
   await expect(page.getByTestId('update-source-status')).toContainText(/official source|local Willow/i)
   await expect(page).toHaveURL(/#\/settings/)
   await expect(page.getByTestId('affiliate-settings')).toBeVisible()
+  await expect(page.getByTestId('aff-site')).toContainText('raviacn95.github.io/child-management-system')
+  await expect(page.getByTestId('aff-apply').getByRole('link', { name: /Flipkart/i })).toHaveAttribute(
+    'href',
+    'https://affiliate.flipkart.com/',
+  )
   await page.getByTestId('aff-flipkart').fill('willowfk')
   await page.getByTestId('aff-amazon').fill('willowcare-21')
   await page.getByTestId('aff-save').click()

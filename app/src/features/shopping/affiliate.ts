@@ -10,6 +10,13 @@ export type AffiliateIds = {
   admitadCode: string
 }
 
+export const AFFILIATE_PROGRAMS = [
+  { id: 'flipkart', name: 'Flipkart Affiliate', href: 'https://affiliate.flipkart.com/' },
+  { id: 'amazon', name: 'Amazon Associates', href: 'https://affiliate-program.amazon.in/' },
+  { id: 'meesho', name: 'Meesho / Cuelinks', href: 'https://www.cuelinks.com/' },
+  { id: 'admitad', name: 'Admitad (Myntra, Nykaa)', href: 'https://www.admitad.com/' },
+] as const
+
 export const EMPTY_AFFILIATE_IDS: AffiliateIds = {
   flipkartAffid: '',
   amazonTag: '',

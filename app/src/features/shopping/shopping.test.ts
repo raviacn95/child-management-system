@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { AFFILIATE_KEY, applyAffiliate, sanitizeAffiliateId, writeAffiliateIds } from './affiliate'
+import { AFFILIATE_KEY, AFFILIATE_PROGRAMS, applyAffiliate, sanitizeAffiliateId, writeAffiliateIds } from './affiliate'
 import { matchingMartIds, packRequiredBaskets, tripHasPii } from './baskets'
 import { launchOfficialShop } from './launch'
 import { publicShopInput } from './privacy'
@@ -20,6 +20,15 @@ const baseInput = publicShopInput({
 describe('kids shopping aggregator', () => {
   beforeEach(() => {
     localStorage.removeItem(AFFILIATE_KEY)
+  })
+
+  it('points apply buttons at official affiliate programs only', () => {
+    expect(AFFILIATE_PROGRAMS.map((p) => p.href)).toEqual([
+      'https://affiliate.flipkart.com/',
+      'https://affiliate-program.amazon.in/',
+      'https://www.cuelinks.com/',
+      'https://www.admitad.com/',
+    ])
   })
 
   it('keeps only official HTTPS storefronts', () => {

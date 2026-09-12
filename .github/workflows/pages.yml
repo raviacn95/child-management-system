@@ -37,8 +37,7 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: android-actions/setup-android@v3
-      - name: Assemble Fire Stick APK
-        continue-on-error: true
+      - name: Assemble Android APK
         working-directory: app
         env:
           WILLOW_LIVE_SHELL: '1'
@@ -57,29 +56,22 @@ jobs:
           rsync -a --delete --exclude 'releases' /tmp/willow-prev/ app/dist/releases/previous/
           printf '{"fallback":"previous"}\n' > app/dist/release.json
       - name: Publish phone and Fire Stick APKs into the live site
-        continue-on-error: true
         working-directory: .
         run: |
           mkdir -p app/dist/downloads
-          APK=$(find app/android -name 'app-debug.apk' | head -n 1)
-          if [ -z "$APK" ]; then
-            echo "No APK produced"
-            find app/android -name '*.apk' || true
-            exit 0
-          fi
+          APK=app/android/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
           cp -f "$APK" app/dist/downloads/willow.apk
           cp -f "$APK" app/dist/downloads/willow-movies.apk
-          printf '*\n!downloads/\n!downloads/**\n' > app/dist/.gitignore
+          printf 'releases/\n*.map\n' > app/dist/.gitignore
           ls -lh app/dist/downloads
       - uses: softprops/action-gh-release@v2
-        continue-on-error: true
         with:
           tag_name: willow-live-${{ github.run_number }}
           name: Willow live ${{ github.run_number }}
-          files: |
-            app/dist/downloads/willow.apk
-            app/dist/downloads/willow-movies.apk
+          files: app/dist/downloads/willow.apk,app/dist/downloads/willow-movies.apk
           make_latest: true
+          fail_on_unmatched_files: true
           body: |
             Android phone APK: willow.apk (install like any app).
             Fire Stick copy: willow-movies.apk (same binary).
@@ -91,3 +83,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: app/dist
           force_orphan: false
+          exclude_assets: ''

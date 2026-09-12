@@ -8,7 +8,7 @@ export function LookPicker({ compact = false }: { compact?: boolean }) {
 
   return (
     <div
-      className={compact ? 'grid grid-cols-3 gap-2' : 'grid gap-3 sm:grid-cols-3'}
+      className={compact ? 'grid grid-cols-2 gap-2 sm:grid-cols-4' : 'grid gap-3 sm:grid-cols-2 lg:grid-cols-4'}
       data-testid="look-picker"
       onMouseLeave={() => setLook(committed, { persist: false })}
     >

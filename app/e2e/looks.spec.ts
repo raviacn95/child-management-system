@@ -9,4 +9,6 @@ test('login offers three UI looks and applies them', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('data-look', 'harbor')
   await page.getByTestId('look-grove').click()
   await expect(page.locator('html')).toHaveAttribute('data-look', 'grove')
+  await page.getByTestId('look-arcade').click()
+  await expect(page.locator('html')).toHaveAttribute('data-look', 'arcade')
 })

@@ -1,7 +1,7 @@
 import { getLearningPacks } from '../learning/learningPacks'
 import { recommendMovies } from '../movies/recommend'
 import { catalog as parentCatalog } from '../parent-feed/plan'
-import type { LookId } from '../../theme/looks'
+import { lookLead, type LookId } from '../../theme/looks'
 import type { ResumeCard } from './profile'
 
 export type HubTile = {
@@ -23,7 +23,7 @@ export function weeklyDigest(input: { present: number; enrolled: number; look: L
   const kids = input.childNames.slice(0, 3).join(', ') || 'your children'
   return [
     `${input.present} of ${input.enrolled} children are on site today.`,
-    `This week lead with ${input.look === 'cinema' ? 'family movies' : input.look === 'harbor' ? 'reports and ratios' : 'care and learning'} for ${kids}.`,
+    `This week lead with ${lookLead(input.look)} for ${kids}.`,
     'Learning Tonight, Parenting Tips, and Finance Friday are ready on the Household Hub.',
   ]
 }
@@ -142,9 +142,15 @@ export function buildHub(input: {
   const order: HubRow[] =
     input.look === 'cinema'
       ? [continueRow, movieRow, learningRow, parentRow, financeRow]
-      : input.look === 'harbor'
+      : input.look === 'harbor' || input.look === 'pulse'
         ? [continueRow, reportsRow, parentRow, learningRow, movieRow]
-        : [continueRow, careRow, learningRow, movieRow, parentRow, financeRow]
+        : input.look === 'arcade'
+          ? [continueRow, learningRow, movieRow, parentRow, careRow]
+          : input.look === 'atelier'
+            ? [continueRow, parentRow, financeRow, careRow, learningRow]
+            : input.look === 'rang'
+              ? [continueRow, movieRow, parentRow, learningRow, financeRow]
+              : [continueRow, careRow, learningRow, movieRow, parentRow, financeRow]
 
   return order.filter((row) => row.tiles.length > 0)
 }

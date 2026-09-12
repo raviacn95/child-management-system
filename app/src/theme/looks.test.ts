@@ -10,9 +10,12 @@ describe('UI looks', () => {
     expect(migrateLook('harbor')).toBe('harbor')
   })
 
-  it('cycles Grove → Cinema → Harbor', () => {
+  it('cycles the seven Willow looks', () => {
     expect(nextLook('grove')).toBe('cinema')
     expect(nextLook('cinema')).toBe('harbor')
-    expect(nextLook('harbor')).toBe('grove')
+    expect(nextLook('harbor')).toBe('atelier')
+    expect(nextLook('rang')).toBe('grove')
+    expect(migrateLook('arcade')).toBe('arcade')
+    expect(migrateLook('pulse')).toBe('pulse')
   })
 })

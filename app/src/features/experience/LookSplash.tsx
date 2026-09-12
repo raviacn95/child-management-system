@@ -4,6 +4,10 @@ const COPY: Record<string, string> = {
   grove: 'Care, tonight',
   cinema: 'Family night',
   harbor: 'The desk is ready',
+  atelier: 'Quiet focus',
+  arcade: 'Play and learn',
+  pulse: 'Read the room',
+  rang: 'Celebrate together',
 }
 
 export function LookSplash() {

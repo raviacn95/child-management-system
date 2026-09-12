@@ -40,6 +40,7 @@ import { packOf } from '../data/country'
 import { useStore } from '../store'
 import { Avatar, Badge } from './ui'
 import { ThemeToggle } from './ThemeToggle'
+import { ShareButton } from '../features/share/ShareSheet'
 
 const NAV = [
   { to: '/hub', key: 'hub', label: 'Tonight', icon: MonitorPlay },
@@ -218,6 +219,7 @@ export function Layout() {
             >
               <Search size={16} />
             </button>
+            <ShareButton />
             <NavLink
               to="/get-app"
               onMouseEnter={() => prefetchRoute('/get-app')}

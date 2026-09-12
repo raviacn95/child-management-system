@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { ShareButton } from '../features/share/ShareSheet'
 import { PageHead } from '../components/ui'
 import { buildHub, weeklyDigest } from '../features/experience/buildHub'
 import { useExperience } from '../features/experience/ExperienceProvider'
@@ -74,9 +75,12 @@ export function HubPage() {
         title="Household Hub"
         subtitle={`${user.name.split(' ')[0]} · ${look} look · kids’ learning, parent growth, and family movies`}
         actions={
-          <button type="button" className="rounded-xl border border-line bg-paper px-3 py-2 text-sm font-semibold" onClick={speakDigest}>
-            Hear this week
-          </button>
+          <div className="flex flex-wrap gap-2">
+            <ShareButton className="px-3 py-2 text-sm" />
+            <button type="button" className="rounded-xl border border-line bg-paper px-3 py-2 text-sm font-semibold" onClick={speakDigest}>
+              Hear this week
+            </button>
+          </div>
         }
       />
       <p className="mb-6 max-w-2xl text-sm text-muted" data-testid="weekly-digest">

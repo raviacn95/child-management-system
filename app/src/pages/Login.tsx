@@ -1,6 +1,8 @@
 import { Download, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { BrandRights } from '../components/BrandRights'
 import { LookPicker } from '../components/LookPicker'
+import { ShareButton } from '../features/share/ShareSheet'
 import { LoginForm } from '../features/auth/LoginForm'
 
 export function Login() {
@@ -12,7 +14,7 @@ export function Login() {
         <div className="relative">
           <div className="flex items-center gap-2">
             <Sparkles />
-            <span className="font-display text-2xl">Willow</span>
+            <span className="font-display text-2xl">Willow™</span>
           </div>
           <h1 className="font-display mt-16 max-w-md text-5xl leading-tight font-semibold">
             One system for the Indian childhood day.
@@ -38,7 +40,10 @@ export function Login() {
           <p className="font-display text-3xl font-semibold">Welcome back</p>
           <p className="mt-1 text-sm text-muted">Demo password for every account is `demo`.</p>
           <div className="mt-5">
-            <p className="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Choose a look</p>
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <p className="text-xs font-semibold tracking-wide text-muted uppercase">Choose a Willow look</p>
+              <ShareButton />
+            </div>
             <LookPicker compact />
           </div>
           <Link
@@ -53,6 +58,7 @@ export function Login() {
             <Download className="text-pine" size={18} />
           </Link>
           <LoginForm />
+          <BrandRights className="mt-6" />
         </div>
       </section>
     </div>

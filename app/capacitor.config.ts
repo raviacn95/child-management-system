@@ -13,7 +13,7 @@ const config: CapacitorConfig = {
 
 if (process.env.WILLOW_LIVE_SHELL === '1') {
   config.server = {
-    url: `${LIVE_SITE}?v=hub1`,
+    url: `${LIVE_SITE}?v=themes2`,
     androidScheme: 'https',
     allowNavigation: [
       'raviacn95.github.io',

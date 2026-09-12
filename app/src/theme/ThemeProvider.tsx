@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { detectFireTv } from '../lib/tv'
-import { LOOKS, migrateLook, nextLook, type LookId } from './looks'
+import { LOOKS, isDarkLook, migrateLook, nextLook, type LookId } from './looks'
+import { applySeason } from './season'
 
 export type ThemeChoice = LookId
 export { LOOKS, type LookId }
@@ -22,7 +23,7 @@ interface ThemeApi {
 const Ctx = createContext<ThemeApi | null>(null)
 
 function schemeOf(look: LookId): 'light' | 'dark' {
-  return look === 'cinema' ? 'dark' : 'light'
+  return isDarkLook(look) ? 'dark' : 'light'
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -41,6 +42,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.dataset.look = look
     document.documentElement.dataset.theme = resolved
     document.documentElement.style.colorScheme = resolved
+    applySeason()
   }, [look, resolved])
 
   useEffect(() => {

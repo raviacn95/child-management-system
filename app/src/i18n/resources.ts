@@ -1,5 +1,5 @@
 export const en = {
-  brand: 'Willow',
+  brand: 'Willow™',
   tagline: 'Childcare OS',
   nav: {
     dashboard: 'Home',
@@ -67,10 +67,15 @@ export const en = {
     grove: 'Grove',
     cinema: 'Cinema',
     harbor: 'Harbor',
+    atelier: 'Atelier',
+    arcade: 'Arcade',
+    pulse: 'Pulse',
+    rang: 'Rang',
   },
   common: {
     signOut: 'Sign out',
     notifications: 'Notifications',
+    share: 'Share',
   },
 }
 
@@ -143,10 +148,15 @@ export const hi = {
     grove: 'ग्रोव',
     cinema: 'सिनेमा',
     harbor: 'हार्बर',
+    atelier: 'एटेलियर',
+    arcade: 'आर्केड',
+    pulse: 'पल्स',
+    rang: 'रंग',
   },
   common: {
     signOut: 'साइन आउट',
     notifications: 'सूचनाएँ',
+    share: 'शेयर',
   },
 }
 

@@ -8,6 +8,7 @@ import { CommandPalette } from './CommandPalette'
 import { LookSplash } from './LookSplash'
 import { OfflineBanner } from './OfflineBanner'
 import { PinLock } from './PinLock'
+import { ShareSheet } from '../share/ShareSheet'
 import {
   applyChrome,
   hasProfile,
@@ -118,6 +119,7 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
       <PinLock />
       <OfflineBanner />
       <CommandPalette />
+      <ShareSheet />
     </Ctx.Provider>
   )
 }

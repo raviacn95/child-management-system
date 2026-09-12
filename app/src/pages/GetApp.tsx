@@ -1,7 +1,9 @@
 import { Download, Monitor, Smartphone, Sparkles, Tv } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BrandRights } from '../components/BrandRights'
 import { LookPicker } from '../components/LookPicker'
+import { ShareButton } from '../features/share/ShareSheet'
 import { Button } from '../components/ui'
 import { APK_RELEASE_URL, apkDownloadUrl, apkTvDownloadUrl, LIVE_SITE } from '../features/install/assets'
 import { installSurface, isIosSafari, prefersApkInstall } from '../features/install/detect'
@@ -53,11 +55,14 @@ export function GetApp() {
       <header className="flex items-center justify-between border-b border-line px-6 py-4">
         <div className="flex items-center gap-2 text-pine">
           <Sparkles size={20} />
-          <span className="font-display text-xl font-semibold">Willow</span>
+          <span className="font-display text-xl font-semibold">Willow™</span>
         </div>
-        <Link className="text-sm font-semibold text-pine" to={signedIn ? homePath() : '/login'}>
-          {signedIn ? 'Open Willow →' : 'Sign in →'}
-        </Link>
+        <div className="flex items-center gap-3">
+          <ShareButton />
+          <Link className="text-sm font-semibold text-pine" to={signedIn ? homePath() : '/login'}>
+            {signedIn ? 'Open Willow →' : 'Sign in →'}
+          </Link>
+        </div>
       </header>
 
       <main className="mx-auto max-w-4xl px-6 py-10">
@@ -68,8 +73,8 @@ export function GetApp() {
           same APK on the Apps row.
         </p>
         <div className="card mt-6 p-5">
-          <p className="text-xs font-semibold tracking-wide text-muted uppercase">Three looks · same data</p>
-          <h2 className="font-display mt-1 text-xl font-semibold">Grove, Cinema, or Harbor</h2>
+          <p className="text-xs font-semibold tracking-wide text-muted uppercase">Seven looks · Willow mark only</p>
+          <h2 className="font-display mt-1 text-xl font-semibold">Seven Willow looks</h2>
           <p className="mt-1 text-sm text-muted">
             Hover to preview, click to save. Fire Stick opens the Household Hub — kids’ learning, parent growth, and
             family movies.
@@ -174,8 +179,9 @@ export function GetApp() {
         </div>
 
         <p className="mt-6 text-xs text-muted">
-          Same Willow for everyone — directors, teachers, parents, phones, and living-room TVs. Website: {LIVE_SITE}
+          Same Willow™ for everyone — directors, teachers, parents, phones, and living-room TVs. Website: {LIVE_SITE}
         </p>
+        <BrandRights className="mt-3" />
       </main>
     </div>
   )

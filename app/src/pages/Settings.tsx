@@ -42,8 +42,9 @@ export function SettingsPage() {
         <div className="card p-5 md:col-span-3">
           <h2 className="font-display text-xl">{t('settings.appearance')}</h2>
           <p className="mt-1 text-sm text-muted">
-            Hover or focus a look to preview. Click to save it on this profile — Grove, Cinema, and Harbor stay in sync
-            on Windows, phone, and Fire Stick after the next Pages deploy.
+            Seven original Willow looks — Grove, Cinema, Harbor, Atelier, Arcade, Pulse, and Rang. Hover to preview.
+            Click to save on this profile. Festival light (Diwali, Holi, Pongal, Christmas) layers on automatically.
+            These marks are Willow’s, not Netflix, Apple, or Spotify.
           </p>
           <div className="mt-4">
             <LookPicker />
@@ -148,6 +149,10 @@ export function SettingsPage() {
           <a className="mt-2 inline-block text-sm font-semibold text-pine" href="./privacy.html">
             Privacy notice →
           </a>
+          <p className="mt-3 text-xs leading-relaxed text-muted">
+            Willow™ and this complete repository are proprietary to the rights holder. Share cards on WhatsApp and
+            Facebook carry only the Willow mark — never child records.
+          </p>
           <p className="mt-2 text-xs text-muted">Production builds inject a CSP meta tag. Dev keeps HMR unblocked.</p>
           <p className="mt-2 font-mono text-[10px] leading-relaxed break-all text-muted">{PRODUCTION_CSP}</p>
         </div>

@@ -7,5 +7,8 @@ describe('previous live release', () => {
       'https://raviacn95.github.io/child-management-system/releases/previous/',
     )
     expect(isPreviousRelease('https://raviacn95.github.io/child-management-system/releases/previous/#/')).toBe(true)
+    expect(previousReleaseUrl('https://evil.example/#/movies')).toBe(
+      'https://raviacn95.github.io/child-management-system/releases/previous/',
+    )
   })
 })

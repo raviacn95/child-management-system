@@ -88,8 +88,9 @@ export function GetApp() {
           <Smartphone className="text-pine" />
           <h2 className="font-display mt-3 text-2xl font-semibold">Android phone or tablet</h2>
           <p className="mt-2 text-sm text-muted">
-            Download the APK, open the file, tap Install. After that, tap <strong>Update</strong> in the app header
-            when Willow has a newer website — do not uninstall. Child records stay on the phone.
+            Download the APK, open the file, tap Install. After that, tap <strong>Update</strong> in the app — it
+            checks the official Willow source and updates only if this copy is behind. Do not uninstall. Child records
+            stay on the phone.
           </p>
           <a
             className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-pine px-3.5 py-2 text-base font-semibold text-white hover:bg-[#175c4b]"
@@ -119,8 +120,9 @@ export function GetApp() {
         <section className="card mt-4 p-6" data-testid="update-instead">
           <h2 className="font-display text-2xl font-semibold">Already installed? Update</h2>
           <p className="mt-2 text-sm text-muted">
-            Do not uninstall or download the APK again. Open Willow and tap <strong>Update</strong>. If the phone is
-            stuck on an old screen, use Update now once. Child records stay on this device.
+            Do not uninstall or download the APK again. Open Willow and tap <strong>Update</strong> — it checks the
+            official source and applies a newer build only from there. If the phone is stuck on an old screen, use
+            Update now once. Child records stay on this device.
           </p>
           <a
             className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-line px-3.5 py-2 text-base font-semibold"

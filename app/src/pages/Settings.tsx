@@ -14,7 +14,7 @@ import { isTvMode, setTvMode } from '../lib/tv'
 import { useStore } from '../store'
 import { LookPicker } from '../components/LookPicker'
 import { useTheme } from '../theme/ThemeProvider'
-import { updateLiveWillow } from '../lib/liveRelease'
+import { useSourceUpdate } from '../features/install/useSourceUpdate'
 
 export function SettingsPage() {
   const { t, i18n } = useTranslation()
@@ -25,6 +25,7 @@ export function SettingsPage() {
   const [flags, setFlags] = useState<FeatureFlags>(() => readFlags())
   const [tv, setTv] = useState(() => isTvMode())
   const [pinDraft, setPinDraft] = useState('')
+  const sourceUpdate = useSourceUpdate()
 
   function toggleFlag(key: keyof FeatureFlags) {
     const next = { ...flags, [key]: !flags[key] }
@@ -42,12 +43,23 @@ export function SettingsPage() {
       <div className="card mb-6 p-5" data-testid="live-update">
         <h2 className="font-display text-xl">Update Willow</h2>
         <p className="mt-1 text-sm text-muted">
-          Phone, Windows, and Fire Stick pull the live website. Tap Update — do not uninstall the app. Child records
-          stay on this device.
+          Checks the official Willow source. If this app is behind, it updates from that source only. Another website
+          cannot push an update. Child records stay on this device — do not uninstall.
         </p>
-        <Button type="button" className="mt-3" data-testid="use-latest-willow" onClick={() => void updateLiveWillow()}>
+        <Button
+          type="button"
+          className="mt-3"
+          data-testid="use-latest-willow"
+          disabled={sourceUpdate.busy}
+          onClick={() => void sourceUpdate.run()}
+        >
           Update
         </Button>
+        {sourceUpdate.message ? (
+          <p className="mt-2 text-sm text-muted" data-testid="update-source-status">
+            {sourceUpdate.message}
+          </p>
+        ) : null}
       </div>
 
       <div className="mb-6 grid gap-4 md:grid-cols-3">

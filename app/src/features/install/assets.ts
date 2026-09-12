@@ -1,6 +1,30 @@
 /** Live site the Fire Stick APK WebView and Windows app load. Never bake a stale ?v= into an APK. */
 export const LIVE_SITE = 'https://raviacn95.github.io/child-management-system/'
 export const LIVE_APP_URL = LIVE_SITE
+export const OFFICIAL_HOST = 'raviacn95.github.io'
+export const OFFICIAL_PATH = '/child-management-system/'
+
+export function isLocalAppHost(href: string) {
+  try {
+    const host = new URL(href.split('#')[0]).hostname
+    return host === 'localhost' || host === '127.0.0.1'
+  } catch {
+    return false
+  }
+}
+
+export function isOfficialSource(href: string) {
+  try {
+    const u = new URL(href.split('#')[0])
+    return u.protocol === 'https:' && u.hostname === OFFICIAL_HOST && u.pathname.startsWith(OFFICIAL_PATH)
+  } catch {
+    return false
+  }
+}
+
+export function isTrustedSource(href: string) {
+  return isOfficialSource(href) || isLocalAppHost(href)
+}
 
 export function liveLaunchUrl(now = Date.now()) {
   return `${LIVE_SITE}?willow=${now}`

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { apkDownloadUrl, liveLaunchUrl, LIVE_SITE, pageRoot, siteAssetUrl } from './assets'
+import { apkDownloadUrl, isOfficialSource, isTrustedSource, liveLaunchUrl, LIVE_SITE, pageRoot, siteAssetUrl } from './assets'
 
 describe('install asset URLs', () => {
   it('launches the live site with a fresh cache token, never a baked moviesum query', () => {
@@ -19,6 +19,14 @@ describe('install asset URLs', () => {
     expect(siteAssetUrl('downloads/willow-movies.apk', href)).toBe(
       'https://raviacn95.github.io/child-management-system/downloads/willow-movies.apk',
     )
+  })
+
+  it('only trusts the official Pages host or a local app', () => {
+    expect(isOfficialSource('https://raviacn95.github.io/child-management-system/release.json')).toBe(true)
+    expect(isOfficialSource('https://evil.example/child-management-system/release.json')).toBe(false)
+    expect(isOfficialSource('http://raviacn95.github.io/child-management-system/')).toBe(false)
+    expect(isTrustedSource('http://127.0.0.1:5173/release.json')).toBe(true)
+    expect(isTrustedSource('https://example.com/release.json')).toBe(false)
   })
 
   it('strips index.html so local assets are not nested under a document', () => {

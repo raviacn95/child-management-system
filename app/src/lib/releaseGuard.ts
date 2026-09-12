@@ -7,6 +7,14 @@ export function isPreviousRelease(href?: string) {
 
 export function previousReleaseUrl(fromHref?: string) {
   const href = fromHref ?? (typeof window !== 'undefined' ? window.location.href : 'https://raviacn95.github.io/child-management-system/')
+  try {
+    const host = new URL(href.split('#')[0]).hostname
+    if (host !== 'localhost' && host !== '127.0.0.1') {
+      return 'https://raviacn95.github.io/child-management-system/releases/previous/'
+    }
+  } catch {
+    return 'https://raviacn95.github.io/child-management-system/releases/previous/'
+  }
   const page = href.split('#')[0]
   const u = new URL(page)
   let path = u.pathname
@@ -44,8 +52,10 @@ export async function rollbackToPreviousRelease() {
   if (typeof window === 'undefined' || isPreviousRelease()) return false
   const url = previousReleaseUrl()
   try {
-    const res = await fetch(url, { method: 'HEAD' })
+    const res = await fetch(url, { method: 'HEAD', credentials: 'omit', referrerPolicy: 'no-referrer' })
     if (!res.ok) return false
+    const finalHref = (res.url || url).split('#')[0]
+    if (!finalHref.startsWith('https://raviacn95.github.io/child-management-system/')) return false
   } catch {
     return false
   }

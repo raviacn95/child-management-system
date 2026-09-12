@@ -43,7 +43,7 @@ import { Avatar, Badge } from './ui'
 import { ThemeToggle } from './ThemeToggle'
 import { ShareButton } from '../features/share/ShareSheet'
 import { UpdateBanner } from '../features/install/UpdateBanner'
-import { updateLiveWillow } from '../lib/liveRelease'
+import { useSourceUpdate } from '../features/install/useSourceUpdate'
 
 const NAV = [
   { to: '/hub', key: 'hub', label: 'Tonight', icon: MonitorPlay },
@@ -98,6 +98,7 @@ export function Layout() {
 
   const notifs = state.notifications.filter((n) => n.userId === user?.id)
   const unread = notifs.filter((n) => !n.read).length
+  const sourceUpdate = useSourceUpdate()
 
   useEffect(() => {
     setNavOpen(false)
@@ -216,12 +217,14 @@ export function Layout() {
             <button
               type="button"
               className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-paper px-2.5 py-1.5 text-xs font-semibold"
-              aria-label="Update Willow"
+              aria-label="Check official Willow source and update"
               data-testid="header-update"
-              onClick={() => void updateLiveWillow()}
+              disabled={sourceUpdate.busy}
+              title={sourceUpdate.message || 'Check the official Willow source'}
+              onClick={() => void sourceUpdate.run()}
             >
-              <RefreshCw size={14} />
-              <span className="hidden sm:inline">Update</span>
+              <RefreshCw size={14} className={sourceUpdate.busy ? 'animate-spin' : undefined} />
+              <span className="hidden sm:inline">{sourceUpdate.headerLabel}</span>
             </button>
             <button
               type="button"

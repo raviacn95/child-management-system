@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button } from '../../components/ui'
-import { APPLIED_KEY, fetchLiveRelease, hasStaleShellQuery, shouldApplyRemote, updateLiveWillow } from '../../lib/liveRelease'
+import { checkLiveUpdate, updateLiveWillow } from '../../lib/liveRelease'
 
 export function UpdateBanner() {
   const [ready, setReady] = useState(false)
@@ -8,11 +8,9 @@ export function UpdateBanner() {
   useEffect(() => {
     if (import.meta.env.DEV) return
     let cancelled = false
-    void fetchLiveRelease()
-      .then((remote) => {
-        if (cancelled || !remote) return
-        const applied = typeof localStorage === 'undefined' ? null : localStorage.getItem(APPLIED_KEY)
-        if (shouldApplyRemote(applied, remote) || hasStaleShellQuery(window.location.href)) setReady(true)
+    void checkLiveUpdate()
+      .then((check) => {
+        if (!cancelled && (check.status === 'available' || check.status === 'stale-shell')) setReady(true)
       })
       .catch(() => undefined)
     return () => {
@@ -25,7 +23,8 @@ export function UpdateBanner() {
   return (
     <div className="update-banner" data-testid="update-banner" role="status">
       <p className="text-sm">
-        A newer Willow is ready. Update this app — do not uninstall. Child records stay on this device.
+        A newer Willow is on the official source. Update this app — do not uninstall. Child records stay on this
+        device.
       </p>
       <Button type="button" data-testid="update-willow" onClick={() => void updateLiveWillow()}>
         Update

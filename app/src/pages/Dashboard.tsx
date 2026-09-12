@@ -48,6 +48,9 @@ export function Dashboard() {
             : `${present.length} children in the building · ${rooms.length} rooms open · ${pack.name}`
         }
       />
+      <p className="mb-4 text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+        Grove · Cinema · Harbor — same Willow on Windows, phone, and Fire Stick
+      </p>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <Stat label="On site now" value={present.length} hint={`${enrolled.length} enrolled`} />
         <Stat label="Waitlist" value={state.applications.filter((a) => a.status === 'waitlist').length} />

@@ -91,7 +91,7 @@ jobs:
           body: |
             Android phone APK: willow.apk (install like any app).
             Fire Stick copy: willow-movies.apk (same binary).
-            Live site: https://raviacn95.github.io/child-management-system/?v=ott5
+            Live site: https://raviacn95.github.io/child-management-system/?v=looks1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: peaceiris/actions-gh-pages@v4

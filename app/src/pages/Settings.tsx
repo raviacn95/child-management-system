@@ -9,12 +9,13 @@ import { DEFAULT_FLAGS, readFlags, writeFlags, type FeatureFlags } from '../lib/
 import { formatTime } from '../lib'
 import { isTvMode, setTvMode } from '../lib/tv'
 import { useStore } from '../store'
-import { useTheme, type ThemeChoice } from '../theme/ThemeProvider'
+import { LookPicker } from '../components/LookPicker'
+import { useTheme } from '../theme/ThemeProvider'
 
 export function SettingsPage() {
   const { t, i18n } = useTranslation()
   const { state, resetDemo, setCountry } = useStore()
-  const { theme, setTheme } = useTheme()
+  const { theme } = useTheme()
   const pack = packOf(state.countryCode)
   const [flags, setFlags] = useState<FeatureFlags>(() => readFlags())
   const [tv, setTv] = useState(() => isTvMode())
@@ -33,22 +34,16 @@ export function SettingsPage() {
       />
 
       <div className="mb-6 grid gap-4 md:grid-cols-3">
-        <div className="card p-5">
+        <div className="card p-5 md:col-span-3">
           <h2 className="font-display text-xl">{t('settings.appearance')}</h2>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {(['light', 'dark', 'system'] as ThemeChoice[]).map((choice) => (
-              <button
-                key={choice}
-                type="button"
-                className={`rounded-xl px-3 py-2 text-sm font-semibold ${
-                  theme === choice ? 'bg-pine text-white' : 'border border-line'
-                }`}
-                onClick={() => setTheme(choice)}
-              >
-                {t(`theme.${choice}`)}
-              </button>
-            ))}
+          <p className="mt-1 text-sm text-muted">
+            Three studio looks for every Willow surface — Windows, phone, and Fire Stick. Your pick is saved on this
+            device.
+          </p>
+          <div className="mt-4">
+            <LookPicker />
           </div>
+          <p className="mt-3 text-xs text-muted">Now using {theme}.</p>
         </div>
         <div className="card p-5">
           <h2 className="font-display text-xl">{t('settings.language')}</h2>

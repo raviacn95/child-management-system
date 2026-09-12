@@ -1,17 +1,19 @@
-import { Moon, Sun } from 'lucide-react'
+import { Palette } from 'lucide-react'
+import { LOOKS } from '../theme/looks'
 import { useTheme } from '../theme/ThemeProvider'
 
 export function ThemeToggle() {
-  const { resolved, setTheme } = useTheme()
-  const next = resolved === 'dark' ? 'light' : 'dark'
+  const { look, cycleLook } = useTheme()
+  const current = LOOKS.find((item) => item.id === look) ?? LOOKS[0]
   return (
     <button
       type="button"
       className="rounded-xl border border-line bg-paper p-2 text-ink"
-      onClick={() => setTheme(next)}
-      aria-label={next === 'dark' ? 'Switch to dark mode' : 'Switch to light mode'}
+      onClick={cycleLook}
+      aria-label={`Look: ${current.name}. Switch UI look`}
+      data-testid="look-cycle"
     >
-      {resolved === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+      <Palette size={18} />
     </button>
   )
 }

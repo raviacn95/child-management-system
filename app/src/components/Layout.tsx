@@ -100,7 +100,7 @@ export function Layout() {
   if (!user) return null
 
   return (
-    <div className="flex min-h-dvh">
+    <div className="look-shell flex min-h-dvh">
       {navOpen ? (
         <button
           type="button"
@@ -156,7 +156,7 @@ export function Layout() {
                 onFocus={() => prefetchRoute(item.to)}
                 className={({ isActive }) =>
                   `mb-0.5 flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium ${
-                    isActive ? 'bg-pine text-white' : 'text-ink/80 hover:bg-white'
+                    isActive ? 'bg-pine text-[var(--color-pine-ink)]' : 'text-ink/80 hover:bg-[var(--nav-hover)]'
                   }`
                 }
               >
@@ -187,7 +187,7 @@ export function Layout() {
         </div>
       </aside>
       <div className="min-w-0 flex-1">
-        <header className="sticky top-0 z-20 flex items-center justify-between gap-2 border-b border-line bg-[color-mix(in_srgb,var(--color-sand)_86%,transparent)] px-3 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur md:px-8">
+        <header className="sticky top-0 z-20 flex items-center justify-between gap-2 border-b border-line bg-[var(--header-bg)] px-3 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-md md:px-8">
           <div className="flex min-w-0 items-center gap-2">
             <button
               type="button"

@@ -1,13 +1,14 @@
 import { Download, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { LookPicker } from '../components/LookPicker'
 import { LoginForm } from '../features/auth/LoginForm'
 
 export function Login() {
   return (
-    <div className="grid min-h-screen lg:grid-cols-[1.1fr_0.9fr]">
-      <section className="relative hidden overflow-hidden bg-pine p-12 text-paper lg:flex lg:flex-col lg:justify-between">
-        <div className="absolute -top-24 -right-16 h-80 w-80 rounded-full bg-[#148f6a] opacity-50" />
-        <div className="absolute bottom-10 left-10 h-56 w-56 rounded-full bg-[#0e4f40] opacity-40" />
+    <div className="look-shell grid min-h-screen lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="relative hidden overflow-hidden bg-pine p-12 text-[var(--color-pine-ink)] lg:flex lg:flex-col lg:justify-between">
+        <div className="absolute -top-24 -right-16 h-80 w-80 rounded-full bg-white/15" />
+        <div className="absolute bottom-10 left-10 h-56 w-56 rounded-full bg-black/15" />
         <div className="relative">
           <div className="flex items-center gap-2">
             <Sparkles />
@@ -36,6 +37,10 @@ export function Login() {
         <div className="w-full max-w-md">
           <p className="font-display text-3xl font-semibold">Welcome back</p>
           <p className="mt-1 text-sm text-muted">Demo password for every account is `demo`.</p>
+          <div className="mt-5">
+            <p className="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Choose a look</p>
+            <LookPicker compact />
+          </div>
           <Link
             to="/get-app"
             className="mt-5 flex items-center justify-between rounded-2xl border border-pine/30 bg-pine-soft px-4 py-3 text-left hover:border-pine"

@@ -1,44 +1,59 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { detectFireTv } from '../lib/tv'
+import { LOOKS, migrateLook, nextLook, type LookId } from './looks'
 
-export type ThemeChoice = 'light' | 'dark' | 'system'
+export type ThemeChoice = LookId
+export { LOOKS, type LookId }
 
 const KEY = 'willow-theme'
 
 interface ThemeApi {
-  theme: ThemeChoice
+  look: LookId
+  theme: LookId
   resolved: 'light' | 'dark'
-  setTheme: (theme: ThemeChoice) => void
+  setLook: (look: LookId) => void
+  setTheme: (look: LookId) => void
+  cycleLook: () => void
 }
 
 const Ctx = createContext<ThemeApi | null>(null)
 
-function resolve(theme: ThemeChoice): 'light' | 'dark' {
-  if (theme !== 'system') return theme
-  if (typeof window === 'undefined') return 'light'
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+function schemeOf(look: LookId): 'light' | 'dark' {
+  return look === 'cinema' ? 'dark' : 'light'
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeChoice>(() => {
-    const saved = localStorage.getItem(KEY)
-    return saved === 'dark' || saved === 'light' || saved === 'system' ? saved : 'light'
+  const [look, setLookState] = useState<LookId>(() => {
+    try {
+      return migrateLook(localStorage.getItem(KEY), detectFireTv())
+    } catch {
+      return 'grove'
+    }
   })
 
-  const resolved = resolve(theme)
+  const resolved = schemeOf(look)
 
   useEffect(() => {
+    document.documentElement.dataset.look = look
     document.documentElement.dataset.theme = resolved
     document.documentElement.style.colorScheme = resolved
-    localStorage.setItem(KEY, theme)
-  }, [theme, resolved])
+    try {
+      localStorage.setItem(KEY, look)
+    } catch {
+      /* private mode */
+    }
+  }, [look, resolved])
 
   const api = useMemo<ThemeApi>(
     () => ({
-      theme,
+      look,
+      theme: look,
       resolved,
-      setTheme: (next) => setThemeState(next),
+      setLook: setLookState,
+      setTheme: setLookState,
+      cycleLook: () => setLookState((current) => nextLook(current)),
     }),
-    [theme, resolved],
+    [look, resolved],
   )
 
   return <Ctx.Provider value={api}>{children}</Ctx.Provider>

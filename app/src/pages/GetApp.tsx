@@ -1,6 +1,7 @@
 import { Download, Monitor, Smartphone, Sparkles, Tv } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { LookPicker } from '../components/LookPicker'
 import { Button } from '../components/ui'
 import { APK_RELEASE_URL, apkDownloadUrl, apkTvDownloadUrl, LIVE_SITE } from '../features/install/assets'
 import { installSurface, isIosSafari, prefersApkInstall } from '../features/install/detect'
@@ -48,7 +49,7 @@ export function GetApp() {
   }
 
   return (
-    <div className="min-h-screen bg-sand" data-testid="get-app">
+    <div className="look-shell min-h-screen" data-testid="get-app">
       <header className="flex items-center justify-between border-b border-line px-6 py-4">
         <div className="flex items-center gap-2 text-pine">
           <Sparkles size={20} />
@@ -66,6 +67,14 @@ export function GetApp() {
           Android phones install a real <strong>willow.apk</strong>. Windows gets a live app window. Fire Stick uses the
           same APK on the Apps row.
         </p>
+        <div className="card mt-6 p-5">
+          <p className="text-xs font-semibold tracking-wide text-muted uppercase">Three looks · same data</p>
+          <h2 className="font-display mt-1 text-xl font-semibold">Grove, Cinema, or Harbor</h2>
+          <p className="mt-1 text-sm text-muted">Saved on this device and used on Windows, phone, and Fire Stick.</p>
+          <div className="mt-4">
+            <LookPicker />
+          </div>
+        </div>
 
         <section className="card mt-8 p-6" data-testid="phone-install">
           <Smartphone className="text-pine" />

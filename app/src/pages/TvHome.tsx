@@ -15,8 +15,8 @@ export function TvHome() {
     <div data-testid="tv-home">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold tracking-wide text-muted uppercase">Willow Movies · Fire TV</p>
-          <h1 className="font-display text-4xl font-semibold">What to watch tonight</h1>
+          <p className="text-xs font-semibold tracking-[0.18em] text-gold uppercase">Willow Movies · Fire TV</p>
+          <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl">What to watch tonight</h1>
           <p className="mt-2 max-w-2xl text-sm text-muted">
             This living-room shelf replaces Google Play Movies. Pick a title, then open Prime, Netflix, SonyLIV or
             Hotstar — those apps keep your login on the Stick.

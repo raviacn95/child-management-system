@@ -52,10 +52,10 @@ export function Button({
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'ghost' | 'danger' | 'soft' }) {
   const styles = {
-    primary: 'bg-pine text-white hover:bg-[#175c4b]',
+    primary: 'bg-pine text-[var(--color-pine-ink)] hover:brightness-110',
     ghost: 'bg-transparent text-ink hover:bg-sand border border-line',
-    danger: 'bg-rose text-white hover:bg-[#9b1c3f]',
-    soft: 'bg-pine-soft text-pine hover:bg-[#d3efe3]',
+    danger: 'bg-rose text-white hover:brightness-110',
+    soft: 'bg-pine-soft text-pine hover:brightness-95',
   }
   return (
     <button

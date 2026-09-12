@@ -60,9 +60,12 @@ export const en = {
     security: 'Security',
   },
   theme: {
-    light: 'Light',
-    dark: 'Dark',
-    system: 'System',
+    light: 'Grove',
+    dark: 'Cinema',
+    system: 'Harbor',
+    grove: 'Grove',
+    cinema: 'Cinema',
+    harbor: 'Harbor',
   },
   common: {
     signOut: 'Sign out',
@@ -132,9 +135,12 @@ export const hi = {
     security: 'सुरक्षा',
   },
   theme: {
-    light: 'हल्का',
-    dark: 'गहरा',
-    system: 'सिस्टम',
+    light: 'ग्रोव',
+    dark: 'सिनेमा',
+    system: 'हार्बर',
+    grove: 'ग्रोव',
+    cinema: 'सिनेमा',
+    harbor: 'हार्बर',
   },
   common: {
     signOut: 'साइन आउट',

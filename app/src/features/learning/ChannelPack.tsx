@@ -3,7 +3,7 @@ import { Check, ExternalLink, ShieldAlert, Tv } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
-import { apiPost } from '../../api/client'
+import { localFirstPost } from '../../backend/deviceBackend'
 import { Badge, Button, Field, inputClass } from '../../components/ui'
 import { LEARNING_INTERESTS } from '../../data/learning-channels'
 import { childName } from '../../lib'
@@ -56,11 +56,9 @@ export function ChannelPack({ kids }: { kids: Child[] }) {
     enabled: Boolean(input),
     queryFn: async () => {
       if (!input) return null
-      try {
-        return await apiPost('/recommendations', publicRecommendInput(input), recommendationOutputSchema)
-      } catch {
-        return recommend(input)
-      }
+      return localFirstPost('/recommendations', publicRecommendInput(input), recommendationOutputSchema, () =>
+        recommend(input),
+      )
     },
   })
   const result = data ?? fallback

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ExternalLink, RefreshCw } from 'lucide-react'
+import { ArrowLeft, RefreshCw } from 'lucide-react'
 import { Badge, Button, Field, inputClass } from '../../components/ui'
 import { platforms, recommendMovies } from './recommend'
 import { LANG_LABEL, type MovieKind, type MovieLang, type MovieShelfKind } from './schema'
@@ -206,60 +206,48 @@ export function MovieShelf({
                   >
                     <ArrowLeft size={16} /> Back
                   </Button>
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-semibold">
-                      {i + 1}. {t.title}
-                    </h3>
-                    <Badge tone={erotic ? 'clay' : t.originalLang === 'ml' ? 'pine' : 'sand'}>{t.kind}</Badge>
-                  </div>
-                  <p className="mt-1 text-xs text-muted">
-                    {t.year} · Original {LANG_LABEL[t.originalLang]} · {t.genres.slice(0, 2).join(', ')}
-                  </p>
+                  <h3 className="font-semibold">{t.title}</h3>
                   <p className="mt-2 text-sm" data-testid="movie-summary">
                     {t.why}
                   </p>
-                  <p className="mt-1 text-xs text-pine">
-                    Score {t.score.toFixed(0)} · {t.reasons.slice(0, 3).join(' · ')}
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {t.watchLinks.map((w) => {
-                      const href = tv ? fireTvIntent(w.platformId, t.title, t.year, t.originalLang) : w.url
-                      return (
-                        <a
-                          key={w.platformId}
-                          className="rounded-lg border border-line px-2 py-1 text-xs font-semibold text-pine hover:border-pine"
-                          href={href}
-                          onClick={(e) => {
-                            e.preventDefault()
-                            openWatch({ url: href, title: t.title, platformName: w.platformName })
-                          }}
-                        >
-                          {w.platformName} <ExternalLink className="inline" size={10} />
-                        </a>
-                      )
-                    })}
-                  </div>
                 </div>
               ) : (
-                <button
-                  type="button"
-                  className="movie-open w-full text-left"
-                  data-testid={erotic ? 'erotic-open' : 'movie-open'}
-                  aria-expanded={false}
-                  aria-label={`Open ${t.title}`}
-                  onClick={() => setOpenKey(key)}
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-semibold">
-                      {i + 1}. {t.title}
-                    </h3>
-                    <Badge tone={erotic ? 'clay' : t.originalLang === 'ml' ? 'pine' : 'sand'}>{t.kind}</Badge>
-                  </div>
-                  <p className="mt-1 text-xs text-muted">
-                    {t.year} · Original {LANG_LABEL[t.originalLang]}
-                  </p>
-                  <p className="mt-2 text-xs font-semibold text-pine">Tap for a short summary</p>
-                </button>
+                <div>
+                  <button
+                    type="button"
+                    className="movie-open w-full text-left"
+                    data-testid={erotic ? 'erotic-open' : 'movie-open'}
+                    aria-expanded={false}
+                    aria-label={`Open ${t.title}`}
+                    onClick={() => setOpenKey(key)}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="font-semibold">
+                        {i + 1}. {t.title}
+                      </h3>
+                      <Badge tone={erotic ? 'clay' : t.originalLang === 'ml' ? 'pine' : 'sand'}>{t.kind}</Badge>
+                    </div>
+                    <p className="mt-1 text-xs text-muted">
+                      {t.year} · Original {LANG_LABEL[t.originalLang]}
+                    </p>
+                    <p className="mt-2 text-xs font-semibold text-pine">Tap for a short summary</p>
+                  </button>
+                  {t.watchLinks[0] ? (
+                    <Button
+                      type="button"
+                      variant="soft"
+                      className="mt-3"
+                      data-testid={erotic ? 'erotic-watch' : 'movie-watch'}
+                      onClick={() => {
+                        const w = t.watchLinks[0]
+                        const href = tv ? fireTvIntent(w.platformId, t.title, t.year, t.originalLang) : w.url
+                        openWatch({ url: href, title: t.title, platformName: w.platformName })
+                      }}
+                    >
+                      Watch
+                    </Button>
+                  ) : null}
+                </div>
               )}
             </li>
           )

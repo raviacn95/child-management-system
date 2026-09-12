@@ -14,8 +14,7 @@ test('official app launch keeps Willow and the return banner restores movies', a
   await page.goto('/#/movies')
   await expect(page.getByTestId('movies-page')).toBeVisible()
   const pagesBefore = page.context().pages().length
-  await page.getByTestId('movie-open').first().click()
-  await page.getByRole('link', { name: /Amazon Prime Video|Google Play Movies|SonyLIV|JustWatch/ }).first().click()
+  await page.getByTestId('movie-watch').first().click()
   await expect(page.getByTestId('watch-desk')).toBeVisible()
   expect(page.context().pages().length).toBe(pagesBefore)
   await page.getByTestId('watch-official').click()

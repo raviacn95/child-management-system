@@ -22,7 +22,9 @@
         { "source": "blinkit", "price": 189, "mrp": 249, "etaMin": 14, "stock": 40, "codOk": true },
         { "source": "instamart", "price": 179, "mrp": 249, "etaMin": 22, "stock": 0, "codOk": true },
         { "source": "flipkart", "price": 199, "mrp": 249, "etaMin": 1440, "stock": 80, "codOk": true },
-        { "source": "meesho", "price": 169, "mrp": 229, "etaMin": 2880, "stock": 40, "codOk": true }
+        { "source": "meesho", "price": 169, "mrp": 229, "etaMin": 2880, "stock": 40, "codOk": true },
+        { "source": "amazon", "price": 199, "mrp": 249, "etaMin": 1440, "stock": 60, "codOk": true },
+        { "source": "nykaa", "price": 189, "mrp": 249, "etaMin": 2160, "stock": 24, "codOk": true }
       ]
     },
     {
@@ -143,7 +145,8 @@
       "why": "Keeps hair off the face at meals.",
       "offers": [
         { "source": "meesho", "price": 149, "mrp": 249, "etaMin": 2880, "stock": 50, "codOk": true },
-        { "source": "flipkart", "price": 179, "mrp": 249, "etaMin": 1440, "stock": 40, "codOk": true }
+        { "source": "flipkart", "price": 179, "mrp": 249, "etaMin": 1440, "stock": 40, "codOk": true },
+        { "source": "myntra", "price": 199, "mrp": 299, "etaMin": 2160, "stock": 18, "codOk": true }
       ]
     },
     {
@@ -222,7 +225,9 @@
       "why": "AC nap rooms and overnight at dadi’s.",
       "offers": [
         { "source": "meesho", "price": 399, "mrp": 599, "etaMin": 2880, "stock": 14, "codOk": true },
-        { "source": "flipkart", "price": 599, "mrp": 899, "etaMin": 1440, "stock": 20, "codOk": true }
+        { "source": "flipkart", "price": 599, "mrp": 899, "etaMin": 1440, "stock": 20, "codOk": true },
+        { "source": "myntra", "price": 499, "mrp": 799, "etaMin": 2160, "stock": 12, "codOk": true },
+        { "source": "amazon", "price": 549, "mrp": 899, "etaMin": 1440, "stock": 16, "codOk": true }
       ]
     },
     {

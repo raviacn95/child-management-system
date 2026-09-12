@@ -25,6 +25,7 @@ export type RankedShopPick = {
     etaMin: number
     stock: number
     officialUrl: string
+    affiliateLink: string
   }
   fallbacks: RankedShopPick['chosen'][]
   score: number
@@ -70,6 +71,7 @@ function hydrateOffer(item: ShopCatalogItem, source: ShopSourceId, row: ShopCata
     etaMin: row.etaMin,
     stock: row.stock,
     officialUrl: officialShopUrl(source, item.query),
+    affiliateLink: officialShopUrl(source, item.query),
   }
 }
 

@@ -1,11 +1,16 @@
+import { applyAffiliate, affiliateDestination, isAffiliateWrapper } from './affiliate'
+
 export const SHOP_SOURCE_IDS = [
   'zepto',
   'blinkit',
   'instamart',
   'flipkart',
   'meesho',
+  'amazon',
   'amazonfresh',
   'bigbasket',
+  'myntra',
+  'nykaa',
 ] as const
 
 export type ShopSourceId = (typeof SHOP_SOURCE_IDS)[number]
@@ -56,12 +61,33 @@ export const SHOP_SOURCES: Record<ShopSourceId, SourceMeta> = {
     host: 'www.meesho.com',
     search: (q) => `https://www.meesho.com/search?q=${encodeURIComponent(q)}`,
   },
+  amazon: {
+    id: 'amazon',
+    name: 'Amazon',
+    kind: 'marketplace',
+    host: 'www.amazon.in',
+    search: (q) => `https://www.amazon.in/s?k=${encodeURIComponent(q)}`,
+  },
   amazonfresh: {
     id: 'amazonfresh',
     name: 'Amazon Fresh',
     kind: 'marketplace',
     host: 'www.amazon.in',
     search: (q) => `https://www.amazon.in/s?k=${encodeURIComponent(q)}`,
+  },
+  myntra: {
+    id: 'myntra',
+    name: 'Myntra',
+    kind: 'marketplace',
+    host: 'www.myntra.com',
+    search: (q) => `https://www.myntra.com/${encodeURIComponent(q.replace(/\s+/g, '-'))}`,
+  },
+  nykaa: {
+    id: 'nykaa',
+    name: 'Nykaa',
+    kind: 'marketplace',
+    host: 'www.nykaa.com',
+    search: (q) => `https://www.nykaa.com/search/result/?q=${encodeURIComponent(q)}`,
   },
   bigbasket: {
     id: 'bigbasket',
@@ -78,13 +104,14 @@ export function officialShopUrl(source: ShopSourceId, query: string) {
   const q = String(query || '')
     .replace(/[<>]/g, '')
     .slice(0, 80)
-  return SHOP_SOURCES[source].search(q)
+  return applyAffiliate(source, SHOP_SOURCES[source].search(q))
 }
 
 export function isOfficialShopUrl(href: string) {
   try {
-    const u = new URL(href)
-    return u.protocol === 'https:' && OFFICIAL_HOSTS.has(u.hostname)
+    const dest = isAffiliateWrapper(href) ? affiliateDestination(href) : href
+    const u = new URL(dest)
+    return u.protocol === 'https:' && (OFFICIAL_HOSTS.has(u.hostname) || u.hostname === 'dl.flipkart.com')
   } catch {
     return false
   }

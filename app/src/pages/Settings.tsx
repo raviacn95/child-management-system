@@ -15,6 +15,7 @@ import { useStore } from '../store'
 import { LookPicker } from '../components/LookPicker'
 import { useTheme } from '../theme/ThemeProvider'
 import { useSourceUpdate } from '../features/install/useSourceUpdate'
+import { AffiliateSettings } from '../features/shopping/AffiliateSettings'
 
 export function SettingsPage() {
   const { t, i18n } = useTranslation()
@@ -61,6 +62,8 @@ export function SettingsPage() {
           </p>
         ) : null}
       </div>
+
+      <AffiliateSettings />
 
       <div className="mb-6 grid gap-4 md:grid-cols-3">
         <div className="card p-5 md:col-span-3">

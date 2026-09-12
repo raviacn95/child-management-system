@@ -119,8 +119,8 @@ export function ShoppingEssentialsShelf({ childId }: { childId?: string }) {
       <div className="mb-3">
         <h2 className="font-display text-2xl font-semibold">{hubShoppingTitle(look)}</h2>
         <p className="mt-1 text-sm text-muted">
-          One tap packs every required item by official app. Confirm Add in Zepto, Blinkit, Flipkart, or Meesho — those
-          apps do not let Willow drop items into their carts. Child names and payments stay on this device.
+          One tap packs required items onto official affiliate deep links (Flipkart, Amazon, Meesho, Myntra, Nykaa, and
+          10-minute apps). Checkout stays on those sites. Save your tracking IDs in Settings. Child names stay here.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <Button type="button" data-testid="shop-add-all" disabled={!picks.length} onClick={() => void addAllRequired()}>

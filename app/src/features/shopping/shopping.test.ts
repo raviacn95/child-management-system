@@ -1,8 +1,10 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { AFFILIATE_KEY, applyAffiliate, sanitizeAffiliateId, writeAffiliateIds } from './affiliate'
 import { matchingMartIds, packRequiredBaskets, tripHasPii } from './baskets'
 import { launchOfficialShop } from './launch'
 import { publicShopInput } from './privacy'
 import { COD_PARENT_CAP, recommendShopping } from './recommend'
+import { fetchLiveAffiliate } from './liveAffiliate'
 import { isOfficialShopUrl, officialShopUrl } from './sources'
 
 const baseInput = publicShopInput({
@@ -16,6 +18,10 @@ const baseInput = publicShopInput({
 })
 
 describe('kids shopping aggregator', () => {
+  beforeEach(() => {
+    localStorage.removeItem(AFFILIATE_KEY)
+  })
+
   it('keeps only official HTTPS storefronts', () => {
     expect(officialShopUrl('flipkart', 'baby wipes')).toBe('https://www.flipkart.com/search?q=baby%20wipes')
     expect(officialShopUrl('meesho', 'baby wipes')).toContain('meesho.com')
@@ -74,6 +80,72 @@ describe('kids shopping aggregator', () => {
     expect(baskets.every((b) => b.officialUrl.startsWith('https://'))).toBe(true)
     expect(baskets.flatMap((b) => [b.listText, b.officialUrl]).join(' ')).not.toMatch(/Leo|Shah|c-leo|PIN/i)
     expect(matchingMartIds(picks.map((p) => p.title))).toContain('fc-wipes')
+  })
+
+  it('stamps public affiliate IDs onto official Flipkart and Amazon links', () => {
+    writeAffiliateIds({
+      flipkartAffid: 'willowfk',
+      amazonTag: 'willowcare-21',
+      meeshoId: '',
+      cuelinksPubId: '',
+      admitadCode: '',
+    })
+    const flipkart = officialShopUrl('flipkart', 'baby wipes')
+    const amazon = officialShopUrl('amazon', 'baby wipes')
+    expect(flipkart).toContain('affid=willowfk')
+    expect(amazon).toContain('tag=willowcare-21')
+    expect(isOfficialShopUrl(flipkart)).toBe(true)
+    expect(isOfficialShopUrl(amazon)).toBe(true)
+    expect(sanitizeAffiliateId('parent@willow.care')).toBe('')
+    expect(
+      applyAffiliate('myntra', 'https://www.myntra.com/kids-night-suit', {
+        flipkartAffid: '',
+        amazonTag: '',
+        meeshoId: '',
+        cuelinksPubId: 'cue99',
+        admitadCode: '',
+      }),
+    ).toContain('linksredirect.com')
+    expect(
+      isOfficialShopUrl(
+        applyAffiliate('myntra', 'https://www.myntra.com/kids-night-suit', {
+          flipkartAffid: '',
+          amazonTag: '',
+          meeshoId: '',
+          cuelinksPubId: 'cue99',
+          admitadCode: '',
+        }),
+      ),
+    ).toBe(true)
+    expect(isOfficialShopUrl('https://linksredirect.com/?url=https://evil.example/x')).toBe(false)
+  })
+
+  it('keeps live affiliate results only when the deep link is official', async () => {
+    const fetchImpl = (async () => ({
+      ok: true,
+      json: async () => ({
+        items: [
+          {
+            id: 'live-1',
+            title: 'Sensitive wet wipes 80s',
+            price: 189,
+            source: 'flipkart',
+            affiliateLink: 'https://www.flipkart.com/search?q=wipes&affid=willowfk',
+            codAvailable: true,
+          },
+          {
+            id: 'live-bad',
+            title: 'Spam',
+            price: 10,
+            source: 'flipkart',
+            affiliateLink: 'https://evil.example/buy',
+          },
+        ],
+      }),
+    })) as unknown as typeof fetch
+    const live = await fetchLiveAffiliate('wipes', baseInput, { fetchImpl, api: 'https://shop.willow.invalid' })
+    expect(live).toHaveLength(1)
+    expect(live[0].affiliateLink).toContain('flipkart.com')
   })
 
   it('refuses to launch a foreign shop URL', () => {

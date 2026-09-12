@@ -2,12 +2,14 @@ import { Link } from 'react-router-dom'
 import { MovieShelf } from '../features/movies/MovieShelf'
 import { useStore } from '../store'
 import { platforms } from '../features/movies/catalog'
-import { openStorefront } from '../features/ott/fireTv'
+import { fireTvIntent } from '../features/ott/fireTv'
+import { useOpenWatch } from '../features/ott/WatchPane'
 import { Button } from '../components/ui'
 
 export function TvHome() {
   const { state, touchOtt } = useStore()
   const mine = (state.ottAccounts ?? []).filter((a) => a.userId === state.currentUserId && a.connected)
+  const openWatch = useOpenWatch()
 
   return (
     <div data-testid="tv-home">
@@ -34,7 +36,11 @@ export function TvHome() {
                 variant="soft"
                 onClick={() => {
                   touchOtt(a.id)
-                  openStorefront(a.platformId, p?.name, true)
+                  openWatch({
+                    url: fireTvIntent(a.platformId, p?.name),
+                    title: p?.name ?? a.platformId,
+                    platformName: p?.name ?? a.platformId,
+                  })
                 }}
               >
                 {p?.name ?? a.platformId}

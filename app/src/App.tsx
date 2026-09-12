@@ -10,6 +10,7 @@ import { moduleFromPath, canSee } from './lib/rbac'
 import { applyTvMode, homePath } from './lib/tv'
 import { markBootSuccess } from './lib/releaseGuard'
 import { InstallProvider } from './features/install/InstallProvider'
+import { WatchProvider } from './features/ott/WatchPane'
 import { StoreProvider, useStore } from './store'
 import { ThemeProvider } from './theme/ThemeProvider'
 
@@ -122,9 +123,11 @@ export default function App() {
         <QueryClientProvider client={queryClient}>
           <StoreProvider>
             <InstallProvider>
-              <HashRouter>
-                <AppRoutes />
-              </HashRouter>
+              <WatchProvider>
+                <HashRouter>
+                  <AppRoutes />
+                </HashRouter>
+              </WatchProvider>
             </InstallProvider>
           </StoreProvider>
         </QueryClientProvider>

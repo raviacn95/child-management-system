@@ -7,6 +7,7 @@ import { LANG_LABEL, type MovieKind, type MovieLang, type MovieShelfKind } from 
 import { useStore } from '../../store'
 import { isTvMode } from '../../lib/tv'
 import { fireTvIntent } from '../ott/fireTv'
+import { useOpenWatch } from '../ott/WatchPane'
 
 const FAMILY_LANGS: { id: MovieLang | 'all'; label: string }[] = [
   { id: 'all', label: 'All languages' },
@@ -61,6 +62,7 @@ export function MovieShelf({
   const [decade, setDecade] = useState<number | 'all'>('all')
   const [sort, setSort] = useState<'mix' | 'critic' | 'youtube' | 'instagram' | 'erotic'>(erotic ? 'erotic' : 'mix')
   const [seed, setSeed] = useState(() => `live-${Date.now()}`)
+  const openWatch = useOpenWatch()
 
   const result = useMemo(() => {
     const nextWeights =
@@ -104,8 +106,8 @@ export function MovieShelf({
           )}
           <p className={`${compact ? '' : 'mt-1 '}text-sm text-muted`}>
             {result.platformCount} official storefronts · catalog {result.totalCatalog} · ranked by critic/audience
-            agreement, hidden gems and diversity{erotic ? ', plus erotic heat' : ''}. A language chip is originals only —
-            no dubbed copies.
+            agreement, hidden gems and diversity{erotic ? ', plus erotic heat' : ''}. Channels open on this page — Close
+            returns here. A language chip is originals only — no dubbed copies.
           </p>
         </div>
         <Button onClick={() => setSeed(`live-${Date.now()}`)} aria-label={`Shuffle ${limit} titles`}>
@@ -186,17 +188,22 @@ export function MovieShelf({
               Score {t.score.toFixed(0)} · {t.reasons.slice(0, 3).join(' · ')}
             </p>
             <div className="mt-3 flex flex-wrap gap-1.5">
-              {t.watchLinks.map((w) => (
-                <a
-                  key={w.platformId}
-                  className="rounded-lg border border-line px-2 py-1 text-xs font-semibold text-pine hover:border-pine"
-                  href={tv ? fireTvIntent(w.platformId, t.title, t.year, t.originalLang) : w.url}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {w.platformName} <ExternalLink className="inline" size={10} />
-                </a>
-              ))}
+              {t.watchLinks.map((w) => {
+                const href = tv ? fireTvIntent(w.platformId, t.title, t.year, t.originalLang) : w.url
+                return (
+                  <a
+                    key={w.platformId}
+                    className="rounded-lg border border-line px-2 py-1 text-xs font-semibold text-pine hover:border-pine"
+                    href={href}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      openWatch({ url: href, title: t.title, platformName: w.platformName })
+                    }}
+                  >
+                    {w.platformName} <ExternalLink className="inline" size={10} />
+                  </a>
+                )
+              })}
             </div>
           </li>
         ))}

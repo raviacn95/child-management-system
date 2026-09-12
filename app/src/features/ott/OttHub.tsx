@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Badge, Button, Field, inputClass, PageHead } from '../../components/ui'
 import { platforms } from '../movies/catalog'
-import { openStorefront } from './fireTv'
+import { watchUrl } from '../movies/catalog'
+import { fireTvIntent } from './fireTv'
+import { useOpenWatch } from './WatchPane'
 import { useStore } from '../../store'
 import { isTvMode } from '../../lib/tv'
 
@@ -14,6 +16,7 @@ export function OttHub() {
   const [platformId, setPlatformId] = useState('prime')
   const [email, setEmail] = useState('')
   const tv = isTvMode()
+  const openWatch = useOpenWatch()
   const ordered = [...platforms].sort((a, b) => {
     const ra = PRIORITY.includes(a.id) ? PRIORITY.indexOf(a.id) : 80
     const rb = PRIORITY.includes(b.id) ? PRIORITY.indexOf(b.id) : 80
@@ -83,7 +86,11 @@ export function OttHub() {
                   <Button
                     onClick={() => {
                       touchOtt(a.id)
-                      openStorefront(a.platformId, p?.name, tv)
+                      openWatch({
+                        url: tv ? fireTvIntent(a.platformId, p?.name) : watchUrl(a.platformId, p?.name || a.platformId),
+                        title: p?.name ?? a.platformId,
+                        platformName: p?.name ?? a.platformId,
+                      })
                     }}
                   >
                     Open app

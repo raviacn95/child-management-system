@@ -36,6 +36,13 @@ test('movies page shows a shuffled 100 with official watch links', async ({ page
   await expect(page.getByTestId('movie-count')).toContainText('original Malayalam')
   await expect(page.getByTestId('originals-only')).toContainText('Original Malayalam only')
   await expect(page.getByText('Papanasam')).toHaveCount(0)
+  const pagesBefore = page.context().pages().length
+  await page.getByRole('link', { name: /Amazon Prime Video|Google Play Movies|SonyLIV|JustWatch/ }).first().click()
+  await expect(page.getByTestId('watch-desk')).toBeVisible()
+  expect(page.context().pages().length).toBe(pagesBefore)
+  await page.getByTestId('watch-close').click()
+  await expect(page.getByTestId('watch-desk')).toHaveCount(0)
+  await expect(page.getByTestId('movies-page')).toBeVisible()
 })
 
 test('OTT vault saves a channel for this Willow user', async ({ page }) => {

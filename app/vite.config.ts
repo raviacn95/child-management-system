@@ -18,7 +18,7 @@ const CSP = [
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: https:",
   "connect-src 'self'",
-  "frame-src https://www.youtube-nocookie.com https://www.youtube.com",
+  "frame-src 'self' https:",
   "object-src 'none'",
   "base-uri 'self'",
   "frame-ancestors 'none'",
@@ -60,7 +60,7 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        cacheId: 'willow-live-ott-v3',
+        cacheId: 'willow-live-ott-v4',
         globPatterns: ['**/*.{js,css,html,svg,woff2,json,png}'],
         globIgnores: ['**/releases/**', '**/*.apk'],
         navigateFallback: 'index.html',

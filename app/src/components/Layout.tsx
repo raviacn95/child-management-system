@@ -14,6 +14,7 @@ import {
   HeartPulse,
   LayoutDashboard,
   LogOut,
+  Menu,
   MessageSquare,
   Package,
   School,
@@ -27,9 +28,9 @@ import {
   UtensilsCrossed,
   Wallet,
 } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { prefetchRoute } from '../app/prefetch'
 import { persistLanguage } from '../i18n'
 import { canSee, formatTime } from '../lib'
@@ -70,7 +71,9 @@ export function Layout() {
   const { t, i18n } = useTranslation()
   const { state, logout, setSite, markNotifRead } = useStore()
   const navigate = useNavigate()
+  const location = useLocation()
   const [openNotifs, setOpenNotifs] = useState(false)
+  const [navOpen, setNavOpen] = useState(false)
   const user = state.users.find((u) => u.id === state.currentUserId)
   const site = state.sites.find((s) => s.id === state.currentSiteId)
   const pack = packOf(state.countryCode)
@@ -89,11 +92,30 @@ export function Layout() {
   const notifs = state.notifications.filter((n) => n.userId === user?.id)
   const unread = notifs.filter((n) => !n.read).length
 
+  useEffect(() => {
+    setNavOpen(false)
+    setOpenNotifs(false)
+  }, [location.pathname])
+
   if (!user) return null
 
   return (
-    <div className="flex min-h-screen">
-      <aside className="sticky top-0 flex h-screen w-[248px] shrink-0 flex-col border-r border-line bg-[var(--color-sidebar)]">
+    <div className="flex min-h-dvh">
+      {navOpen ? (
+        <button
+          type="button"
+          className="fixed inset-0 z-30 bg-ink/40 lg:hidden"
+          aria-label="Close menu"
+          data-testid="nav-backdrop"
+          onClick={() => setNavOpen(false)}
+        />
+      ) : null}
+      <aside
+        className={`fixed inset-y-0 left-0 z-40 flex h-dvh w-[min(248px,86vw)] shrink-0 flex-col border-r border-line bg-[var(--color-sidebar)] pt-[env(safe-area-inset-top)] transition-transform lg:sticky lg:translate-x-0 ${
+          navOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        }`}
+        data-testid="app-nav"
+      >
         <div className="px-5 pt-6 pb-4">
           <div className="flex items-center gap-2.5">
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-pine text-paper">
@@ -165,12 +187,23 @@ export function Layout() {
         </div>
       </aside>
       <div className="min-w-0 flex-1">
-        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-line bg-[color-mix(in_srgb,var(--color-sand)_86%,transparent)] px-8 py-3 backdrop-blur">
-          <div>
-            <p className="text-sm text-muted">
-              {site?.name} · {pack.name}
-            </p>
-            <p className="text-xs text-muted">{site?.address}</p>
+        <header className="sticky top-0 z-20 flex items-center justify-between gap-2 border-b border-line bg-[color-mix(in_srgb,var(--color-sand)_86%,transparent)] px-3 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur md:px-8">
+          <div className="flex min-w-0 items-center gap-2">
+            <button
+              type="button"
+              className="rounded-xl border border-line bg-paper p-2 lg:hidden"
+              aria-label="Open menu"
+              data-testid="open-nav"
+              onClick={() => setNavOpen(true)}
+            >
+              <Menu size={18} />
+            </button>
+            <div className="min-w-0">
+              <p className="truncate text-sm text-muted">
+                {site?.name} · {pack.name}
+              </p>
+              <p className="hidden truncate text-xs text-muted sm:block">{site?.address}</p>
+            </div>
           </div>
           <div className="relative flex items-center gap-3">
             <NavLink
@@ -180,7 +213,7 @@ export function Layout() {
               data-testid="header-get-app"
             >
               <Download size={14} />
-              {t('nav.getApp')}
+              <span className="hidden sm:inline">{t('nav.getApp')}</span>
             </NavLink>
             <Badge tone="pine">{user.role}</Badge>
             <button
@@ -205,7 +238,7 @@ export function Layout() {
               ) : null}
             </button>
             {openNotifs ? (
-              <div className="card absolute top-12 right-0 z-30 w-80 p-2">
+              <div className="card absolute top-12 right-0 z-30 w-[min(20rem,calc(100vw-1.5rem))] p-2">
                 {notifs.length === 0 ? (
                   <p className="p-3 text-sm text-muted">No notifications</p>
                 ) : (
@@ -231,7 +264,7 @@ export function Layout() {
             ) : null}
           </div>
         </header>
-        <main className="px-8 py-8">
+        <main className="px-4 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:px-8 md:py-8">
           <Outlet />
         </main>
       </div>

@@ -12,7 +12,24 @@ const config: CapacitorConfig = {
 }
 
 if (process.env.WILLOW_LIVE_SHELL === '1') {
-  config.server = { url: LIVE_SITE, androidScheme: 'https' }
+  config.server = {
+    url: `${LIVE_SITE}?v=ott4`,
+    androidScheme: 'https',
+    allowNavigation: [
+      'raviacn95.github.io',
+      '*.jiohotstar.com',
+      '*.hotstar.com',
+      '*.primevideo.com',
+      '*.netflix.com',
+      '*.sonyliv.com',
+      '*.zee5.com',
+      '*.youtube.com',
+      '*.google.com',
+      '*.apple.com',
+      '*.justwatch.com',
+      '*',
+    ],
+  }
 }
 
 export default config

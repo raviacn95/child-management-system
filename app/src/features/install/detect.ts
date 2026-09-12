@@ -26,6 +26,12 @@ export function isChromiumDesktop() {
   return /Chrome|Edg|Chromium/i.test(ua) && !/Mobile|Android/i.test(ua)
 }
 
+export function isHandheld(ua = typeof navigator !== 'undefined' ? navigator.userAgent : '') {
+  if (/Android|iPhone|iPad|iPod|Mobile/i.test(ua)) return true
+  if (typeof navigator !== 'undefined' && navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) return true
+  return false
+}
+
 export function installSurface() {
   if (detectFireTv()) return 'tv' as const
   if (isIosSafari()) return 'ios' as const

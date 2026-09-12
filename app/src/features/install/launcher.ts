@@ -1,4 +1,9 @@
 import { LIVE_APP_URL } from './assets'
+import { isHandheld } from './detect'
+
+export type LaunchPlan =
+  | { kind: 'homescreen' }
+  | { kind: 'desktop'; file: LauncherFile; openWindow: true }
 
 export type LauncherFile = {
   filename: string
@@ -60,6 +65,14 @@ export function launcherFor(userAgent: string, liveUrl = LIVE_APP_URL): Launcher
       '',
     ].join('\n'),
   }
+}
+
+export function launchPlan(
+  userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : 'Windows',
+  handheld = isHandheld(userAgent),
+): LaunchPlan {
+  if (handheld) return { kind: 'homescreen' }
+  return { kind: 'desktop', file: launcherFor(userAgent), openWindow: true }
 }
 
 export function downloadLiveLauncher(userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : 'Windows', liveUrl = LIVE_APP_URL) {

@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../components/ui'
 import { apkDownloadUrl, LIVE_SITE } from '../features/install/assets'
-import { installSurface, isIosSafari } from '../features/install/detect'
+import { installSurface, isHandheld, isIosSafari } from '../features/install/detect'
 import { useInstallPrompt } from '../features/install/InstallProvider'
-import { downloadLiveLauncher, openLiveAppWindow } from '../features/install/launcher'
+import { downloadLiveLauncher, launchPlan, openLiveAppWindow } from '../features/install/launcher'
 import { homePath } from '../lib/tv'
 import { useStore } from '../store'
 
@@ -14,6 +14,7 @@ export function GetApp() {
   const { installed, install, status } = useInstallPrompt()
   const signedIn = Boolean(state.currentUserId)
   const surface = installSurface()
+  const handheld = isHandheld()
   const apkHref = apkDownloadUrl()
   const [apkReady, setApkReady] = useState<boolean | null>(null)
   const [launched, setLaunched] = useState('')
@@ -33,6 +34,12 @@ export function GetApp() {
   }, [apkHref])
 
   function launchLiveApp() {
+    const plan = launchPlan()
+    if (plan.kind === 'homescreen') {
+      void install()
+      setLaunched('homescreen')
+      return
+    }
     const filename = downloadLiveLauncher()
     openLiveAppWindow()
     setLaunched(filename)
@@ -71,6 +78,16 @@ export function GetApp() {
               <p className="mt-4 rounded-xl bg-pine-soft px-4 py-3 text-sm font-semibold text-pine">
                 You are already running the Willow app.
               </p>
+            ) : handheld ? (
+              <Button
+                className="mt-5 min-h-12 w-full text-base"
+                type="button"
+                onClick={launchLiveApp}
+                data-testid="pwa-install"
+              >
+                <Download size={18} />
+                {status === 'prompting' ? 'Adding to Home Screen…' : 'Use live Willow on this phone'}
+              </Button>
             ) : (
               <Button
                 className="mt-5 min-h-12 w-full text-base"
@@ -83,13 +100,18 @@ export function GetApp() {
               </Button>
             )}
             <div className="mt-4 rounded-xl border border-line bg-sand px-4 py-3 text-sm" data-testid="laptop-install-help">
-              {launched ? (
+              {launched === 'homescreen' ? (
+                <p className="font-semibold text-pine">
+                  You are already on live Willow. Android Chrome: menu → Add to Home screen. iPhone: Share → Add to
+                  Home Screen. Then open Willow from the home screen like any app.
+                </p>
+              ) : launched ? (
                 <p className="font-semibold text-pine">
                   Downloaded {launched} and opened live Willow. Open the file if Windows asks “Keep anyway”, then use
                   Willow from the Start menu next time.
                 </p>
-              ) : isIosSafari() ? (
-                <p>On iPhone/iPad: tap Share → Add to Home Screen → Add. Willow then opens as an app.</p>
+              ) : isIosSafari() || handheld ? (
+                <p>On a phone this site is the live app. Add it to your Home Screen — do not download a Windows file.</p>
               ) : (
                 <p className="text-xs text-muted">
                   Click the button: your browser saves <strong>Willow-Live-App</strong> and a live Willow window opens.
@@ -137,8 +159,8 @@ export function GetApp() {
           <div>
             <h2 className="font-display text-2xl font-semibold">Phone or tablet</h2>
             <p className="mt-2 text-sm text-muted">
-              Android Chrome: use Download & launch live app (same live window). iPhone: Add to Home Screen. You can
-              also sideload the Fire Stick APK on Android phones.
+              This website is the live phone app. Add it to your Home Screen. Do not run the Windows launcher on a
+              phone. You can also sideload the Fire Stick APK on Android.
             </p>
             {surface === 'android' && !installed ? (
               <Button className="mt-4" type="button" onClick={launchLiveApp}>

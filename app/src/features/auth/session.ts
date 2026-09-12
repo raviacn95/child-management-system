@@ -3,7 +3,7 @@ import type { Role } from '../../types'
 export interface SessionPayload {
   sub: string
   role: Role
-  email: string
+  email?: string
   iat: number
   exp: number
   persist: boolean
@@ -26,15 +26,18 @@ export function issueSession(
   const payload: SessionPayload = {
     sub: user.id,
     role: user.role,
-    email: user.email,
     iat: Date.now(),
     exp: Date.now() + (persist ? NINETY_DAYS : EIGHT_HOURS),
     persist,
   }
   try {
-    write(localStorage, payload)
-    write(sessionStorage, payload)
-    localStorage.setItem(LAST_EMAIL_KEY, user.email)
+    sessionStorage.setItem(SESSION_KEY, btoa(JSON.stringify(payload)))
+    if (persist) {
+      write(localStorage, payload)
+      localStorage.setItem(LAST_EMAIL_KEY, user.email)
+    } else {
+      localStorage.removeItem(SESSION_KEY)
+    }
   } catch {
     /* private mode */
   }
@@ -45,6 +48,7 @@ export function clearSession() {
   try {
     localStorage.removeItem(SESSION_KEY)
     sessionStorage.removeItem(SESSION_KEY)
+    localStorage.removeItem(LAST_EMAIL_KEY)
   } catch {
     /* ignore */
   }

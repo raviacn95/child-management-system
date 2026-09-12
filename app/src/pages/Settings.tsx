@@ -69,6 +69,13 @@ export function SettingsPage() {
         </div>
         <div className="card p-5">
           <h2 className="font-display text-xl">{t('settings.security')}</h2>
+          <p className="mt-2 text-sm text-muted">
+            Child records stay on this device. Willow does not send names, PINs, or medical notes to other companies.
+            The phone app also blocks Android backup of that data.
+          </p>
+          <a className="mt-2 inline-block text-sm font-semibold text-pine" href="./privacy.html">
+            Privacy notice →
+          </a>
           <p className="mt-2 text-xs text-muted">Production builds inject a CSP meta tag. Dev keeps HMR unblocked.</p>
           <p className="mt-2 font-mono text-[10px] leading-relaxed break-all text-muted">{PRODUCTION_CSP}</p>
         </div>

@@ -10,6 +10,7 @@ import { childName } from '../../lib'
 import { useStore } from '../../store'
 import type { AgeBand, Child, LearningInterest } from '../../types'
 import { BAND_SAMPLE_AGE, getPackByAgeBand } from './learningPacks'
+import { publicRecommendCopy, publicRecommendInput } from '../../lib/privacy'
 import { inputFromChild, recommend } from './recommend'
 import { ageBandSchema, recommendationOutputSchema } from './schema'
 
@@ -56,7 +57,7 @@ export function ChannelPack({ kids }: { kids: Child[] }) {
     queryFn: async () => {
       if (!input) return null
       try {
-        return await apiPost('/recommendations', input, recommendationOutputSchema)
+        return await apiPost('/recommendations', publicRecommendInput(input), recommendationOutputSchema)
       } catch {
         return recommend(input)
       }
@@ -87,9 +88,9 @@ export function ChannelPack({ kids }: { kids: Child[] }) {
 
   async function copyJson() {
     if (!result || !child) return
-    await navigator.clipboard.writeText(JSON.stringify(result, null, 2))
+    await navigator.clipboard.writeText(publicRecommendCopy(result))
     setCopied(true)
-    logAudit('learning.recommend', `${childName(child)} · ${result.ageBand}`)
+    logAudit('learning.recommend', result.ageBand)
     window.setTimeout(() => setCopied(false), 1600)
   }
 
@@ -222,6 +223,7 @@ export function ChannelPack({ kids }: { kids: Child[] }) {
                 href={`${channel.youtubeUrl}?autoplay=0`}
                 target="_blank"
                 rel="noopener noreferrer"
+                referrerPolicy="no-referrer"
               >
                 {t('learning.openChannel')} <ExternalLink size={12} />
               </a>
@@ -231,6 +233,7 @@ export function ChannelPack({ kids }: { kids: Child[] }) {
                   href={`${channel.playlistUrl}?autoplay=0`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  referrerPolicy="no-referrer"
                 >
                   {t('learning.openPlaylist')}
                 </a>
@@ -241,6 +244,7 @@ export function ChannelPack({ kids }: { kids: Child[] }) {
                   href={youtubeKidsUrl(channel.youtubeUrl)}
                   target="_blank"
                   rel="noopener noreferrer"
+                  referrerPolicy="no-referrer"
                 >
                   Kids app
                 </a>

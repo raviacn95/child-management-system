@@ -259,14 +259,9 @@ export async function autoOrderRemote(payload: {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          childId: payload.child.id,
-          firstName: payload.child.firstName,
-          allergies: payload.child.allergies.map((a) => a.name),
-          diet: payload.child.dietType || payload.child.foodPreferences,
           needs: payload.needs,
-          pincode: payload.pincode,
+          pinPrefix: pinPrefix(payload.pincode),
           payment: payload.payment,
-          address: payload.address,
           preferCod: payload.preferCod,
         }),
       })
@@ -287,7 +282,12 @@ export async function placeOrderRemote(order: QcOrder): Promise<QcOrder> {
       const res = await fetch(`${API}/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(order),
+        body: JSON.stringify({
+          id: order.id,
+          status: order.status,
+          lines: order.lines.map((line) => ({ sku: line.sku })),
+          payment: order.payment,
+        }),
       })
       if (res.ok) return (await res.json()) as QcOrder
     } catch {

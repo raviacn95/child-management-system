@@ -27,7 +27,6 @@ if (process.env.WILLOW_LIVE_SHELL === '1') {
       '*.google.com',
       '*.apple.com',
       '*.justwatch.com',
-      '*',
     ],
   }
 }

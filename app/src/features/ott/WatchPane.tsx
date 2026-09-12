@@ -74,7 +74,7 @@ function WatchFrame({ session, onClose }: { session: WatchSession; onClose: () =
         className="min-h-0 w-full flex-1 border-0 bg-paper"
         title={`${session.platformName} — ${session.title}`}
         src={session.url}
-        referrerPolicy="no-referrer-when-downgrade"
+        referrerPolicy="no-referrer"
         allow="fullscreen; autoplay; encrypted-media"
       />
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-line bg-paper px-3 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">

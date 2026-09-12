@@ -14,8 +14,9 @@ describe('willow session', () => {
     sessionStorage.removeItem('willow-session')
     const again = readSession()
     expect(again?.sub).toBe('u-1')
-    expect(again?.email).toBe('parent@willow.care')
+    expect(again?.email).toBeUndefined()
     expect(readLastEmail()).toBe('parent@willow.care')
+    expect(localStorage.getItem('willow-session') ?? '').not.toContain('parent@willow.care')
     expect((again?.exp ?? 0) - Date.now()).toBeGreaterThan(80 * 24 * 60 * 60 * 1000)
   })
 
@@ -23,5 +24,12 @@ describe('willow session', () => {
     issueSession(user, { persist: true })
     clearSession()
     expect(readSession()).toBeNull()
+    expect(readLastEmail()).toBe('')
+  })
+
+  it('keeps a tab-only session out of localStorage', () => {
+    issueSession(user, { persist: false })
+    expect(localStorage.getItem('willow-session')).toBeNull()
+    expect(readSession()?.sub).toBe('u-1')
   })
 })

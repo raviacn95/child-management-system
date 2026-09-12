@@ -27,6 +27,7 @@ import { nextWebhook } from './lib/autoOrder'
 import { applyWorkerRun } from './workers/engine'
 import { makeAudit, prependAudit } from './lib/audit'
 import { clearSession, issueSession, readSession } from './features/auth/session'
+import { sanitizeForDisk, wipeCmsKeys, wipeLegacyCmsKeys, withDemoSecrets } from './lib/privacy'
 
 const KEY = 'willow-cms-v5'
 
@@ -121,7 +122,10 @@ function load(): AppState {
       localStorage.getItem('willow-cms-v1')
     if (raw) {
       const parsed = JSON.parse(raw) as AppState
-      if (parsed?.sites?.length && parsed?.children?.length) return restoreSession(migrate(parsed))
+      wipeLegacyCmsKeys()
+      if (parsed?.sites?.length && parsed?.children?.length) {
+        return restoreSession(withDemoSecrets(migrate(parsed)))
+      }
     }
   } catch {
     /* ignore */
@@ -135,15 +139,12 @@ function restoreSession(state: AppState): AppState {
     const user = state.users.find((u) => u.id === session.sub)
     if (user) return { ...state, currentUserId: user.id, currentSiteId: user.siteId || state.currentSiteId }
   }
-  if (state.currentUserId) {
-    const user = state.users.find((u) => u.id === state.currentUserId)
-    if (user) issueSession(user, { persist: true })
-  }
-  return state
+  return { ...state, currentUserId: null }
 }
 
 function persist(state: AppState) {
-  localStorage.setItem(KEY, JSON.stringify(state))
+  localStorage.setItem(KEY, JSON.stringify(sanitizeForDisk(state)))
+  wipeLegacyCmsKeys()
 }
 
 function uid(prefix: string) {
@@ -241,7 +242,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       },
       setSite: (id) => commit({ ...state, currentSiteId: id }),
       resetDemo: () => {
-        localStorage.removeItem(KEY)
+        clearSession()
+        wipeCmsKeys()
         commit(createSeed())
       },
       checkIn: (childId, method, person) => {

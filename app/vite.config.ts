@@ -14,8 +14,8 @@ const root = fileURLToPath(new URL('.', import.meta.url))
 const CSP = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com data:",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self' data:",
   "img-src 'self' data: https:",
   "connect-src 'self'",
   "frame-src 'self' https:",
@@ -60,7 +60,7 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        cacheId: 'willow-live-ott-v5',
+        cacheId: 'willow-privacy-v1',
         globPatterns: ['**/*.{js,css,html,svg,woff2,json,png}'],
         globIgnores: ['**/releases/**', '**/*.apk'],
         navigateFallback: 'index.html',

@@ -62,11 +62,11 @@ export function Attendance() {
             </Field>
             {method === 'pin' ? (
               <Field label="Pickup PIN">
-                <input className={inputClass} value={pin} onChange={(e) => setPin(e.target.value)} placeholder="e.g. 4482" />
+                <input className={inputClass} value={pin} onChange={(e) => setPin(e.target.value)} placeholder="Authorized PIN" type="password" inputMode="numeric" />
               </Field>
             ) : null}
           </div>
-          <p className="mt-2 text-xs text-muted">Try PIN 4482 for the Shah family.</p>
+          <p className="mt-2 text-xs text-muted">Enter the family’s authorized pickup PIN. Willow never shows PINs on child profiles.</p>
         </div>
         <div className="card p-4">
           <p className="text-xs font-semibold tracking-wide text-muted uppercase">In building</p>

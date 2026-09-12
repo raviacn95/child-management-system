@@ -145,7 +145,7 @@ export function ChildrenPage() {
                 .map((g) => (
                   <li key={g.id} className="rounded-xl border border-line px-3 py-2">
                     <strong>{g.name}</strong> · {g.relationship} · {g.phone}
-                    {g.authorizedPickup ? ` · PIN ${g.pin}` : ''}
+                    {g.authorizedPickup ? ' · PIN set (handoff desk only)' : ''}
                   </li>
                 ))}
             </ul>
@@ -155,7 +155,7 @@ export function ChildrenPage() {
                 .filter((p) => p.childId === selected.id)
                 .map((p) => (
                   <li key={p.id} className="rounded-xl border border-line px-3 py-2">
-                    {p.name} · {p.relationship} · PIN {p.pin}
+                    {p.name} · {p.relationship} · PIN set (handoff desk only)
                   </li>
                 ))}
             </ul>

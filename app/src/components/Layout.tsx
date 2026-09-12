@@ -10,6 +10,7 @@ import {
   Compass,
   ClipboardCheck,
   Download,
+  RefreshCw,
   FileText,
   HeartPulse,
   LayoutDashboard,
@@ -41,6 +42,8 @@ import { useStore } from '../store'
 import { Avatar, Badge } from './ui'
 import { ThemeToggle } from './ThemeToggle'
 import { ShareButton } from '../features/share/ShareSheet'
+import { UpdateBanner } from '../features/install/UpdateBanner'
+import { updateLiveWillow } from '../lib/liveRelease'
 
 const NAV = [
   { to: '/hub', key: 'hub', label: 'Tonight', icon: MonitorPlay },
@@ -212,6 +215,16 @@ export function Layout() {
           <div className="relative z-10 flex min-w-0 flex-1 items-center justify-end gap-1.5 sm:gap-3">
             <button
               type="button"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-paper px-2.5 py-1.5 text-xs font-semibold"
+              aria-label="Update Willow"
+              data-testid="header-update"
+              onClick={() => void updateLiveWillow()}
+            >
+              <RefreshCw size={14} />
+              <span className="hidden sm:inline">Update</span>
+            </button>
+            <button
+              type="button"
               className="rounded-xl border border-line bg-paper p-2"
               aria-label="Search Willow"
               data-testid="open-search"
@@ -281,6 +294,7 @@ export function Layout() {
             ) : null}
           </div>
         </header>
+        <UpdateBanner />
         <main className="tv-safe px-4 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:px-8 md:py-8">
           <Outlet />
         </main>

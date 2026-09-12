@@ -14,7 +14,7 @@ import { isTvMode, setTvMode } from '../lib/tv'
 import { useStore } from '../store'
 import { LookPicker } from '../components/LookPicker'
 import { useTheme } from '../theme/ThemeProvider'
-import { forceReloadLive } from '../lib/liveRelease'
+import { updateLiveWillow } from '../lib/liveRelease'
 
 export function SettingsPage() {
   const { t, i18n } = useTranslation()
@@ -40,13 +40,13 @@ export function SettingsPage() {
       />
 
       <div className="card mb-6 p-5" data-testid="live-update">
-        <h2 className="font-display text-xl">Live Willow</h2>
+        <h2 className="font-display text-xl">Update Willow</h2>
         <p className="mt-1 text-sm text-muted">
-          Phone, Windows, and Fire Stick load the live website. If this copy looks old, drop the stuck cache and open
-          the latest release. Child records stay on this device.
+          Phone, Windows, and Fire Stick pull the live website. Tap Update — do not uninstall the app. Child records
+          stay on this device.
         </p>
-        <Button type="button" className="mt-3" data-testid="use-latest-willow" onClick={() => void forceReloadLive()}>
-          Use latest Willow
+        <Button type="button" className="mt-3" data-testid="use-latest-willow" onClick={() => void updateLiveWillow()}>
+          Update
         </Button>
       </div>
 

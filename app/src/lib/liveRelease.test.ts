@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextLiveHref, parseRelease, shouldApplyRemote, syncLiveRelease } from './liveRelease'
+import { hasStaleShellQuery, nextLiveHref, parseRelease, shouldApplyRemote, syncLiveRelease } from './liveRelease'
 
 describe('live release pipeline', () => {
   beforeEach(() => {
@@ -15,10 +15,30 @@ describe('live release pipeline', () => {
     expect(shouldApplyRemote('old', parseRelease({ id: 'dev', channel: 'local' })!)).toBe(false)
   })
 
-  it('keeps the hash route when swapping the willow cache token', () => {
+  it('keeps the hash route and drops a stale APK cache token', () => {
+    expect(hasStaleShellQuery('https://raviacn95.github.io/child-management-system/?v=looks1#/tv')).toBe(true)
     expect(nextLiveHref('https://raviacn95.github.io/child-management-system/?v=looks1#/tv', 'deadbeefcafebabe')).toBe(
-      'https://raviacn95.github.io/child-management-system/?v=looks1&willow=deadbeefcafe#/tv',
+      'https://raviacn95.github.io/child-management-system/?willow=deadbeefcafe#/tv',
     )
+  })
+
+  it('reloads a stale APK query even when the applied id already matches', async () => {
+    const replace = vi.fn()
+    const fetchImpl = vi.fn(async () => ({
+      ok: true,
+      json: async () => ({ id: 'abc123def456', channel: 'live' }),
+    })) as unknown as typeof fetch
+    const href = 'https://raviacn95.github.io/child-management-system/?v=moviesum3#/movies'
+    const result = await syncLiveRelease({
+      skipDev: false,
+      applied: 'abc123def456',
+      href,
+      location: { href, replace },
+      fetchImpl,
+    })
+    expect(result.status).toBe('reloading')
+    expect(String(replace.mock.calls[0][0])).not.toContain('v=moviesum3')
+    expect(String(replace.mock.calls[0][0])).toContain('#/movies')
   })
 
   it('reloads once when the phone still has an older release id', async () => {

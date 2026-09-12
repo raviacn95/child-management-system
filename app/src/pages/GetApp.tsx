@@ -88,9 +88,8 @@ export function GetApp() {
           <Smartphone className="text-pine" />
           <h2 className="font-display mt-3 text-2xl font-semibold">Android phone or tablet</h2>
           <p className="mt-2 text-sm text-muted">
-            Download the APK, open the file, tap Install. Allow apps from this browser if Android asks. This APK is a
-            live shell — after you install this build once, movie and care updates come from the website. If the phone
-            still looks old, reinstall willow.apk here or use Settings → Use latest Willow.
+            Download the APK, open the file, tap Install. After that, tap <strong>Update</strong> in the app header
+            when Willow has a newer website — do not uninstall. Child records stay on the phone.
           </p>
           <a
             className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-pine px-3.5 py-2 text-base font-semibold text-white hover:bg-[#175c4b]"
@@ -113,7 +112,23 @@ export function GetApp() {
             <li>Tap Download Willow.apk — do not open any Willow-Live-App text file.</li>
             <li>Open the download → Install → Open.</li>
             <li>Sign in once with Keep me signed in.</li>
+            <li>Later, tap Update in the header — do not uninstall.</li>
           </ol>
+        </section>
+
+        <section className="card mt-4 p-6" data-testid="update-instead">
+          <h2 className="font-display text-2xl font-semibold">Already installed? Update</h2>
+          <p className="mt-2 text-sm text-muted">
+            Do not uninstall or download the APK again. Open Willow and tap <strong>Update</strong>. If the phone is
+            stuck on an old screen, use Update now once. Child records stay on this device.
+          </p>
+          <a
+            className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-line px-3.5 py-2 text-base font-semibold"
+            href={`${LIVE_SITE}update.html`}
+            data-testid="open-update-page"
+          >
+            Update now
+          </a>
         </section>
 
         <div className="mt-4 grid gap-4 md:grid-cols-2">

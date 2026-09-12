@@ -436,6 +436,19 @@ html[data-device='phone'] button {
   background: color-mix(in srgb, var(--color-paper) 88%, var(--look-overlay));
 }
 
+.update-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0.75rem 1rem 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-paper) 92%, var(--look-overlay));
+}
+
 .return-banner {
   position: fixed;
   z-index: 60;

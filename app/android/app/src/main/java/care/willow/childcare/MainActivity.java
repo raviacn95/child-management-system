@@ -41,6 +41,17 @@ public class MainActivity extends BridgeActivity {
             web.clearCache(true);
             clearedCache = true;
         }
+        leaveStaleShell(web);
+    }
+
+    private void leaveStaleShell(WebView web) {
+        String url = web.getUrl();
+        if (url == null || !url.contains("raviacn95.github.io/child-management-system")) return;
+        if (!url.matches(".*[?&]v=(looks|framework|return|toppicks|moviesum|design).*")) return;
+        String hash = "";
+        int hashAt = url.indexOf('#');
+        if (hashAt >= 0) hash = url.substring(hashAt);
+        web.loadUrl("https://raviacn95.github.io/child-management-system/" + hash);
     }
 
     private void handleReturnIntent(Intent intent) {

@@ -20,6 +20,11 @@ test('get the app downloads a laptop launcher and opens live Willow', async ({ p
     'href',
     'https://raviacn95.github.io/child-management-system/downloads/willow-movies.apk',
   )
+  await expect(page.getByTestId('update-instead')).toContainText(/Do not uninstall/i)
+  await expect(page.getByTestId('open-update-page')).toHaveAttribute(
+    'href',
+    'https://raviacn95.github.io/child-management-system/update.html',
+  )
 })
 
 test('login page links to get the app without signing in', async ({ page }) => {
@@ -32,6 +37,7 @@ test('signed-in header opens get the app', async ({ page }) => {
   await page.goto('/#/login')
   await page.getByRole('button', { name: 'Sign in' }).click()
   await expect(page.getByRole('heading', { name: /Today at a glance/i })).toBeVisible()
+  await expect(page.getByTestId('header-update')).toBeVisible()
   await page.getByTestId('header-get-app').click()
   await expect(page.getByTestId('get-app')).toBeVisible()
   await expect(page.getByRole('link', { name: /Open Willow/i })).toBeVisible()
@@ -41,7 +47,8 @@ test('settings can drop a stuck live cache', async ({ page }) => {
   await page.goto('/#/login')
   await page.getByRole('button', { name: 'Sign in' }).click()
   await expect(page.getByRole('heading', { name: /Today at a glance/i })).toBeVisible()
+  await expect(page.getByTestId('header-update')).toBeVisible()
   await page.goto('/#/settings')
   await expect(page.getByTestId('live-update')).toBeVisible()
-  await expect(page.getByTestId('use-latest-willow')).toBeVisible()
+  await expect(page.getByTestId('use-latest-willow')).toHaveText('Update')
 })

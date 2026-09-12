@@ -30,6 +30,17 @@ export function releaseUrl(fromHref?: string) {
   return new URL('release.json', pageRoot(href)).href
 }
 
+const STALE_V = /^(looks|framework|return|toppicks|moviesum|design)\d*$/i
+
+export function hasStaleShellQuery(href: string) {
+  try {
+    const value = new URL(href.split('#')[0]).searchParams.get('v')
+    return Boolean(value && STALE_V.test(value))
+  } catch {
+    return false
+  }
+}
+
 export function shouldApplyRemote(applied: string | null, remote: LiveRelease) {
   if (!remote.id || remote.id === 'dev' || remote.channel === 'local') return false
   return applied !== remote.id
@@ -40,8 +51,13 @@ export function nextLiveHref(currentHref: string, id: string) {
   const page = hashIndex === -1 ? currentHref : currentHref.slice(0, hashIndex)
   const hash = hashIndex === -1 ? '' : currentHref.slice(hashIndex)
   const url = new URL(page)
+  url.searchParams.delete('v')
   url.searchParams.set('willow', id.replace(/[^a-fA-F0-9]/g, '').slice(0, 12) || String(Date.now()))
   return `${url.href}${hash}`
+}
+
+export function updateLiveWillow() {
+  return forceReloadLive()
 }
 
 export async function fetchLiveRelease(fromHref?: string, fetchImpl: typeof fetch = fetch) {
@@ -78,15 +94,23 @@ export async function syncLiveRelease(opts?: {
   } catch {
     /* private mode */
   }
-  const remote = await fetchLiveRelease(opts?.href, opts?.fetchImpl).catch(() => null)
-  if (!remote) return { status: 'missing' as const }
+  const href = opts?.href ?? opts?.location?.href ?? (typeof window === 'undefined' ? '' : window.location.href)
+  const stale = Boolean(href && hasStaleShellQuery(href))
+  const remote = await fetchLiveRelease(opts?.href ?? href, opts?.fetchImpl).catch(() => null)
+  if (!remote) {
+    if (!stale) return { status: 'missing' as const }
+    await clearClientCaches()
+    const loc = opts?.location ?? (typeof window === 'undefined' ? null : window.location)
+    if (loc) loc.replace(nextLiveHref(loc.href, String(Date.now())))
+    return { status: 'reloading' as const, id: 'stale-shell' }
+  }
   const applied =
     opts?.applied !== undefined
       ? opts.applied
       : typeof localStorage === 'undefined'
         ? null
         : localStorage.getItem(APPLIED_KEY)
-  if (!shouldApplyRemote(applied, remote)) return { status: 'current' as const, id: remote.id }
+  if (!stale && !shouldApplyRemote(applied, remote)) return { status: 'current' as const, id: remote.id }
   try {
     sessionStorage.setItem(RELOAD_GUARD, '1')
     localStorage.setItem(APPLIED_KEY, remote.id)

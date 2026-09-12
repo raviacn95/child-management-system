@@ -66,12 +66,16 @@ export default defineConfig(({ mode }) => ({
         clientsClaim: true,
         cleanupOutdatedCaches: true,
         globPatterns: ['**/*.{js,css,html,svg,woff2,json,png}'],
-        globIgnores: ['**/releases/**', '**/*.apk', '**/release.json'],
+        globIgnores: ['**/releases/**', '**/*.apk', '**/release.json', '**/update.html'],
         navigateFallback: 'index.html',
-        navigateFallbackDenylist: [/\.apk$/i, /\/downloads\//, /\/releases\//, /\/schemas\//, /release\.json$/],
+        navigateFallbackDenylist: [/\.apk$/i, /\/downloads\//, /\/releases\//, /\/schemas\//, /release\.json$/, /update\.html$/],
         runtimeCaching: [
           {
             urlPattern: /release\.json/i,
+            handler: 'NetworkOnly',
+          },
+          {
+            urlPattern: /update\.html/i,
             handler: 'NetworkOnly',
           },
         ],

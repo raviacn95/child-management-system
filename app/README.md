@@ -35,7 +35,7 @@ Copy `.env.example` to `.env`. Values are validated with Zod in `src/env.ts`.
 
 Anyone can open **Get the app** without signing in: [/#/get-app](https://raviacn95.github.io/child-management-system/#/get-app).
 
-- **Android phone / tablet:** download **willow.apk**, open the file, tap Install. Never open a Willow-Live-App.desktop text file.
+- **Android phone / tablet:** download **willow.apk**, open the file, tap Install. After that, tap **Update** in the app header for website changes — do not uninstall. Never open a Willow-Live-App.desktop text file.
 - **Laptop / Chromebook (Chrome or Edge):** the site can install a live app window.
 - **iPhone / iPad:** Share → Add to Home Screen.
 - **Fire Stick / Android TV:** same APK also published as `willow-movies.apk`.

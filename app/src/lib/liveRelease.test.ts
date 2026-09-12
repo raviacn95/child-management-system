@@ -18,7 +18,7 @@ function jsonRes(body: unknown, url = OFFICIAL_RELEASE) {
     ok: true,
     url,
     headers: { get: (name: string) => (name === 'content-type' ? 'application/json' : null) },
-    text: async () => text,
+    text: async (): Promise<string> => text,
     json: async () => body,
   }
 }
@@ -111,7 +111,7 @@ describe('live release pipeline', () => {
         ok: true,
         url: 'https://raviacn95.github.io/child-management-system/',
         headers: { get: (name: string) => (name === 'content-type' ? 'text/html' : null) },
-        text: async () => '<html>tampered</html>',
+        text: async (): Promise<string> => '<html>tampered</html>',
       }
     }) as unknown as typeof fetch
     const result = await checkLiveUpdate({

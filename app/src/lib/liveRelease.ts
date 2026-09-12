@@ -98,12 +98,19 @@ function responseHref(res: { url?: string }, fallback: string) {
   return (res.url || fallback).split('#')[0]
 }
 
+type OfficialRead =
+  | { blocked: 'origin' | 'schema' }
+  | { missing: true }
+  | { text: string }
+
+type FetchedRelease = { blocked: 'origin' | 'schema' } | { missing: true } | { remote: LiveRelease }
+
 async function readOfficialText(
   url: string,
   fetchImpl: typeof fetch,
   maxBytes: number,
   kind: 'json' | 'html',
-) {
+): Promise<OfficialRead> {
   if (!isTrustedSource(url)) return { blocked: 'origin' as const }
   const res = await fetchImpl(`${url}${url.includes('?') ? '&' : '?'}t=${Date.now()}`, {
     cache: 'no-store',
@@ -124,7 +131,10 @@ async function readOfficialText(
   return { text }
 }
 
-export async function fetchLiveRelease(fromHref?: string, fetchImpl: typeof fetch = fetch) {
+export async function fetchLiveRelease(
+  fromHref?: string,
+  fetchImpl: typeof fetch = fetch,
+): Promise<FetchedRelease> {
   const url = releaseUrl(fromHref)
   const read = await readOfficialText(url, fetchImpl, RELEASE_MAX_BYTES, 'json')
   if ('blocked' in read) return { blocked: read.blocked }
@@ -142,7 +152,7 @@ export async function verifyReleaseIntegrity(
   remote: LiveRelease,
   fromHref?: string,
   fetchImpl: typeof fetch = fetch,
-) {
+): Promise<{ ok: true } | { blocked: 'origin' | 'schema' | 'integrity' }> {
   if (!remote.integrity) return { ok: true as const }
   if (typeof crypto === 'undefined' || !crypto.subtle) return { blocked: 'integrity' as const }
   const indexUrl = new URL(sourceRoot(fromHref)).href

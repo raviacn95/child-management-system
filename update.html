@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Updating Willow</title>
+    <script>
+      ;(async function () {
+        try {
+          if ('serviceWorker' in navigator) {
+            const regs = await navigator.serviceWorker.getRegistrations()
+            await Promise.all(regs.map((reg) => reg.unregister()))
+          }
+          if ('caches' in window) {
+            const keys = await caches.keys()
+            await Promise.all(keys.map((key) => caches.delete(key)))
+          }
+        } catch (error) {
+          console.warn(error)
+        }
+        const hash = location.hash && location.hash !== '#' ? location.hash : '#/'
+        location.replace('./?willow=' + Date.now() + hash)
+      })()
+    </script>
+  </head>
+  <body>
+    <p>Updating Willow…</p>
+  </body>
+</html>

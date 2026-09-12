@@ -12,6 +12,7 @@ import { catalog as parentFeedCatalog, planParentFeed } from '../features/parent
 import { parentFeedPlanSchema, parentFeedRequestSchema } from '../features/parent-feed/schema'
 import { recommendMovies, catalogStats } from '../features/movies/recommend'
 import type { MovieKind, MovieLang } from '../features/movies/schema'
+import { recommendTopPicks } from '../features/top-picks/feed'
 
 export const handlers = [
   http.get('/api/learning-packs', () => HttpResponse.json(getLearningPacks())),
@@ -78,5 +79,9 @@ export const handlers = [
   http.post('/api/movies/recommend', async ({ request }) => {
     const json = (await request.json().catch(() => ({}))) as Record<string, unknown>
     return HttpResponse.json(recommendMovies(json as Parameters<typeof recommendMovies>[0]))
+  }),
+  http.get('/api/top-picks', ({ request }) => {
+    const look = new URL(request.url).searchParams.get('look')
+    return HttpResponse.json(recommendTopPicks((look as 'cinema') || 'grove'))
   }),
 ]

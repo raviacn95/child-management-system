@@ -1,6 +1,7 @@
 import { getLearningPacks } from '../learning/learningPacks'
 import { recommendMovies } from '../movies/recommend'
 import { catalog as parentCatalog } from '../parent-feed/plan'
+import { hubRowTitle, recommendTopPicks } from '../top-picks/feed'
 import { lookLead, type LookId } from '../../theme/looks'
 import type { ResumeCard } from './profile'
 
@@ -84,6 +85,20 @@ export function buildHub(input: {
     })),
   }
 
+  const topPicks = recommendTopPicks(input.look)
+  const topPicksRow: HubRow = {
+    id: 'top-picks',
+    title: hubRowTitle(input.look),
+    tiles: topPicks.map((pick) => ({
+      id: pick.id,
+      kind: 'movie',
+      title: pick.title,
+      subtitle: `${pick.rating} · ${pick.kind === 'series' ? 'Series' : 'Movie'}`,
+      href: '/movies',
+      watchUrl: pick.watchLinks[0]?.url,
+    })),
+  }
+
   const parentRow: HubRow = {
     id: 'parenting',
     title: 'Parenting Tips',
@@ -141,16 +156,16 @@ export function buildHub(input: {
 
   const order: HubRow[] =
     input.look === 'cinema'
-      ? [continueRow, movieRow, learningRow, parentRow, financeRow]
+      ? [continueRow, topPicksRow, movieRow, learningRow, parentRow, financeRow]
       : input.look === 'harbor' || input.look === 'pulse'
-        ? [continueRow, reportsRow, parentRow, learningRow, movieRow]
+        ? [continueRow, reportsRow, parentRow, learningRow, movieRow, topPicksRow]
         : input.look === 'arcade'
-          ? [continueRow, learningRow, movieRow, parentRow, careRow]
+          ? [continueRow, learningRow, topPicksRow, movieRow, parentRow, careRow]
           : input.look === 'atelier'
-            ? [continueRow, parentRow, financeRow, careRow, learningRow]
+            ? [continueRow, parentRow, financeRow, careRow, learningRow, topPicksRow]
             : input.look === 'rang'
-              ? [continueRow, movieRow, parentRow, learningRow, financeRow]
-              : [continueRow, careRow, learningRow, movieRow, parentRow, financeRow]
+              ? [continueRow, topPicksRow, movieRow, parentRow, learningRow, financeRow]
+              : [continueRow, careRow, learningRow, topPicksRow, movieRow, parentRow, financeRow]
 
   return order.filter((row) => row.tiles.length > 0)
 }

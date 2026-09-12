@@ -61,7 +61,7 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        cacheId: 'willow-return-v1',
+        cacheId: 'willow-top-picks-v1',
         globPatterns: ['**/*.{js,css,html,svg,woff2,json,png}'],
         globIgnores: ['**/releases/**', '**/*.apk'],
         navigateFallback: 'index.html',

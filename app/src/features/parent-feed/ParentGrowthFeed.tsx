@@ -6,6 +6,7 @@ import { useStore } from '../../store'
 import type { ParentCategory, ParentGoal, ParentLang, ParentTimeMode } from './schema'
 import { DEFAULT_PARENT_PROFILE, planParentFeed } from './plan'
 import { MovieShelf } from '../movies/MovieShelf'
+import { TopPicksShelf } from '../top-picks/TopPicksShelf'
 
 const INTERESTS: { id: ParentCategory; label: string }[] = [
   { id: 'movies', label: 'Movies' },
@@ -68,6 +69,7 @@ export function ParentGrowthFeed() {
         title="Parent growth feed"
         subtitle="Ages 33–50 in India: movies, learning, parenting science, and finance — official links, ranked by impact."
       />
+      <TopPicksShelf />
       <MovieShelf />
 
       <section className="card mb-6 p-5">

@@ -1,6 +1,7 @@
 import { getLearningPacks, listChannels } from '../learning/learningPacks'
 import { titles } from '../movies/catalog'
 import { catalog as parentCatalog } from '../parent-feed/plan'
+import { recommendTopPicks } from '../top-picks/feed'
 
 export type SearchHit = {
   id: string
@@ -25,6 +26,12 @@ export function searchWillow(query: string, limit = 12): SearchHit[] {
   if (q.length < 2) return PAGES.slice(0, 6)
   const hits: SearchHit[] = [
     ...PAGES,
+    ...recommendTopPicks().map((pick) => ({
+      id: pick.id,
+      title: pick.title,
+      group: 'Movies' as const,
+      href: '/movies',
+    })),
     ...titles.slice(0, 80).map((movie) => ({
       id: movie.id,
       title: movie.title,

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { MovieShelf } from '../features/movies/MovieShelf'
+import { TopPicksShelf } from '../features/top-picks/TopPicksShelf'
 import { useStore } from '../store'
 import { platforms } from '../features/movies/catalog'
 import { fireTvIntent } from '../features/ott/fireTv'
@@ -56,6 +57,7 @@ export function TvHome() {
           </Link>
         </p>
       )}
+      <TopPicksShelf />
       <MovieShelf compact />
     </div>
   )

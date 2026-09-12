@@ -1,5 +1,6 @@
 import { PageHead } from '../components/ui'
 import { MovieShelf } from '../features/movies/MovieShelf'
+import { TopPicksShelf } from '../features/top-picks/TopPicksShelf'
 import { Link } from 'react-router-dom'
 import { useStore } from '../store'
 
@@ -14,6 +15,7 @@ export function MoviesPage() {
         title="100 movies & series"
         subtitle="Prime, Google Movies, SonyLIV, Hotstar, ManoramaMAX and 50+ official storefronts. Ranked by critics, audience, YouTube and Instagram heat. Malayalam is first-class. Shuffle for a new 100."
       />
+      <TopPicksShelf />
       {canErotic ? (
         <p className="mb-6 text-xs text-muted">
           After hours, 18+ only:{' '}

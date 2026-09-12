@@ -6,6 +6,7 @@ import { FamilyMealsPanel } from '../features/meals/FamilyMealsPanel'
 import { HorizonsPanel } from '../features/grow/HorizonActivities'
 import { ParentFeedPanel } from '../features/parent-feed/ParentGrowthFeed'
 import { MovieShelf } from '../features/movies/MovieShelf'
+import { TopPicksShelf } from '../features/top-picks/TopPicksShelf'
 import { today } from '../data/seed'
 import { packOf } from '../data/country'
 import { ageYears, bmiProfile, childName, money } from '../lib'
@@ -198,9 +199,9 @@ export function Dashboard() {
               </div>
             </div>
             <p className="mb-4 text-xs text-muted">
-              100 ranked titles with official Prime, JioHotstar, SonyLIV and 50+ watch links. Same catalogs as Parent
-              feed, Learning, Meals and Horizons.
+              Critics’ top ten, then 100 ranked titles with official Prime, JioHotstar, SonyLIV and 50+ watch links.
             </p>
+            <TopPicksShelf />
             <MovieShelf compact />
           </div>
           <div className="card p-5">

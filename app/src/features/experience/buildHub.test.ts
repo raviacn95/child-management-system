@@ -8,13 +8,15 @@ describe('household hub', () => {
     expect(titles).toContain('learning')
     expect(titles).toContain('movies')
     expect(titles).toContain('parenting')
+    expect(titles).toContain('top-picks')
     expect(rows.find((row) => row.id === 'learning')?.title).toMatch(/Watch together/)
   })
 
   it('leads Cinema with movies and Harbor with the director desk', () => {
     const cinema = buildHub({ look: 'cinema', role: 'director', resume: [], watchTogether: false }).map((r) => r.id)
     const harbor = buildHub({ look: 'harbor', role: 'director', resume: [], watchTogether: false }).map((r) => r.id)
-    expect(cinema[0] === 'movies' || cinema[1] === 'movies').toBe(true)
+    expect(cinema[0] === 'movies' || cinema[1] === 'movies' || cinema[0] === 'top-picks').toBe(true)
+    expect(harbor[0] === 'reports' || harbor[1] === 'reports').toBe(true)
     expect(harbor).toContain('reports')
   })
 

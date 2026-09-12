@@ -6,5 +6,6 @@ describe('smart search', () => {
     const hits = searchWillow('learn')
     expect(hits.some((hit) => hit.group === 'Learning' || hit.group === 'Pages')).toBe(true)
     expect(searchWillow('drishyam').some((hit) => hit.group === 'Movies')).toBe(true)
+    expect(searchWillow('shawshank').some((hit) => hit.title.includes('Shawshank'))).toBe(true)
   })
 })

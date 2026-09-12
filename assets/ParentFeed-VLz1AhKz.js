@@ -1,0 +1,1 @@
+import{i as e}from"./query-D_Flqcxe.js";import{n as t}from"./ParentGrowthFeed-BDChXFm5.js";var n=e();function r(){return(0,n.jsx)(t,{})}export{r as ParentFeedPage};

@@ -258,7 +258,18 @@ export async function updateLiveWillow(opts?: {
   if (opts?.skipDev !== false && import.meta.env.DEV) return { status: 'dev' as const }
   const check = await checkLiveUpdate({ ...opts, skipDev: false })
   if (check.status === 'available' || check.status === 'stale-shell') return applyVerifiedRelease(check, opts)
+  if (check.status === 'current' && check.remote && shouldReloadCurrent(opts?.href)) {
+    return applyVerifiedRelease({ status: 'available', remote: check.remote }, opts)
+  }
   return check
+}
+
+function shouldReloadCurrent(href?: string) {
+  const page = href ?? (typeof window === 'undefined' ? '' : window.location.href)
+  if (isOfficialSource(page)) return true
+  if (typeof window === 'undefined') return false
+  const cap = (window as Window & { Capacitor?: { isNativePlatform?: () => boolean } }).Capacitor
+  return Boolean(cap?.isNativePlatform?.() || cap)
 }
 
 export async function forceReloadLive() {

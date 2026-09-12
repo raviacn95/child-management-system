@@ -44,7 +44,7 @@ import { ThemeToggle } from './ThemeToggle'
 import { ShareButton } from '../features/share/ShareSheet'
 import { UpdateBanner } from '../features/install/UpdateBanner'
 import { useSourceUpdate } from '../features/install/useSourceUpdate'
-import { isTvMode } from '../lib/tv'
+import { rememberLivingRoom } from '../lib/tv'
 import { TvStrip } from './TvStrip'
 
 const NAV = [
@@ -101,7 +101,16 @@ export function Layout() {
   const notifs = state.notifications.filter((n) => n.userId === user?.id)
   const unread = notifs.filter((n) => !n.read).length
   const sourceUpdate = useSourceUpdate()
-  const tv = isTvMode()
+  const [tv, setTv] = useState(() => rememberLivingRoom())
+
+  useEffect(() => {
+    function syncTv() {
+      setTv(rememberLivingRoom())
+    }
+    syncTv()
+    window.addEventListener('resize', syncTv)
+    return () => window.removeEventListener('resize', syncTv)
+  }, [])
 
   useEffect(() => {
     setNavOpen(false)
@@ -230,7 +239,7 @@ export function Layout() {
               onClick={() => void sourceUpdate.run()}
             >
               <RefreshCw size={14} className={sourceUpdate.busy ? 'animate-spin' : undefined} />
-              <span className="hidden sm:inline">{sourceUpdate.headerLabel}</span>
+              <span className={tv ? '' : 'hidden sm:inline'}>{sourceUpdate.headerLabel}</span>
             </button>
             <button
               type="button"

@@ -68,7 +68,7 @@ describe('live release pipeline', () => {
     expect(result.status).toBe('current')
   })
 
-  it('does not reload when Update finds the official source already applied', async () => {
+  it('reloads the official app when Update is tapped even if the stamp already matches', async () => {
     const replace = vi.fn()
     const fetchImpl = vi.fn(async () => jsonRes({ id: 'abc123def456', channel: 'live' })) as unknown as typeof fetch
     const result = await updateLiveWillow({
@@ -78,9 +78,10 @@ describe('live release pipeline', () => {
       location: { href: 'https://raviacn95.github.io/child-management-system/#/settings', replace },
       fetchImpl,
     })
-    expect(result.status).toBe('current')
-    expect(replace).not.toHaveBeenCalled()
-    expect(sourceStatusCopy(result)).toMatch(/matches the official Willow source/i)
+    expect(result.status).toBe('reloading')
+    expect(replace).toHaveBeenCalledTimes(1)
+    expect(String(replace.mock.calls[0][0])).toContain('raviacn95.github.io/child-management-system')
+    expect(sourceStatusCopy(result)).toMatch(/Updating from the official Willow source/i)
   })
 
   it('blocks a release that redirected off the official host', async () => {

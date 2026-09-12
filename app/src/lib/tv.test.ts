@@ -16,5 +16,10 @@ describe('TV home', () => {
     expect(detectFireTv('Mozilla/5.0 (Linux; Android 12; Android TV) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36')).toBe(true)
     expect(detectFireTv('Mozilla/5.0 (Linux; Android 10; SMART TV) AppleWebKit/537.36 Chrome/64.0.3282.123 Safari/537.36')).toBe(true)
     expect(detectFireTv('Mozilla/5.0 (Linux; Android 14; RMX3630) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36')).toBe(false)
+    expect(
+      detectFireTv(
+        'Mozilla/5.0 (Linux; Android 11; RMV2105) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36 wv',
+      ),
+    ).toBe(true)
   })
 })

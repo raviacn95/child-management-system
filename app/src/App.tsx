@@ -8,7 +8,7 @@ import { Layout } from './components/Layout'
 import { PageFallback } from './components/PageFallback'
 import { moduleFromPath, canSee } from './lib/rbac'
 import { ExperienceProvider } from './features/experience/ExperienceProvider'
-import { applyDeviceChrome, applyTvMode, homePath } from './lib/tv'
+import { applyDeviceChrome, applyTvMode, homePath, rememberLivingRoom } from './lib/tv'
 import { markBootSuccess } from './lib/releaseGuard'
 import { InstallProvider } from './features/install/InstallProvider'
 import { WatchProvider } from './features/ott/WatchPane'
@@ -119,6 +119,7 @@ function AppRoutes() {
 
 export default function App() {
   useEffect(() => {
+    rememberLivingRoom()
     applyTvMode()
     applyDeviceChrome()
     markBootSuccess()

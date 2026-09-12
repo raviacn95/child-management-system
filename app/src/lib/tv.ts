@@ -3,12 +3,42 @@ const KEY = 'willow-tv-mode'
 const TV_UA =
   /AFT[A-Z]|AmazonWebAppPlatform|BRAVIA|Smart[\s-]?TV|SMART TV|Web0S|Tizen|CrKey|Android\s*TV|AndroidTV|GoogleTV|Google TV|Realme Smart TV|HbbTV|Nexus Player|SHIELD/i
 
+export function isNativeShell() {
+  if (typeof window === 'undefined') return false
+  const cap = (window as Window & { Capacitor?: { isNativePlatform?: () => boolean } }).Capacitor
+  return Boolean(cap?.isNativePlatform?.() || cap)
+}
+
+function livingRoomScreen() {
+  if (typeof window === 'undefined') return false
+  const wide = Math.max(window.innerWidth, window.innerHeight) >= 960
+  const short = Math.min(window.innerWidth, window.innerHeight)
+  return wide && short >= 500 && window.innerWidth >= window.innerHeight
+}
+
 export function detectFireTv(ua = typeof navigator !== 'undefined' ? navigator.userAgent : '') {
   if (TV_UA.test(ua)) return true
-  if (typeof window === 'undefined' || !/Android/i.test(ua) || /Mobile|Phone/i.test(ua)) return false
-  const wide = window.innerWidth >= 960
-  const coarse = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches
-  return wide && coarse
+  if (typeof window === 'undefined' || !/Android/i.test(ua)) return false
+  if (!livingRoomScreen()) return false
+  if (/\bwv\b/i.test(ua) || isNativeShell()) return true
+  if (!/Mobile|Phone/i.test(ua)) return true
+  return false
+}
+
+export function rememberLivingRoom() {
+  try {
+    if (localStorage.getItem(KEY) === '0') return isTvMode()
+    if (detectFireTv()) {
+      localStorage.setItem(KEY, '1')
+      applyTvMode(true)
+      return true
+    }
+  } catch {
+    /* private mode */
+  }
+  const on = isTvMode()
+  applyTvMode(on)
+  return on
 }
 
 export function isTvMode() {

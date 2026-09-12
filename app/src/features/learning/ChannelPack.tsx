@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { localFirstPost } from '../../backend/deviceBackend'
 import { Badge, Button, Field, inputClass } from '../../components/ui'
+import { useOpenWatch } from '../ott/WatchPane'
 import { LEARNING_INTERESTS } from '../../data/learning-channels'
 import { childName } from '../../lib'
 import { useStore } from '../../store'
@@ -22,6 +23,7 @@ function youtubeKidsUrl(channelUrl: string) {
 
 export function ChannelPack({ kids }: { kids: Child[] }) {
   const { t } = useTranslation()
+  const openWatch = useOpenWatch()
   const { state, logAudit } = useStore()
   const [params, setParams] = useSearchParams()
   const bandFromUrl = ageBandSchema.safeParse(params.get('band'))
@@ -216,36 +218,51 @@ export function ChannelPack({ kids }: { kids: Child[] }) {
               {t('learning.coView')}: {channel.coViewingTip}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <a
-                className="inline-flex items-center gap-1 rounded-xl bg-pine px-3 py-2 text-xs font-semibold text-white"
-                href={`${channel.youtubeUrl}?autoplay=0`}
-                target="_blank"
-                rel="noopener noreferrer"
-                referrerPolicy="no-referrer"
+              <Button
+                type="button"
+                data-testid="open-channel"
+                className="text-xs"
+                onClick={() =>
+                  openWatch({
+                    url: `${channel.youtubeUrl}?autoplay=0`,
+                    title: channel.name,
+                    platformName: 'YouTube',
+                  })
+                }
               >
                 {t('learning.openChannel')} <ExternalLink size={12} />
-              </a>
+              </Button>
               {channel.playlistUrl ? (
-                <a
-                  className="inline-flex items-center gap-1 rounded-xl border border-line px-3 py-2 text-xs font-semibold"
-                  href={`${channel.playlistUrl}?autoplay=0`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  referrerPolicy="no-referrer"
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="text-xs"
+                  onClick={() =>
+                    openWatch({
+                      url: `${channel.playlistUrl}?autoplay=0`,
+                      title: channel.name,
+                      platformName: 'YouTube playlist',
+                    })
+                  }
                 >
                   {t('learning.openPlaylist')}
-                </a>
+                </Button>
               ) : null}
               {channel.youtubeKids ? (
-                <a
-                  className="inline-flex items-center gap-1 rounded-xl border border-line px-3 py-2 text-xs font-semibold"
-                  href={youtubeKidsUrl(channel.youtubeUrl)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  referrerPolicy="no-referrer"
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="text-xs"
+                  onClick={() =>
+                    openWatch({
+                      url: youtubeKidsUrl(channel.youtubeUrl),
+                      title: channel.name,
+                      platformName: 'YouTube Kids',
+                    })
+                  }
                 >
                   Kids app
-                </a>
+                </Button>
               ) : null}
             </div>
           </article>

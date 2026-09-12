@@ -1,6 +1,6 @@
 import { watchUrl } from '../movies/catalog'
 import type { MovieLang } from '../movies/schema'
-import { openChannel } from './watchDesk'
+import { openOfficialApp } from './watchDesk'
 
 /** Native Fire TV / Android TV packages. Playback stays in the official app (already logged in on the Stick). */
 export const FIRE_TV_PACKAGES: Record<string, string> = {
@@ -38,5 +38,5 @@ export function fireTvIntent(platformId: string, movieTitle?: string, year?: num
 
 export function openStorefront(platformId: string, movieTitle?: string, tv = false) {
   const href = tv ? fireTvIntent(platformId, movieTitle) : watchUrl(platformId, movieTitle || platformId)
-  openChannel(href)
+  openOfficialApp(href)
 }

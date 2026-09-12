@@ -23,3 +23,15 @@ export function watchReturnHref() {
     return null
   }
 }
+
+/** Keep Willow on screen. Official apps open in a new context so Back / Close still lands here. */
+export function openOfficialApp(url: string, target = 'willow_player') {
+  if (!url || typeof window === 'undefined') return false
+  try {
+    sessionStorage.setItem(WATCH_RETURN_KEY, window.location.href)
+  } catch {
+    /* private mode */
+  }
+  const opened = window.open(url, target)
+  return Boolean(opened)
+}

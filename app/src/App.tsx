@@ -39,6 +39,7 @@ const EroticPage = lazy(() => import('./pages/Erotic').then((m) => ({ default: m
 const Meals = lazy(() => import('./pages/Meals').then((m) => ({ default: m.Meals })))
 const Messages = lazy(() => import('./pages/Messages').then((m) => ({ default: m.Messages })))
 const Reports = lazy(() => import('./pages/Reports').then((m) => ({ default: m.Reports })))
+const ReturnPage = lazy(() => import('./pages/Return').then((m) => ({ default: m.ReturnPage })))
 const SettingsPage = lazy(() => import('./pages/Settings').then((m) => ({ default: m.SettingsPage })))
 const Shop = lazy(() => import('./pages/Shop').then((m) => ({ default: m.Shop })))
 const TransportPage = lazy(() => import('./pages/Transport').then((m) => ({ default: m.TransportPage })))
@@ -74,6 +75,7 @@ function AppRoutes() {
           }
         />
         <Route path="/get-app" element={<GetApp />} />
+        <Route path="/return" element={<ReturnPage />} />
         <Route
           element={
             <Guard>
@@ -127,13 +129,13 @@ export default function App() {
         <QueryClientProvider client={queryClient}>
           <StoreProvider>
             <InstallProvider>
-              <WatchProvider>
-                <HashRouter>
+              <HashRouter>
+                <WatchProvider>
                   <ExperienceProvider>
                     <AppRoutes />
                   </ExperienceProvider>
-                </HashRouter>
-              </WatchProvider>
+                </WatchProvider>
+              </HashRouter>
             </InstallProvider>
           </StoreProvider>
         </QueryClientProvider>

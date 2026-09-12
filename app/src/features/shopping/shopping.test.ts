@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { matchingMartIds, packRequiredBaskets, tripHasPii } from './baskets'
 import { launchOfficialShop } from './launch'
 import { publicShopInput } from './privacy'
 import { COD_PARENT_CAP, recommendShopping } from './recommend'
@@ -61,6 +62,18 @@ describe('kids shopping aggregator', () => {
     })
     expect(safe.pinPrefix).toBe('56')
     expect(JSON.stringify(safe)).not.toMatch(/Leo|medical|epipen/i)
+  })
+
+  it('packs every required item into the fewest official apps without child names', () => {
+    const picks = recommendShopping(baseInput)
+    const baskets = packRequiredBaskets(picks)
+    expect(baskets.length).toBeGreaterThan(0)
+    expect(baskets.length).toBeLessThanOrEqual(picks.length)
+    expect(baskets.reduce((n, b) => n + b.lines.length, 0)).toBe(picks.length)
+    expect(tripHasPii(baskets)).toBe(false)
+    expect(baskets.every((b) => b.officialUrl.startsWith('https://'))).toBe(true)
+    expect(baskets.flatMap((b) => [b.listText, b.officialUrl]).join(' ')).not.toMatch(/Leo|Shah|c-leo|PIN/i)
+    expect(matchingMartIds(picks.map((p) => p.title))).toContain('fc-wipes')
   })
 
   it('refuses to launch a foreign shop URL', () => {

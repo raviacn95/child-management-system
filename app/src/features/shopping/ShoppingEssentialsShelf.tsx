@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { Badge, Button } from '../../components/ui'
-import { clothingNeeds } from '../../data/catalog'
+import { clothingNeeds, sizeForChild } from '../../data/catalog'
 import { ageMonths, clothingSize } from '../../lib'
 import { useStore } from '../../store'
 import { useTheme } from '../../theme/ThemeProvider'
 import { useWatchDesk } from '../ott/WatchPane'
+import { copyBasketList, matchingMartIds, offerPartnerCart, packRequiredBaskets, tripHasPii, type ShopBasket } from './baskets'
 import { isOfficialShopUrl } from './sources'
 import { launchOfficialShop } from './launch'
 import { shopInputFromChild } from './privacy'
@@ -17,11 +18,15 @@ function pinPrefixSafe(pin: string) {
 }
 
 export function ShoppingEssentialsShelf({ childId }: { childId?: string }) {
-  const { state } = useStore()
+  const { state, addToCart } = useStore()
   const { look } = useTheme()
   const watch = useWatchDesk()
   const [openId, setOpenId] = useState<string | null>(null)
   const [overCap, setOverCap] = useState(false)
+  const [baskets, setBaskets] = useState<ShopBasket[]>([])
+  const [basketAt, setBasketAt] = useState(0)
+  const [copied, setCopied] = useState(false)
+  const [partnerNote, setPartnerNote] = useState('')
   const user = state.users.find((u) => u.id === state.currentUserId)
   const kids = state.children.filter((c) => {
     if (c.status !== 'enrolled') return false
@@ -53,6 +58,47 @@ export function ShoppingEssentialsShelf({ childId }: { childId?: string }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
+  async function launchBasket(basket: ShopBasket) {
+    if (!isOfficialShopUrl(basket.officialUrl) || tripHasPii([basket])) {
+      recordShopBlocked()
+      return
+    }
+    const partner = await offerPartnerCart(basket)
+    setPartnerNote(
+      partner.status === 'partner'
+        ? `${basket.sourceName} accepted the required list. Confirm Add in that official app.`
+        : `List copied. Confirm Add on ${basket.sourceName} — Willow cannot write into another company’s cart.`,
+    )
+    await copyBasketList(basket.listText)
+    setCopied(true)
+    const screen = `${window.location.pathname}${window.location.search}`
+    const title = `${basket.lines.length} required items`
+    if (watch) watch.openOfficialNow({ url: basket.officialUrl, title, platformName: basket.sourceName })
+    else launchOfficialShop({ url: basket.officialUrl, title, sourceName: basket.sourceName, screen })
+  }
+
+  function addMartMatches() {
+    if (!child) return
+    const ids = matchingMartIds(picks.map((pick) => pick.title))
+    for (const id of ids) {
+      const item = (state.shopCatalog ?? []).find((row) => row.id === id)
+      if (!item) continue
+      addToCart(id, child.id, sizeForChild(item, child), 1)
+    }
+  }
+
+  async function addAllRequired() {
+    const packed = packRequiredBaskets(picks)
+    if (!packed.length || tripHasPii(packed)) {
+      recordShopBlocked()
+      return
+    }
+    setBaskets(packed)
+    setBasketAt(0)
+    addMartMatches()
+    await launchBasket(packed[0])
+  }
+
   function openSource(pick: RankedShopPick, url: string, sourceName: string) {
     if (!isOfficialShopUrl(url)) {
       recordShopBlocked()
@@ -73,9 +119,48 @@ export function ShoppingEssentialsShelf({ childId }: { childId?: string }) {
       <div className="mb-3">
         <h2 className="font-display text-2xl font-semibold">{hubShoppingTitle(look)}</h2>
         <p className="mt-1 text-sm text-muted">
-          Official Flipkart, Meesho, Zepto, Blinkit, and Instamart links only. COD under ₹200 first. Child names and
-          payments stay off the wire.
+          One tap packs every required item by official app. Confirm Add in Zepto, Blinkit, Flipkart, or Meesho — those
+          apps do not let Willow drop items into their carts. Child names and payments stay on this device.
         </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Button type="button" data-testid="shop-add-all" disabled={!picks.length} onClick={() => void addAllRequired()}>
+            Add all required
+          </Button>
+        </div>
+        {baskets.length ? (
+          <div className="shop-handoff" data-testid="shop-handoff">
+            <p className="text-sm font-semibold">
+              Packed into {baskets.length} official app{baskets.length === 1 ? '' : 's'}
+            </p>
+            <p className="mt-1 text-xs text-muted">{partnerNote || 'Confirm Add in each official app.'}</p>
+            <ul className="mt-2 space-y-2 text-sm">
+              {baskets.map((basket, index) => (
+                <li key={basket.source} data-testid="shop-handoff-basket">
+                  <span className="font-semibold">{basket.sourceName}</span>
+                  {' · '}
+                  {basket.lines.length} items
+                  {index === basketAt ? ' · open now' : ''}
+                  <p className="whitespace-pre-line text-xs text-muted">{basket.listText}</p>
+                </li>
+              ))}
+            </ul>
+            {copied ? <p className="mt-2 text-xs text-muted">Required list copied — paste into that app’s search if it asks.</p> : null}
+            {baskets[basketAt + 1] ? (
+              <Button
+                type="button"
+                className="mt-3"
+                data-testid="shop-handoff-next"
+                onClick={() => {
+                  const next = basketAt + 1
+                  setBasketAt(next)
+                  void launchBasket(baskets[next])
+                }}
+              >
+                Open next app · {baskets[basketAt + 1].sourceName}
+              </Button>
+            ) : null}
+          </div>
+        ) : null}
         <div className="mt-2 flex flex-wrap gap-2">
           <button
             type="button"

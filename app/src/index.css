@@ -441,6 +441,14 @@ html[data-device='phone'] button {
   background: color-mix(in srgb, var(--color-paper) 88%, var(--look-overlay));
 }
 
+.shop-handoff {
+  margin: 0.75rem 0 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-paper) 92%, var(--look-overlay));
+}
+
 .update-banner {
   display: flex;
   flex-wrap: wrap;

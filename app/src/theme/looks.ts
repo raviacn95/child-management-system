@@ -1,3 +1,5 @@
+import { LOOK_PALETTES } from './tokens'
+
 export const LOOK_IDS = ['grove', 'cinema', 'harbor', 'atelier', 'arcade', 'pulse', 'rang'] as const
 export type LookId = (typeof LOOK_IDS)[number]
 
@@ -9,55 +11,60 @@ export type LookPreview = {
   swatches: [string, string, string]
 }
 
+function swatch(id: LookId): [string, string, string] {
+  const palette = LOOK_PALETTES[id]
+  return [palette.sand, palette.pine, palette.paper]
+}
+
 export const LOOKS: LookPreview[] = [
   {
     id: 'grove',
     name: 'Grove',
-    tagline: 'Warm linen and pine — adaptive daily care.',
+    tagline: 'Warm linen and pine — easy on the eyes for a full care day.',
     bestFor: 'Parents · phone',
-    swatches: ['#f3eee6', '#1c6b57', '#fffaf4'],
+    swatches: swatch('grove'),
   },
   {
     id: 'cinema',
     name: 'Cinema',
-    tagline: 'OLED black and gold — living-room movies.',
+    tagline: 'Warm charcoal and gold — living-room movies without OLED glare.',
     bestFor: 'Fire Stick · TV',
-    swatches: ['#0c0d11', '#d4a853', '#181b22'],
+    swatches: swatch('cinema'),
   },
   {
     id: 'harbor',
     name: 'Harbor',
-    tagline: 'Cool studio light — reports and ratios.',
+    tagline: 'Soft studio blue — reports you can read for hours.',
     bestFor: 'Directors · Windows',
-    swatches: ['#eef3f7', '#1f6f8b', '#ffffff'],
+    swatches: swatch('harbor'),
   },
   {
     id: 'atelier',
     name: 'Atelier',
-    tagline: 'Quiet type and white space — parent calm.',
+    tagline: 'Quiet type and warm paper — parent calm.',
     bestFor: 'Finance · reports',
-    swatches: ['#f7f5f2', '#3f3a36', '#ffffff'],
+    swatches: swatch('atelier'),
   },
   {
     id: 'arcade',
     name: 'Arcade',
-    tagline: 'Sunny badges and streaks — kids’ learning.',
+    tagline: 'Soft amber badges — kids’ learning without neon.',
     bestFor: 'Learning packs',
-    swatches: ['#fff6d9', '#f4a259', '#2bb673'],
+    swatches: swatch('arcade'),
   },
   {
     id: 'pulse',
     name: 'Pulse',
-    tagline: 'Neon charts on ink — director analytics.',
+    tagline: 'Muted teal charts — director nights without eye strain.',
     bestFor: 'Harbor nights',
-    swatches: ['#07060f', '#39f2c7', '#ff3d8f'],
+    swatches: swatch('pulse'),
   },
   {
     id: 'rang',
     name: 'Rang',
-    tagline: 'Marigold and vermilion — family festivals.',
+    tagline: 'Soft marigold — family festivals, not firework contrast.',
     bestFor: 'Household Hub',
-    swatches: ['#fff4e4', '#e07a1f', '#9b1d2e'],
+    swatches: swatch('rang'),
   },
 ]
 

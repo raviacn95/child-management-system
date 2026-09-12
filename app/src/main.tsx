@@ -7,6 +7,7 @@ import { initMonitoring } from './lib/monitoring'
 import { initRealtime } from './lib/realtime'
 import { initVitals } from './lib/vitals'
 import { markBootStart, markBootSuccess, rollbackToPreviousRelease } from './lib/releaseGuard'
+import './theme/tokens.css'
 import './index.css'
 
 async function boot() {

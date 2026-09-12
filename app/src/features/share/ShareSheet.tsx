@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { SafeShareCard } from '../../components/design/SafeShareCard'
 import { COPYRIGHT_LINE, TRADEMARK_NOTICE } from '../../brand'
 import { copyShareLink, nativeShare, SHARE_CHANNELS, shareHref } from './share'
 
@@ -33,7 +34,10 @@ export function ShareSheet() {
       <button type="button" className="command-palette-backdrop" aria-label="Close share" onClick={() => setOpen(false)} />
       <div className="card command-palette-panel p-5">
         <h2 className="font-display text-2xl">Share Willow™</h2>
-        <p className="mt-1 text-sm text-muted">Your card. Your mark. Official channels only — no child names leave this device.</p>
+        <p className="mt-1 text-sm text-muted">Your card. Your mark. Official channels only — no child names or faces leave this device.</p>
+        <div className="mt-4">
+          <SafeShareCard />
+        </div>
         <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
           {typeof navigator.share === 'function' ? (
             <button
@@ -78,15 +82,16 @@ export function ShareSheet() {
   )
 }
 
-export function ShareButton({ className = '' }: { className?: string }) {
+export function ShareButton({ className = '', iconOnly = false }: { className?: string; iconOnly?: boolean }) {
   return (
     <button
       type="button"
-      className={`rounded-xl border border-line bg-paper px-2.5 py-1.5 text-xs font-semibold ${className}`}
+      className={`rounded-xl border border-line bg-paper ${iconOnly ? 'p-2' : 'px-2.5 py-1.5 text-xs font-semibold'} ${className}`}
       data-testid="open-share"
+      aria-label="Share Willow"
       onClick={openShareSheet}
     >
-      Share
+      {iconOnly ? '↗' : 'Share'}
     </button>
   )
 }

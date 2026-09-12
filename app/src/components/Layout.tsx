@@ -195,7 +195,7 @@ export function Layout() {
           <div className="flex min-w-0 items-center gap-2">
             <button
               type="button"
-              className="rounded-xl border border-line bg-paper p-2 lg:hidden"
+              className="relative z-20 shrink-0 rounded-xl border border-line bg-paper p-2 lg:hidden"
               aria-label="Open menu"
               data-testid="open-nav"
               onClick={() => setNavOpen(true)}
@@ -209,7 +209,7 @@ export function Layout() {
               <p className="hidden truncate text-xs text-muted sm:block">{site?.address}</p>
             </div>
           </div>
-          <div className="relative flex items-center gap-3">
+          <div className="relative z-10 flex min-w-0 flex-1 items-center justify-end gap-1.5 sm:gap-3">
             <button
               type="button"
               className="rounded-xl border border-line bg-paper p-2"
@@ -219,17 +219,20 @@ export function Layout() {
             >
               <Search size={16} />
             </button>
-            <ShareButton />
+            <ShareButton iconOnly className="md:hidden" />
+            <ShareButton className="hidden md:inline-flex" />
             <NavLink
               to="/get-app"
               onMouseEnter={() => prefetchRoute('/get-app')}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-paper px-2.5 py-1.5 text-xs font-semibold hover:border-pine"
+              className="hidden items-center gap-1.5 rounded-xl border border-line bg-paper px-2.5 py-1.5 text-xs font-semibold hover:border-pine sm:inline-flex"
               data-testid="header-get-app"
             >
               <Download size={14} />
               <span className="hidden sm:inline">{t('nav.getApp')}</span>
             </NavLink>
-            <Badge tone="pine">{user.role}</Badge>
+            <span className="hidden sm:inline-flex">
+              <Badge tone="pine">{user.role}</Badge>
+            </span>
             <button
               type="button"
               className="rounded-xl border border-line bg-paper px-2 py-1 text-xs font-semibold"
@@ -278,7 +281,7 @@ export function Layout() {
             ) : null}
           </div>
         </header>
-        <main className="px-4 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:px-8 md:py-8">
+        <main className="tv-safe px-4 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:px-8 md:py-8">
           <Outlet />
         </main>
       </div>

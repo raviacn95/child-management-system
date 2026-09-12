@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { WillowCard } from '../components/design/WillowCard'
 import { ShareButton } from '../features/share/ShareSheet'
 import { PageHead } from '../components/ui'
 import { buildHub, weeklyDigest } from '../features/experience/buildHub'
@@ -83,9 +84,9 @@ export function HubPage() {
           </div>
         }
       />
-      <p className="mb-6 max-w-2xl text-sm text-muted" data-testid="weekly-digest">
-        {digest.join(' ')}
-      </p>
+      <div className="mb-6" data-testid="weekly-digest">
+        <WillowCard look={look} kicker="This week" title="Household digest" subtitle={digest.join(' ')} />
+      </div>
       {profile.achievements.length > 0 ? (
         <div className="mb-6 flex flex-wrap gap-2" data-testid="hub-achievements">
           {profile.achievements.map((id) => (

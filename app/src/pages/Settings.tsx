@@ -42,9 +42,8 @@ export function SettingsPage() {
         <div className="card p-5 md:col-span-3">
           <h2 className="font-display text-xl">{t('settings.appearance')}</h2>
           <p className="mt-1 text-sm text-muted">
-            Seven original Willow looks — Grove, Cinema, Harbor, Atelier, Arcade, Pulse, and Rang. Hover to preview.
-            Click to save on this profile. Festival light (Diwali, Holi, Pongal, Christmas) layers on automatically.
-            These marks are Willow’s, not Netflix, Apple, or Spotify.
+            Seven original Willow looks with long-hour palettes — no pure white, no OLED black, no neon. Hover to
+            preview. Click to save on this profile. Festival light layers on automatically. These marks are Willow’s.
           </p>
           <div className="mt-4">
             <LookPicker />

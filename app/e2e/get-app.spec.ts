@@ -20,6 +20,8 @@ test('get the app downloads a laptop launcher and opens live Willow', async ({ p
     'href',
     'https://raviacn95.github.io/child-management-system/downloads/willow-movies.apk',
   )
+  await expect(page.getByTestId('apk-download')).not.toHaveAttribute('download')
+  await expect(page.getByTestId('firestick-install')).toContainText(/Realme/i)
   await expect(page.getByTestId('update-instead')).toContainText(/Do not uninstall/i)
   await expect(page.getByTestId('open-update-page')).toHaveAttribute(
     'href',

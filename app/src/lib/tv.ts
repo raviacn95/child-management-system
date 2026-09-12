@@ -1,8 +1,14 @@
 const KEY = 'willow-tv-mode'
 
-export function detectFireTv() {
-  if (typeof navigator === 'undefined') return false
-  return /AFT[A-Z]|AmazonWebAppPlatform|BRAVIA|SmartTV|Web0S|Tizen|CrKey/i.test(navigator.userAgent)
+const TV_UA =
+  /AFT[A-Z]|AmazonWebAppPlatform|BRAVIA|Smart[\s-]?TV|SMART TV|Web0S|Tizen|CrKey|Android\s*TV|AndroidTV|GoogleTV|Google TV|Realme Smart TV|HbbTV|Nexus Player|SHIELD/i
+
+export function detectFireTv(ua = typeof navigator !== 'undefined' ? navigator.userAgent : '') {
+  if (TV_UA.test(ua)) return true
+  if (typeof window === 'undefined' || !/Android/i.test(ua) || /Mobile|Phone/i.test(ua)) return false
+  const wide = window.innerWidth >= 960
+  const coarse = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches
+  return wide && coarse
 }
 
 export function isTvMode() {

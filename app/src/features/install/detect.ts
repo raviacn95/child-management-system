@@ -33,7 +33,7 @@ export function isHandheld(ua = typeof navigator !== 'undefined' ? navigator.use
 }
 
 export function isAndroidPhone(ua = typeof navigator !== 'undefined' ? navigator.userAgent : '') {
-  if (/Android/i.test(ua) && !/Android TV|BRAVIA|AFT|Fire TV/i.test(ua)) return true
+  if (/Android/i.test(ua) && !/Android\s*TV|BRAVIA|AFT|Fire TV|Smart[\s-]?TV|GoogleTV|Realme Smart TV/i.test(ua)) return true
   if (typeof navigator !== 'undefined') {
     const uaData = navigator as Navigator & { userAgentData?: { mobile?: boolean; platform?: string } }
     if (uaData.userAgentData?.platform === 'Android') return true

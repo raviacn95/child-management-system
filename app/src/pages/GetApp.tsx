@@ -9,8 +9,17 @@ import { APK_RELEASE_URL, apkDownloadUrl, apkTvDownloadUrl, LIVE_SITE } from '..
 import { installSurface, isIosSafari, prefersApkInstall } from '../features/install/detect'
 import { useInstallPrompt } from '../features/install/InstallProvider'
 import { downloadLiveLauncher, launchPlan, openLiveAppWindow } from '../features/install/launcher'
-import { homePath } from '../lib/tv'
+import { startTvApkInstall, tvApkFallbackUrl } from '../features/install/tvApk'
+import { detectFireTv, homePath } from '../lib/tv'
 import { useStore } from '../store'
+
+async function copyText(text: string) {
+  try {
+    await navigator.clipboard.writeText(text)
+  } catch {
+    /* many TV browsers have no clipboard */
+  }
+}
 
 export function GetApp() {
   const { state } = useStore()
@@ -22,6 +31,8 @@ export function GetApp() {
   const tvApkHref = apkTvDownloadUrl()
   const [apkReady, setApkReady] = useState<boolean | null>(null)
   const [launched, setLaunched] = useState('')
+  const [tvInstall, setTvInstall] = useState('')
+  const onTv = detectFireTv()
 
   useEffect(() => {
     let cancelled = false
@@ -176,23 +187,53 @@ export function GetApp() {
 
           <section className="card p-6" data-testid="firestick-install">
             <Tv className="text-pine" />
-            <h2 className="font-display mt-3 text-2xl font-semibold">Fire Stick / Android TV</h2>
+            <h2 className="font-display mt-3 text-2xl font-semibold">Fire Stick / Realme / Android TV</h2>
             <p className="mt-2 text-sm text-muted">
-              Same APK. The Stick will ask “Do you want to install this app?”. Then open <strong>Willow</strong> on
-              the Apps row.
+              This TV browser cannot use a silent file download. The button opens the official APK so the TV can ask
+              “Do you want to install this app?”. Then open <strong>Willow</strong> on the Apps row.
             </p>
             <a
-              className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-pine px-3.5 py-2 text-base font-semibold text-white hover:bg-[#175c4b]"
+              className="mt-5 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-xl bg-pine px-3.5 py-3 text-base font-semibold text-white hover:bg-[#175c4b]"
               href={tvApkHref}
-              download="willow-movies.apk"
               data-testid="apk-download"
+              onClick={(event) => {
+                event.preventDefault()
+                setTvInstall('Opening the TV installer. Allow unknown apps for this browser if Android asks.')
+                void copyText(tvApkHref)
+                const result = startTvApkInstall(tvApkHref)
+                if (!result.started) setTvInstall('Could not start install from this page.')
+              }}
             >
               <Download size={18} />
-              Download Fire Stick APK
+              {onTv ? 'Install Willow on this TV' : 'Install Fire Stick / TV APK'}
             </a>
+            <a
+              className="mt-3 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-line px-3.5 py-2 text-sm font-semibold"
+              href={tvApkFallbackUrl()}
+              data-testid="apk-release-download"
+              onClick={(event) => {
+                event.preventDefault()
+                setTvInstall('Opening the GitHub APK. If the TV still sits still, paste the URL into Downloader.')
+                void copyText(tvApkFallbackUrl())
+                const result = startTvApkInstall(tvApkFallbackUrl())
+                if (!result.started) setTvInstall('Could not open the GitHub APK.')
+              }}
+            >
+              Try GitHub copy
+            </a>
+            {tvInstall ? (
+              <p className="mt-3 rounded-xl bg-pine-soft px-4 py-3 text-sm font-semibold text-pine" data-testid="tv-install-status">
+                {tvInstall}
+              </p>
+            ) : null}
             <p className="mt-3 break-all font-mono text-[11px] text-muted" data-testid="apk-url">
               {tvApkHref}
             </p>
+            <ol className="mt-4 list-decimal space-y-1 pl-5 text-xs text-muted">
+              <li>On Realme / Android TV: Settings → Security → allow Install unknown apps for Browser or Downloader.</li>
+              <li>Press Install Willow on this TV. Confirm Install, then Open.</li>
+              <li>If the remote click still does nothing, open the Downloader app and paste the URL above.</li>
+            </ol>
           </section>
         </div>
 

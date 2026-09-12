@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach } from 'vitest'
-import { homePath, isTvMode, setTvMode } from './tv'
+import { detectFireTv, homePath, isTvMode, setTvMode } from './tv'
 
 describe('TV home', () => {
   beforeEach(() => localStorage.clear())
@@ -9,5 +9,12 @@ describe('TV home', () => {
     expect(homePath()).toBe('/')
     setTvMode(true)
     expect(homePath()).toBe('/hub')
+  })
+
+  it('treats Realme and Android TV as living-room devices', () => {
+    expect(detectFireTv('Mozilla/5.0 (Linux; Android 11; Realme Smart TV) AppleWebKit/537.36 Chrome/91.0.4472.114 Safari/537.36')).toBe(true)
+    expect(detectFireTv('Mozilla/5.0 (Linux; Android 12; Android TV) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36')).toBe(true)
+    expect(detectFireTv('Mozilla/5.0 (Linux; Android 10; SMART TV) AppleWebKit/537.36 Chrome/64.0.3282.123 Safari/537.36')).toBe(true)
+    expect(detectFireTv('Mozilla/5.0 (Linux; Android 14; RMX3630) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36')).toBe(false)
   })
 })

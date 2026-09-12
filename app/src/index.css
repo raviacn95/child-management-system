@@ -297,6 +297,11 @@ html[data-accent='clay'] {
     var(--color-paper);
 }
 
+.hub-tile-shop {
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--color-gold) 14%, var(--color-paper))),
+    var(--color-paper);
+}
+
 .hub-hit {
   display: block;
   width: 100%;

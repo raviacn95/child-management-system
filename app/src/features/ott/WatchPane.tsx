@@ -25,6 +25,7 @@ type WatchContextValue = {
   session: WatchSession | null
   away: AwaySession | null
   openWatch: (session: WatchSession) => void
+  openOfficialNow: (session: WatchSession) => void
   closeWatch: () => void
 }
 
@@ -73,7 +74,7 @@ export function WatchProvider({ children }: { children: ReactNode }) {
 
   const closeWatch = useCallback(() => setSession(null), [])
 
-  function launchOfficial(next: WatchSession) {
+  const launchOfficial = useCallback((next: WatchSession) => {
     const record = issueReturnToken({
       screen: `${location.pathname}${location.search}`,
       label: next.platformName,
@@ -82,11 +83,19 @@ export function WatchProvider({ children }: { children: ReactNode }) {
     const started = beginAway(record, next.url)
     setAway(started)
     openOfficialApp(next.url)
-  }
+  }, [location.pathname, location.search])
+
+  const openOfficialNow = useCallback(
+    (next: WatchSession) => {
+      if (!next.url) return
+      launchOfficial(next)
+    },
+    [launchOfficial],
+  )
 
   const value = useMemo<WatchContextValue>(
-    () => ({ session, away, openWatch, closeWatch }),
-    [session, away, openWatch, closeWatch],
+    () => ({ session, away, openWatch, openOfficialNow, closeWatch }),
+    [session, away, openWatch, openOfficialNow, closeWatch],
   )
 
   return (

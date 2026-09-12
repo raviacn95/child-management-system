@@ -9,7 +9,10 @@ describe('household hub', () => {
     expect(titles).toContain('movies')
     expect(titles).toContain('parenting')
     expect(titles).toContain('top-picks')
+    expect(titles).toContain('shopping')
     expect(rows.find((row) => row.id === 'learning')?.title).toMatch(/Watch together/)
+    const arcade = buildHub({ look: 'arcade', role: 'parent', resume: [], watchTogether: false }).map((r) => r.id)
+    expect(arcade.indexOf('shopping')).toBeLessThan(arcade.indexOf('top-picks'))
   })
 
   it('leads Cinema with movies and Harbor with the director desk', () => {

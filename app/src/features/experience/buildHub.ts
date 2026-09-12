@@ -1,4 +1,5 @@
 import { getLearningPacks } from '../learning/learningPacks'
+import { hubShoppingTitle, recommendShopping } from '../shopping/recommend'
 import { recommendMovies } from '../movies/recommend'
 import { catalog as parentCatalog } from '../parent-feed/plan'
 import { hubRowTitle, recommendTopPicks } from '../top-picks/feed'
@@ -7,7 +8,7 @@ import type { ResumeCard } from './profile'
 
 export type HubTile = {
   id: string
-  kind: 'movie' | 'learning' | 'parent' | 'care' | 'page'
+  kind: 'movie' | 'learning' | 'parent' | 'care' | 'page' | 'shop'
   title: string
   subtitle: string
   href: string
@@ -125,6 +126,27 @@ export function buildHub(input: {
     })),
   }
 
+  const shopPicks = recommendShopping({
+    ageMonths: (input.childAgeYears ?? 5) * 12,
+    sizeBand: '5–6Y',
+    veg: true,
+    needTags: ['school', 'tiffin', 'hygiene', 'spare'],
+    allergyNames: [],
+    pinPrefix: '',
+    preferCodCap: true,
+  })
+  const shoppingRow: HubRow = {
+    id: 'shopping',
+    title: hubShoppingTitle(input.look),
+    tiles: shopPicks.slice(0, 6).map((pick) => ({
+      id: pick.id,
+      kind: 'shop' as const,
+      title: pick.title,
+      subtitle: `${pick.chosen.sourceName} · ₹${pick.chosen.price} · ${pick.chosen.codAvailable ? 'COD' : 'Pay in app'}`,
+      href: '/shop',
+    })),
+  }
+
   const careRow: HubRow = {
     id: 'care',
     title: 'Care today',
@@ -156,16 +178,16 @@ export function buildHub(input: {
 
   const order: HubRow[] =
     input.look === 'cinema'
-      ? [continueRow, topPicksRow, movieRow, learningRow, parentRow, financeRow]
+      ? [continueRow, topPicksRow, movieRow, shoppingRow, learningRow, parentRow, financeRow]
       : input.look === 'harbor' || input.look === 'pulse'
-        ? [continueRow, reportsRow, parentRow, learningRow, movieRow, topPicksRow]
+        ? [continueRow, reportsRow, parentRow, shoppingRow, learningRow, movieRow, topPicksRow]
         : input.look === 'arcade'
-          ? [continueRow, learningRow, topPicksRow, movieRow, parentRow, careRow]
+          ? [continueRow, learningRow, shoppingRow, topPicksRow, movieRow, parentRow, careRow]
           : input.look === 'atelier'
-            ? [continueRow, parentRow, financeRow, careRow, learningRow, topPicksRow]
+            ? [continueRow, parentRow, financeRow, shoppingRow, careRow, learningRow, topPicksRow]
             : input.look === 'rang'
-              ? [continueRow, topPicksRow, movieRow, parentRow, learningRow, financeRow]
-              : [continueRow, careRow, learningRow, topPicksRow, movieRow, parentRow, financeRow]
+              ? [continueRow, shoppingRow, topPicksRow, movieRow, parentRow, learningRow, financeRow]
+              : [continueRow, careRow, shoppingRow, learningRow, topPicksRow, movieRow, parentRow, financeRow]
 
   return order.filter((row) => row.tiles.length > 0)
 }

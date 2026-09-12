@@ -17,6 +17,8 @@ test('household hub mixes learning, parent growth, and family movies', async ({ 
   await expect(page.getByTestId('hub-row-top-picks')).toBeVisible()
   await expect(page.getByTestId('hub-row-top-picks')).toContainText(/Shawshank|Stranger Things|Godfather/)
   await expect(page.getByTestId('hub-row-parenting')).toContainText(/Parenting Tips/)
+  await expect(page.getByTestId('hub-row-shopping')).toBeVisible()
+  await expect(page.getByTestId('hub-row-shopping')).toContainText(/essentials|wipes|chana|poncho|soap/i)
   await expect(page.getByTestId('weekly-digest')).toBeVisible()
 })
 

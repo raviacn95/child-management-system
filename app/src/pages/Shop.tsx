@@ -12,6 +12,7 @@ import {
 } from '../data/catalog'
 import { lookupPincode, packOf } from '../data/country'
 import { AutoOrderPanel } from '../components/AutoOrder'
+import { ShoppingEssentialsShelf } from '../features/shopping/ShoppingEssentialsShelf'
 import { Avatar, Badge, Button, Field, inputClass } from '../components/ui'
 import { ageYears, childName, clothingSize, money } from '../lib'
 import { useStore } from '../store'
@@ -149,6 +150,8 @@ export function Shop() {
           </button>
         ))}
       </div>
+
+      <ShoppingEssentialsShelf childId={child?.id} />
 
       {child ? (
         <div className="mb-6 rounded-2xl border border-line bg-paper p-4">

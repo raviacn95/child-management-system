@@ -55,7 +55,12 @@ export function HubPage() {
   }, [earn])
 
   function openTile(tile: HubTile) {
-    remember({ id: tile.id, kind: tile.kind === 'care' ? 'page' : tile.kind === 'page' ? 'page' : tile.kind, title: tile.title, href: tile.href })
+    remember({
+      id: tile.id,
+      kind: tile.kind === 'care' || tile.kind === 'page' || tile.kind === 'shop' ? 'page' : tile.kind,
+      title: tile.title,
+      href: tile.href,
+    })
     if (tile.id.startsWith('page-') || profile.resume.some((card) => card.id === tile.id)) earn('resume')
     if (tile.kind === 'learning' && profile.watchTogether) earn('together')
     if (tile.watchUrl) {
@@ -116,7 +121,8 @@ export function HubPage() {
         </section>
       ))}
       <p className="mt-6 text-xs text-muted">
-        Grocery lists still export to Zepto or Blinkit from Meals. Watch links open official storefronts only.
+        Shopping Essentials and grocery lists open official Flipkart, Meesho, Zepto, Blinkit, or Instamart pages
+        only. Willow never scrapes those apps or stores payment data.
       </p>
     </div>
   )

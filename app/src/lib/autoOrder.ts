@@ -1,4 +1,5 @@
 import catalog from '../data/qc-catalog.json'
+import { officialShopUrl } from '../features/shopping/sources'
 import type { Child, PayMethod, ShopNeed } from '../types'
 import type {
   QcAppId,
@@ -175,10 +176,7 @@ export function appName(id: string) {
 }
 
 export function partnerShopUrl(app: QcAppId, query: string) {
-  const q = encodeURIComponent(query)
-  if (app === 'zepto') return `https://www.zeptonow.com/search?query=${q}`
-  if (app === 'blinkit') return `https://blinkit.com/s/?q=${q}`
-  return `https://www.swiggy.com/instamart/search?query=${q}`
+  return officialShopUrl(app, query)
 }
 
 function newId() {

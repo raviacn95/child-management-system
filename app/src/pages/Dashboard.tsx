@@ -7,6 +7,7 @@ import { HorizonsPanel } from '../features/grow/HorizonActivities'
 import { ParentFeedPanel } from '../features/parent-feed/ParentGrowthFeed'
 import { MovieShelf } from '../features/movies/MovieShelf'
 import { TopPicksShelf } from '../features/top-picks/TopPicksShelf'
+import { ShoppingEssentialsShelf } from '../features/shopping/ShoppingEssentialsShelf'
 import { today } from '../data/seed'
 import { packOf } from '../data/country'
 import { ageYears, bmiProfile, childName, money } from '../lib'
@@ -189,6 +190,7 @@ export function Dashboard() {
             }}
           />
           <ParentFeedPanel />
+          <ShoppingEssentialsShelf />
           <div className="card p-5">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
               <h2 className="font-display text-xl">Movies & OTT</h2>

@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import { COUNTRIES, packOf, type CountryCode } from '../data/country'
 import { Badge, Button, PageHead, inputClass } from '../components/ui'
 import { persistLanguage } from '../i18n'
+import { SUPPORTED_LANGS } from '../i18n/resources'
+import { useExperience } from '../features/experience/ExperienceProvider'
+import { hashPin } from '../features/experience/profile'
 import { PRODUCTION_CSP } from '../lib/csp'
 import { DEFAULT_FLAGS, readFlags, writeFlags, type FeatureFlags } from '../lib/flags'
 import { formatTime } from '../lib'
@@ -16,9 +19,11 @@ export function SettingsPage() {
   const { t, i18n } = useTranslation()
   const { state, resetDemo, setCountry } = useStore()
   const { theme } = useTheme()
+  const { profile, patch } = useExperience()
   const pack = packOf(state.countryCode)
   const [flags, setFlags] = useState<FeatureFlags>(() => readFlags())
   const [tv, setTv] = useState(() => isTvMode())
+  const [pinDraft, setPinDraft] = useState('')
 
   function toggleFlag(key: keyof FeatureFlags) {
     const next = { ...flags, [key]: !flags[key] }
@@ -37,27 +42,69 @@ export function SettingsPage() {
         <div className="card p-5 md:col-span-3">
           <h2 className="font-display text-xl">{t('settings.appearance')}</h2>
           <p className="mt-1 text-sm text-muted">
-            Three studio looks for every Willow surface — Windows, phone, and Fire Stick. Your pick is saved on this
-            device.
+            Hover or focus a look to preview. Click to save it on this profile — Grove, Cinema, and Harbor stay in sync
+            on Windows, phone, and Fire Stick after the next Pages deploy.
           </p>
           <div className="mt-4">
             <LookPicker />
           </div>
-          <p className="mt-3 text-xs text-muted">Now using {theme}.</p>
+          <p className="mt-3 text-xs text-muted">Now using {theme} for {state.users.find((u) => u.id === state.currentUserId)?.name}.</p>
+          <p className="mt-4 text-sm font-semibold">Accent</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {(['pine', 'gold', 'ocean', 'clay'] as const).map((accent) => (
+              <button
+                key={accent}
+                type="button"
+                className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${
+                  profile.accent === accent ? 'bg-pine text-[var(--color-pine-ink)]' : 'border border-line'
+                }`}
+                onClick={() => patch({ accent })}
+              >
+                {accent}
+              </button>
+            ))}
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <button
+              type="button"
+              className={`rounded-full px-3 py-1 text-xs font-semibold ${profile.largeText ? 'bg-pine text-[var(--color-pine-ink)]' : 'border border-line'}`}
+              onClick={() => patch({ largeText: !profile.largeText })}
+              aria-pressed={profile.largeText}
+            >
+              Larger text
+            </button>
+            <button
+              type="button"
+              className={`rounded-full px-3 py-1 text-xs font-semibold ${profile.highContrast ? 'bg-pine text-[var(--color-pine-ink)]' : 'border border-line'}`}
+              onClick={() => patch({ highContrast: !profile.highContrast })}
+              aria-pressed={profile.highContrast}
+            >
+              High contrast
+            </button>
+            <button
+              type="button"
+              className={`rounded-full px-3 py-1 text-xs font-semibold ${profile.watchTogether ? 'bg-pine text-[var(--color-pine-ink)]' : 'border border-line'}`}
+              onClick={() => patch({ watchTogether: !profile.watchTogether })}
+              aria-pressed={profile.watchTogether}
+            >
+              Watch together
+            </button>
+          </div>
         </div>
         <div className="card p-5">
           <h2 className="font-display text-xl">{t('settings.language')}</h2>
-          <div className="mt-3 flex gap-2">
-            {['en', 'hi'].map((lng) => (
+          <p className="mt-1 text-sm text-muted">Follows the device locale the first time, then stays with this profile.</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {SUPPORTED_LANGS.map((lng) => (
               <button
-                key={lng}
+                key={lng.id}
                 type="button"
                 className={`rounded-xl px-3 py-2 text-sm font-semibold ${
-                  i18n.language === lng ? 'bg-pine text-white' : 'border border-line'
+                  i18n.language.startsWith(lng.id) ? 'bg-pine text-[var(--color-pine-ink)]' : 'border border-line'
                 }`}
-                onClick={() => persistLanguage(lng)}
+                onClick={() => persistLanguage(lng.id)}
               >
-                {lng === 'en' ? 'English' : 'हिन्दी'}
+                {lng.label}
               </button>
             ))}
           </div>
@@ -66,8 +113,38 @@ export function SettingsPage() {
           <h2 className="font-display text-xl">{t('settings.security')}</h2>
           <p className="mt-2 text-sm text-muted">
             Child records stay on this device. Willow does not send names, PINs, or medical notes to other companies.
-            The phone app also blocks Android backup of that data.
+            The phone app also blocks Android backup of that data. A profile PIN locks this look after sign-out — it is
+            not a child pickup PIN.
           </p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <input
+              className={`${inputClass} max-w-[8rem]`}
+              type="password"
+              inputMode="numeric"
+              autoComplete="off"
+              maxLength={6}
+              value={pinDraft}
+              onChange={(e) => setPinDraft(e.target.value.replace(/\D/g, ''))}
+              aria-label="New profile PIN"
+              placeholder="4–6 digits"
+            />
+            <Button
+              type="button"
+              variant="soft"
+              disabled={pinDraft.length < 4}
+              onClick={() => {
+                patch({ pin: hashPin(pinDraft), locked: false })
+                setPinDraft('')
+              }}
+            >
+              Save PIN
+            </Button>
+            {profile.pin ? (
+              <Button type="button" variant="ghost" onClick={() => patch({ pin: '', locked: false })}>
+                Clear PIN
+              </Button>
+            ) : null}
+          </div>
           <a className="mt-2 inline-block text-sm font-semibold text-pine" href="./privacy.html">
             Privacy notice →
           </a>

@@ -49,7 +49,11 @@ export function Dashboard() {
         }
       />
       <p className="mb-4 text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
-        Grove · Cinema · Harbor — same Willow on Windows, phone, and Fire Stick
+        Grove · Cinema · Harbor —{' '}
+        <Link className="text-pine" to="/hub">
+          Household Hub
+        </Link>{' '}
+        mixes learning, parent growth, and family movies
       </p>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <Stat label="On site now" value={present.length} hint={`${enrolled.length} enrolled`} />

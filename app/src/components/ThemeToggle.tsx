@@ -1,15 +1,22 @@
 import { Palette } from 'lucide-react'
-import { LOOKS } from '../theme/looks'
+import { LOOKS, nextLook } from '../theme/looks'
 import { useTheme } from '../theme/ThemeProvider'
+import { useExperienceOptional } from '../features/experience/ExperienceProvider'
 
 export function ThemeToggle() {
-  const { look, cycleLook } = useTheme()
-  const current = LOOKS.find((item) => item.id === look) ?? LOOKS[0]
+  const { committed, cycleLook } = useTheme()
+  const experience = useExperienceOptional()
+  const current = LOOKS.find((item) => item.id === committed) ?? LOOKS[0]
   return (
     <button
       type="button"
       className="rounded-xl border border-line bg-paper p-2 text-ink"
-      onClick={cycleLook}
+      onClick={() => {
+        const next = nextLook(committed)
+        cycleLook()
+        experience?.patch({ look: next })
+        experience?.earn('look')
+      }}
       aria-label={`Look: ${current.name}. Switch UI look`}
       data-testid="look-cycle"
     >

@@ -55,12 +55,13 @@ export default defineConfig(({ mode }) => ({
           { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
         shortcuts: [
+          { name: 'Household Hub', short_name: 'Tonight', url: './#/hub' },
           { name: 'TV tonight', short_name: 'TV', url: './#/tv' },
           { name: 'Get the app', short_name: 'Install', url: './#/get-app' },
         ],
       },
       workbox: {
-        cacheId: 'willow-looks-v1',
+        cacheId: 'willow-hub-v1',
         globPatterns: ['**/*.{js,css,html,svg,woff2,json,png}'],
         globIgnores: ['**/releases/**', '**/*.apk'],
         navigateFallback: 'index.html',

@@ -28,8 +28,17 @@ export function setTvMode(on: boolean) {
 export function applyTvMode(on = isTvMode()) {
   if (typeof document === 'undefined') return
   document.documentElement.dataset.tv = on ? '1' : '0'
+  applyDeviceChrome(on)
+}
+
+export function applyDeviceChrome(tv = isTvMode()) {
+  if (typeof document === 'undefined') return
+  const media = typeof window.matchMedia === 'function' ? window.matchMedia.bind(window) : null
+  const coarse = media?.('(pointer: coarse)').matches ?? false
+  const narrow = media?.('(max-width: 720px)').matches ?? false
+  document.documentElement.dataset.device = tv ? 'tv' : coarse || narrow ? 'phone' : 'desktop'
 }
 
 export function homePath() {
-  return isTvMode() ? '/tv' : '/'
+  return isTvMode() ? '/hub' : '/'
 }

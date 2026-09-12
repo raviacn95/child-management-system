@@ -70,7 +70,10 @@ export function GetApp() {
         <div className="card mt-6 p-5">
           <p className="text-xs font-semibold tracking-wide text-muted uppercase">Three looks · same data</p>
           <h2 className="font-display mt-1 text-xl font-semibold">Grove, Cinema, or Harbor</h2>
-          <p className="mt-1 text-sm text-muted">Saved on this device and used on Windows, phone, and Fire Stick.</p>
+          <p className="mt-1 text-sm text-muted">
+            Hover to preview, click to save. Fire Stick opens the Household Hub — kids’ learning, parent growth, and
+            family movies.
+          </p>
           <div className="mt-4">
             <LookPicker />
           </div>

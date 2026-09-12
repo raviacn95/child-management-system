@@ -8,10 +8,13 @@ describe('RBAC', () => {
     expect(canSee('parent', 'attendance')).toBe(false)
     expect(canSee('parent', 'erotic')).toBe(true)
     expect(canSee('teacher', 'erotic')).toBe(false)
+    expect(canSee('parent', 'hub')).toBe(true)
+    expect(canSee('teacher', 'hub')).toBe(true)
   })
 
   it('maps paths to modules', () => {
     expect(moduleFromPath('/')).toBe('dashboard')
+    expect(moduleFromPath('/hub')).toBe('hub')
     expect(moduleFromPath('/learning')).toBe('learning')
     expect(moduleFromPath('/parent-feed')).toBe('parent-feed')
     expect(moduleFromPath('/movies')).toBe('movies')

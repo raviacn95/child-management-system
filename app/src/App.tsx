@@ -7,7 +7,8 @@ import { ErrorBoundary } from './components/ErrorBoundary'
 import { Layout } from './components/Layout'
 import { PageFallback } from './components/PageFallback'
 import { moduleFromPath, canSee } from './lib/rbac'
-import { applyTvMode, homePath } from './lib/tv'
+import { ExperienceProvider } from './features/experience/ExperienceProvider'
+import { applyDeviceChrome, applyTvMode, homePath } from './lib/tv'
 import { markBootSuccess } from './lib/releaseGuard'
 import { InstallProvider } from './features/install/InstallProvider'
 import { WatchProvider } from './features/ott/WatchPane'
@@ -25,6 +26,7 @@ const Documents = lazy(() => import('./pages/Documents').then((m) => ({ default:
 const Enrollment = lazy(() => import('./pages/Enrollment').then((m) => ({ default: m.Enrollment })))
 const Grow = lazy(() => import('./pages/Grow').then((m) => ({ default: m.Grow })))
 const Health = lazy(() => import('./pages/Health').then((m) => ({ default: m.Health })))
+const HubPage = lazy(() => import('./pages/Hub').then((m) => ({ default: m.HubPage })))
 const Inventory = lazy(() => import('./pages/Inventory').then((m) => ({ default: m.Inventory })))
 const Learning = lazy(() => import('./pages/Learning').then((m) => ({ default: m.Learning })))
 const Login = lazy(() => import('./pages/Login').then((m) => ({ default: m.Login })))
@@ -80,6 +82,7 @@ function AppRoutes() {
           }
         >
           <Route path="/" element={<Dashboard />} />
+          <Route path="/hub" element={<HubPage />} />
           <Route path="/grow" element={<Grow />} />
           <Route path="/children" element={<ChildrenPage />} />
           <Route path="/workers" element={<Workers />} />
@@ -115,6 +118,7 @@ function AppRoutes() {
 export default function App() {
   useEffect(() => {
     applyTvMode()
+    applyDeviceChrome()
     markBootSuccess()
   }, [])
   return (
@@ -125,7 +129,9 @@ export default function App() {
             <InstallProvider>
               <WatchProvider>
                 <HashRouter>
-                  <AppRoutes />
+                  <ExperienceProvider>
+                    <AppRoutes />
+                  </ExperienceProvider>
                 </HashRouter>
               </WatchProvider>
             </InstallProvider>

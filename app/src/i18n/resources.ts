@@ -3,6 +3,7 @@ export const en = {
   tagline: 'Childcare OS',
   nav: {
     dashboard: 'Home',
+    hub: 'Tonight',
     grow: 'Grow at home',
     children: 'Children',
     workers: 'Teacher workers',
@@ -78,6 +79,7 @@ export const hi = {
   tagline: 'बाल देखभाल OS',
   nav: {
     dashboard: 'होम',
+    hub: 'टुनाइट',
     grow: 'घर पर बढ़ो',
     children: 'बच्चे',
     workers: 'शिक्षक वर्कर',
@@ -147,3 +149,65 @@ export const hi = {
     notifications: 'सूचनाएँ',
   },
 }
+
+const NAV_REST = {
+  grow: 'Grow at home',
+  children: 'Children',
+  workers: 'Teacher workers',
+  enrollment: 'Enrollment',
+  attendance: 'Attendance',
+  'daily-care': 'Daily care',
+  health: 'Health',
+  billing: 'Billing',
+  staff: 'Staff & ratios',
+  classrooms: 'Rooms',
+  messages: 'Messages',
+  calendar: 'Calendar',
+  learning: 'Learning',
+  'parent-feed': 'Parent feed',
+  movies: 'Movies',
+  tv: 'TV tonight',
+  ott: 'My OTTs',
+  meals: 'Meals',
+  shop: 'Willow Mart',
+  transport: 'Van routes',
+  documents: 'Documents',
+  inventory: 'Supplies',
+  reports: 'Reports',
+  settings: 'Settings',
+  getApp: 'Get the app',
+}
+
+export const kn = {
+  brand: 'Willow',
+  tagline: 'Childcare OS',
+  nav: { dashboard: 'Home', hub: 'Tonight', ...NAV_REST },
+  settings: { appearance: 'Appearance', language: 'Kannada', flags: 'Flags', audit: 'Audit', security: 'Security' },
+  common: { signOut: 'Sign out', notifications: 'Notifications' },
+}
+
+export const ta = {
+  brand: 'Willow',
+  tagline: 'Childcare OS',
+  nav: { dashboard: 'Home', hub: 'Tonight', ...NAV_REST },
+  settings: { appearance: 'Appearance', language: 'Tamil', flags: 'Flags', audit: 'Audit', security: 'Security' },
+  common: { signOut: 'Sign out', notifications: 'Notifications' },
+}
+
+export const bn = {
+  brand: 'Willow',
+  tagline: 'Childcare OS',
+  nav: { dashboard: 'Home', hub: 'Tonight', ...NAV_REST },
+  settings: { appearance: 'Appearance', language: 'Bangla', flags: 'Flags', audit: 'Audit', security: 'Security' },
+  common: { signOut: 'Sign out', notifications: 'Notifications' },
+}
+
+export const SUPPORTED_LANGS = [
+  { id: 'en', label: 'English' },
+  { id: 'hi', label: 'हिन्दी' },
+  { id: 'kn', label: 'ಕನ್ನಡ' },
+  { id: 'ta', label: 'தமிழ்' },
+  { id: 'bn', label: 'বাংলা' },
+] as const
+
+export type SupportedLang = (typeof SUPPORTED_LANGS)[number]['id']

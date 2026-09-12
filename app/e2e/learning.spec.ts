@@ -11,6 +11,7 @@ async function loginDirector(page: Page) {
   await page.goto('/#/login')
   await page.getByRole('button', { name: 'Sign in' }).click()
   await expect(page.getByRole('heading', { name: /Today at a glance/i })).toBeVisible()
+  await page.getByTestId('look-splash').waitFor({ state: 'hidden', timeout: 3000 }).catch(() => undefined)
 }
 
 test('director dashboard loads API learning packs without duplicate channels', async ({ page }) => {

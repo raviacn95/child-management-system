@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { detectFireTv } from '../lib/tv'
 import { LOOKS, migrateLook, nextLook, type LookId } from './looks'
 
@@ -7,12 +7,15 @@ export { LOOKS, type LookId }
 
 const KEY = 'willow-theme'
 
+export type SetLookOptions = { persist?: boolean }
+
 interface ThemeApi {
   look: LookId
+  committed: LookId
   theme: LookId
   resolved: 'light' | 'dark'
-  setLook: (look: LookId) => void
-  setTheme: (look: LookId) => void
+  setLook: (look: LookId, opts?: SetLookOptions) => void
+  setTheme: (look: LookId, opts?: SetLookOptions) => void
   cycleLook: () => void
 }
 
@@ -30,6 +33,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       return 'grove'
     }
   })
+  const [committed, setCommitted] = useState<LookId>(look)
 
   const resolved = schemeOf(look)
 
@@ -37,23 +41,32 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.dataset.look = look
     document.documentElement.dataset.theme = resolved
     document.documentElement.style.colorScheme = resolved
+  }, [look, resolved])
+
+  useEffect(() => {
     try {
-      localStorage.setItem(KEY, look)
+      localStorage.setItem(KEY, committed)
     } catch {
       /* private mode */
     }
-  }, [look, resolved])
+  }, [committed])
+
+  const setLook = useCallback((next: LookId, opts?: SetLookOptions) => {
+    setLookState(next)
+    if (opts?.persist !== false) setCommitted(next)
+  }, [])
 
   const api = useMemo<ThemeApi>(
     () => ({
       look,
+      committed,
       theme: look,
       resolved,
-      setLook: setLookState,
-      setTheme: setLookState,
-      cycleLook: () => setLookState((current) => nextLook(current)),
+      setLook,
+      setTheme: setLook,
+      cycleLook: () => setLook(nextLook(committed)),
     }),
-    [look, resolved],
+    [look, committed, resolved, setLook],
   )
 
   return <Ctx.Provider value={api}>{children}</Ctx.Provider>

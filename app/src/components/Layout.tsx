@@ -16,6 +16,8 @@ import {
   LogOut,
   Menu,
   MessageSquare,
+  MonitorPlay,
+  Search,
   Package,
   School,
   Settings,
@@ -40,6 +42,7 @@ import { Avatar, Badge } from './ui'
 import { ThemeToggle } from './ThemeToggle'
 
 const NAV = [
+  { to: '/hub', key: 'hub', label: 'Tonight', icon: MonitorPlay },
   { to: '/', key: 'dashboard', label: 'Home', icon: LayoutDashboard },
   { to: '/movies', key: 'movies', label: 'Movies', icon: Clapperboard },
   { to: '/tv', key: 'tv', label: 'TV tonight', icon: Tv },
@@ -206,6 +209,15 @@ export function Layout() {
             </div>
           </div>
           <div className="relative flex items-center gap-3">
+            <button
+              type="button"
+              className="rounded-xl border border-line bg-paper p-2"
+              aria-label="Search Willow"
+              data-testid="open-search"
+              onClick={() => window.dispatchEvent(new Event('willow-search'))}
+            >
+              <Search size={16} />
+            </button>
             <NavLink
               to="/get-app"
               onMouseEnter={() => prefetchRoute('/get-app')}

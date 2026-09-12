@@ -475,6 +475,20 @@ html[data-tv='1'] .return-banner [data-testid='return-now'] {
   font-size: 1.05rem;
 }
 
+.movie-open {
+  min-height: 4.5rem;
+}
+
+.movie-back {
+  min-height: 2.5rem;
+}
+
+html[data-tv='1'] .movie-open,
+html[data-tv='1'] .movie-back {
+  min-height: 3.25rem;
+  font-size: 1.05rem;
+}
+
 html[data-tv='1'] :focus-visible {
   outline-color: var(--willow-accent);
 }

@@ -43,7 +43,7 @@ export function Login() {
           >
             <span>
               <span className="block text-sm font-semibold text-pine">Install Willow as an app</span>
-              <span className="text-xs text-muted">Laptop, phone, or Fire Stick — live, ready to use</span>
+              <span className="text-xs text-muted">Android APK, Windows app, or Fire Stick — live, ready to use</span>
             </span>
             <Download className="text-pine" size={18} />
           </Link>

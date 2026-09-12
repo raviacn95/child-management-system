@@ -20,7 +20,8 @@ if (!existsSync(src)) {
 
 for (const dir of [join(root, 'public/downloads'), join(root, 'dist/downloads')]) {
   mkdirSync(dir, { recursive: true })
+  copyFileSync(src, join(dir, 'willow.apk'))
   copyFileSync(src, join(dir, 'willow-movies.apk'))
 }
 
-console.log('Copied willow-movies.apk to public/downloads and dist/downloads')
+console.log('Copied willow.apk and willow-movies.apk to public/downloads and dist/downloads')

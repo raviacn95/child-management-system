@@ -27,7 +27,7 @@ Open [http://localhost:5173](http://localhost:5173). Demo password is `demo`.
 | `npm run analyze` | Bundle visualizer → `dist/stats.html` |
 | `npm run audit:deps` | `npm audit` |
 | `npm run icons` | Generate PWA / Android launcher icons |
-| `npm run android:apk` | Build Fire Stick APK into `downloads/willow-movies.apk` |
+| `npm run android:apk` | Build phone + Fire Stick APKs (`willow.apk`, `willow-movies.apk`) |
 
 Copy `.env.example` to `.env`. Values are validated with Zod in `src/env.ts`.
 
@@ -35,13 +35,14 @@ Copy `.env.example` to `.env`. Values are validated with Zod in `src/env.ts`.
 
 Anyone can open **Get the app** without signing in: [/#/get-app](https://raviacn95.github.io/child-management-system/#/get-app).
 
-- **Laptop / Chromebook (Chrome or Edge):** the site asks to **Install app**. Willow then opens in its own window and stays in sync with this live site (PWA auto-update).
+- **Android phone / tablet:** download **willow.apk**, open the file, tap Install. Never open a Willow-Live-App.desktop text file.
+- **Laptop / Chromebook (Chrome or Edge):** the site can install a live app window.
 - **iPhone / iPad:** Share → Add to Home Screen.
-- **Fire Stick / Android TV:** download `willow-movies.apk` from the same page. Fire OS will prompt **Install**. The APK is a thin shell that loads the live site, so movies and logins stay current.
+- **Fire Stick / Android TV:** same APK also published as `willow-movies.apk`.
 
-Direct APK URL after each site deploy:
+Direct phone APK after each site deploy:
 
-`https://raviacn95.github.io/child-management-system/downloads/willow-movies.apk`
+`https://github.com/raviacn95/child-management-system/releases/latest/download/willow.apk`
 
 On a Stick, the Downloader app can fetch that address if Silk blocks the file. Enable apps from unknown sources if Fire OS asks.
 
@@ -140,7 +141,7 @@ Willow login now lasts **90 days** on this device (`Keep me signed in`). Each Wi
 
 **TV tonight** (`/#/tv`) is the living-room shelf that replaces Google Play Movies. Watch buttons open the native Fire TV app.
 
-Install from the website (no Android Studio required): [/#/get-app](https://raviacn95.github.io/child-management-system/#/get-app). On the Stick find **Willow Movies** on the Apps row. Turn on **Settings → Fire TV / living room**.
+Install from the website (no Android Studio required): [/#/get-app](https://raviacn95.github.io/child-management-system/#/get-app). On the Stick find **Willow** on the Apps row. Turn on **Settings → Fire TV / living room**.
 
 ## Erotic shelf (18+, 150 titles)
 

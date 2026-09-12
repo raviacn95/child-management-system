@@ -18,10 +18,12 @@ describe('live app launcher', () => {
     expect(file.body).toContain(LIVE_SITE)
   })
 
-  it('does not hand phones a Windows/Linux launcher file', () => {
-    expect(launchPlan('Mozilla/5.0 (Linux; Android 14; Pixel 8) Chrome/131.0.0.0 Mobile').kind).toBe('homescreen')
+  it('sends Android phones to the APK, never a .desktop file', () => {
+    expect(launchPlan('Mozilla/5.0 (Linux; Android 14; Pixel 8) Chrome/131.0.0.0 Mobile').kind).toBe('apk')
+    expect(launchPlan('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/131.0.0.0').kind).toBe('apk')
     expect(launchPlan('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15').kind).toBe(
       'homescreen',
     )
+    expect(() => launcherFor('Mozilla/5.0 (Linux; Android 14; Pixel 8) Chrome/131.0.0.0 Mobile')).toThrow(/willow\.apk/)
   })
 })

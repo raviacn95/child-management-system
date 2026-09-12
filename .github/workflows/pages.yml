@@ -56,7 +56,7 @@ jobs:
           git archive gh-pages | tar -x -C /tmp/willow-prev
           rsync -a --delete --exclude 'releases' /tmp/willow-prev/ app/dist/releases/previous/
           printf '{"fallback":"previous"}\n' > app/dist/release.json
-      - name: Publish Fire Stick APK into the live site
+      - name: Publish phone and Fire Stick APKs into the live site
         continue-on-error: true
         working-directory: .
         run: |
@@ -67,6 +67,7 @@ jobs:
             find app/android -name '*.apk' || true
             exit 0
           fi
+          cp -f "$APK" app/dist/downloads/willow.apk
           cp -f "$APK" app/dist/downloads/willow-movies.apk
           printf '*\n!downloads/\n!downloads/**\n' > app/dist/.gitignore
           ls -lh app/dist/downloads
@@ -75,11 +76,14 @@ jobs:
         with:
           tag_name: willow-live-${{ github.run_number }}
           name: Willow live ${{ github.run_number }}
-          files: app/dist/downloads/willow-movies.apk
+          files: |
+            app/dist/downloads/willow.apk
+            app/dist/downloads/willow-movies.apk
           make_latest: true
           body: |
-            Fire Stick / Android APK (loads the live GitHub Pages app).
-            Windows live app: https://raviacn95.github.io/child-management-system/?v=ott4
+            Android phone APK: willow.apk (install like any app).
+            Fire Stick copy: willow-movies.apk (same binary).
+            Live site: https://raviacn95.github.io/child-management-system/?v=ott5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: peaceiris/actions-gh-pages@v4

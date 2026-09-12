@@ -12,6 +12,10 @@ test('get the app downloads a laptop launcher and opens live Willow', async ({ p
   const popup = await popupPromise
   await expect.poll(() => popup.url()).toMatch(/raviacn95\.github\.io\/child-management-system/)
   await expect(page.getByTestId('laptop-install-help')).toContainText(/Downloaded/i)
+  await expect(page.getByTestId('phone-apk-download')).toHaveAttribute(
+    'href',
+    'https://github.com/raviacn95/child-management-system/releases/latest/download/willow.apk',
+  )
   await expect(page.getByTestId('apk-download')).toHaveAttribute(
     'href',
     'https://github.com/raviacn95/child-management-system/releases/latest/download/willow-movies.apk',

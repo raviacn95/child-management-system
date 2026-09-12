@@ -1,7 +1,8 @@
 import { LIVE_APP_URL } from './assets'
-import { isHandheld } from './detect'
+import { isDesktopMac, isDesktopWindows, isIosSafari, prefersApkInstall } from './detect'
 
 export type LaunchPlan =
+  | { kind: 'apk' }
   | { kind: 'homescreen' }
   | { kind: 'desktop'; file: LauncherFile; openWindow: true }
 
@@ -53,26 +54,16 @@ export function launcherFor(userAgent: string, liveUrl = LIVE_APP_URL): Launcher
       ].join('\r\n'),
     }
   }
-  return {
-    filename: 'Willow-Live-App.desktop',
-    mime: 'text/plain',
-    body: [
-      '[Desktop Entry]',
-      'Type=Application',
-      'Name=Willow',
-      `Exec=xdg-open ${live}`,
-      'Terminal=false',
-      '',
-    ].join('\n'),
-  }
+  throw new Error('Phones install willow.apk — Willow never downloads a .desktop file on Android')
 }
 
-export function launchPlan(
-  userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : 'Windows',
-  handheld = isHandheld(userAgent),
-): LaunchPlan {
-  if (handheld) return { kind: 'homescreen' }
-  return { kind: 'desktop', file: launcherFor(userAgent), openWindow: true }
+export function launchPlan(userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : 'Windows'): LaunchPlan {
+  if (prefersApkInstall(userAgent)) return { kind: 'apk' }
+  if (isIosSafari() || /iPhone|iPad|iPod/i.test(userAgent)) return { kind: 'homescreen' }
+  if (isDesktopWindows(userAgent) || isDesktopMac(userAgent)) {
+    return { kind: 'desktop', file: launcherFor(userAgent), openWindow: true }
+  }
+  return { kind: 'apk' }
 }
 
 export function downloadLiveLauncher(userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : 'Windows', liveUrl = LIVE_APP_URL) {

@@ -4,7 +4,7 @@ import { apkDownloadUrl, pageRoot, siteAssetUrl } from './assets'
 describe('install asset URLs', () => {
   it('keeps the APK next to the GitHub Pages app, not inside the hash route', () => {
     expect(apkDownloadUrl()).toBe(
-      'https://github.com/raviacn95/child-management-system/releases/latest/download/willow-movies.apk',
+      'https://github.com/raviacn95/child-management-system/releases/latest/download/willow.apk',
     )
   })
 

@@ -21,14 +21,15 @@ test('phone live app signs in and uses a drawer instead of a stuck sidebar', asy
   await expect(page.getByTestId('movie-card').first()).toBeVisible()
 })
 
-test('phone get-the-app stays on this page and does not download a desktop launcher', async ({ page }) => {
+test('phone get-the-app offers willow.apk and never a desktop launcher', async ({ page }) => {
   await page.goto('/#/get-app')
   await expect(page.getByTestId('get-app')).toBeVisible()
-  const download = page.waitForEvent('download', { timeout: 1500 }).then(() => 'downloaded').catch(() => 'none')
-  const popup = page.waitForEvent('popup', { timeout: 1500 }).then(() => 'popup').catch(() => 'none')
-  await page.getByTestId('pwa-install').click()
-  expect(await download).toBe('none')
-  expect(await popup).toBe('none')
-  await expect(page.getByTestId('laptop-install-help')).toContainText(/Home Screen/i)
+  await expect(page.getByTestId('phone-apk-download')).toBeVisible()
+  await expect(page.getByTestId('phone-apk-download')).toHaveAttribute(
+    'href',
+    'https://github.com/raviacn95/child-management-system/releases/latest/download/willow.apk',
+  )
+  await expect(page.getByTestId('phone-apk-download')).toContainText('Download Willow.apk')
+  await expect(page.getByTestId('pwa-install')).toHaveCount(0)
   await expect(page).toHaveURL(/get-app/)
 })

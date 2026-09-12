@@ -24,7 +24,12 @@ test('home, movies, and TV show the cited top-picks feed', async ({ page }) => {
   await expect(page.getByTestId('top-pick-card')).toHaveCount(10)
   await expect(page.getByTestId('movie-card')).toHaveCount(100)
   const pagesBefore = page.context().pages().length
-  await page.getByTestId('top-pick-watch').first().click()
+  await page
+    .getByTestId('top-pick-watch')
+    .first()
+    .getByRole('button', { name: /Amazon Prime Video|Netflix|Google Play Movies|JustWatch/ })
+    .first()
+    .click()
   await expect(page.getByTestId('watch-desk')).toBeVisible()
   expect(page.context().pages().length).toBe(pagesBefore)
   await page.getByTestId('watch-close').click()

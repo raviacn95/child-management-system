@@ -32,14 +32,12 @@ export function TopPicksShelf() {
       <div className="mb-3">
         <h2 className="font-display text-2xl font-semibold">{hubRowTitle(look)}</h2>
         <p className="mt-1 text-sm text-muted">
-          Tap a title for a short summary. Back returns to the names. Watch stays on the name card — not inside the
-          summary.
+          Tap a title for a short summary. Each card keeps that title’s official storefront links.
         </p>
       </div>
       <ul className="grid gap-3 md:grid-cols-2">
         {picks.map((pick) => {
           const open = openId === pick.id
-          const first = pick.watchLinks[0]
           return (
             <li key={pick.id} className="card p-4" data-testid="top-pick-card">
               {open ? (
@@ -77,24 +75,22 @@ export function TopPicksShelf() {
                       </div>
                       <Badge tone="gold">{pick.rating}</Badge>
                     </div>
-                    <p className="mt-2 text-xs font-semibold text-pine">Tap for a short summary</p>
                   </button>
-                  {first ? (
-                    <Button
-                      type="button"
-                      variant="soft"
-                      className="mt-3"
-                      data-testid="top-pick-watch"
-                      onClick={() => {
-                        const href = tv
-                          ? fireTvIntent(first.platformId, pick.title, pick.year, pick.originalLang)
-                          : first.url
-                        openWatch({ url: href, title: pick.title, platformName: first.platformName })
-                      }}
-                    >
-                      Watch
-                    </Button>
-                  ) : null}
+                  <div className="mt-3 flex flex-wrap gap-1.5" data-testid="top-pick-watch">
+                    {pick.watchLinks.map((link) => {
+                      const href = tv ? fireTvIntent(link.platformId, pick.title, pick.year, pick.originalLang) : link.url
+                      return (
+                        <button
+                          key={link.platformId}
+                          type="button"
+                          className="rounded-lg border border-line px-2 py-1 text-xs font-semibold text-pine hover:border-pine"
+                          onClick={() => openWatch({ url: href, title: pick.title, platformName: link.platformName })}
+                        >
+                          {link.platformName}
+                        </button>
+                      )
+                    })}
+                  </div>
                 </div>
               )}
             </li>

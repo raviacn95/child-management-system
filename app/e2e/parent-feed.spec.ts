@@ -42,7 +42,12 @@ test('movies page shows a shuffled 100 with official watch links', async ({ page
   await expect(page.getByTestId('originals-only')).toContainText('Original Malayalam only')
   await expect(page.getByText('Papanasam')).toHaveCount(0)
   const pagesBefore = page.context().pages().length
-  await page.getByTestId('movie-watch').first().click()
+  await page
+    .getByTestId('movie-watch')
+    .first()
+    .getByRole('link', { name: /Amazon Prime Video|Google Play Movies|SonyLIV|JustWatch|Netflix/ })
+    .first()
+    .click()
   await expect(page.getByTestId('watch-desk')).toBeVisible()
   expect(page.context().pages().length).toBe(pagesBefore)
   await page.getByTestId('watch-close').click()

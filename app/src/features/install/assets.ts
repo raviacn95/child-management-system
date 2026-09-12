@@ -1,6 +1,6 @@
 /** Live site the Fire Stick APK WebView and Windows app load. */
 export const LIVE_SITE = 'https://raviacn95.github.io/child-management-system/'
-export const LIVE_APP_URL = `${LIVE_SITE}?v=moviesum2`
+export const LIVE_APP_URL = `${LIVE_SITE}?v=moviesum3`
 
 export const APK_FILE = 'downloads/willow.apk'
 export const APK_FILENAME = 'willow.apk'

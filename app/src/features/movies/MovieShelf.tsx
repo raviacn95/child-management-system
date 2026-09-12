@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, RefreshCw } from 'lucide-react'
+import { ArrowLeft, ExternalLink, RefreshCw } from 'lucide-react'
 import { Badge, Button, Field, inputClass } from '../../components/ui'
 import { platforms, recommendMovies } from './recommend'
 import { LANG_LABEL, type MovieKind, type MovieLang, type MovieShelfKind } from './schema'
@@ -230,23 +230,25 @@ export function MovieShelf({
                     <p className="mt-1 text-xs text-muted">
                       {t.year} · Original {LANG_LABEL[t.originalLang]}
                     </p>
-                    <p className="mt-2 text-xs font-semibold text-pine">Tap for a short summary</p>
                   </button>
-                  {t.watchLinks[0] ? (
-                    <Button
-                      type="button"
-                      variant="soft"
-                      className="mt-3"
-                      data-testid={erotic ? 'erotic-watch' : 'movie-watch'}
-                      onClick={() => {
-                        const w = t.watchLinks[0]
-                        const href = tv ? fireTvIntent(w.platformId, t.title, t.year, t.originalLang) : w.url
-                        openWatch({ url: href, title: t.title, platformName: w.platformName })
-                      }}
-                    >
-                      Watch
-                    </Button>
-                  ) : null}
+                  <div className="mt-3 flex flex-wrap gap-1.5" data-testid={erotic ? 'erotic-watch' : 'movie-watch'}>
+                    {t.watchLinks.map((w) => {
+                      const href = tv ? fireTvIntent(w.platformId, t.title, t.year, t.originalLang) : w.url
+                      return (
+                        <a
+                          key={w.platformId}
+                          className="rounded-lg border border-line px-2 py-1 text-xs font-semibold text-pine hover:border-pine"
+                          href={href}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            openWatch({ url: href, title: t.title, platformName: w.platformName })
+                          }}
+                        >
+                          {w.platformName} <ExternalLink className="inline" size={10} />
+                        </a>
+                      )
+                    })}
+                  </div>
                 </div>
               )}
             </li>

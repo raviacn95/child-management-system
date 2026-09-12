@@ -61,7 +61,7 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        cacheId: 'willow-movie-sum-v2',
+        cacheId: 'willow-movie-sum-v3',
         globPatterns: ['**/*.{js,css,html,svg,woff2,json,png}'],
         globIgnores: ['**/releases/**', '**/*.apk'],
         navigateFallback: 'index.html',

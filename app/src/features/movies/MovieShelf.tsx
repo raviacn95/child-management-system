@@ -128,14 +128,14 @@ export function MovieShelf({
             returns here. A language chip is originals only — no dubbed copies.
           </p>
         </div>
-        <Button onClick={() => setSeed(`live-${Date.now()}`)} aria-label={`Shuffle ${limit} titles`}>
+        <Button data-tv-focus="1" onClick={() => setSeed(`live-${Date.now()}`)} aria-label={`Shuffle ${limit} titles`}>
           <RefreshCw size={16} /> Shuffle {limit}
         </Button>
       </div>
 
       <div className="mb-4 flex flex-wrap gap-2">
         {langs.map((l) => (
-          <Button key={l.id} variant={lang === l.id ? 'primary' : 'ghost'} onClick={() => setLang(l.id)}>
+          <Button key={l.id} data-tv-focus="1" variant={lang === l.id ? 'primary' : 'ghost'} onClick={() => setLang(l.id)}>
             {l.label}
           </Button>
         ))}
@@ -189,7 +189,7 @@ export function MovieShelf({
       <p className="mb-3 text-xs text-muted" data-testid={erotic ? 'erotic-count' : 'movie-count'}>
         {countLine} · seed {result.seed}
       </p>
-      <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+      <ul className={tv ? 'movie-rail' : 'grid gap-3 sm:grid-cols-2 xl:grid-cols-3'}>
         {result.titles.map((t, i) => {
           const key = `${t.id}-${i}`
           const open = openKey === key
@@ -201,6 +201,7 @@ export function MovieShelf({
                     type="button"
                     variant="ghost"
                     className="movie-back mb-3"
+                    data-tv-focus="1"
                     data-testid="movie-back"
                     onClick={() => setOpenKey(null)}
                   >
@@ -216,6 +217,7 @@ export function MovieShelf({
                   <button
                     type="button"
                     className="movie-open w-full text-left"
+                    data-tv-focus="1"
                     data-testid={erotic ? 'erotic-open' : 'movie-open'}
                     aria-expanded={false}
                     aria-label={`Open ${t.title}`}
@@ -238,6 +240,7 @@ export function MovieShelf({
                         <a
                           key={w.platformId}
                           className="rounded-lg border border-line px-2 py-1 text-xs font-semibold text-pine hover:border-pine"
+                          data-tv-focus="1"
                           href={href}
                           onClick={(e) => {
                             e.preventDefault()

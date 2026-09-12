@@ -23,9 +23,14 @@ export function TvHome() {
             Hotstar — those apps keep your login on the Stick.
           </p>
         </div>
-        <Link to="/ott" className="text-sm font-semibold text-pine">
-          Manage OTT logins →
-        </Link>
+        <div className="flex flex-wrap gap-3">
+          <Link to="/movies" className="text-sm font-semibold text-pine" data-tv-focus="1" data-testid="tv-to-movies">
+            Movies →
+          </Link>
+          <Link to="/ott" className="text-sm font-semibold text-pine" data-tv-focus="1">
+            Manage OTT logins →
+          </Link>
+        </div>
       </div>
       {mine.length > 0 ? (
         <div className="mb-8 flex flex-wrap gap-2">
@@ -35,6 +40,7 @@ export function TvHome() {
               <Button
                 key={a.id}
                 variant="soft"
+                data-tv-focus="1"
                 onClick={() => {
                   touchOtt(a.id)
                   openWatch({

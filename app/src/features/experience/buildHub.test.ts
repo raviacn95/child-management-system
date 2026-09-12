@@ -18,8 +18,12 @@ describe('household hub', () => {
   it('leads Cinema with movies and Harbor with the director desk', () => {
     const cinema = buildHub({ look: 'cinema', role: 'director', resume: [], watchTogether: false }).map((r) => r.id)
     const harbor = buildHub({ look: 'harbor', role: 'director', resume: [], watchTogether: false }).map((r) => r.id)
-    expect(cinema[0] === 'movies' || cinema[1] === 'movies' || cinema[0] === 'top-picks').toBe(true)
-    expect(harbor[0] === 'reports' || harbor[1] === 'reports').toBe(true)
+    expect(cinema.includes('watch')).toBe(true)
+    expect(cinema.indexOf('watch')).toBeLessThan(cinema.indexOf('movies'))
+    expect(cinema[0] === 'watch' || cinema[1] === 'watch' || cinema[0] === 'movies' || cinema[1] === 'movies' || cinema[0] === 'top-picks').toBe(true)
+    expect(harbor.includes('watch')).toBe(true)
+    expect(harbor.indexOf('reports')).toBeGreaterThan(-1)
+    expect(harbor.indexOf('reports')).toBeLessThan(4)
     expect(harbor).toContain('reports')
   })
 

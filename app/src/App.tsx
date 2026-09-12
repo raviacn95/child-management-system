@@ -52,7 +52,7 @@ function Guard({ children }: { children: ReactNode }) {
   const user = state.users.find((u) => u.id === state.currentUserId)
   if (!user) return <Navigate to="/login" replace />
   const key = moduleFromPath(location.pathname)
-  if (key && !canSee(user.role, key)) return <Navigate to="/" replace />
+  if (key && !canSee(user.role, key)) return <Navigate to={homePath()} replace />
   return children
 }
 
@@ -111,7 +111,7 @@ function AppRoutes() {
           <Route path="/reports" element={<Reports />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to={homePath()} replace />} />
       </Routes>
     </Suspense>
   )

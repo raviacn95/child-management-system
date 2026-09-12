@@ -35,7 +35,7 @@ export function TopPicksShelf() {
           Tap a title for a short summary. Each card keeps that title’s official storefront links.
         </p>
       </div>
-      <ul className="grid gap-3 md:grid-cols-2">
+      <ul className={tv ? 'movie-rail' : 'grid gap-3 md:grid-cols-2'}>
         {picks.map((pick) => {
           const open = openId === pick.id
           return (
@@ -61,6 +61,7 @@ export function TopPicksShelf() {
                   <button
                     type="button"
                     className="movie-open w-full text-left"
+                    data-tv-focus="1"
                     data-testid="top-pick-open"
                     aria-expanded={false}
                     aria-label={`Open ${pick.title}`}
@@ -84,6 +85,7 @@ export function TopPicksShelf() {
                           key={link.platformId}
                           type="button"
                           className="rounded-lg border border-line px-2 py-1 text-xs font-semibold text-pine hover:border-pine"
+                          data-tv-focus="1"
                           onClick={() => openWatch({ url: href, title: pick.title, platformName: link.platformName })}
                         >
                           {link.platformName}

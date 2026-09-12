@@ -109,6 +109,7 @@ export function HubPage() {
               <Link
                 key={tile.id}
                 to={tile.href}
+                data-tv-focus="1"
                 className={`hub-tile hub-tile-${tile.kind}`}
                 onClick={() => openTile(tile)}
               >

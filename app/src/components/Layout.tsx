@@ -44,6 +44,8 @@ import { ThemeToggle } from './ThemeToggle'
 import { ShareButton } from '../features/share/ShareSheet'
 import { UpdateBanner } from '../features/install/UpdateBanner'
 import { useSourceUpdate } from '../features/install/useSourceUpdate'
+import { isTvMode } from '../lib/tv'
+import { TvStrip } from './TvStrip'
 
 const NAV = [
   { to: '/hub', key: 'hub', label: 'Tonight', icon: MonitorPlay },
@@ -99,6 +101,7 @@ export function Layout() {
   const notifs = state.notifications.filter((n) => n.userId === user?.id)
   const unread = notifs.filter((n) => !n.read).length
   const sourceUpdate = useSourceUpdate()
+  const tv = isTvMode()
 
   useEffect(() => {
     setNavOpen(false)
@@ -108,8 +111,8 @@ export function Layout() {
   if (!user) return null
 
   return (
-    <div className="look-shell flex min-h-dvh">
-      {navOpen ? (
+    <div className={`look-shell flex min-h-dvh${tv ? ' tv-shell' : ''}`}>
+      {tv || !navOpen ? null : (
         <button
           type="button"
           className="fixed inset-0 z-30 bg-ink/40 lg:hidden"
@@ -117,7 +120,8 @@ export function Layout() {
           data-testid="nav-backdrop"
           onClick={() => setNavOpen(false)}
         />
-      ) : null}
+      )}
+      {tv ? null : (
       <aside
         className={`fixed inset-y-0 left-0 z-40 flex h-dvh w-[min(248px,86vw)] shrink-0 flex-col border-r border-line bg-[var(--color-sidebar)] pt-[env(safe-area-inset-top)] transition-transform lg:sticky lg:translate-x-0 ${
           navOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
@@ -194,6 +198,7 @@ export function Layout() {
           </div>
         </div>
       </aside>
+      )}
       <div className="min-w-0 flex-1">
         <header className="sticky top-0 z-20 flex items-center justify-between gap-2 border-b border-line bg-[var(--header-bg)] px-3 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-md md:px-8">
           <div className="flex min-w-0 items-center gap-2">
@@ -202,6 +207,7 @@ export function Layout() {
               className="relative z-20 shrink-0 rounded-xl border border-line bg-paper p-2 lg:hidden"
               aria-label="Open menu"
               data-testid="open-nav"
+              hidden={tv}
               onClick={() => setNavOpen(true)}
             >
               <Menu size={18} />
@@ -298,6 +304,7 @@ export function Layout() {
           </div>
         </header>
         <UpdateBanner />
+        {tv ? <TvStrip role={user.role} /> : null}
         <main className="tv-safe px-4 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:px-8 md:py-8">
           <Outlet />
         </main>

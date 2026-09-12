@@ -43,6 +43,16 @@ export function buildHub(input: {
   const finance = parentCatalog.items.filter((item) => item.category === 'finance').slice(0, 6)
   const health = parentCatalog.items.filter((item) => item.category === 'health').slice(0, 4)
 
+  const watchRow: HubRow = {
+    id: 'watch',
+    title: 'Watch tonight',
+    tiles: [
+      { id: 'watch-movies', kind: 'movie', title: 'Movies', subtitle: 'Full living-room shelf', href: '/movies' },
+      { id: 'watch-tv', kind: 'movie', title: 'TV tonight', subtitle: 'Tonight’s picks and OTTs', href: '/tv' },
+      { id: 'watch-ott', kind: 'page', title: 'My OTTs', subtitle: 'Prime, Netflix, Hotstar', href: '/ott' },
+    ],
+  }
+
   const continueRow: HubRow = {
     id: 'continue',
     title: 'Continue',
@@ -178,16 +188,16 @@ export function buildHub(input: {
 
   const order: HubRow[] =
     input.look === 'cinema'
-      ? [continueRow, topPicksRow, movieRow, shoppingRow, learningRow, parentRow, financeRow]
+      ? [continueRow, watchRow, topPicksRow, movieRow, shoppingRow, learningRow, parentRow, financeRow]
       : input.look === 'harbor' || input.look === 'pulse'
-        ? [continueRow, reportsRow, parentRow, shoppingRow, learningRow, movieRow, topPicksRow]
+        ? [continueRow, watchRow, reportsRow, parentRow, shoppingRow, learningRow, movieRow, topPicksRow]
         : input.look === 'arcade'
-          ? [continueRow, learningRow, shoppingRow, topPicksRow, movieRow, parentRow, careRow]
+          ? [continueRow, watchRow, learningRow, shoppingRow, topPicksRow, movieRow, parentRow, careRow]
           : input.look === 'atelier'
-            ? [continueRow, parentRow, financeRow, shoppingRow, careRow, learningRow, topPicksRow]
+            ? [continueRow, watchRow, parentRow, financeRow, shoppingRow, careRow, learningRow, topPicksRow]
             : input.look === 'rang'
-              ? [continueRow, shoppingRow, topPicksRow, movieRow, parentRow, learningRow, financeRow]
-              : [continueRow, careRow, shoppingRow, learningRow, topPicksRow, movieRow, parentRow, financeRow]
+              ? [continueRow, watchRow, shoppingRow, topPicksRow, movieRow, parentRow, learningRow, financeRow]
+              : [continueRow, watchRow, careRow, shoppingRow, learningRow, topPicksRow, movieRow, parentRow, financeRow]
 
   return order.filter((row) => row.tiles.length > 0)
 }

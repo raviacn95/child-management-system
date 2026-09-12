@@ -14,6 +14,11 @@ export function MoviesPage() {
       <PageHead
         title="100 movies & series"
         subtitle="Prime, Google Movies, SonyLIV, Hotstar, ManoramaMAX and 50+ official storefronts. Ranked by critics, audience, YouTube and Instagram heat. Malayalam is first-class. Shuffle for a new 100."
+        actions={
+          <Link to="/tv" className="text-sm font-semibold text-pine" data-tv-focus="1" data-testid="movies-to-tv">
+            TV tonight →
+          </Link>
+        }
       />
       <TopPicksShelf />
       {canErotic ? (

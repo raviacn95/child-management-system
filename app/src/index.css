@@ -75,10 +75,54 @@ body {
   border: 0;
 }
 
-html[data-tv='1'] :focus-visible {
+html[data-tv='1'] :focus-visible,
+html[data-tv='1'] [data-tv-focus]:focus {
   outline: 4px solid var(--color-gold);
   outline-offset: 6px;
   border-radius: 16px;
+}
+
+.tv-strip {
+  display: flex;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding: 0.85rem max(var(--tv-safe, 1.5rem), 1.25rem);
+  border-bottom: 1px solid var(--color-line);
+  background: var(--header-bg);
+}
+
+.tv-strip-item {
+  flex: 0 0 auto;
+  min-height: 3rem;
+  padding: 0.7rem 1.15rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-line);
+  background: var(--color-paper);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.tv-strip-item-active {
+  background: var(--color-pine);
+  color: var(--color-pine-ink);
+  border-color: var(--color-pine);
+}
+
+.movie-rail {
+  display: flex;
+  gap: 0.85rem;
+  overflow-x: auto;
+  padding-bottom: 0.6rem;
+  scroll-snap-type: x mandatory;
+}
+
+.movie-rail > li {
+  flex: 0 0 17rem;
+  min-width: 17rem;
+  scroll-snap-align: start;
 }
 
 html[data-tv='1'] body {

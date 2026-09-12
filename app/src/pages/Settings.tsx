@@ -14,6 +14,7 @@ import { isTvMode, setTvMode } from '../lib/tv'
 import { useStore } from '../store'
 import { LookPicker } from '../components/LookPicker'
 import { useTheme } from '../theme/ThemeProvider'
+import { forceReloadLive } from '../lib/liveRelease'
 
 export function SettingsPage() {
   const { t, i18n } = useTranslation()
@@ -37,6 +38,17 @@ export function SettingsPage() {
         title="Settings"
         subtitle="Country pack drives currency, GST/VAT, UIP vaccines, stages, documents, COD, and holidays — the same split Indian preschool ERPs (Pathshala, Fledgly, Zenox, OpenEduCat) use."
       />
+
+      <div className="card mb-6 p-5" data-testid="live-update">
+        <h2 className="font-display text-xl">Live Willow</h2>
+        <p className="mt-1 text-sm text-muted">
+          Phone, Windows, and Fire Stick load the live website. If this copy looks old, drop the stuck cache and open
+          the latest release. Child records stay on this device.
+        </p>
+        <Button type="button" className="mt-3" data-testid="use-latest-willow" onClick={() => void forceReloadLive()}>
+          Use latest Willow
+        </Button>
+      </div>
 
       <div className="mb-6 grid gap-4 md:grid-cols-3">
         <div className="card p-5 md:col-span-3">

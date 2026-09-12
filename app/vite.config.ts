@@ -61,11 +61,20 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        cacheId: 'willow-movie-sum-v3',
+        cacheId: 'willow-live',
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
         globPatterns: ['**/*.{js,css,html,svg,woff2,json,png}'],
-        globIgnores: ['**/releases/**', '**/*.apk'],
+        globIgnores: ['**/releases/**', '**/*.apk', '**/release.json'],
         navigateFallback: 'index.html',
-        navigateFallbackDenylist: [/\.apk$/i, /\/downloads\//, /\/releases\//, /\/schemas\//],
+        navigateFallbackDenylist: [/\.apk$/i, /\/downloads\//, /\/releases\//, /\/schemas\//, /release\.json$/],
+        runtimeCaching: [
+          {
+            urlPattern: /release\.json/i,
+            handler: 'NetworkOnly',
+          },
+        ],
       },
     }),
     {

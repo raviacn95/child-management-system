@@ -8,6 +8,7 @@ describe('live app launcher', () => {
     expect(file.filename).toBe('Willow-Live-App.cmd')
     expect(file.body).toContain('--app="%LIVE%"')
     expect(file.body).toContain(LIVE_SITE)
+    expect(file.body).toContain('?willow=%TS%')
     expect(file.body).toContain('msedge.exe')
   })
 
@@ -16,6 +17,7 @@ describe('live app launcher', () => {
     expect(file.filename).toBe('Willow-Live-App.command')
     expect(file.body).toContain('--app="$LIVE"')
     expect(file.body).toContain(LIVE_SITE)
+    expect(file.body).toContain('?willow=$(date +%s)')
   })
 
   it('sends Android phones to the APK, never a .desktop file', () => {

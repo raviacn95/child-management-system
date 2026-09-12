@@ -1,4 +1,4 @@
-import { LIVE_APP_URL } from './assets'
+import { LIVE_APP_URL, LIVE_SITE, liveLaunchUrl } from './assets'
 import { isDesktopMac, isDesktopWindows, isIosSafari, prefersApkInstall } from './detect'
 
 export type LaunchPlan =
@@ -12,15 +12,17 @@ export type LauncherFile = {
   body: string
 }
 
-export function launcherFor(userAgent: string, liveUrl = LIVE_APP_URL): LauncherFile {
-  const live = liveUrl.endsWith('/') ? liveUrl : `${liveUrl}/`
+export function launcherFor(userAgent: string, liveUrl = LIVE_SITE): LauncherFile {
+  const root = liveUrl.split('#')[0].split('?')[0]
+  const live = root.endsWith('/') ? root : `${root}/`
   if (/Mac OS X|Macintosh/i.test(userAgent) && !/iPhone|iPad|iPod/i.test(userAgent)) {
     return {
       filename: 'Willow-Live-App.command',
       mime: 'text/plain',
       body: [
         '#!/bin/bash',
-        `LIVE="${live}"`,
+        `ROOT="${live}"`,
+        'LIVE="${ROOT}?willow=$(date +%s)"',
         'open -na "Microsoft Edge" --args --app="$LIVE" 2>/dev/null \\',
         '  || open -na "Google Chrome" --args --app="$LIVE" 2>/dev/null \\',
         '  || open "$LIVE"',
@@ -35,7 +37,9 @@ export function launcherFor(userAgent: string, liveUrl = LIVE_APP_URL): Launcher
       body: [
         '@echo off',
         'setlocal',
-        `set "LIVE=${live}"`,
+        `set "ROOT=${live}"`,
+        'for /f %%i in (\'powershell -NoProfile -Command "[int](Get-Date -UFormat %%s)"\') do set TS=%%i',
+        'set "LIVE=%ROOT%?willow=%TS%"',
         'set "EDGE=%ProgramFiles(x86)%\\Microsoft\\Edge\\Application\\msedge.exe"',
         'if not exist "%EDGE%" set "EDGE=%ProgramFiles%\\Microsoft\\Edge\\Application\\msedge.exe"',
         'set "CHROME=%ProgramFiles%\\Google\\Chrome\\Application\\chrome.exe"',
@@ -82,7 +86,7 @@ export function downloadLiveLauncher(userAgent = typeof navigator !== 'undefined
   return file.filename
 }
 
-export function openLiveAppWindow(liveUrl = LIVE_APP_URL) {
+export function openLiveAppWindow(liveUrl = liveLaunchUrl()) {
   const features = 'popup=yes,noopener,noreferrer,width=1440,height=900'
   const opened = window.open(liveUrl, 'willow-live-app', features)
   return Boolean(opened)

@@ -88,8 +88,9 @@ export function GetApp() {
           <Smartphone className="text-pine" />
           <h2 className="font-display mt-3 text-2xl font-semibold">Android phone or tablet</h2>
           <p className="mt-2 text-sm text-muted">
-            Download the APK, open the file, tap Install. Allow apps from this browser if Android asks. Willow then
-            sits on your home screen like any other app — Chrome, Samsung Internet, and all Android 7+ phones.
+            Download the APK, open the file, tap Install. Allow apps from this browser if Android asks. This APK is a
+            live shell — after you install this build once, movie and care updates come from the website. If the phone
+            still looks old, reinstall willow.apk here or use Settings → Use latest Willow.
           </p>
           <a
             className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-pine px-3.5 py-2 text-base font-semibold text-white hover:bg-[#175c4b]"

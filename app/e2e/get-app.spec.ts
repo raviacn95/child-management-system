@@ -36,3 +36,12 @@ test('signed-in header opens get the app', async ({ page }) => {
   await expect(page.getByTestId('get-app')).toBeVisible()
   await expect(page.getByRole('link', { name: /Open Willow/i })).toBeVisible()
 })
+
+test('settings can drop a stuck live cache', async ({ page }) => {
+  await page.goto('/#/login')
+  await page.getByRole('button', { name: 'Sign in' }).click()
+  await expect(page.getByRole('heading', { name: /Today at a glance/i })).toBeVisible()
+  await page.goto('/#/settings')
+  await expect(page.getByTestId('live-update')).toBeVisible()
+  await expect(page.getByTestId('use-latest-willow')).toBeVisible()
+})

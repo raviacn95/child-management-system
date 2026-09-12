@@ -6,6 +6,7 @@ import { initI18n } from './i18n'
 import { initMonitoring } from './lib/monitoring'
 import { initRealtime } from './lib/realtime'
 import { initVitals } from './lib/vitals'
+import { listenForLiveRelease, syncLiveRelease } from './lib/liveRelease'
 import { markBootStart, markBootSuccess, rollbackToPreviousRelease } from './lib/releaseGuard'
 import './theme/tokens.css'
 import './index.css'
@@ -13,6 +14,9 @@ import './index.css'
 async function boot() {
   markBootStart()
   try {
+    const sync = await syncLiveRelease()
+    if (sync.status === 'reloading') return
+    listenForLiveRelease()
     await initI18n()
     if (import.meta.env.DEV && flagOn(env.VITE_ENABLE_MSW, true)) {
       const { worker } = await import('./mocks/browser')

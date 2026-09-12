@@ -1,6 +1,10 @@
-/** Live site the Fire Stick APK WebView and Windows app load. */
+/** Live site the Fire Stick APK WebView and Windows app load. Never bake a stale ?v= into an APK. */
 export const LIVE_SITE = 'https://raviacn95.github.io/child-management-system/'
-export const LIVE_APP_URL = `${LIVE_SITE}?v=moviesum3`
+export const LIVE_APP_URL = LIVE_SITE
+
+export function liveLaunchUrl(now = Date.now()) {
+  return `${LIVE_SITE}?willow=${now}`
+}
 
 export const APK_FILE = 'downloads/willow.apk'
 export const APK_FILENAME = 'willow.apk'

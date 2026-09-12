@@ -1,0 +1,6 @@
+{
+  "id": "dev",
+  "run": 0,
+  "channel": "local",
+  "fallback": "previous"
+}

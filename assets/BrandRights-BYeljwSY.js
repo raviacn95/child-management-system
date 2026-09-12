@@ -1,0 +1,1 @@
+import{i as e}from"./query-D_Flqcxe.js";import{m as t}from"./index-CErZxIR5.js";var n=e();function r({className:e=``}){return(0,n.jsxs)(`p`,{className:`text-[11px] leading-relaxed text-muted ${e}`,"data-testid":`brand-rights`,children:[t,` WhatsApp, Facebook, and other storefronts are used only as official share or watch links.`]})}export{r as t};

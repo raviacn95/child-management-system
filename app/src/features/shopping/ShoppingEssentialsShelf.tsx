@@ -11,6 +11,7 @@ import { isOfficialShopUrl } from './sources'
 import { launchOfficialShop } from './launch'
 import { shopInputFromChild } from './privacy'
 import { hubShoppingTitle, recommendShopping, type RankedShopPick } from './recommend'
+import { ShopTogetherDesk } from './ShopTogetherDesk'
 import { recordShopBlocked, recordShopCheck } from './telemetry'
 
 function pinPrefixSafe(pin: string) {
@@ -180,6 +181,7 @@ export function ShoppingEssentialsShelf({ childId }: { childId?: string }) {
           </button>
         </div>
       </div>
+      <ShopTogetherDesk picks={picks} />
       <ul className="grid gap-3 md:grid-cols-2">
         {picks.map((pick) => {
           const open = openId === pick.id

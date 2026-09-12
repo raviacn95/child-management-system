@@ -1,11 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ExternalLink, Truck, Zap } from 'lucide-react'
 import { clothingNeeds } from '../data/catalog'
 import { packOf } from '../data/country'
-import { autoOrderRemote, buildOrder, partnerShopUrl, placeOrderRemote, QC_APPS } from '../lib/autoOrder'
+import { togetherQuery } from '../features/shopping/baskets'
+import { isOfficialShopUrl } from '../features/shopping/sources'
+import {
+  autoOrderRemote,
+  buildOrder,
+  partnerCombinedUrl,
+  partnerQueryHasPii,
+  placeOrderRemote,
+  QC_APPS,
+} from '../lib/autoOrder'
 import { childName, money } from '../lib'
 import { useStore } from '../store'
-import type { Child, PayMethod, QcQuote } from '../types'
+import type { Child, PayMethod, QcAppId, QcQuote } from '../types'
 import { Badge, Button, Field, inputClass } from './ui'
 
 export function AutoOrderPanel({ child }: { child: Child }) {
@@ -19,8 +28,19 @@ export function AutoOrderPanel({ child }: { child: Child }) {
   const [error, setError] = useState('')
   const [pay, setPay] = useState<PayMethod>(pack.cod.enabled ? 'cod' : 'upi')
   const [address, setAddress] = useState('')
+  const [selected, setSelected] = useState<string[]>([])
   const orders = (state.quickOrders ?? []).filter((o) => o.childId === child.id)
   const winnerApp = quote?.decision.app ?? 'zepto'
+  const selectedNames = useMemo(
+    () => (quote ? quote.picks.filter((pick) => selected.includes(pick.needId)).map((pick) => pick.chosen.name) : []),
+    [quote, selected],
+  )
+  const combinedQuery = togetherQuery(selectedNames)
+  const combinedSafe = Boolean(selectedNames.length) && !partnerQueryHasPii(selectedNames)
+
+  useEffect(() => {
+    setSelected(quote ? quote.picks.map((pick) => pick.needId) : [])
+  }, [quote])
 
   useEffect(() => {
     const open = (state.quickOrders ?? []).filter((o) => o.status !== 'delivered' && o.status !== 'cancelled')
@@ -81,7 +101,7 @@ export function AutoOrderPanel({ child }: { child: Child }) {
   }
 
   return (
-    <div className="mt-5 rounded-2xl border border-clay/25 bg-clay-soft/40 p-4">
+    <div className="auto-order mt-5 rounded-2xl border border-clay/25 bg-clay-soft/40 p-4" data-testid="auto-order">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs font-semibold tracking-wide text-clay uppercase">Quick-commerce quote (sandbox)</p>
@@ -113,32 +133,55 @@ export function AutoOrderPanel({ child }: { child: Child }) {
             <Badge tone={via === 'middleware' ? 'pine' : 'sand'}>{via === 'middleware' ? 'middleware' : 'local sandbox'}</Badge>
             {quote.decision.allCod ? <Badge>COD would be eligible</Badge> : <Badge>Prepaid / UPI</Badge>}
           </div>
+          <div className="flex flex-wrap gap-2">
+            <Button
+              type="button"
+              variant="ghost"
+              data-testid="auto-order-all"
+              onClick={() =>
+                setSelected((cur) => (cur.length === quote.picks.length ? [] : quote.picks.map((pick) => pick.needId)))
+              }
+            >
+              {selected.length === quote.picks.length ? 'Clear selection' : 'Select all recommendations'}
+            </Button>
+          </div>
           <ul className="space-y-2">
             {quote.picks.map((p) => (
-              <li key={p.needId} className="rounded-xl border border-line bg-paper px-3 py-2 text-sm">
-                <div className="flex flex-wrap justify-between gap-2">
-                  <span className="font-semibold">{p.label}</span>
-                  <span>
-                    {p.chosen.name} · {rupee(p.chosen.price)} · {p.chosen.etaMin} min · {p.chosen.app}
+              <li key={p.needId} className="rounded-xl border border-line bg-paper px-3 py-2 text-sm" data-testid="auto-order-pick">
+                <label className="flex items-start gap-2">
+                  <input
+                    type="checkbox"
+                    className="mt-1"
+                    checked={selected.includes(p.needId)}
+                    onChange={() =>
+                      setSelected((cur) => (cur.includes(p.needId) ? cur.filter((id) => id !== p.needId) : [...cur, p.needId]))
+                    }
+                    data-testid="auto-order-check"
+                  />
+                  <span className="min-w-0 flex-1">
+                    <span className="flex flex-wrap justify-between gap-2">
+                      <span className="font-semibold">{p.label}</span>
+                      <span>
+                        {p.chosen.name} · {rupee(p.chosen.price)} · {p.chosen.etaMin} min · {p.chosen.app}
+                      </span>
+                    </span>
+                    <span className="mt-1 block text-xs text-muted">{p.reason}</span>
+                    {p.runners.length ? (
+                      <span className="mt-1 block text-[11px] text-muted">
+                        Also: {p.runners.map((r) => `${r.app} ${rupee(r.price)} / ${r.etaMin}m`).join(' · ')}
+                      </span>
+                    ) : null}
                   </span>
-                </div>
-                <p className="text-xs text-muted">{p.reason}</p>
-                <a
-                  className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-pine"
-                  href={partnerShopUrl(winnerApp, p.chosen.name)}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Open “{p.chosen.name}” on {quote.decision.appName} <ExternalLink size={12} />
-                </a>
-                {p.runners.length ? (
-                  <p className="text-[11px] text-muted">
-                    Also: {p.runners.map((r) => `${r.app} ${rupee(r.price)} / ${r.etaMin}m`).join(' · ')}
-                  </p>
-                ) : null}
+                </label>
               </li>
             ))}
           </ul>
+          {combinedQuery ? (
+            <div className="rounded-xl border border-line bg-paper p-3" data-testid="auto-order-combo">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted">All ticked names in one search</p>
+              <p className="mt-1 text-sm font-semibold">{combinedQuery}</p>
+            </div>
+          ) : null}
           <div className="grid gap-3 sm:grid-cols-2">
             <Field label="Pay with (sandbox only)">
               <select className={inputClass} value={pay} onChange={(e) => setPay(e.target.value as PayMethod)}>
@@ -157,14 +200,26 @@ export function AutoOrderPanel({ child }: { child: Child }) {
             </Field>
           </div>
           <div className="flex flex-wrap gap-2">
-            <a
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-pine px-3.5 py-2 text-sm font-semibold text-white"
-              href={partnerShopUrl(winnerApp, quote.picks[0]?.chosen.name ?? 'baby wipes')}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <ExternalLink size={16} /> Place a real order on {quote.decision.appName}
-            </a>
+            {QC_APPS.map((app) => {
+              const href = combinedSafe ? partnerCombinedUrl(app.id as QcAppId, selectedNames) : ''
+              const official = Boolean(href) && isOfficialShopUrl(href)
+              const primary = app.id === winnerApp
+              return (
+                <a
+                  key={app.id}
+                  className={`inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold ${
+                    primary ? 'bg-pine text-white' : 'border border-line bg-paper'
+                  } ${!official ? 'pointer-events-none opacity-50' : ''}`}
+                  href={official ? href : undefined}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-testid={primary ? 'auto-order-open' : `auto-order-app-${app.id}`}
+                >
+                  <ExternalLink size={16} />
+                  {primary ? `Search all ticked on ${app.name}` : app.name}
+                </a>
+              )
+            })}
             <Button variant="soft" onClick={confirm} disabled={busy || !quote.picks.length}>
               <Truck size={16} /> Only simulate in Willow
             </Button>

@@ -5,6 +5,7 @@ import { launchOfficialShop } from './launch'
 import { publicShopInput } from './privacy'
 import { COD_PARENT_CAP, recommendShopping } from './recommend'
 import { fetchLiveAffiliate } from './liveAffiliate'
+import { combinedSearches, searchesForApp, selectedTogetherList, togetherHasPii, TOGETHER_APPS } from './together'
 import { isOfficialShopUrl, officialShopUrl } from './sources'
 
 const baseInput = publicShopInput({
@@ -155,6 +156,36 @@ describe('kids shopping aggregator', () => {
     const live = await fetchLiveAffiliate('wipes', baseInput, { fetchImpl, api: 'https://shop.willow.invalid' })
     expect(live).toHaveLength(1)
     expect(live[0].affiliateLink).toContain('flipkart.com')
+  })
+
+  it('lists every required search together for Zepto so a parent can pick and order there', () => {
+    const picks = recommendShopping(baseInput)
+    const zepto = searchesForApp(picks, 'zepto')
+    expect(zepto.length).toBe(picks.length)
+    expect(zepto.every((row) => row.officialUrl.includes('zeptonow.com'))).toBe(true)
+    expect(togetherHasPii(zepto)).toBe(false)
+    const selected = selectedTogetherList(zepto, picks.slice(0, 2).map((pick) => pick.id))
+    expect(selected.rows).toHaveLength(2)
+    expect(selected.listText).toContain(picks[0].title)
+    expect(selected.listText).not.toMatch(/Leo|Shah|c-leo/i)
+  })
+
+  it('puts every ticked name into one search for each delivery app', () => {
+    const picks = recommendShopping(baseInput)
+    const titles = picks.map((pick) => pick.title)
+    const apps = combinedSearches(titles)
+    expect(apps.map((row) => row.source)).toEqual(TOGETHER_APPS)
+    expect(apps[0].query).toContain(picks[0].title)
+    expect(apps[0].query).toContain(picks[picks.length - 1].title)
+    expect(apps[0].query).toContain(', ')
+    for (const app of apps) {
+      expect(app.query).toBe(apps[0].query)
+      expect(isOfficialShopUrl(app.officialUrl)).toBe(true)
+      expect(decodeURIComponent(app.officialUrl)).toContain(picks[0].title.split(' ')[0])
+    }
+    expect(apps.find((row) => row.source === 'zepto')?.officialUrl).toContain('zeptonow.com')
+    expect(togetherHasPii(searchesForApp(picks, 'zepto'), apps[0].query)).toBe(false)
+    expect(apps.map((row) => row.officialUrl).join(' ')).not.toMatch(/Leo|Shah|c-leo/i)
   })
 
   it('refuses to launch a foreign shop URL', () => {

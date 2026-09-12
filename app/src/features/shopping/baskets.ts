@@ -25,6 +25,16 @@ function offerUrl(pick: RankedShopPick, source: ShopSourceId) {
   return match?.officialUrl ?? officialShopUrl(source, pick.query)
 }
 
+export const COMBINED_QUERY_MAX = 400
+
+export function togetherQuery(titles: string[]) {
+  return titles
+    .map((title) => title.replace(/[<>]/g, '').replace(/\s+/g, ' ').trim())
+    .filter(Boolean)
+    .join(', ')
+    .slice(0, COMBINED_QUERY_MAX)
+}
+
 export function basketListText(titles: string[]) {
   return titles
     .map((title) => title.replace(/[<>]/g, '').slice(0, 80))
@@ -67,12 +77,13 @@ export function packRequiredBaskets(picks: RankedShopPick[]): ShopBasket[] {
       })
     }
     if (!lines.length) break
+    const titles = lines.map((line) => line.title)
     baskets.push({
       source: winner,
       sourceName: sourceName(winner),
-      officialUrl: lines[0].officialUrl,
+      officialUrl: officialShopUrl(winner, togetherQuery(titles), COMBINED_QUERY_MAX),
       lines,
-      listText: basketListText(lines.map((line) => line.title)),
+      listText: basketListText(titles),
     })
   }
 

@@ -441,6 +441,13 @@ html[data-device='phone'] button {
   background: color-mix(in srgb, var(--color-paper) 88%, var(--look-overlay));
 }
 
+.shop-together input[type='checkbox'],
+.auto-order input[type='checkbox'] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--color-pine);
+}
+
 .shop-handoff {
   margin: 0.75rem 0 1rem;
   padding: 0.85rem 1rem;

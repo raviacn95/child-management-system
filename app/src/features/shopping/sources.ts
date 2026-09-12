@@ -100,10 +100,11 @@ export const SHOP_SOURCES: Record<ShopSourceId, SourceMeta> = {
 
 const OFFICIAL_HOSTS = new Set(Object.values(SHOP_SOURCES).map((s) => s.host))
 
-export function officialShopUrl(source: ShopSourceId, query: string) {
+export function officialShopUrl(source: ShopSourceId, query: string, maxLen = 80) {
+  const cap = Number.isFinite(maxLen) ? Math.min(Math.max(maxLen, 1), 400) : 80
   const q = String(query || '')
     .replace(/[<>]/g, '')
-    .slice(0, 80)
+    .slice(0, cap)
   return applyAffiliate(source, SHOP_SOURCES[source].search(q))
 }
 

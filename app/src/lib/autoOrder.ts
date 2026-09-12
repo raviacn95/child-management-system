@@ -1,4 +1,5 @@
 import catalog from '../data/qc-catalog.json'
+import { COMBINED_QUERY_MAX, togetherQuery } from '../features/shopping/baskets'
 import { officialShopUrl } from '../features/shopping/sources'
 import type { Child, PayMethod, ShopNeed } from '../types'
 import type {
@@ -176,7 +177,15 @@ export function appName(id: string) {
 }
 
 export function partnerShopUrl(app: QcAppId, query: string) {
-  return officialShopUrl(app, query)
+  return officialShopUrl(app, query, COMBINED_QUERY_MAX)
+}
+
+export function partnerCombinedUrl(app: QcAppId, names: string[]) {
+  return officialShopUrl(app, togetherQuery(names), COMBINED_QUERY_MAX)
+}
+
+export function partnerQueryHasPii(names: string[]) {
+  return /\bPIN\b|\ballerg|@|childId|medical/i.test(names.join('\n'))
 }
 
 function newId() {

@@ -87,7 +87,7 @@ jobs:
           cp -f "$SRC" app/dist/downloads/willow-movies.apk
           printf 'releases/\n*.map\n' > app/dist/.gitignore
           ls -lh app/dist/downloads
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           tag_name: willow-live-${{ github.run_number }}
           name: Willow live ${{ github.run_number }}

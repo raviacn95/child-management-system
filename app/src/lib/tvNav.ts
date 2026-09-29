@@ -4,8 +4,6 @@ export const TV_NAV = [
   { to: '/tv', key: 'tv' },
   { to: '/ott', key: 'ott' },
   { to: '/learning', key: 'learning' },
-  { to: '/parent-feed', key: 'parent-feed' },
-  { to: '/shop', key: 'shop' },
   { to: '/settings', key: 'settings' },
 ] as const
 

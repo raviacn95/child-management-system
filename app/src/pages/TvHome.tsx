@@ -1,16 +1,20 @@
 import { Link } from 'react-router-dom'
+import { FreshReleasesRow } from '../features/movies/FreshReleasesRow'
 import { MovieShelf } from '../features/movies/MovieShelf'
+import { TvMovieShelf } from '../features/movies/TvMovieShelf'
 import { TopPicksShelf } from '../features/top-picks/TopPicksShelf'
 import { useStore } from '../store'
 import { platforms } from '../features/movies/catalog'
 import { fireTvIntent } from '../features/ott/fireTv'
 import { useOpenWatch } from '../features/ott/WatchPane'
 import { Button } from '../components/ui'
+import { isTvMode } from '../lib/tv'
 
 export function TvHome() {
   const { state, touchOtt } = useStore()
   const mine = (state.ottAccounts ?? []).filter((a) => a.userId === state.currentUserId && a.connected)
   const openWatch = useOpenWatch()
+  const tv = isTvMode()
 
   return (
     <div data-testid="tv-home">
@@ -18,17 +22,19 @@ export function TvHome() {
         <div>
           <p className="text-xs font-semibold tracking-[0.18em] text-gold uppercase">Willow Movies · Fire TV</p>
           <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl">What to watch tonight</h1>
-          <p className="mt-2 max-w-2xl text-sm text-muted">
-            This living-room shelf replaces Google Play Movies. Pick a title, then open Prime, Netflix, SonyLIV or
-            Hotstar — those apps keep your login on the Stick.
-          </p>
+          {tv ? null : (
+            <p className="mt-2 max-w-2xl text-sm text-muted">
+              This living-room shelf replaces Google Play Movies. Pick a title, then open Prime, Netflix, SonyLIV or
+              Hotstar — those apps keep your login on the Stick.
+            </p>
+          )}
         </div>
         <div className="flex flex-wrap gap-3">
           <Link to="/movies" className="text-sm font-semibold text-pine" data-tv-focus="1" data-testid="tv-to-movies">
             Movies →
           </Link>
           <Link to="/ott" className="text-sm font-semibold text-pine" data-tv-focus="1">
-            Manage OTT logins →
+            {tv ? 'My OTTs →' : 'Manage OTT logins →'}
           </Link>
         </div>
       </div>
@@ -63,8 +69,15 @@ export function TvHome() {
           </Link>
         </p>
       )}
-      <TopPicksShelf />
-      <MovieShelf compact />
+      <FreshReleasesRow />
+      {tv ? (
+        <TvMovieShelf />
+      ) : (
+        <>
+          <TopPicksShelf />
+          <MovieShelf compact />
+        </>
+      )}
     </div>
   )
 }

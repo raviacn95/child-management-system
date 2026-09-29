@@ -5,6 +5,7 @@ import { TV_NAV } from '../lib/tvNav'
 import { moveTvFocus, steerKey } from '../lib/tvSteer'
 import { canSee } from '../lib/rbac'
 import type { Role } from '../types'
+import './tvSimple.css'
 
 export function TvStrip({ role }: { role: Role }) {
   const location = useLocation()
@@ -51,8 +52,6 @@ function label(key: string) {
   if (key === 'movies') return 'Movies'
   if (key === 'ott') return 'My OTTs'
   if (key === 'learning') return 'Learning'
-  if (key === 'parent-feed') return 'Parent feed'
-  if (key === 'shop') return 'Shop'
   if (key === 'settings') return 'Settings'
   return key
 }

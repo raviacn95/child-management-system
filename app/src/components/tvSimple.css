@@ -1,0 +1,79 @@
+/* Living-room layout: read from the sofa, steer with a 5-way remote. */
+html[data-tv='1'] {
+  font-size: 22px;
+}
+
+html[data-tv='1'] main a[data-tv-focus],
+html[data-tv='1'] main button {
+  min-height: 3.25rem;
+  padding-inline: 1.25rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+}
+
+html[data-tv='1'] [data-tv-focus]:focus,
+html[data-tv='1'] [data-tv-focus]:focus-visible {
+  outline: 5px solid var(--color-gold);
+  outline-offset: 5px;
+  transform: scale(1.04);
+  box-shadow: 0 0 0 10px color-mix(in srgb, var(--color-gold) 25%, transparent);
+  position: relative;
+  z-index: 2;
+}
+
+html[data-tv='1'] .tv-strip-item {
+  min-height: 3.5rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.05rem;
+}
+
+.tv-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+}
+
+.tv-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem;
+}
+
+.tv-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.tv-card-meta {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.tv-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+html[data-tv='1'] .movie-rail > li {
+  flex-basis: 20rem;
+  min-width: 20rem;
+}
+
+html[data-tv='1'] .fresh-card h3 {
+  font-size: 1.15rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-tv='1'] [data-tv-focus]:focus {
+    transform: none;
+  }
+}

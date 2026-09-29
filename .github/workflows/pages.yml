@@ -31,6 +31,10 @@ jobs:
       - run: npm run icons
       - run: npm run lint
       - run: npm run test
+      - name: Refresh this year's movie list
+        continue-on-error: true
+        timeout-minutes: 3
+        run: node scripts/fetch-fresh-movies.mjs public/movies-fresh.json
       - run: npm run build
         env:
           VITE_FLIPKART_AFFILIATE_ID: ${{ vars.VITE_FLIPKART_AFFILIATE_ID || secrets.VITE_FLIPKART_AFFILIATE_ID }}

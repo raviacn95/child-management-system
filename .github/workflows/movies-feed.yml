@@ -1,0 +1,51 @@
+name: Refresh new movies
+
+on:
+  schedule:
+    - cron: '17 */3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: movies-feed
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: app/scripts
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fetch this year's releases from Wikidata
+        run: |
+          cp site/movies-fresh.json /tmp/previous.json 2>/dev/null || echo '{"titles":[]}' > /tmp/previous.json
+          cp /tmp/previous.json /tmp/fresh.json
+          node app/scripts/fetch-fresh-movies.mjs /tmp/fresh.json
+      - name: Publish to the live site when the list changed
+        working-directory: site
+        run: |
+          same=$(node -e "const f=require('fs');const t=(p)=>JSON.stringify(JSON.parse(f.readFileSync(p,'utf8')).titles);console.log(t('/tmp/previous.json')===t('/tmp/fresh.json'))")
+          if [ "$same" = "true" ]; then echo "No new titles"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git fetch --depth 1 origin gh-pages
+            git reset --hard FETCH_HEAD
+            cp /tmp/fresh.json movies-fresh.json
+            git add movies-fresh.json
+            git commit -m "chore: refresh new movies feed" || exit 0
+            git push origin HEAD:gh-pages && exit 0
+          done
+          exit 1

@@ -66,7 +66,7 @@ export default defineConfig(({ mode }) => ({
         clientsClaim: true,
         cleanupOutdatedCaches: true,
         globPatterns: ['**/*.{js,css,html,svg,woff2,json,png}'],
-        globIgnores: ['**/releases/**', '**/*.apk', '**/release.json', '**/update.html'],
+        globIgnores: ['**/releases/**', '**/*.apk', '**/release.json', '**/update.html', '**/movies-fresh.json'],
         navigateFallback: 'index.html',
         navigateFallbackDenylist: [/\.apk$/i, /\/downloads\//, /\/releases\//, /\/schemas\//, /release\.json$/, /update\.html$/],
         runtimeCaching: [
@@ -76,6 +76,10 @@ export default defineConfig(({ mode }) => ({
           },
           {
             urlPattern: /update\.html/i,
+            handler: 'NetworkOnly',
+          },
+          {
+            urlPattern: /movies-fresh\.json/i,
             handler: 'NetworkOnly',
           },
         ],

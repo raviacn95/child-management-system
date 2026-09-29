@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ExternalLink, RefreshCw } from 'lucide-react'
 import { Badge, Button, Field, inputClass } from '../../components/ui'
+import { currentYearFirst } from './fresh'
 import { platforms, recommendMovies } from './recommend'
 import { LANG_LABEL, type MovieKind, type MovieLang, type MovieShelfKind } from './schema'
 import { useStore } from '../../store'
@@ -190,7 +191,7 @@ export function MovieShelf({
         {countLine} · seed {result.seed}
       </p>
       <ul className={tv ? 'movie-rail' : 'grid gap-3 sm:grid-cols-2 xl:grid-cols-3'}>
-        {result.titles.map((t, i) => {
+        {currentYearFirst(result.titles).map((t, i) => {
           const key = `${t.id}-${i}`
           const open = openKey === key
           return (

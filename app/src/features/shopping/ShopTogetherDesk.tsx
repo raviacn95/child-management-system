@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Button } from '../../components/ui'
 import { useWatchDesk } from '../ott/WatchPane'
+import { recordShopClick } from '../revenue/clicks'
+import { myReferralCode } from '../revenue/referral'
+import { lastBasketLabel, readLastBasket, repeatBasketUrl, saveLastBasket, type LastBasket } from '../revenue/repeatBasket'
+import { shareListText, whatsappShareHref } from '../revenue/shareList'
 import { copyBasketList } from './baskets'
 import { launchOfficialShop } from './launch'
 import type { RankedShopPick } from './recommend'
@@ -12,6 +16,7 @@ export function ShopTogetherDesk({ picks }: { picks: RankedShopPick[] }) {
   const watch = useWatchDesk()
   const [selected, setSelected] = useState<string[]>(() => picks.map((pick) => pick.id))
   const [copied, setCopied] = useState(false)
+  const [lastBasket, setLastBasket] = useState<LastBasket | null>(() => readLastBasket())
 
   useEffect(() => {
     setSelected(picks.map((pick) => pick.id))
@@ -19,6 +24,7 @@ export function ShopTogetherDesk({ picks }: { picks: RankedShopPick[] }) {
 
   const rows = useMemo(() => searchesForApp(picks, 'zepto'), [picks])
   const chosen = selectedTogetherList(rows, selected)
+  const shareHref = whatsappShareHref(shareListText(chosen.titles, myReferralCode()))
 
   function toggle(id: string) {
     setSelected((cur) => (cur.includes(id) ? cur.filter((item) => item !== id) : [...cur, id]))
@@ -41,10 +47,25 @@ export function ShopTogetherDesk({ picks }: { picks: RankedShopPick[] }) {
     }
     await copyBasketList(chosen.listText)
     setCopied(true)
+    setLastBasket(saveLastBasket(chosen.titles, app.source))
+    openInStore(app.source, app.officialUrl, app.sourceName, `${chosen.rows.length} ticked items`)
+  }
+
+  function openInStore(source: ShopSourceId, url: string, name: string, title: string) {
+    recordShopClick(source)
     const screen = `${window.location.pathname}${window.location.search}`
-    const title = `${chosen.rows.length} ticked items`
-    if (watch) watch.openOfficialNow({ url: app.officialUrl, title, platformName: app.sourceName })
-    else launchOfficialShop({ url: app.officialUrl, title, sourceName: app.sourceName, screen })
+    if (watch) watch.openOfficialNow({ url, title, platformName: name })
+    else launchOfficialShop({ url, title, sourceName: name, screen })
+  }
+
+  function repeatLast() {
+    if (!lastBasket) return
+    const url = repeatBasketUrl(lastBasket)
+    if (!isOfficialShopUrl(url)) {
+      recordShopBlocked()
+      return
+    }
+    openInStore(lastBasket.source, url, sourceName(lastBasket.source), `${lastBasket.titles.length} items again`)
   }
 
   if (!picks.length) return null
@@ -68,6 +89,22 @@ export function ShopTogetherDesk({ picks }: { picks: RankedShopPick[] }) {
         >
           Open all ticked in Zepto
         </Button>
+        {lastBasket ? (
+          <Button type="button" variant="soft" data-testid="shop-repeat-basket" onClick={repeatLast}>
+            Repeat last basket · {lastBasketLabel(lastBasket)}
+          </Button>
+        ) : null}
+        {shareHref ? (
+          <a
+            className="inline-flex items-center rounded-xl border border-line px-3 py-2 text-sm font-semibold text-pine"
+            href={shareHref}
+            target="_blank"
+            rel="noreferrer"
+            data-testid="shop-share-whatsapp"
+          >
+            Share list on WhatsApp
+          </a>
+        ) : null}
       </div>
       <p className="mt-2 text-xs text-muted" data-testid="shop-together-count">
         {chosen.rows.length} ticked · one search per app

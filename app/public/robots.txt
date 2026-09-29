@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://raviacn95.github.io/child-management-system/sitemap.xml

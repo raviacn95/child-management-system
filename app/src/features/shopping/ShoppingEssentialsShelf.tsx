@@ -6,6 +6,9 @@ import { ageMonths, clothingSize } from '../../lib'
 import { useStore } from '../../store'
 import { useTheme } from '../../theme/ThemeProvider'
 import { useWatchDesk } from '../ott/WatchPane'
+import { recordShopClick } from '../revenue/clicks'
+import { GiftGuidesShelf } from '../revenue/GiftGuidesShelf'
+import { SponsoredShelf } from '../revenue/SponsoredShelf'
 import { copyBasketList, matchingMartIds, offerPartnerCart, packRequiredBaskets, tripHasPii, type ShopBasket } from './baskets'
 import { isOfficialShopUrl } from './sources'
 import { launchOfficialShop } from './launch'
@@ -72,6 +75,7 @@ export function ShoppingEssentialsShelf({ childId }: { childId?: string }) {
     )
     await copyBasketList(basket.listText)
     setCopied(true)
+    recordShopClick(basket.source)
     const screen = `${window.location.pathname}${window.location.search}`
     const title = `${basket.lines.length} required items`
     if (watch) watch.openOfficialNow({ url: basket.officialUrl, title, platformName: basket.sourceName })
@@ -100,11 +104,12 @@ export function ShoppingEssentialsShelf({ childId }: { childId?: string }) {
     await launchBasket(packed[0])
   }
 
-  function openSource(pick: RankedShopPick, url: string, sourceName: string) {
+  function openSource(pick: RankedShopPick, source: string, url: string, sourceName: string) {
     if (!isOfficialShopUrl(url)) {
       recordShopBlocked()
       return
     }
+    recordShopClick(source)
     const screen = `${window.location.pathname}${window.location.search}`
     if (watch) {
       watch.openOfficialNow({ url, title: pick.title, platformName: sourceName })
@@ -182,6 +187,8 @@ export function ShoppingEssentialsShelf({ childId }: { childId?: string }) {
         </div>
       </div>
       <ShopTogetherDesk picks={picks} />
+      <SponsoredShelf />
+      <GiftGuidesShelf />
       <ul className="grid gap-3 md:grid-cols-2">
         {picks.map((pick) => {
           const open = openId === pick.id
@@ -235,7 +242,7 @@ export function ShoppingEssentialsShelf({ childId }: { childId?: string }) {
                         key={`${pick.id}-${offer.source}`}
                         type="button"
                         className="rounded-lg border border-line px-2 py-1 text-xs font-semibold text-pine hover:border-pine"
-                        onClick={() => openSource(pick, offer.officialUrl, offer.sourceName)}
+                        onClick={() => openSource(pick, offer.source, offer.officialUrl, offer.sourceName)}
                       >
                         {offer.sourceName}
                       </button>
@@ -245,7 +252,7 @@ export function ShoppingEssentialsShelf({ childId }: { childId?: string }) {
                     type="button"
                     className="mt-3"
                     data-testid="shop-add-for-child"
-                    onClick={() => openSource(pick, pick.chosen.officialUrl, pick.chosen.sourceName)}
+                    onClick={() => openSource(pick, pick.chosen.source, pick.chosen.officialUrl, pick.chosen.sourceName)}
                   >
                     Add for {child.firstName}
                   </Button>

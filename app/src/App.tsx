@@ -14,6 +14,7 @@ import { InstallProvider } from './features/install/InstallProvider'
 import { WatchProvider } from './features/ott/WatchPane'
 import { StoreProvider, useStore } from './store'
 import { ThemeProvider } from './theme/ThemeProvider'
+import { captureReferral } from './features/revenue/referral'
 
 const Attendance = lazy(() => import('./pages/Attendance').then((m) => ({ default: m.Attendance })))
 const Billing = lazy(() => import('./pages/Billing').then((m) => ({ default: m.Billing })))
@@ -31,6 +32,7 @@ const Inventory = lazy(() => import('./pages/Inventory').then((m) => ({ default:
 const Learning = lazy(() => import('./pages/Learning').then((m) => ({ default: m.Learning })))
 const Login = lazy(() => import('./pages/Login').then((m) => ({ default: m.Login })))
 const GetApp = lazy(() => import('./pages/GetApp').then((m) => ({ default: m.GetApp })))
+const PricingPage = lazy(() => import('./pages/Pricing').then((m) => ({ default: m.PricingPage })))
 const ParentFeedPage = lazy(() => import('./pages/ParentFeed').then((m) => ({ default: m.ParentFeedPage })))
 const MoviesPage = lazy(() => import('./pages/Movies').then((m) => ({ default: m.MoviesPage })))
 const TvHome = lazy(() => import('./pages/TvHome').then((m) => ({ default: m.TvHome })))
@@ -75,6 +77,7 @@ function AppRoutes() {
           }
         />
         <Route path="/get-app" element={<GetApp />} />
+        <Route path="/pricing" element={<PricingPage />} />
         <Route path="/return" element={<ReturnPage />} />
         <Route
           element={
@@ -119,6 +122,7 @@ function AppRoutes() {
 
 export default function App() {
   useEffect(() => {
+    captureReferral(window.location.search)
     rememberLivingRoom()
     applyTvMode()
     applyDeviceChrome()

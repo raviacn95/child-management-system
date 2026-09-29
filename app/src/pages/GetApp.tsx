@@ -240,6 +240,12 @@ export function GetApp() {
         <p className="mt-6 text-xs text-muted">
           Same Willow™ for everyone — directors, teachers, parents, phones, and living-room TVs. Website: {LIVE_SITE}
         </p>
+        <p className="mt-2 text-xs text-muted">
+          <Link to="/pricing" className="font-semibold text-pine" data-testid="pricing-get-app-link">
+            Plans for families and daycares →
+          </Link>{' '}
+          · <a className="text-pine underline" href="guides/">Free parenting guides and printables</a>
+        </p>
         <BrandRights className="mt-3" />
       </main>
     </div>

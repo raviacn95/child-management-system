@@ -3,6 +3,7 @@ import { ExternalLink, Truck, Zap } from 'lucide-react'
 import { clothingNeeds } from '../data/catalog'
 import { packOf } from '../data/country'
 import { togetherQuery } from '../features/shopping/baskets'
+import { recordShopClick } from '../features/revenue/clicks'
 import { isOfficialShopUrl } from '../features/shopping/sources'
 import {
   autoOrderRemote,
@@ -214,6 +215,9 @@ export function AutoOrderPanel({ child }: { child: Child }) {
                   target="_blank"
                   rel="noreferrer"
                   data-testid={primary ? 'auto-order-open' : `auto-order-app-${app.id}`}
+                  onClick={() => {
+                    if (official) recordShopClick(app.id)
+                  }}
                 >
                   <ExternalLink size={16} />
                   {primary ? `Search all ticked on ${app.name}` : app.name}

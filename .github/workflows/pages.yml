@@ -32,6 +32,17 @@ jobs:
       - run: npm run lint
       - run: npm run test
       - run: npm run build
+        env:
+          VITE_FLIPKART_AFFILIATE_ID: ${{ vars.VITE_FLIPKART_AFFILIATE_ID || secrets.VITE_FLIPKART_AFFILIATE_ID }}
+          VITE_AMAZON_ASSOCIATE_TAG: ${{ vars.VITE_AMAZON_ASSOCIATE_TAG || secrets.VITE_AMAZON_ASSOCIATE_TAG }}
+          VITE_MEESHO_AFFILIATE_ID: ${{ vars.VITE_MEESHO_AFFILIATE_ID || secrets.VITE_MEESHO_AFFILIATE_ID }}
+          VITE_CUELINKS_PUB_ID: ${{ vars.VITE_CUELINKS_PUB_ID || secrets.VITE_CUELINKS_PUB_ID }}
+          VITE_ADMITAD_CODE: ${{ vars.VITE_ADMITAD_CODE || secrets.VITE_ADMITAD_CODE }}
+          VITE_PLUS_CHECKOUT_URL: ${{ vars.VITE_PLUS_CHECKOUT_URL || secrets.VITE_PLUS_CHECKOUT_URL }}
+          VITE_PACKS_CHECKOUT_URL: ${{ vars.VITE_PACKS_CHECKOUT_URL || secrets.VITE_PACKS_CHECKOUT_URL }}
+          VITE_LEADS_ENDPOINT: ${{ vars.VITE_LEADS_ENDPOINT || secrets.VITE_LEADS_ENDPOINT }}
+          VITE_SALES_EMAIL: ${{ vars.VITE_SALES_EMAIL || secrets.VITE_SALES_EMAIL }}
+          VITE_SALES_WHATSAPP: ${{ vars.VITE_SALES_WHATSAPP || secrets.VITE_SALES_WHATSAPP }}
       - uses: actions/setup-java@v4
         with:
           distribution: temurin

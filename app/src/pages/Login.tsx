@@ -58,6 +58,12 @@ export function Login() {
             <Download className="text-pine" size={18} />
           </Link>
           <LoginForm />
+          <p className="mt-4 text-center text-xs text-muted">
+            Run a daycare or school?{' '}
+            <Link to="/pricing" className="font-semibold text-pine" data-testid="pricing-login-link">
+              See plans and book a demo
+            </Link>
+          </p>
           <BrandRights className="mt-6" />
         </div>
       </section>

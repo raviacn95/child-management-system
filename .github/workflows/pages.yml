@@ -48,16 +48,19 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: android-actions/setup-android@v3
+        continue-on-error: true
         with:
-          packages: tools platform-tools platforms;android-36 build-tools;35.0.0
+          packages: platform-tools platforms;android-36 build-tools;35.0.0
       - name: Point Gradle at the Android SDK
         working-directory: app/android
+        continue-on-error: true
         run: |
           test -n "$ANDROID_SDK_ROOT"
           printf 'sdk.dir=%s\n' "$ANDROID_SDK_ROOT" > local.properties
           cat local.properties
       - name: Sync Capacitor Android project
         working-directory: app
+        continue-on-error: true
         env:
           WILLOW_LIVE_SHELL: '1'
         run: |

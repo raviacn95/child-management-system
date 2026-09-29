@@ -1,0 +1,608 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-29T21:21:44.350Z",
+  "year": 2026,
+  "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage",
+  "titles": [
+    {
+      "id": "wd-Q129255849",
+      "qid": "Q129255849",
+      "title": "Sardar 2",
+      "year": 2026,
+      "released": "2026-09-10",
+      "lang": "ta",
+      "india": true,
+      "sitelinks": 3
+    },
+    {
+      "id": "wd-Q123740702",
+      "qid": "Q123740702",
+      "title": "Toxic: A Fairy Tale for Grown-Ups",
+      "year": 2026,
+      "released": "2026-08-26",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 8
+    },
+    {
+      "id": "wd-Q132256832",
+      "qid": "Q132256832",
+      "title": "The Dog Stars",
+      "year": 2026,
+      "released": "2026-08-26",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 22
+    },
+    {
+      "id": "wd-Q138716562",
+      "qid": "Q138716562",
+      "title": "Bethlehem Kudumba Unit",
+      "year": 2026,
+      "released": "2026-08-21",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 3
+    },
+    {
+      "id": "wd-Q135094933",
+      "qid": "Q135094933",
+      "title": "Vishwanath & Sons",
+      "year": 2026,
+      "released": "2026-08-14",
+      "lang": "ta",
+      "india": true,
+      "sitelinks": 4
+    },
+    {
+      "id": "wd-Q124804916",
+      "qid": "Q124804916",
+      "title": "The End of Oak Street",
+      "year": 2026,
+      "released": "2026-08-09",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 28
+    },
+    {
+      "id": "wd-Q138527176",
+      "qid": "Q138527176",
+      "title": "Hanuman Ansh",
+      "year": 2026,
+      "released": "2026-08-07",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 8
+    },
+    {
+      "id": "wd-Q140836374",
+      "qid": "Q140836374",
+      "title": "DC",
+      "year": 2026,
+      "released": "2026-08-07",
+      "lang": "",
+      "india": true,
+      "sitelinks": 3
+    },
+    {
+      "id": "wd-Q113244935",
+      "qid": "Q113244935",
+      "title": "Spider-Man: Brand New Day",
+      "year": 2026,
+      "released": "2026-07-29",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 54
+    },
+    {
+      "id": "wd-Q106392679",
+      "qid": "Q106392679",
+      "title": "Coyote vs. Acme",
+      "year": 2026,
+      "released": "2026-07-25",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 24
+    },
+    {
+      "id": "wd-Q118996994",
+      "qid": "Q118996994",
+      "title": "Moana",
+      "year": 2026,
+      "released": "2026-07-08",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 32
+    },
+    {
+      "id": "wd-Q131547207",
+      "qid": "Q131547207",
+      "title": "The Odyssey",
+      "year": 2026,
+      "released": "2026-07-06",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 66
+    },
+    {
+      "id": "wd-Q131760998",
+      "qid": "Q131760998",
+      "title": "Alpha",
+      "year": 2026,
+      "released": "2026-07-03",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 7
+    },
+    {
+      "id": "wd-Q131822415",
+      "qid": "Q131822415",
+      "title": "Satluj",
+      "year": 2026,
+      "released": "2026-07-03",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 7
+    },
+    {
+      "id": "wd-Q116921951",
+      "qid": "Q116921951",
+      "title": "Supergirl",
+      "year": 2026,
+      "released": "2026-06-22",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 38
+    },
+    {
+      "id": "wd-Q126683577",
+      "qid": "Q126683577",
+      "title": "Disclosure Day",
+      "year": 2026,
+      "released": "2026-06-10",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 38
+    },
+    {
+      "id": "wd-Q133573186",
+      "qid": "Q133573186",
+      "title": "Peddi",
+      "year": 2026,
+      "released": "2026-06-04",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 4
+    },
+    {
+      "id": "wd-Q135025214",
+      "qid": "Q135025214",
+      "title": "Drishyam 3",
+      "year": 2026,
+      "released": "2026-05-21",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 4
+    },
+    {
+      "id": "wd-Q112040381",
+      "qid": "Q112040381",
+      "title": "Masters of the Universe",
+      "year": 2026,
+      "released": "2026-05-18",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 31
+    },
+    {
+      "id": "wd-Q137652478",
+      "qid": "Q137652478",
+      "title": "Fjord",
+      "year": 2026,
+      "released": "2026-05-18",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 27
+    },
+    {
+      "id": "wd-Q124246549",
+      "qid": "Q124246549",
+      "title": "The Mandalorian and Grogu",
+      "year": 2026,
+      "released": "2026-05-14",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 33
+    },
+    {
+      "id": "wd-Q135411818",
+      "qid": "Q135411818",
+      "title": "The Punisher: One Last Kill",
+      "year": 2026,
+      "released": "2026-05-12",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 22
+    },
+    {
+      "id": "wd-Q139665854",
+      "qid": "Q139665854",
+      "title": "Krishnavataram Part 1: The Heart",
+      "year": 2026,
+      "released": "2026-05-07",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3
+    },
+    {
+      "id": "wd-Q126405648",
+      "qid": "Q126405648",
+      "title": "The Sheep Detectives",
+      "year": 2026,
+      "released": "2026-05-07",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 28
+    },
+    {
+      "id": "wd-Q139496302",
+      "qid": "Q139496302",
+      "title": "Kara",
+      "year": 2026,
+      "released": "2026-04-30",
+      "lang": "ta",
+      "india": true,
+      "sitelinks": 4
+    },
+    {
+      "id": "wd-Q117830073",
+      "qid": "Q117830073",
+      "title": "Mortal Kombat II",
+      "year": 2026,
+      "released": "2026-04-27",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 34
+    },
+    {
+      "id": "wd-Q134611972",
+      "qid": "Q134611972",
+      "title": "The Devil Wears Prada 2",
+      "year": 2026,
+      "released": "2026-04-20",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 36
+    },
+    {
+      "id": "wd-Q137570236",
+      "qid": "Q137570236",
+      "title": "Bindusagar",
+      "year": 2026,
+      "released": "2026-04-17",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
+      "id": "wd-Q116677364",
+      "qid": "Q116677364",
+      "title": "Michael",
+      "year": 2026,
+      "released": "2026-04-10",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 46
+    },
+    {
+      "id": "wd-Q138948459",
+      "qid": "Q138948459",
+      "title": "Persimmon of My Love",
+      "year": 2026,
+      "released": "2026-04-01",
+      "lang": "",
+      "india": true,
+      "sitelinks": 3
+    },
+    {
+      "id": "wd-Q133172723",
+      "qid": "Q133172723",
+      "title": "The Paradise",
+      "year": 2026,
+      "released": "2026-03-26",
+      "lang": "",
+      "india": true,
+      "sitelinks": 3
+    },
+    {
+      "id": "wd-Q137998501",
+      "qid": "Q137998501",
+      "title": "Dhurandhar: The Revenge",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 14
+    },
+    {
+      "id": "wd-Q138497144",
+      "qid": "Q138497144",
+      "title": "Korpur",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
+      "id": "wd-Q107105860",
+      "qid": "Q107105860",
+      "title": "Project Hail Mary",
+      "year": 2026,
+      "released": "2026-03-18",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 46
+    },
+    {
+      "id": "wd-Q124355470",
+      "qid": "Q124355470",
+      "title": "Peaky Blinders: The Immortal Man",
+      "year": 2026,
+      "released": "2026-03-06",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23
+    },
+    {
+      "id": "wd-Q138381591",
+      "qid": "Q138381591",
+      "title": "The Kerala Story 2: Goes Beyond",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 4
+    },
+    {
+      "id": "wd-Q126488898",
+      "qid": "Q126488898",
+      "title": "How to Make a Killing",
+      "year": 2026,
+      "released": "2026-02-20",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 22
+    },
+    {
+      "id": "wd-Q137783833",
+      "qid": "Q137783833",
+      "title": "O'Romeo",
+      "year": 2026,
+      "released": "2026-02-13",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 4
+    },
+    {
+      "id": "wd-Q130375767",
+      "qid": "Q130375767",
+      "title": "War Machine",
+      "year": 2026,
+      "released": "2026-02-12",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 22
+    },
+    {
+      "id": "wd-Q131763755",
+      "qid": "Q131763755",
+      "title": "Mardaani 3",
+      "year": 2026,
+      "released": "2026-01-30",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 8
+    },
+    {
+      "id": "wd-Q126394034",
+      "qid": "Q126394034",
+      "title": "Crime 101",
+      "year": 2026,
+      "released": "2026-01-28",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23
+    },
+    {
+      "id": "wd-Q134083296",
+      "qid": "Q134083296",
+      "title": "The Invite",
+      "year": 2026,
+      "released": "2026-01-24",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 25
+    },
+    {
+      "id": "wd-Q126734387",
+      "qid": "Q126734387",
+      "title": "Border 2",
+      "year": 2026,
+      "released": "2026-01-23",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 7
+    },
+    {
+      "id": "wd-Q136825829",
+      "qid": "Q136825829",
+      "title": "Vijaynagar'er Hirey",
+      "year": 2026,
+      "released": "2026-01-23",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 4
+    },
+    {
+      "id": "wd-Q137802630",
+      "qid": "Q137802630",
+      "title": "Hok Kolorob",
+      "year": 2026,
+      "released": "2026-01-23",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
+      "id": "wd-Q124566659",
+      "qid": "Q124566659",
+      "title": "Mercy",
+      "year": 2026,
+      "released": "2026-01-22",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 26
+    },
+    {
+      "id": "wd-Q136558776",
+      "qid": "Q136558776",
+      "title": "One Two Cha Cha Chaa",
+      "year": 2026,
+      "released": "2026-01-16",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3
+    },
+    {
+      "id": "wd-Q137799437",
+      "qid": "Q137799437",
+      "title": "Happy Patel: Khatarnak Jasoos",
+      "year": 2026,
+      "released": "2026-01-16",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
+      "id": "wd-Q131189949",
+      "qid": "Q131189949",
+      "title": "The Rip",
+      "year": 2026,
+      "released": "2026-01-16",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 26
+    },
+    {
+      "id": "wd-Q137713080",
+      "qid": "Q137713080",
+      "title": "Anaganaga Oka Raju",
+      "year": 2026,
+      "released": "2026-01-14",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
+      "id": "wd-Q137718780",
+      "qid": "Q137718780",
+      "title": "Bhartha Mahasayulaku Wignyapthi",
+      "year": 2026,
+      "released": "2026-01-13",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
+      "year": 2026,
+      "released": "2026-01-12",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
+      "id": "wd-Q124301053",
+      "qid": "Q124301053",
+      "title": "The RajaSaab",
+      "year": 2026,
+      "released": "2026-01-09",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 5
+    },
+    {
+      "id": "wd-Q137575105",
+      "qid": "Q137575105",
+      "title": "Nari Choritro Bejay Jotil",
+      "year": 2026,
+      "released": "2026-01-09",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
+      "id": "wd-Q136673072",
+      "qid": "Q136673072",
+      "title": "Ikkis",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 7
+    },
+    {
+      "id": "wd-Q139962234",
+      "qid": "Q139962234",
+      "title": "Blast",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "ta",
+      "india": true,
+      "sitelinks": 6
+    },
+    {
+      "id": "wd-Q116701310",
+      "qid": "Q116701310",
+      "title": "Lakadbaggha 1/2 Movie",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3
+    },
+    {
+      "id": "wd-Q136759525",
+      "qid": "Q136759525",
+      "title": "Chatha Pacha: The Ring of Rowdies",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 3
+    },
+    {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3
+    }
+  ]
+}

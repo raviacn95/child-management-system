@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-29T21:21:44.350Z",
+  "generatedAt": "2026-09-30T05:35:02.985Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage",
   "titles": [
@@ -325,16 +325,6 @@
       "sitelinks": 14
     },
     {
-      "id": "wd-Q138497144",
-      "qid": "Q138497144",
-      "title": "Korpur",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2
-    },
-    {
       "id": "wd-Q134435699",
       "qid": "Q134435699",
       "title": "Aadu 3",
@@ -403,6 +393,16 @@
       "lang": "en",
       "india": false,
       "sitelinks": 22
+    },
+    {
+      "id": "wd-Q137874897",
+      "qid": "Q137874897",
+      "title": "OCD",
+      "year": 2026,
+      "released": "2026-02-06",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2
     },
     {
       "id": "wd-Q131763755",
@@ -525,16 +525,6 @@
       "sitelinks": 2
     },
     {
-      "id": "wd-Q135647565",
-      "qid": "Q135647565",
-      "title": "Mana Shankara Vara Prasad Garu",
-      "year": 2026,
-      "released": "2026-01-12",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2
-    },
-    {
       "id": "wd-Q124301053",
       "qid": "Q124301053",
       "title": "The RajaSaab",
@@ -603,6 +593,16 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 3
+    },
+    {
+      "id": "wd-Q137843190",
+      "qid": "Q137843190",
+      "title": "Psych Siddhartha",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2
     }
   ]
 }

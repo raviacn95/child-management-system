@@ -49,7 +49,7 @@ jobs:
           VITE_LEADS_ENDPOINT: ${{ vars.VITE_LEADS_ENDPOINT || secrets.VITE_LEADS_ENDPOINT }}
           VITE_SALES_EMAIL: ${{ vars.VITE_SALES_EMAIL || secrets.VITE_SALES_EMAIL }}
           VITE_SALES_WHATSAPP: ${{ vars.VITE_SALES_WHATSAPP || secrets.VITE_SALES_WHATSAPP }}
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '21'

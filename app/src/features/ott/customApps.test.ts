@@ -119,11 +119,11 @@ describe('links', () => {
     expect(customAppLink(app, 'Drishyam', 2013)).toBe(customSearchUrl(app, 'Drishyam', 2013))
   })
 
-  it('asks the phone and the TV to open the saved app, with the website as backup', () => {
+  it('opens the installed app when a package is saved, and keeps the website as backup', () => {
     const withPkg = { ...app, androidPackage: 'com.example.films' }
     const web = customSearchUrl(withPkg, 'Drishyam', 2013)
     expect(customAppLink(withPkg, 'Drishyam', 2013)).toBe(
-      `intent://films.example.com/search?q=Drishyam%202013#Intent;scheme=https;package=com.example.films;S.browser_fallback_url=${encodeURIComponent(web)};end`,
+      `intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.example.films;S.app_name=My%20Films;S.browser_fallback_url=${encodeURIComponent(web)};end`,
     )
   })
 })

@@ -116,15 +116,14 @@ function launchTail(app: CustomApp) {
   return parts.join(';')
 }
 
-/** No website: the phone opens the installed package, or the named app. A website searches that title. */
+/** A saved package opens that installed app. The website is used only when no package is saved, or when the app is not installed. */
 export function customAppLink(app: CustomApp, title: string, year?: number) {
-  if (!app.searchUrl) {
-    return `intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;${launchTail(app)};end`
+  if (app.androidPackage || !app.searchUrl) {
+    const web = app.searchUrl ? customSearchUrl(app, title, year) : ''
+    const fallback = web ? `;S.browser_fallback_url=${encodeURIComponent(web)}` : ''
+    return `intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;${launchTail(app)}${fallback};end`
   }
-  const web = customSearchUrl(app, title, year)
-  if (!app.androidPackage) return web
-  const u = new URL(web)
-  return `intent://${u.host}${u.pathname}${u.search}#Intent;scheme=https;package=${app.androidPackage};S.browser_fallback_url=${encodeURIComponent(web)};end`
+  return customSearchUrl(app, title, year)
 }
 
 export function appsForShelf(apps: readonly CustomApp[], shelf: 'family' | 'erotic') {

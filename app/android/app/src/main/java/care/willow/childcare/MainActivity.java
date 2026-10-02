@@ -106,6 +106,15 @@ public class MainActivity extends BridgeActivity {
         String fallback = intent.getStringExtra("browser_fallback_url");
         String appName = cleanAppName(intent.getStringExtra("app_name"));
         String activity = activityInPackage(intent.getStringExtra("activity"), pkg);
+        if (pkg != null && intent.getData() == null && Intent.ACTION_MAIN.equals(intent.getAction())) {
+            if (openInstalledApp(pkg, activity)) return;
+            if (fallback != null && fallback.startsWith("https://")) {
+                Intent web = new Intent(Intent.ACTION_VIEW, Uri.parse(fallback)).addCategory(Intent.CATEGORY_BROWSABLE);
+                if (tryStart(web)) return;
+            }
+            Toast.makeText(this, "That app is not installed", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (activity != null && tryStart(explicitActivity(pkg, activity))) return;
         if (pkg == null) {
             Intent named = launcherNamed(appName);
@@ -133,6 +142,17 @@ public class MainActivity extends BridgeActivity {
         boolean fireOs = "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
         if (tryStart(new Intent(Intent.ACTION_VIEW, fireOs ? amazon : play))) return;
         tryStart(new Intent(Intent.ACTION_VIEW, fireOs ? play : amazon));
+    }
+
+    private boolean openInstalledApp(String pkg, String activity) {
+        if (activity != null && tryStart(explicitActivity(pkg, activity))) return true;
+        if (tryStart(launcherFor(pkg, Intent.CATEGORY_LEANBACK_LAUNCHER))) return true;
+        Intent installed = getPackageManager().getLaunchIntentForPackage(pkg);
+        if (installed != null) {
+            installed.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            if (tryStart(installed)) return true;
+        }
+        return tryStart(launcherFor(pkg, Intent.CATEGORY_LAUNCHER));
     }
 
     private String activityInPackage(String activity, String pkg) {

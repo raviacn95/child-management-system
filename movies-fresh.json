@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-02T22:09:01.466Z",
+  "generatedAt": "2026-10-02T22:15:55.619Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -288,6 +288,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q139570451",
+      "qid": "Q139570451",
+      "title": "Phera",
+      "year": 2026,
+      "released": "2026-05-29",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1493932
+    },
+    {
       "id": "wd-Q135025214",
       "qid": "Q135025214",
       "title": "Drishyam 3",
@@ -387,6 +399,17 @@
       ],
       "tmdbId": 1301421,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q139578176",
+      "qid": "Q139578176",
+      "title": "Pratyabartan",
+      "year": 2026,
+      "released": "2026-05-01",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": []
     },
     {
       "id": "wd-Q139496302",
@@ -865,24 +888,6 @@
       }
     },
     {
-      "id": "wd-Q137713080",
-      "qid": "Q137713080",
-      "title": "Anaganaga Oka Raju",
-      "year": 2026,
-      "released": "2026-01-14",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "tmdbId": 1407432,
-      "providersSource": "tmdb"
-    },
-    {
       "id": "wd-Q135647565",
       "qid": "Q135647565",
       "title": "Mana Shankara Vara Prasad Garu",
@@ -911,18 +916,6 @@
       ],
       "tmdbId": 1022453,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",
@@ -982,6 +975,19 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -998,19 +1004,6 @@
       ],
       "tmdbId": 1439594,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
     },
     {
       "id": "wd-Q137843190",

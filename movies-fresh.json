@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-01T18:26:23.357Z",
+  "generatedAt": "2026-10-02T00:48:35.828Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage",
   "titles": [
@@ -325,6 +325,16 @@
       "sitelinks": 14
     },
     {
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
       "id": "wd-Q138497144",
       "qid": "Q138497144",
       "title": "Korpur",
@@ -371,6 +381,16 @@
       "year": 2026,
       "released": "2026-02-27",
       "lang": "ml",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
+      "id": "wd-Q138562396",
+      "qid": "Q138562396",
+      "title": "Son Of",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "te",
       "india": true,
       "sitelinks": 2
     },
@@ -455,16 +475,6 @@
       "sitelinks": 4
     },
     {
-      "id": "wd-Q137802630",
-      "qid": "Q137802630",
-      "title": "Hok Kolorob",
-      "year": 2026,
-      "released": "2026-01-23",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2
-    },
-    {
       "id": "wd-Q124566659",
       "qid": "Q124566659",
       "title": "Mercy",
@@ -483,16 +493,6 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 3
-    },
-    {
-      "id": "wd-Q137799437",
-      "qid": "Q137799437",
-      "title": "Happy Patel: Khatarnak Jasoos",
-      "year": 2026,
-      "released": "2026-01-16",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 2
     },
     {
       "id": "wd-Q131189949",
@@ -520,6 +520,16 @@
       "title": "Bhartha Mahasayulaku Wignyapthi",
       "year": 2026,
       "released": "2026-01-13",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
+      "year": 2026,
+      "released": "2026-01-12",
       "lang": "te",
       "india": true,
       "sitelinks": 2
@@ -575,16 +585,6 @@
       "sitelinks": 3
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -595,14 +595,14 @@
       "sitelinks": 3
     },
     {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
       "year": 2026,
       "released": "2026-01-01",
-      "lang": "te",
+      "lang": "hi",
       "india": true,
-      "sitelinks": 2
+      "sitelinks": 3
     }
   ]
 }

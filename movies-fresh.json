@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-02T09:25:02.563Z",
+  "generatedAt": "2026-10-02T09:31:20.837Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage",
   "titles": [
@@ -12,7 +12,9 @@
       "released": "2026-10-01",
       "lang": "en",
       "india": false,
-      "sitelinks": 23
+      "sitelinks": 23,
+      "providers": [],
+      "tmdbId": 1248832
     },
     {
       "id": "wd-Q129255849",
@@ -22,7 +24,9 @@
       "released": "2026-09-10",
       "lang": "ta",
       "india": true,
-      "sitelinks": 3
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1317872
     },
     {
       "id": "wd-Q123740702",
@@ -32,7 +36,9 @@
       "released": "2026-08-26",
       "lang": "hi",
       "india": true,
-      "sitelinks": 8
+      "sitelinks": 8,
+      "providers": [],
+      "tmdbId": 1213243
     },
     {
       "id": "wd-Q132256832",
@@ -42,7 +48,9 @@
       "released": "2026-08-26",
       "lang": "en",
       "india": false,
-      "sitelinks": 22
+      "sitelinks": 22,
+      "providers": [],
+      "tmdbId": 1384216
     },
     {
       "id": "wd-Q138716562",
@@ -52,7 +60,9 @@
       "released": "2026-08-21",
       "lang": "ml",
       "india": true,
-      "sitelinks": 3
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1508168
     },
     {
       "id": "wd-Q135094933",
@@ -62,7 +72,9 @@
       "released": "2026-08-14",
       "lang": "ta",
       "india": true,
-      "sitelinks": 4
+      "sitelinks": 4,
+      "providers": [],
+      "tmdbId": 1408162
     },
     {
       "id": "wd-Q124804916",
@@ -72,7 +84,9 @@
       "released": "2026-08-09",
       "lang": "en",
       "india": false,
-      "sitelinks": 28
+      "sitelinks": 28,
+      "providers": [],
+      "tmdbId": 1101383
     },
     {
       "id": "wd-Q138527176",
@@ -82,7 +96,9 @@
       "released": "2026-08-07",
       "lang": "hi",
       "india": true,
-      "sitelinks": 8
+      "sitelinks": 8,
+      "providers": [],
+      "tmdbId": 1709391
     },
     {
       "id": "wd-Q140836374",
@@ -92,7 +108,9 @@
       "released": "2026-08-07",
       "lang": "",
       "india": true,
-      "sitelinks": 3
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1479832
     },
     {
       "id": "wd-Q113244935",
@@ -102,7 +120,9 @@
       "released": "2026-07-29",
       "lang": "en",
       "india": false,
-      "sitelinks": 54
+      "sitelinks": 54,
+      "providers": [],
+      "tmdbId": 969681
     },
     {
       "id": "wd-Q106392679",
@@ -112,7 +132,9 @@
       "released": "2026-07-25",
       "lang": "en",
       "india": false,
-      "sitelinks": 24
+      "sitelinks": 24,
+      "providers": [],
+      "tmdbId": 1204680
     },
     {
       "id": "wd-Q118996994",
@@ -122,7 +144,9 @@
       "released": "2026-07-08",
       "lang": "en",
       "india": false,
-      "sitelinks": 32
+      "sitelinks": 32,
+      "providers": [],
+      "tmdbId": 1108427
     },
     {
       "id": "wd-Q131547207",
@@ -132,7 +156,9 @@
       "released": "2026-07-06",
       "lang": "en",
       "india": false,
-      "sitelinks": 66
+      "sitelinks": 66,
+      "providers": [],
+      "tmdbId": 1368337
     },
     {
       "id": "wd-Q131760998",
@@ -142,7 +168,9 @@
       "released": "2026-07-03",
       "lang": "hi",
       "india": true,
-      "sitelinks": 7
+      "sitelinks": 7,
+      "providers": [],
+      "tmdbId": 1122030
     },
     {
       "id": "wd-Q131822415",
@@ -152,7 +180,15 @@
       "released": "2026-07-03",
       "lang": "hi",
       "india": true,
-      "sitelinks": 7
+      "sitelinks": 7,
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "wikidata",
+      "tmdbId": 1155818
     },
     {
       "id": "wd-Q116921951",
@@ -162,7 +198,9 @@
       "released": "2026-06-22",
       "lang": "en",
       "india": false,
-      "sitelinks": 38
+      "sitelinks": 38,
+      "providers": [],
+      "tmdbId": 1081003
     },
     {
       "id": "wd-Q126683577",
@@ -172,7 +210,9 @@
       "released": "2026-06-10",
       "lang": "en",
       "india": false,
-      "sitelinks": 38
+      "sitelinks": 38,
+      "providers": [],
+      "tmdbId": 1275779
     },
     {
       "id": "wd-Q133573186",
@@ -182,7 +222,9 @@
       "released": "2026-06-04",
       "lang": "te",
       "india": true,
-      "sitelinks": 4
+      "sitelinks": 4,
+      "providers": [],
+      "tmdbId": 1057265
     },
     {
       "id": "wd-Q135025214",
@@ -192,7 +234,9 @@
       "released": "2026-05-21",
       "lang": "ml",
       "india": true,
-      "sitelinks": 4
+      "sitelinks": 4,
+      "providers": [],
+      "tmdbId": 847742
     },
     {
       "id": "wd-Q112040381",
@@ -202,7 +246,15 @@
       "released": "2026-05-18",
       "lang": "en",
       "india": false,
-      "sitelinks": 31
+      "sitelinks": 31,
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "wikidata",
+      "tmdbId": 454639
     },
     {
       "id": "wd-Q137652478",
@@ -212,7 +264,21 @@
       "released": "2026-05-18",
       "lang": "en",
       "india": false,
-      "sitelinks": 27
+      "sitelinks": 27,
+      "providers": [],
+      "tmdbId": 1401459
+    },
+    {
+      "id": "wd-Q139149095",
+      "qid": "Q139149095",
+      "title": "Saptadingar Guptodhon",
+      "year": 2026,
+      "released": "2026-05-15",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1441301
     },
     {
       "id": "wd-Q124246549",
@@ -222,7 +288,9 @@
       "released": "2026-05-14",
       "lang": "en",
       "india": false,
-      "sitelinks": 33
+      "sitelinks": 33,
+      "providers": [],
+      "tmdbId": 1228710
     },
     {
       "id": "wd-Q139665854",
@@ -232,7 +300,9 @@
       "released": "2026-05-07",
       "lang": "hi",
       "india": true,
-      "sitelinks": 3
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1673393
     },
     {
       "id": "wd-Q126405648",
@@ -242,7 +312,9 @@
       "released": "2026-05-07",
       "lang": "en",
       "india": false,
-      "sitelinks": 28
+      "sitelinks": 28,
+      "providers": [],
+      "tmdbId": 1301421
     },
     {
       "id": "wd-Q139496302",
@@ -252,7 +324,9 @@
       "released": "2026-04-30",
       "lang": "ta",
       "india": true,
-      "sitelinks": 4
+      "sitelinks": 4,
+      "providers": [],
+      "tmdbId": 1433117
     },
     {
       "id": "wd-Q117830073",
@@ -262,7 +336,9 @@
       "released": "2026-04-27",
       "lang": "en",
       "india": false,
-      "sitelinks": 34
+      "sitelinks": 34,
+      "providers": [],
+      "tmdbId": 931285
     },
     {
       "id": "wd-Q134611972",
@@ -272,17 +348,9 @@
       "released": "2026-04-20",
       "lang": "en",
       "india": false,
-      "sitelinks": 36
-    },
-    {
-      "id": "wd-Q137570236",
-      "qid": "Q137570236",
-      "title": "Bindusagar",
-      "year": 2026,
-      "released": "2026-04-17",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2
+      "sitelinks": 36,
+      "providers": [],
+      "tmdbId": 1314481
     },
     {
       "id": "wd-Q116677364",
@@ -292,7 +360,9 @@
       "released": "2026-04-10",
       "lang": "en",
       "india": false,
-      "sitelinks": 46
+      "sitelinks": 46,
+      "providers": [],
+      "tmdbId": 936075
     },
     {
       "id": "wd-Q138948459",
@@ -302,7 +372,9 @@
       "released": "2026-04-01",
       "lang": "",
       "india": true,
-      "sitelinks": 3
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1586092
     },
     {
       "id": "wd-Q133172723",
@@ -312,7 +384,9 @@
       "released": "2026-03-26",
       "lang": "",
       "india": true,
-      "sitelinks": 3
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1376856
     },
     {
       "id": "wd-Q137998501",
@@ -322,7 +396,32 @@
       "released": "2026-03-19",
       "lang": "hi",
       "india": true,
-      "sitelinks": 14
+      "sitelinks": 14,
+      "providers": [],
+      "tmdbId": 1582770
+    },
+    {
+      "id": "wd-Q138497144",
+      "qid": "Q138497144",
+      "title": "Korpur",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": []
+    },
+    {
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1260210
     },
     {
       "id": "wd-Q107105860",
@@ -332,7 +431,9 @@
       "released": "2026-03-18",
       "lang": "en",
       "india": false,
-      "sitelinks": 46
+      "sitelinks": 46,
+      "providers": [],
+      "tmdbId": 687163
     },
     {
       "id": "wd-Q124355470",
@@ -342,7 +443,9 @@
       "released": "2026-03-06",
       "lang": "en",
       "india": false,
-      "sitelinks": 23
+      "sitelinks": 23,
+      "providers": [],
+      "tmdbId": 875828
     },
     {
       "id": "wd-Q138381591",
@@ -352,7 +455,21 @@
       "released": "2026-02-27",
       "lang": "hi",
       "india": true,
-      "sitelinks": 4
+      "sitelinks": 4,
+      "providers": [],
+      "tmdbId": 1625582
+    },
+    {
+      "id": "wd-Q138510258",
+      "qid": "Q138510258",
+      "title": "Masthishka Maranam",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1444032
     },
     {
       "id": "wd-Q138562396",
@@ -362,7 +479,9 @@
       "released": "2026-02-27",
       "lang": "te",
       "india": true,
-      "sitelinks": 2
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1669290
     },
     {
       "id": "wd-Q126488898",
@@ -372,7 +491,9 @@
       "released": "2026-02-20",
       "lang": "en",
       "india": false,
-      "sitelinks": 22
+      "sitelinks": 22,
+      "providers": [],
+      "tmdbId": 467905
     },
     {
       "id": "wd-Q137783833",
@@ -382,7 +503,9 @@
       "released": "2026-02-13",
       "lang": "hi",
       "india": true,
-      "sitelinks": 4
+      "sitelinks": 4,
+      "providers": [],
+      "tmdbId": 1275574
     },
     {
       "id": "wd-Q130375767",
@@ -392,7 +515,15 @@
       "released": "2026-02-12",
       "lang": "en",
       "india": false,
-      "sitelinks": 22
+      "sitelinks": 22,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "wikidata",
+      "tmdbId": 1265609
     },
     {
       "id": "wd-Q137874897",
@@ -402,7 +533,9 @@
       "released": "2026-02-06",
       "lang": "bn",
       "india": true,
-      "sitelinks": 2
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -412,7 +545,9 @@
       "released": "2026-01-30",
       "lang": "hi",
       "india": true,
-      "sitelinks": 8
+      "sitelinks": 8,
+      "providers": [],
+      "tmdbId": 1339876
     },
     {
       "id": "wd-Q126394034",
@@ -422,7 +557,9 @@
       "released": "2026-01-28",
       "lang": "en",
       "india": false,
-      "sitelinks": 23
+      "sitelinks": 23,
+      "providers": [],
+      "tmdbId": 1171145
     },
     {
       "id": "wd-Q134083296",
@@ -432,7 +569,9 @@
       "released": "2026-01-24",
       "lang": "en",
       "india": false,
-      "sitelinks": 25
+      "sitelinks": 25,
+      "providers": [],
+      "tmdbId": 950028
     },
     {
       "id": "wd-Q126734387",
@@ -442,7 +581,9 @@
       "released": "2026-01-23",
       "lang": "hi",
       "india": true,
-      "sitelinks": 7
+      "sitelinks": 7,
+      "providers": [],
+      "tmdbId": 1213898
     },
     {
       "id": "wd-Q136825829",
@@ -452,7 +593,9 @@
       "released": "2026-01-23",
       "lang": "bn",
       "india": true,
-      "sitelinks": 4
+      "sitelinks": 4,
+      "providers": [],
+      "tmdbId": 1437714
     },
     {
       "id": "wd-Q137802630",
@@ -462,7 +605,9 @@
       "released": "2026-01-23",
       "lang": "bn",
       "india": true,
-      "sitelinks": 2
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1536901
     },
     {
       "id": "wd-Q124566659",
@@ -472,7 +617,9 @@
       "released": "2026-01-22",
       "lang": "en",
       "india": false,
-      "sitelinks": 26
+      "sitelinks": 26,
+      "providers": [],
+      "tmdbId": 1236153
     },
     {
       "id": "wd-Q136558776",
@@ -482,7 +629,9 @@
       "released": "2026-01-16",
       "lang": "hi",
       "india": true,
-      "sitelinks": 3
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1617536
     },
     {
       "id": "wd-Q137799437",
@@ -492,7 +641,9 @@
       "released": "2026-01-16",
       "lang": "hi",
       "india": true,
-      "sitelinks": 2
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1282440
     },
     {
       "id": "wd-Q131189949",
@@ -502,27 +653,15 @@
       "released": "2026-01-16",
       "lang": "en",
       "india": false,
-      "sitelinks": 26
-    },
-    {
-      "id": "wd-Q137713080",
-      "qid": "Q137713080",
-      "title": "Anaganaga Oka Raju",
-      "year": 2026,
-      "released": "2026-01-14",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2
-    },
-    {
-      "id": "wd-Q137718780",
-      "qid": "Q137718780",
-      "title": "Bhartha Mahasayulaku Wignyapthi",
-      "year": 2026,
-      "released": "2026-01-13",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2
+      "sitelinks": 26,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "wikidata",
+      "tmdbId": 1306368
     },
     {
       "id": "wd-Q124301053",
@@ -532,17 +671,9 @@
       "released": "2026-01-09",
       "lang": "te",
       "india": true,
-      "sitelinks": 5
-    },
-    {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2
+      "sitelinks": 5,
+      "providers": [],
+      "tmdbId": 1022453
     },
     {
       "id": "wd-Q136673072",
@@ -552,7 +683,9 @@
       "released": "2026-01-01",
       "lang": "hi",
       "india": true,
-      "sitelinks": 7
+      "sitelinks": 7,
+      "providers": [],
+      "tmdbId": 1196946
     },
     {
       "id": "wd-Q139962234",
@@ -562,7 +695,9 @@
       "released": "2026-01-01",
       "lang": "ta",
       "india": true,
-      "sitelinks": 6
+      "sitelinks": 6,
+      "providers": [],
+      "tmdbId": 1515729
     },
     {
       "id": "wd-Q116701310",
@@ -572,7 +707,9 @@
       "released": "2026-01-01",
       "lang": "hi",
       "india": true,
-      "sitelinks": 3
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1069567
     },
     {
       "id": "wd-Q137805148",
@@ -582,7 +719,8 @@
       "released": "2026-01-01",
       "lang": "hi",
       "india": true,
-      "sitelinks": 3
+      "sitelinks": 3,
+      "providers": []
     },
     {
       "id": "wd-Q136759525",
@@ -592,7 +730,9 @@
       "released": "2026-01-01",
       "lang": "ml",
       "india": true,
-      "sitelinks": 3
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1439594
     },
     {
       "id": "wd-Q137843190",
@@ -602,7 +742,9 @@
       "released": "2026-01-01",
       "lang": "te",
       "india": true,
-      "sitelinks": 2
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1594670
     }
   ]
 }

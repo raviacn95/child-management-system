@@ -57,7 +57,6 @@ const TMDB_PROVIDER_RULES = [
   [/^saina ?play\b/, 'saina'],
   [/^namma ?flix\b/, 'nammaflix'],
   [/^planet marathi\b/, 'planetmarathi'],
-  [/^altt?\b|^alt balaji\b/, 'altt'],
   [/^rakuten viki\b|^viki\b/, 'viki'],
 ]
 

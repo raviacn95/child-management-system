@@ -64,7 +64,6 @@
     { "id": "watcho", "name": "Watcho", "region": "IN", "searchUrl": "https://www.watcho.com/search?q={q}" },
     { "id": "epicon", "name": "EPIC ON", "region": "IN", "searchUrl": "https://www.epicon.in/search?q={q}" },
     { "id": "chaupal", "name": "Chaupal", "region": "IN", "searchUrl": "https://www.chaupal.tv/search?q={q}" },
-    { "id": "altt", "name": "ALTT", "region": "IN", "searchUrl": "https://www.altt.co.in/search?q={q}" },
     { "id": "distrotv", "name": "DistroTV", "region": "IN", "searchUrl": "https://www.distro.tv/search?q={q}" }
   ]
 }

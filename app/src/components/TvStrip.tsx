@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { Sparkles } from 'lucide-react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { prefetchRoute } from '../app/prefetch'
 import { tvFocusRoot } from '../features/cast/remoteKeys'
@@ -9,8 +10,22 @@ import type { Role } from '../types'
 import './tvSimple.css'
 
 const CastReceiver = lazy(() => import('../features/cast/CastReceiver'))
+const CLOCK_TICK_MS = 15_000
 
-export function TvStrip({ role }: { role: Role }) {
+function TvClock() {
+  const [now, setNow] = useState(() => new Date())
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(new Date()), CLOCK_TICK_MS)
+    return () => window.clearInterval(id)
+  }, [])
+  return (
+    <time className="tv-clock" data-testid="tv-clock" dateTime={now.toISOString()}>
+      {now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+    </time>
+  )
+}
+
+export function TvStrip({ role, siteName }: { role: Role; siteName?: string }) {
   const location = useLocation()
   const items = TV_NAV.filter((item) => canSee(role, item.key))
 
@@ -28,35 +43,45 @@ export function TvStrip({ role }: { role: Role }) {
   }, [])
 
   useEffect(() => {
-    const current = document.querySelector<HTMLElement>(`[data-tv-strip] [aria-current='page']`)
+    const current = document.querySelector<HTMLElement>(`[data-testid='tv-strip'] [aria-current='page']`)
     const first = document.querySelector<HTMLElement>('main [data-tv-focus]')
-    ;(current ?? first)?.focus()
+    ;(current ?? first)?.focus({ preventScroll: true })
+    window.scrollTo({ top: 0 })
   }, [location.pathname])
 
   return (
     <>
-      <nav className="tv-strip" data-testid="tv-strip" aria-label="Living room">
-        {items.map((item) => (
+      <header className="tv-topbar" data-testid="tv-topbar">
+        <div className="tv-brand" aria-label={siteName ? `Willow · ${siteName}` : 'Willow'}>
+          <span className="tv-brand-mark" aria-hidden>
+            <Sparkles size={18} />
+          </span>
+          <span className="tv-brand-name">Willow</span>
+        </div>
+        <nav className="tv-strip" data-testid="tv-strip" aria-label="Living room">
+          {items.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              data-tv-focus="1"
+              data-testid={`tv-strip-${item.key}`}
+              onFocus={() => prefetchRoute(item.to)}
+              className={({ isActive }) => `tv-strip-item${isActive ? ' tv-strip-item-active' : ''}`}
+            >
+              {item.key === 'hub' ? 'Home' : item.key === 'tv' ? 'TV tonight' : label(item.key)}
+            </NavLink>
+          ))}
           <NavLink
-            key={item.to}
-            to={item.to}
+            to="/tv-link"
             data-tv-focus="1"
-            data-testid={`tv-strip-${item.key}`}
-            onFocus={() => prefetchRoute(item.to)}
+            data-testid="tv-strip-link-phone"
             className={({ isActive }) => `tv-strip-item${isActive ? ' tv-strip-item-active' : ''}`}
           >
-            {item.key === 'hub' ? 'Home' : item.key === 'tv' ? 'TV tonight' : label(item.key)}
+            Link phone
           </NavLink>
-        ))}
-        <NavLink
-          to="/tv-link"
-          data-tv-focus="1"
-          data-testid="tv-strip-link-phone"
-          className={({ isActive }) => `tv-strip-item${isActive ? ' tv-strip-item-active' : ''}`}
-        >
-          Link phone
-        </NavLink>
-      </nav>
+        </nav>
+        <TvClock />
+      </header>
       <Suspense fallback={null}>
         <CastReceiver />
       </Suspense>

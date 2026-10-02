@@ -1,3 +1,4 @@
+import { BookOpen, Clapperboard, Compass, HeartHandshake, LayoutGrid, ShoppingBag, type LucideIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { WillowCard } from '../components/design/WillowCard'
@@ -8,9 +9,33 @@ import { useExperience } from '../features/experience/ExperienceProvider'
 import type { HubTile } from '../features/experience/buildHub'
 import { useOpenWatch } from '../features/ott/WatchPane'
 import { ageMonths, childName } from '../lib'
+import { isTvMode } from '../lib/tv'
 import { today } from '../data/seed'
 import { useStore } from '../store'
 import { useTheme } from '../theme/ThemeProvider'
+
+const TILE_ICON: Record<HubTile['kind'], LucideIcon> = {
+  movie: Clapperboard,
+  learning: BookOpen,
+  parent: Compass,
+  care: HeartHandshake,
+  page: LayoutGrid,
+  shop: ShoppingBag,
+}
+const TILE_KIND: Record<HubTile['kind'], string> = {
+  movie: 'Watch',
+  learning: 'Learn',
+  parent: 'For parents',
+  care: 'Care',
+  page: 'Open',
+  shop: 'Shop',
+}
+
+function greeting(hour = new Date().getHours()) {
+  if (hour < 12) return 'Good morning'
+  if (hour < 17) return 'Good afternoon'
+  return 'Good evening'
+}
 
 const BADGE: Record<string, string> = {
   hub: 'Opened Tonight',
@@ -75,6 +100,48 @@ export function HubPage() {
     earn('digest')
   }
 
+  const tv = isTvMode()
+  const shelves = rows.map((row) => (
+    <section key={row.id} className="hub-row" data-testid={`hub-row-${row.id}`}>
+      <h2 className="hub-row-title">{row.title}</h2>
+      <div className="hub-rail">
+        {row.tiles.map((tile) => {
+          const Icon = TILE_ICON[tile.kind]
+          return (
+            <Link
+              key={tile.id}
+              to={tile.href}
+              data-tv-focus="1"
+              className={`hub-tile hub-tile-${tile.kind}`}
+              onClick={() => openTile(tile)}
+            >
+              <span className="hub-tile-art" aria-hidden>
+                <Icon size={22} />
+              </span>
+              <span className="hub-tile-kicker">{TILE_KIND[tile.kind]}</span>
+              <span className="hub-tile-title">{tile.title}</span>
+              <span className="hub-tile-sub">{tile.subtitle}</span>
+            </Link>
+          )
+        })}
+      </div>
+    </section>
+  ))
+
+  if (tv) {
+    return (
+      <div data-testid="household-hub" className="tv-hub">
+        <header className="tv-hub-head">
+          <h1 className="font-display">
+            {greeting()}, {user.name.split(' ')[0]}
+          </h1>
+          <p>Pick something to watch, learn or check on tonight.</p>
+        </header>
+        {shelves}
+      </div>
+    )
+  }
+
   return (
     <div data-testid="household-hub">
       <PageHead
@@ -101,26 +168,7 @@ export function HubPage() {
           ))}
         </div>
       ) : null}
-      {rows.map((row) => (
-        <section key={row.id} className="hub-row" data-testid={`hub-row-${row.id}`}>
-          <h2 className="hub-row-title">{row.title}</h2>
-          <div className="hub-rail">
-            {row.tiles.map((tile) => (
-              <Link
-                key={tile.id}
-                to={tile.href}
-                data-tv-focus="1"
-                className={`hub-tile hub-tile-${tile.kind}`}
-                onClick={() => openTile(tile)}
-              >
-                <span className="hub-tile-kicker">{tile.kind}</span>
-                <span className="hub-tile-title">{tile.title}</span>
-                <span className="hub-tile-sub">{tile.subtitle}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      ))}
+      {shelves}
       <p className="mt-6 text-xs text-muted">
         Shopping Essentials and grocery lists open official Flipkart, Meesho, Zepto, Blinkit, or Instamart pages
         only. Willow never scrapes those apps or stores payment data.

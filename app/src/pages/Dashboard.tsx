@@ -57,7 +57,7 @@ export function Dashboard() {
         </Link>{' '}
         mixes learning, parent growth, and family movies
       </p>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <Stat label="On site now" value={present.length} hint={`${enrolled.length} enrolled`} />
         <Stat label="Waitlist" value={state.applications.filter((a) => a.status === 'waitlist').length} />
         <Stat

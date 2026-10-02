@@ -30,10 +30,10 @@ export function TvHome() {
           )}
         </div>
         <div className="flex flex-wrap gap-3">
-          <Link to="/movies" className="text-sm font-semibold text-pine" data-tv-focus="1" data-testid="tv-to-movies">
+          <Link to="/movies" className="pill-link" data-tv-focus="1" data-testid="tv-to-movies">
             Movies →
           </Link>
-          <Link to="/ott" className="text-sm font-semibold text-pine" data-tv-focus="1">
+          <Link to="/ott" className="pill-link" data-tv-focus="1">
             {tv ? 'My OTTs →' : 'Manage OTT logins →'}
           </Link>
         </div>

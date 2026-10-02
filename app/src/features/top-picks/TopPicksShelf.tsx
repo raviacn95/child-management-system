@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { Badge, Button } from '../../components/ui'
 import { isTvMode } from '../../lib/tv'
+import { useStore } from '../../store'
 import { useTheme } from '../../theme/ThemeProvider'
 import { fireTvIntent } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
@@ -10,7 +11,13 @@ import { hubRowTitle, recommendTopPicks } from './feed'
 export function TopPicksShelf() {
   const { look } = useTheme()
   const tv = isTvMode()
-  const picks = recommendTopPicks(look)
+  const { state } = useStore()
+  const mine = (state.ottAccounts ?? []).filter((a) => a.userId === state.currentUserId && a.connected)
+  const picks = recommendTopPicks(look, {
+    connectedIds: mine.map((a) => a.platformId),
+    adFreeIds: mine.filter((a) => a.adTier === 'ad-free').map((a) => a.platformId),
+    preferAdFree: state.preferAdFree !== false,
+  })
   const openWatch = useOpenWatch()
   const [openId, setOpenId] = useState<string | null>(null)
 

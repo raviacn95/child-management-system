@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { catalogStats, platforms, titles } from './catalog'
+import { catalogStats, platforms, titles, watchLinks } from './catalog'
 import { recommendMovies } from './recommend'
 
 describe('movie catalog scale', () => {
@@ -71,6 +71,50 @@ describe('movie catalog scale', () => {
     for (const t of out.titles) {
       expect(t.watchLinks.length).toBeGreaterThan(0)
       expect(t.watchLinks.every((w) => w.url.startsWith('https://'))).toBe(true)
+    }
+  })
+})
+
+describe('ad-free first watch links', () => {
+  const jallikattu = titles.find((t) => t.id === 'jallikattu')!
+  const official = (links: ReturnType<typeof watchLinks>) => links.filter((w) => w.platformId !== 'justwatch')
+
+  it('puts a connected ad-free plan the title is listed on first, ahead of the resolver', () => {
+    expect(jallikattu.platformIds.slice(0, 2)).toEqual(['prime', 'netflix'])
+    const links = watchLinks(jallikattu, { connectedIds: ['prime', 'netflix'], adFreeIds: ['netflix'] })
+    expect(links[0]).toMatchObject({ platformId: 'netflix', adFree: true, adLabel: 'ad-free' })
+    expect(links.findIndex((w) => w.platformId === 'justwatch')).toBeGreaterThan(0)
+    expect(links.find((w) => w.platformId === 'prime')).toMatchObject({ adFree: false, adLabel: 'has-ads' })
+    expect(links.every((w) => w.url.startsWith('https://'))).toBe(true)
+  })
+
+  it('keeps the listed order when Ad-free first is off', () => {
+    const links = watchLinks(jallikattu, { connectedIds: ['netflix'], adFreeIds: ['netflix'], preferAdFree: false })
+    expect(links.some((w) => w.platformId === 'justwatch')).toBe(true)
+    expect(official(links)[0]?.platformId).toBe('netflix')
+    const plain = watchLinks(jallikattu, { preferAdFree: false })
+    expect(official(plain).map((w) => w.platformId).slice(0, 2)).toEqual(['prime', 'netflix'])
+  })
+
+  it('preserves connected order for platforms the title is not listed on and ranks them after listed ones', () => {
+    const links = official(watchLinks(jallikattu, { connectedIds: ['sonyliv', 'hotstar'] }))
+    const ids = links.map((w) => w.platformId)
+    expect(ids.indexOf('sonyliv')).toBeLessThan(ids.indexOf('hotstar'))
+    expect(ids.indexOf('mubi')).toBeLessThan(ids.indexOf('sonyliv'))
+  })
+
+  it('passes ad-free options through recommendMovies and keeps every URL https', () => {
+    const out = recommendMovies({
+      limit: 100,
+      seed: 'ad-free-1',
+      connectedPlatformIds: ['netflix'],
+      adFreePlatformIds: ['netflix'],
+      preferAdFree: true,
+    })
+    for (const t of out.titles) {
+      expect(t.watchLinks.some((w) => w.platformId === 'justwatch')).toBe(true)
+      expect(t.watchLinks.every((w) => w.url.startsWith('https://'))).toBe(true)
+      if (t.platformIds.includes('netflix')) expect(t.watchLinks[0]?.platformId).toBe('netflix')
     }
   })
 })

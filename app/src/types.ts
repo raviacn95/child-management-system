@@ -729,7 +729,10 @@ export interface OttAccount {
   email: string
   connected: boolean
   lastOpenedAt?: string
+  adTier?: OttAdTier
 }
+
+export type OttAdTier = 'ad-free' | 'with-ads' | 'unknown'
 
 export interface AppState {
   countryCode: CountryCode
@@ -782,5 +785,6 @@ export interface AppState {
   parentFeedProfiles: ParentFeedProfile[]
   parentFeedRatings: ParentFeedRating[]
   ottAccounts: OttAccount[]
+  preferAdFree?: boolean
   auditLog: AuditEntry[]
 }

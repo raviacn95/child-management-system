@@ -55,6 +55,12 @@ export function MovieShelf({
     .map((a) => a.platformId)
     .sort()
     .join(',')
+  const adFreeKey = (state.ottAccounts ?? [])
+    .filter((a) => a.userId === state.currentUserId && a.connected && a.adTier === 'ad-free')
+    .map((a) => a.platformId)
+    .sort()
+    .join(',')
+  const preferAdFree = state.preferAdFree !== false
   const limit = erotic ? 150 : 100
   const langs = erotic ? EROTIC_LANGS : FAMILY_LANGS
   const [lang, setLang] = useState<MovieLang | 'all'>('all')
@@ -108,8 +114,10 @@ export function MovieShelf({
       seed,
       tv,
       connectedPlatformIds: connectedKey ? connectedKey.split(',') : [],
+      adFreePlatformIds: adFreeKey ? adFreeKey.split(',') : [],
+      preferAdFree,
     })
-  }, [shelf, limit, lang, kind, platformId, decade, sort, seed, erotic, tv, connectedKey])
+  }, [shelf, limit, lang, kind, platformId, decade, sort, seed, erotic, tv, connectedKey, adFreeKey, preferAdFree])
 
   const titles = applyYearOrder(result.titles, sort === 'newest' || sort === 'oldest' ? sort : 'ranked')
   const langLabel = lang === 'all' ? null : LANG_LABEL[lang]
@@ -249,6 +257,7 @@ export function MovieShelf({
                       return (
                         <a
                           key={w.platformId}
+                          data-watch-link={w.platformId}
                           className="rounded-lg border border-line px-2 py-1 text-xs font-semibold text-pine hover:border-pine"
                           data-tv-focus="1"
                           href={href}
@@ -258,6 +267,15 @@ export function MovieShelf({
                           }}
                         >
                           {w.platformName} <ExternalLink className="inline" size={10} />
+                          {w.adLabel === 'ad-free' || w.adLabel === 'has-ads' ? (
+                            <span
+                              className={`ml-1 rounded px-1 text-[10px] ${w.adLabel === 'ad-free' ? 'bg-pine-soft text-pine' : 'bg-sand text-muted'}`}
+                              data-testid="watch-ad-marker"
+                              title={adFreeKey.split(',').includes(w.platformId) ? 'Ad-free on your plan' : undefined}
+                            >
+                              {w.adLabel === 'ad-free' ? 'Ad-free' : 'Has ads'}
+                            </span>
+                          ) : null}
                         </a>
                       )
                     })}

@@ -23,8 +23,29 @@ export const FIRE_TV_PACKAGES: Record<string, string> = {
   appletv: 'com.apple.atve.amazon.appletv',
 }
 
+/** Android TV / Google TV builds (Realme, Sony, Chromecast). Platforms not listed reuse the Fire TV package. */
+export const ANDROID_TV_PACKAGES: Record<string, string> = {
+  ...FIRE_TV_PACKAGES,
+  netflix: 'com.netflix.ninja',
+  prime: 'com.amazon.amazonvideo.livingroom',
+  hotstar: 'in.startv.hotstar',
+  sonyliv: 'com.sonyliv',
+  zee5: 'com.graymatrix.did',
+  youtube: 'com.google.android.youtube.tv',
+  sunnxt: 'com.suntv.sunnxt',
+  aha: 'ahaflix.tv',
+  manoramamax: 'com.mmtv.manoramamax.android',
+}
+
+const FIRE_TV_UA = /\bAFT[A-Z0-9]/
+
+export function tvPackageFor(platformId: string, ua = typeof navigator !== 'undefined' ? navigator.userAgent : '') {
+  const map = FIRE_TV_UA.test(ua) ? FIRE_TV_PACKAGES : ANDROID_TV_PACKAGES
+  return Object.prototype.hasOwnProperty.call(map, platformId) ? map[platformId] : undefined
+}
+
 export function fireTvIntent(platformId: string, movieTitle?: string, year?: number, originalLang?: MovieLang) {
-  const pkg = FIRE_TV_PACKAGES[platformId]
+  const pkg = tvPackageFor(platformId)
   const web = watchUrl(platformId, movieTitle || platformId, year, originalLang)
   if (!pkg) return web
   const fallback = encodeURIComponent(web)

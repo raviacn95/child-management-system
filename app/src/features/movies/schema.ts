@@ -48,11 +48,16 @@ export const LANG_LABEL: Record<z.infer<typeof movieLangSchema>, string> = {
   pt: 'Portuguese',
 }
 
+export const platformAdsSchema = z.enum(['none', 'tiered', 'always', 'resolver'])
+export const adLabelSchema = z.enum(['ad-free', 'has-ads', 'unknown'])
+
 export const platformSchema = z.object({
   id: z.string(),
   name: z.string(),
   region: z.string(),
   searchUrl: z.string(),
+  ads: platformAdsSchema.optional(),
+  adFreeTier: z.string().optional(),
 })
 
 export const scoreSchema = z.object({
@@ -83,6 +88,8 @@ export const watchLinkSchema = z.object({
   platformId: z.string(),
   platformName: z.string(),
   url: z.string().url(),
+  adFree: z.boolean().optional(),
+  adLabel: adLabelSchema.optional(),
 })
 
 export const rankedTitleSchema = titleSchema.extend({
@@ -111,6 +118,8 @@ export const movieRecommendRequestSchema = z.object({
   seed: z.string().optional(),
   tv: z.boolean().optional(),
   connectedPlatformIds: z.array(z.string()).optional(),
+  adFreePlatformIds: z.array(z.string()).optional(),
+  preferAdFree: z.boolean().optional(),
 })
 
 export const movieRecommendResponseSchema = z.object({
@@ -128,6 +137,7 @@ export const movieRecommendResponseSchema = z.object({
 export type MovieLang = z.infer<typeof movieLangSchema>
 export type MovieKind = z.infer<typeof movieKindSchema>
 export type MovieShelfKind = z.infer<typeof movieShelfSchema>
+export type PlatformAds = z.infer<typeof platformAdsSchema>
 export type MovieTitle = z.infer<typeof titleSchema>
 export type RankedMovie = z.infer<typeof rankedTitleSchema>
 export type MovieRecommendRequest = z.infer<typeof movieRecommendRequestSchema>

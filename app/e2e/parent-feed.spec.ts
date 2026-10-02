@@ -37,7 +37,7 @@ test('movies page shows a shuffled 100 with official watch links', async ({ page
   await expect(page.getByTestId('movie-summary')).toHaveCount(0)
   await page.getByRole('button', { name: 'Shuffle 100 titles' }).click()
   await expect(page.getByTestId('movie-count')).toContainText('Showing 100 titles')
-  await page.getByRole('button', { name: 'Malayalam', exact: true }).click()
+  await page.getByTestId('movie-shelf').getByRole('button', { name: 'Malayalam', exact: true }).click()
   await expect(page.getByTestId('movie-count')).toContainText('original Malayalam')
   await expect(page.getByTestId('originals-only')).toContainText('Original Malayalam only')
   await expect(page.getByText('Papanasam')).toHaveCount(0)

@@ -8,7 +8,9 @@ import {
   type MovieLang,
   type MovieShelfKind,
   type MovieTitle,
+  type PlatformAds,
 } from './schema'
+import { adLabelFor, rankWatchIds, type RankContext } from '../ott/adFree'
 import { z } from 'zod'
 
 /** Remake / shared-story clusters so we do not list the same plot twice as if it were two originals. */
@@ -25,6 +27,17 @@ const STORY_ID: Record<string, string> = {
 export const platforms = z.array(platformSchema).min(50).parse(platformsJson.platforms)
 
 const platformIds = new Set(platforms.map((p) => p.id))
+
+export const platformAds: Partial<Record<string, PlatformAds>> = Object.fromEntries(
+  platforms.flatMap((p) => (p.ads ? [[p.id, p.ads]] : [])),
+)
+
+export interface WatchLinkOptions {
+  tv?: boolean
+  connectedIds?: readonly string[]
+  adFreeIds?: readonly string[]
+  preferAdFree?: boolean
+}
 
 function split(s: string) {
   return s
@@ -86,23 +99,26 @@ export function watchUrl(platformId: string, movieTitle: string, year?: number, 
   return fillSearchUrl(p.searchUrl, query)
 }
 
-export function watchLinks(title: MovieTitle, opts?: { tv?: boolean; connectedIds?: string[] }) {
-  const extras = opts?.tv ? ['justwatch'] : ['justwatch', 'youtube']
-  const ids = [...title.platformIds.filter((id) => !(opts?.tv && id === 'play'))]
-  for (const id of extras) {
-    if (!ids.includes(id) && platformIds.has(id)) ids.push(id)
+export function watchLinks(title: MovieTitle, opts?: WatchLinkOptions) {
+  const extras = (opts?.tv ? ['justwatch'] : ['justwatch', 'youtube']).filter((id) => platformIds.has(id))
+  const listedIds = title.platformIds.filter((id) => !(opts?.tv && id === 'play'))
+  const connectedIds = (opts?.connectedIds ?? []).filter((id) => platformIds.has(id))
+  const ctx: RankContext = {
+    listedIds,
+    connectedIds,
+    adFreeIds: opts?.adFreeIds ?? [],
+    preferAdFree: opts?.preferAdFree ?? true,
+    platformAds,
   }
-  if (opts?.connectedIds?.length) {
-    for (const id of opts.connectedIds) {
-      if (!ids.includes(id) && platformIds.has(id)) ids.unshift(id)
-    }
-  }
-  return ids.map((id) => {
+  return rankWatchIds([...new Set([...listedIds, ...connectedIds, ...extras])], ctx).map((id) => {
     const p = platforms.find((x) => x.id === id)
+    const adLabel = adLabelFor(id, ctx)
     return {
       platformId: id,
       platformName: p?.name ?? id,
       url: watchUrl(id, title.title, title.year, title.originalLang),
+      adFree: adLabel === 'ad-free',
+      adLabel,
     }
   })
 }

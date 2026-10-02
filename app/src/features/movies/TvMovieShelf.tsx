@@ -5,7 +5,8 @@ import { useStore } from '../../store'
 import { fireTvIntent } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
 import { recommendMovies } from './recommend'
-import { LANG_LABEL, type MovieLang, type RankedMovie } from './schema'
+import { LANG_LABEL, type MovieLang } from './schema'
+import { bestLink } from './tvWatch'
 import { applyYearOrder, type YearOrder } from './yearSort'
 
 const TV_LIMIT = 24
@@ -25,10 +26,6 @@ const TV_LANGS: { id: MovieLang | 'all'; label: string }[] = [
   { id: 'te', label: 'Telugu' },
 ]
 
-function bestLink(title: RankedMovie, connected: readonly string[]) {
-  return title.watchLinks.find((link) => connected.includes(link.platformId)) ?? title.watchLinks[0]
-}
-
 /** Living-room shelf: one row of big language chips, then big cards with just Watch and Trailer. */
 export function TvMovieShelf() {
   const { state } = useStore()
@@ -41,9 +38,16 @@ export function TvMovieShelf() {
     .map((account) => account.platformId)
     .sort()
     .join(',')
+  const adFreeKey = (state.ottAccounts ?? [])
+    .filter((account) => account.userId === state.currentUserId && account.connected && account.adTier === 'ad-free')
+    .map((account) => account.platformId)
+    .sort()
+    .join(',')
+  const preferAdFree = state.preferAdFree !== false
 
-  const { titles, connected } = useMemo(() => {
+  const { titles, connected, adFreeIds } = useMemo(() => {
     const ids = connectedKey ? connectedKey.split(',') : []
+    const adFree = adFreeKey ? adFreeKey.split(',') : []
     const result = recommendMovies({
       shelf: 'family',
       limit: TV_LIMIT,
@@ -52,9 +56,11 @@ export function TvMovieShelf() {
       seed,
       tv: true,
       connectedPlatformIds: ids,
+      adFreePlatformIds: adFree,
+      preferAdFree,
     })
-    return { titles: applyYearOrder(result.titles, order), connected: ids }
-  }, [lang, order, seed, connectedKey])
+    return { titles: applyYearOrder(result.titles, order), connected: ids, adFreeIds: adFree }
+  }, [lang, order, seed, connectedKey, adFreeKey, preferAdFree])
 
   return (
     <section className="tv-shelf" data-testid="tv-movie-shelf" aria-labelledby="tv-shelf-heading">
@@ -94,7 +100,7 @@ export function TvMovieShelf() {
       </div>
       <ul className="tv-grid">
         {titles.map((title) => {
-          const link = bestLink(title, connected)
+          const { link, adFree } = bestLink(title, connected, { adFreeIds, preferAdFree })
           return (
             <li key={title.id} className="card tv-card" data-testid="tv-movie-card">
               <h3 className="tv-card-title">{title.title}</h3>
@@ -116,6 +122,7 @@ export function TvMovieShelf() {
                     }
                   >
                     <Play size={18} /> {link.platformName}
+                    {adFree ? ' · ad-free' : ''}
                   </Button>
                 ) : null}
                 <Button

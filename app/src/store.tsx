@@ -107,7 +107,8 @@ function migrate(parsed: AppState): AppState {
     horizonLogs: next.horizonLogs ?? [],
     parentFeedProfiles: next.parentFeedProfiles ?? [],
     parentFeedRatings: next.parentFeedRatings ?? [],
-    ottAccounts: next.ottAccounts ?? [],
+    ottAccounts: (next.ottAccounts ?? []).map((a) => ({ ...a, adTier: a.adTier ?? 'unknown' })),
+    preferAdFree: next.preferAdFree ?? true,
     children: next.children.map((c) => ({ ...c, interests: c.interests ?? [] })),
   }
 }
@@ -200,6 +201,7 @@ interface StoreApi {
   upsertOttAccount: (account: Omit<OttAccount, 'id'> & { id?: string }) => void
   disconnectOtt: (id: string) => void
   touchOtt: (id: string) => void
+  setPreferAdFree: (on: boolean) => void
   logAudit: (action: string, details: string) => void
 }
 
@@ -721,7 +723,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           const row: OttAccount = { ...account, id, connected: true }
           const list = s.ottAccounts ?? []
           const idx = list.findIndex((a) => a.id === id || (a.userId === row.userId && a.platformId === row.platformId))
-          const ottAccounts = idx >= 0 ? list.map((a, i) => (i === idx ? { ...a, ...row, id: a.id } : a)) : [...list, row]
+          const ottAccounts =
+            idx >= 0
+              ? list.map((a, i) => (i === idx ? { ...a, ...row, id: a.id } : a))
+              : [...list, { ...row, adTier: row.adTier ?? 'unknown' }]
           return { ...s, ottAccounts }
         }),
       disconnectOtt: (id) => patch((s) => ({ ...s, ottAccounts: (s.ottAccounts ?? []).filter((a) => a.id !== id) })),
@@ -730,6 +735,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           ...s,
           ottAccounts: (s.ottAccounts ?? []).map((a) => (a.id === id ? { ...a, lastOpenedAt: new Date().toISOString() } : a)),
         })),
+      setPreferAdFree: (on) => patch((s) => ({ ...s, preferAdFree: on })),
       logAudit: (action, details) =>
         patch((s) => ({
           ...s,

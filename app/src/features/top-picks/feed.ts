@@ -1,13 +1,21 @@
 import catalogJson from '../../data/top-picks.json'
-import { platforms, watchUrl } from '../movies/catalog'
+import { platformAds, platforms, watchUrl } from '../movies/catalog'
+import { rankWatchIds } from '../ott/adFree'
 import type { LookId } from '../../theme/looks'
 import { rankedTopPickSchema, topPicksCatalogSchema, type RankedTopPick } from './schema'
 
 export const topPicksCatalog = topPicksCatalogSchema.parse(catalogJson)
 
-function officialLinks(pick: (typeof topPicksCatalog.items)[number]) {
-  const ids = [...pick.platformIds, 'justwatch']
-  return [...new Set(ids)].map((id) => {
+export interface TopPickOptions {
+  connectedIds?: readonly string[]
+  adFreeIds?: readonly string[]
+  preferAdFree?: boolean
+}
+
+function officialLinks(pick: (typeof topPicksCatalog.items)[number], opts: TopPickOptions) {
+  const ids = [...new Set([...pick.platformIds, 'justwatch'])]
+  const ranked = rankWatchIds(ids, { ...opts, listedIds: pick.platformIds, platformAds })
+  return ranked.map((id) => {
     const p = platforms.find((item) => item.id === id)
     return {
       platformId: id,
@@ -17,8 +25,8 @@ function officialLinks(pick: (typeof topPicksCatalog.items)[number]) {
   })
 }
 
-function hydrate(): RankedTopPick[] {
-  return topPicksCatalog.items.map((item) => rankedTopPickSchema.parse({ ...item, watchLinks: officialLinks(item) }))
+function hydrate(opts: TopPickOptions): RankedTopPick[] {
+  return topPicksCatalog.items.map((item) => rankedTopPickSchema.parse({ ...item, watchLinks: officialLinks(item, opts) }))
 }
 
 export function hubRowTitle(look: LookId) {
@@ -27,8 +35,8 @@ export function hubRowTitle(look: LookId) {
   return 'Top picks'
 }
 
-export function recommendTopPicks(look: LookId = 'grove'): RankedTopPick[] {
-  const items = hydrate()
+export function recommendTopPicks(look: LookId = 'grove', opts: TopPickOptions = {}): RankedTopPick[] {
+  const items = hydrate(opts)
   const movies = items.filter((item) => item.kind === 'movie')
   const series = items.filter((item) => item.kind === 'series')
   const family = series.filter((item) => item.familyFirst)

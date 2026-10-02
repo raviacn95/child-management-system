@@ -27,6 +27,15 @@ describe('top picks feed', () => {
     expect(hubRowTitle('arcade')).toMatch(/series/i)
   })
 
+  it('orders watch links ad-free first for the signed-in user and keeps JustWatch', () => {
+    const plain = recommendTopPicks('grove').find((p) => p.id === 'tp-shawshank')!
+    expect(plain.watchLinks.map((l) => l.platformId)).toEqual(['prime', 'netflix', 'play', 'justwatch'])
+    const mine = recommendTopPicks('grove', { connectedIds: ['netflix'], adFreeIds: ['netflix'] }).find(
+      (p) => p.id === 'tp-shawshank',
+    )!
+    expect(mine.watchLinks.map((l) => l.platformId)).toEqual(['netflix', 'prime', 'play', 'justwatch'])
+  })
+
   it('keeps the editorial catalog at ten cited titles', () => {
     expect(topPicksCatalog.items).toHaveLength(10)
     expect(topPicksCatalog.source).toMatch(/not a live IMDb scrape/i)

@@ -131,7 +131,13 @@ export function recommendMovies(raw: MovieRecommendRequest = {}) {
     if (s.critic >= 82 && s.youtube < 72) reasons.push('Hidden gem')
     if (t.year < 1995 && s.critic >= 88) reasons.push('Canonical')
     if (t.adult) reasons.push('18+')
-    return { ...t, score, reasons, watchLinks: watchLinks(t, { tv: input.tv, connectedIds: input.connectedPlatformIds }) }
+    const links = watchLinks(t, {
+      tv: input.tv,
+      connectedIds: input.connectedPlatformIds,
+      adFreeIds: input.adFreePlatformIds,
+      preferAdFree: input.preferAdFree,
+    })
+    return { ...t, score, reasons, watchLinks: links }
   })
 
   ranked.sort((a, b) => b.score - a.score)

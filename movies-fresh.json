@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-02T12:58:02.208Z",
+  "generatedAt": "2026-10-02T17:53:05.373Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -139,7 +139,7 @@
       "released": "2026-07-29",
       "lang": "en",
       "india": false,
-      "sitelinks": 54,
+      "sitelinks": 55,
       "providers": [],
       "tmdbId": 969681,
       "providersSource": "tmdb"
@@ -181,7 +181,7 @@
       "released": "2026-07-06",
       "lang": "en",
       "india": false,
-      "sitelinks": 66,
+      "sitelinks": 67,
       "providers": [],
       "tmdbId": 1368337,
       "providersSource": "tmdb"
@@ -541,17 +541,16 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q138497144",
-      "qid": "Q138497144",
-      "title": "Korpur",
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
       "year": 2026,
       "released": "2026-03-19",
-      "lang": "bn",
+      "lang": "ml",
       "india": true,
       "sitelinks": 2,
       "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1493079
+      "tmdbId": 1260210
     },
     {
       "id": "wd-Q107105860",
@@ -878,22 +877,16 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137718780",
-      "qid": "Q137718780",
-      "title": "Bhartha Mahasayulaku Wignyapthi",
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
       "year": 2026,
-      "released": "2026-01-13",
+      "released": "2026-01-12",
       "lang": "te",
       "india": true,
       "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "zee5",
-          "kind": "stream"
-        }
-      ],
-      "tmdbId": 1442975,
-      "providersSource": "tmdb"
+      "providers": [],
+      "tmdbId": 1439713
     },
     {
       "id": "wd-Q124301053",

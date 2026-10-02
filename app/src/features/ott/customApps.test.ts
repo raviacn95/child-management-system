@@ -81,6 +81,30 @@ describe('parseCustomApp', () => {
       'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.app_name=My%20Films;end',
     )
   })
+
+  it('launches an installed app from its package, and a screen when one is given', () => {
+    const pkgOnly = parseCustomApp({ name: 'Films', searchUrl: '', androidPackage: 'com.example.films', scope: 'all' })
+    expect(pkgOnly.ok && customAppLink(pkgOnly.app, 'Drishyam')).toBe(
+      'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.example.films;S.app_name=Films;end',
+    )
+    const screen = parseCustomApp({
+      name: 'Films',
+      searchUrl: '',
+      androidPackage: 'com.example.films',
+      activity: '.MainActivity',
+      scope: 'all',
+    })
+    expect(screen.ok && screen.app.activity).toBe('com.example.films.MainActivity')
+    expect(screen.ok && customAppLink(screen.app, 'Drishyam')).toContain('S.activity=com.example.films.MainActivity')
+  })
+
+  it('keeps the activity inside the package', () => {
+    expect(parseCustomApp({ name: 'Films', androidPackage: 'com.example.films', activity: 'com.other.Evil', scope: 'all' }).ok).toBe(false)
+    expect(parseCustomApp({ name: 'Films', activity: '.MainActivity', scope: 'all' })).toEqual({
+      ok: false,
+      error: 'Add the package name for this screen',
+    })
+  })
 })
 
 describe('links', () => {

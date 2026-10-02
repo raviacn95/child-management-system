@@ -14,12 +14,14 @@ export function CustomAppsCard() {
   const openWatch = useOpenWatch()
   const [name, setName] = useState('')
   const [searchUrl, setSearchUrl] = useState('')
+  const [androidPackage, setAndroidPackage] = useState('')
+  const [activity, setActivity] = useState('')
   const [scope, setScope] = useState<CustomAppScope>('all')
   const [error, setError] = useState('')
 
   const submit = (e: FormEvent) => {
     e.preventDefault()
-    const result = addCustomApp({ name, searchUrl, scope })
+    const result = addCustomApp({ name, searchUrl, androidPackage, activity, scope })
     if (!result.ok) {
       setError(result.error)
       return
@@ -27,6 +29,8 @@ export function CustomAppsCard() {
     setError('')
     setName('')
     setSearchUrl('')
+    setAndroidPackage('')
+    setActivity('')
     setScope('all')
   }
 
@@ -34,12 +38,35 @@ export function CustomAppsCard() {
     <section className="card mb-6 p-5" data-testid="custom-apps">
       <h2 className="font-display text-xl">Add your own app</h2>
       <p className="mt-1 text-sm text-muted">
-        Type the app name as it appears on your phone. Leave the website blank and the button opens that app. Or add a
-        search link with <code>{'{q}'}</code> where the movie name was. Saved on this device only.
+        Package name opens that installed app. Activity is optional, for a specific screen. Leave both blank to open by
+        the app name. A search link with <code>{'{q}'}</code> is optional too. Saved on this device only. The app must
+        already be installed.
       </p>
       <form className="mt-4 grid gap-3 md:grid-cols-2" onSubmit={submit}>
         <Field label="App name">
           <input className={inputClass} value={name} maxLength={30} onChange={(e) => setName(e.target.value)} />
+        </Field>
+        <Field label="Package name (optional)">
+          <input
+            className={inputClass}
+            value={androidPackage}
+            placeholder="com.example.app"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            onChange={(e) => setAndroidPackage(e.target.value)}
+          />
+        </Field>
+        <Field label="Activity (optional)">
+          <input
+            className={inputClass}
+            value={activity}
+            placeholder="com.example.app.MainActivity"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            onChange={(e) => setActivity(e.target.value)}
+          />
         </Field>
         <Field label="Search link with {q} (optional)">
           <input
@@ -85,6 +112,7 @@ export function CustomAppsCard() {
                 </p>
                 {app.searchUrl ? <p className="truncate text-xs text-muted">{app.searchUrl}</p> : null}
                 {app.androidPackage ? <p className="truncate text-xs text-muted">{app.androidPackage}</p> : null}
+                {app.activity ? <p className="truncate text-xs text-muted">{app.activity}</p> : null}
               </div>
               <div className="flex gap-2">
                 <Button

@@ -6,9 +6,11 @@ async function signIn(page: Page) {
   await page.getByTestId('look-splash').waitFor({ state: 'hidden', timeout: 4000 }).catch(() => undefined)
 }
 
-async function addApp(page: Page, name: string, link: string, eroticOnly = false) {
+async function addApp(page: Page, name: string, link: string, eroticOnly = false, androidPackage = '', activity = '') {
   const card = page.getByTestId('custom-apps')
   await card.getByLabel('App name').fill(name)
+  await card.getByLabel(/Package name/).fill(androidPackage)
+  await card.getByLabel(/Activity/).fill(activity)
   await card.getByLabel(/Search link with \{q\}/).fill(link)
   if (eroticOnly) await card.getByRole('button', { name: 'Erotic shelf only' }).click()
   await card.getByTestId('custom-app-add').click()
@@ -19,8 +21,9 @@ test('a custom app adds its own search button next to Netflix and Prime', async 
   await page.goto('/#/ott')
   await addApp(page, 'My Films', 'https://films.example.com/search?q={q}')
   await addApp(page, 'Pocket', '')
+  await addApp(page, 'Shelf', '', false, 'com.example.shelf', '.HomeActivity')
   await addApp(page, 'Late Night', 'https://late.example.com/find/{q}', true)
-  await expect(page.getByTestId('custom-app-row')).toHaveCount(3)
+  await expect(page.getByTestId('custom-app-row')).toHaveCount(4)
 
   await page.goto('/#/movies')
   const card = page.getByTestId('movie-card').first()
@@ -30,6 +33,10 @@ test('a custom app adds its own search button next to Netflix and Prime', async 
   await expect(card.getByRole('link', { name: 'Open Pocket' })).toHaveAttribute(
     'href',
     'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.app_name=Pocket;end',
+  )
+  await expect(card.getByRole('link', { name: 'Open Shelf' })).toHaveAttribute(
+    'href',
+    'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.example.shelf;S.activity=com.example.shelf.HomeActivity;S.app_name=Shelf;end',
   )
 
   await page.getByTestId('erotic-link').click()

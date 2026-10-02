@@ -105,6 +105,8 @@ public class MainActivity extends BridgeActivity {
         String pkg = intent.getPackage();
         String fallback = intent.getStringExtra("browser_fallback_url");
         String appName = cleanAppName(intent.getStringExtra("app_name"));
+        String activity = activityInPackage(intent.getStringExtra("activity"), pkg);
+        if (activity != null && tryStart(explicitActivity(pkg, activity))) return;
         if (pkg == null) {
             Intent named = launcherNamed(appName);
             if (named != null) tryStart(named);
@@ -131,6 +133,21 @@ public class MainActivity extends BridgeActivity {
         boolean fireOs = "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
         if (tryStart(new Intent(Intent.ACTION_VIEW, fireOs ? amazon : play))) return;
         tryStart(new Intent(Intent.ACTION_VIEW, fireOs ? play : amazon));
+    }
+
+    private String activityInPackage(String activity, String pkg) {
+        if (activity == null || pkg == null) return null;
+        String cls = activity.trim();
+        if (cls.length() > 200 || !cls.startsWith(pkg + ".")) return null;
+        if (!cls.matches("[A-Za-z][A-Za-z0-9_]*(\\.[A-Za-z][A-Za-z0-9_]*)+")) return null;
+        return cls;
+    }
+
+    private static Intent explicitActivity(String pkg, String cls) {
+        Intent launch = new Intent(Intent.ACTION_MAIN);
+        launch.setClassName(pkg, cls);
+        launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return launch;
     }
 
     private String cleanAppName(String wanted) {

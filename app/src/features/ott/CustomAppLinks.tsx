@@ -21,6 +21,7 @@ export function CustomAppLinks({
   return apps.map((app) => {
     const href = customAppLink(app, title, year)
     const open = () => openWatch({ url: href, title, platformName: app.name })
+    const label = app.searchUrl ? `Search ${title} on ${app.name}` : `Open ${app.name}`
     if (look === 'tv') {
       return (
         <Button
@@ -28,7 +29,7 @@ export function CustomAppLinks({
           variant="ghost"
           data-tv-focus="1"
           data-custom-app={app.id}
-          aria-label={`Search ${title} on ${app.name}`}
+          aria-label={label}
           onClick={open}
         >
           <Play size={18} /> {app.name}
@@ -43,12 +44,19 @@ export function CustomAppLinks({
         data-tv-focus="1"
         href={href}
         rel="noopener noreferrer"
+        aria-label={label}
         onClick={(e) => {
           e.preventDefault()
           open()
         }}
       >
-        Search {app.name} <ExternalLink className="inline" size={10} />
+        {app.searchUrl ? (
+          <>
+            Search {app.name} <ExternalLink className="inline" size={10} />
+          </>
+        ) : (
+          app.name
+        )}
       </a>
     )
   })

@@ -10,28 +10,41 @@ const ANDROID_PACKAGE = /^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/
 
 export type CustomAppScope = 'all' | 'erotic'
 
-const draftSchema = z.object({
-  name: z.string().trim().min(1, 'Give the app a name').max(30, 'Keep the name under 30 letters'),
-  searchUrl: z
-    .string()
-    .trim()
-    .max(300, 'That link is too long')
-    .refine((url) => url.includes(TITLE_SLOT), 'Put {q} in the link where the movie name goes')
-    .refine((url) => {
-      try {
-        return new URL(url.replaceAll(TITLE_SLOT, 'test')).protocol === 'https:'
-      } catch {
-        return false
-      }
-    }, 'Use a full https:// link'),
-  androidPackage: z
-    .string()
-    .trim()
-    .optional()
-    .transform((pkg) => pkg?.replace(/\.apk$/i, '') || undefined)
-    .refine((pkg) => pkg === undefined || ANDROID_PACKAGE.test(pkg), 'Android package looks like com.example.app'),
-  scope: z.enum(['all', 'erotic']),
-})
+function httpsSearch(url: string) {
+  try {
+    return new URL(url.replaceAll(TITLE_SLOT, 'test')).protocol === 'https:'
+  } catch {
+    return false
+  }
+}
+
+const draftSchema = z
+  .object({
+    name: z.string().trim().min(1, 'Give the app a name').max(30, 'Keep the name under 30 letters'),
+    searchUrl: z
+      .string()
+      .trim()
+      .max(300, 'That link is too long')
+      .optional()
+      .transform((url) => url || undefined)
+      .superRefine((url, ctx) => {
+        if (!url) return
+        if (!url.includes(TITLE_SLOT)) ctx.addIssue({ code: 'custom', message: 'Put {q} in the link where the movie name goes' })
+        else if (!httpsSearch(url)) ctx.addIssue({ code: 'custom', message: 'Use a full https:// link' })
+      }),
+    androidPackage: z
+      .string()
+      .trim()
+      .optional()
+      .transform((pkg) => pkg?.replace(/\.apk$/i, '') || undefined)
+      .refine((pkg) => pkg === undefined || ANDROID_PACKAGE.test(pkg), 'Android package looks like com.example.app'),
+    scope: z.enum(['all', 'erotic']),
+  })
+  .superRefine((app, ctx) => {
+    if (!app.searchUrl && !app.androidPackage) {
+      ctx.addIssue({ code: 'custom', message: 'Add a website link or an Android package name', path: ['searchUrl'] })
+    }
+  })
 
 const appSchema = draftSchema.extend({ id: z.string().min(1).max(40) })
 
@@ -39,7 +52,7 @@ export type CustomAppDraft = z.input<typeof draftSchema>
 export type CustomApp = {
   id: string
   name: string
-  searchUrl: string
+  searchUrl?: string
   androidPackage?: string
   scope: CustomAppScope
 }
@@ -53,8 +66,8 @@ function hostOf(searchUrl: string) {
   }
 }
 
-function isBlocked(app: { name: string; searchUrl: string; androidPackage?: string }) {
-  return mentionsBlockedPlatform(app.name) || mentionsBlockedPlatform(hostOf(app.searchUrl)) || mentionsBlockedPlatform(app.androidPackage ?? '')
+function isBlocked(app: { name: string; searchUrl?: string; androidPackage?: string }) {
+  return mentionsBlockedPlatform(app.name) || mentionsBlockedPlatform(hostOf(app.searchUrl ?? '')) || mentionsBlockedPlatform(app.androidPackage ?? '')
 }
 
 function newId() {
@@ -69,12 +82,16 @@ export function parseCustomApp(input: CustomAppDraft, id = newId()): CustomAppRe
 }
 
 export function customSearchUrl(app: CustomApp, title: string, year?: number) {
+  if (!app.searchUrl) return ''
   const query = [title.trim(), year].filter(Boolean).join(' ')
   return app.searchUrl.replaceAll(TITLE_SLOT, encodeURIComponent(query))
 }
 
-/** With a saved package, the phone and the TV open that app. The website search is the backup. */
+/** A package with no website just opens the app. With a website, the phone and TV open that app at the search. */
 export function customAppLink(app: CustomApp, title: string, year?: number) {
+  if (!app.searchUrl && app.androidPackage) {
+    return `intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=${app.androidPackage};end`
+  }
   const web = customSearchUrl(app, title, year)
   if (!app.androidPackage) return web
   const u = new URL(web)

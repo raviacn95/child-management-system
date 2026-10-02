@@ -9,7 +9,7 @@ async function signIn(page: Page) {
 async function addApp(page: Page, name: string, link: string, eroticOnly = false, androidPackage = '') {
   const card = page.getByTestId('custom-apps')
   await card.getByLabel('App name').fill(name)
-  await card.getByLabel('Search link with {q}').fill(link)
+  await card.getByLabel(/Search link with \{q\}/).fill(link)
   if (androidPackage) await card.getByLabel('Android package name').fill(androidPackage)
   if (eroticOnly) await card.getByRole('button', { name: 'Erotic shelf only' }).click()
   await card.getByTestId('custom-app-add').click()
@@ -19,25 +19,32 @@ test('a custom app adds its own search button next to Netflix and Prime', async 
   await signIn(page)
   await page.goto('/#/ott')
   await addApp(page, 'My Films', 'https://films.example.com/search?q={q}', false, 'com.example.films')
+  await addApp(page, 'Pocket', '', false, 'com.pocket.app')
   await addApp(page, 'Late Night', 'https://late.example.com/find/{q}', true)
-  await expect(page.getByTestId('custom-app-row')).toHaveCount(2)
+  await expect(page.getByTestId('custom-app-row')).toHaveCount(3)
 
   await page.goto('/#/movies')
   const card = page.getByTestId('movie-card').first()
-  const mine = card.getByRole('link', { name: /Search My Films/ })
+  const mine = card.getByRole('link', { name: /Search .+ on My Films/ })
   await expect(mine).toHaveAttribute('href', /^intent:\/\/films\.example\.com\/search\?q=.+%20\d{4}#Intent;scheme=https;package=com\.example\.films;/)
-  await expect(card.getByRole('link', { name: /Search Late Night/ })).toHaveCount(0)
+  await expect(card.getByRole('link', { name: /Search .+ on Late Night/ })).toHaveCount(0)
+  await expect(card.getByRole('link', { name: 'Open Pocket' })).toHaveAttribute(
+    'href',
+    'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.pocket.app;end',
+  )
 
   await page.getByTestId('erotic-link').click()
   await page.getByRole('button', { name: /I am 18\+/i }).click()
   const erotic = page.getByTestId('erotic-card').first()
-  await expect(erotic.getByRole('link', { name: /Search Late Night/ })).toHaveAttribute('href', /^https:\/\/late\.example\.com\/find\//)
-  await expect(erotic.getByRole('link', { name: /Search My Films/ })).toBeVisible()
+  await expect(erotic.getByRole('link', { name: /Search .+ on Late Night/ })).toHaveAttribute('href', /^https:\/\/late\.example\.com\/find\//)
+  await expect(erotic.getByRole('link', { name: /Search .+ on My Films/ })).toBeVisible()
 })
 
 test('custom app form refuses bad links and blocked apps', async ({ page }) => {
   await signIn(page)
   await page.goto('/#/ott')
+  await addApp(page, 'Only a name', '')
+  await expect(page.getByRole('alert')).toHaveText('Add a website link or an Android package name')
   await addApp(page, 'Plain', 'https://films.example.com/search')
   await expect(page.getByRole('alert')).toHaveText('Put {q} in the link where the movie name goes')
   await addApp(page, 'Ullu', 'https://ullu.app/search?q={q}')

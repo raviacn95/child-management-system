@@ -70,6 +70,23 @@ describe('parseCustomApp', () => {
     expect(parseCustomApp({ ...draft, name: ' ' }).ok).toBe(false)
     expect(parseCustomApp({ ...draft, name: 'x'.repeat(31) }).ok).toBe(false)
   })
+
+  it('opens the app itself when the website is left blank', () => {
+    const result = parseCustomApp({ name: 'My Films', searchUrl: ' ', androidPackage: 'com.example.films', scope: 'all' })
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.app.searchUrl).toBeUndefined()
+    expect(customAppLink(result.app, 'Drishyam', 2013)).toBe(
+      'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.example.films;end',
+    )
+  })
+
+  it('needs a website or a package', () => {
+    expect(parseCustomApp({ name: 'My Films', searchUrl: '', scope: 'all' })).toEqual({
+      ok: false,
+      error: 'Add a website link or an Android package name',
+    })
+  })
 })
 
 describe('links', () => {
@@ -105,6 +122,12 @@ describe('storage', () => {
     expect(added.ok).toBe(true)
     expect(loadCustomApps(storage)).toHaveLength(1)
     expect(JSON.parse(storage.getItem(CUSTOM_APPS_KEY) ?? '[]')[0].name).toBe('My Films')
+  })
+
+  it('keeps an app that has a package and no website', () => {
+    const added = addCustomApp({ name: 'Pocket', searchUrl: '', androidPackage: 'com.pocket.app', scope: 'all' }, storage)
+    expect(added.ok).toBe(true)
+    expect(loadCustomApps(storage).map((a) => a.name)).toEqual(['Pocket'])
   })
 
   it('does not save an invalid app', () => {

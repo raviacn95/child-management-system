@@ -36,15 +36,14 @@ export function CustomAppsCard() {
     <section className="card mb-6 p-5" data-testid="custom-apps">
       <h2 className="font-display text-xl">Add your own app</h2>
       <p className="mt-1 text-sm text-muted">
-        Search any movie on the app&apos;s website, copy the address, and put <code>{'{q}'}</code> where the movie name was.
-        Add the Android package name too: on your phone and Fire TV, Willow opens that installed app. The website is the
-        backup. Saved on this device only.
+        Add the Android package name and the button opens that app. A website is optional: search any movie there, copy
+        the address, and put <code>{'{q}'}</code> where the movie name was. Saved on this device only.
       </p>
       <form className="mt-4 grid gap-3 md:grid-cols-3" onSubmit={submit}>
         <Field label="App name">
           <input className={inputClass} value={name} maxLength={30} onChange={(e) => setName(e.target.value)} />
         </Field>
-        <Field label="Search link with {q}">
+        <Field label="Search link with {q} (optional)">
           <input
             className={inputClass}
             value={searchUrl}
@@ -97,7 +96,7 @@ export function CustomAppsCard() {
                 <p className="font-semibold">
                   {app.name} {app.scope === 'erotic' ? <Badge tone="clay">Erotic only</Badge> : null}
                 </p>
-                <p className="truncate text-xs text-muted">{app.searchUrl}</p>
+                {app.searchUrl ? <p className="truncate text-xs text-muted">{app.searchUrl}</p> : null}
                 {app.androidPackage ? <p className="truncate text-xs text-muted">{app.androidPackage}</p> : null}
               </div>
               <div className="flex gap-2">

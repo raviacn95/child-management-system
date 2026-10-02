@@ -43,6 +43,12 @@ describe('parseIntent', () => {
   it('ignores plain links and broken intents', () => {
     expect(parseIntent(NETFLIX)).toBeNull()
     expect(parseIntent('intent://www.netflix.com/search')).toBeNull()
+    expect(parseIntent('intent:#Intent;action=android.intent.action.VIEW;end')).toBeNull()
+  })
+
+  it('reads an intent that only launches an installed app', () => {
+    const launch = 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.example.films;end'
+    expect(parseIntent(launch)).toEqual({ pkg: 'com.example.films', target: '', launch: true })
   })
 })
 
@@ -92,6 +98,20 @@ describe('openPlan', () => {
       mode: 'navigate',
       href: NETFLIX_INTENT,
     })
+  })
+
+  it('opens an installed app on the phone when there is no website', () => {
+    const launch = 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.example.films;end'
+    expect(openPlan({ url: launch, tv: false, native: false, ua: PHONE_UA })).toEqual({ mode: 'navigate', href: launch })
+    expect(openPlan({ url: launch, tv: false, native: true, ua: `${PHONE_UA} ${NATIVE_INTENT_MARKER}` })).toEqual({
+      mode: 'navigate',
+      href: launch,
+    })
+    expect(openPlan({ url: launch, tv: true, native: true, ua: `${FIRE_TV_UA} ${NATIVE_INTENT_MARKER}` })).toEqual({
+      mode: 'navigate',
+      href: launch,
+    })
+    expect(openPlan({ url: launch, tv: false, native: false, ua: DESKTOP_UA })).toBeNull()
   })
 
   it('lets a phone browser hand a packaged intent to the installed app', () => {

@@ -14,7 +14,7 @@ export type OpenEnv = {
   origin?: string
 }
 
-export type ParsedIntent = { pkg?: string; target: string; fallback?: string }
+export type ParsedIntent = { pkg?: string; target: string; fallback?: string; launch?: boolean }
 
 const FIRE_TV_UA = /\bAFT[A-Z0-9]/
 const ANDROID_UA = /Android/i
@@ -37,6 +37,8 @@ export function parseIntent(href: string): ParsedIntent | null {
   let scheme = ''
   let pkg: string | undefined
   let fallback: string | undefined
+  let main = false
+  let launcher = false
   for (const part of href.slice(at + '#Intent;'.length).split(';')) {
     if (part === 'end') break
     const eq = part.indexOf('=')
@@ -45,6 +47,8 @@ export function parseIntent(href: string): ParsedIntent | null {
     const value = part.slice(eq + 1)
     if (key === 'scheme') scheme = value
     else if (key === 'package') pkg = /^[A-Za-z][\w.]*$/.test(value) ? value : undefined
+    else if (key === 'action' && value === 'android.intent.action.MAIN') main = true
+    else if (key === 'category' && value === 'android.intent.category.LAUNCHER') launcher = true
     else if (key === 'S.browser_fallback_url') {
       try {
         fallback = decodeURIComponent(value)
@@ -53,6 +57,7 @@ export function parseIntent(href: string): ParsedIntent | null {
       }
     }
   }
+  if (main && launcher && pkg && !scheme) return { pkg, target: '', launch: true }
   if (!scheme || !head.startsWith('//')) return null
   return { pkg, target: `${scheme}:${head}`, fallback }
 }
@@ -103,6 +108,10 @@ function nativePlan(url: string, intent: ParsedIntent | null, web: string, env: 
 export function openPlan({ url, ...env }: OpenEnv & { url: string }): OpenPlan | null {
   if (!url) return null
   const intent = parseIntent(url)
+  if (intent?.launch && intent.pkg) {
+    if (env.native || ANDROID_UA.test(env.ua)) return { mode: 'navigate', href: url }
+    return null
+  }
   if (intent && !httpsOnly(intent.target)) return null
   const web = httpsOnly(intent ? intent.fallback || intent.target : url)
   if (!intent && !web) return null

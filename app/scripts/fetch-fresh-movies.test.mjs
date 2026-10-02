@@ -1,10 +1,12 @@
 import { describe, expect, it, vi } from 'vitest'
 import {
   attachProviders,
+  carryForwardProviders,
   detailsQuery,
   mapTmdbProviderName,
   mapTmdbProviders,
   mergeProviders,
+  parseEnv,
   tmdbRequest,
   toDetails,
   toFeed,
@@ -186,7 +188,7 @@ describe('attachProviders', () => {
       if (url.includes('/movie/33/watch/providers')) return { results: { IN: { rent: [{ provider_name: 'Apple TV', display_priority: 1 }] } } }
       throw new Error('TMDB HTTP 500')
     })
-    const out = await attachProviders(feed, details, { key: 'k'.repeat(32), fetchJson })
+    const out = await attachProviders(feed, details, { key: 'k'.repeat(32), fetchJson, retryDelayMs: 0 })
     const byQid = Object.fromEntries(out.titles.map((title) => [title.qid, title]))
     expect(byQid.Q1).toMatchObject({ tmdbId: 11, providersSource: 'tmdb', providers: [{ platformId: 'netflix', kind: 'stream' }] })
     expect(byQid.Q2).toMatchObject({ tmdbId: 22, providersSource: 'tmdb', providers: [] })
@@ -212,5 +214,115 @@ describe('attachProviders', () => {
     const out = await attachProviders(feed, details, { key: 'k'.repeat(32), fetchJson, deadline: Date.now() - 1 })
     expect(fetchJson).not.toHaveBeenCalled()
     expect(out.titles[0]).toMatchObject({ providers: [{ platformId: 'netflix', kind: 'stream' }], providersSource: 'wikidata' })
+  })
+
+  it('retries a dropped connection or a busy TMDB, but not a missing film', async () => {
+    const feed = toFeed([entry('Q1', 'Alpha'), entry('Q2', 'Beta')], [], 2026, new Date('2026-10-01T00:00:00Z'))
+    const details = new Map([
+      ['Q1', { tmdbId: 11, imdbId: undefined, streamQids: [] }],
+      ['Q2', { tmdbId: 22, imdbId: undefined, streamQids: [] }],
+    ])
+    let q1Calls = 0
+    const fetchJson = vi.fn(async (url) => {
+      if (url.includes('/movie/11/')) {
+        q1Calls++
+        if (q1Calls === 1) throw new TypeError('fetch failed')
+        if (q1Calls === 2) throw Object.assign(new Error('TMDB HTTP 429'), { status: 429 })
+        return { results: india }
+      }
+      throw Object.assign(new Error('TMDB HTTP 404'), { status: 404 })
+    })
+    const out = await attachProviders(feed, details, { key: 'k'.repeat(32), fetchJson, retryDelayMs: 0 })
+    expect(out.titles.find((title) => title.qid === 'Q1')).toMatchObject({
+      providersSource: 'tmdb',
+      providers: [{ platformId: 'netflix', kind: 'stream' }],
+    })
+    expect(q1Calls).toBe(3)
+    expect(fetchJson.mock.calls.filter(([url]) => url.includes('/movie/22/'))).toHaveLength(1)
+  })
+
+  it('stamps providersCheckedAt only when TMDB answered', async () => {
+    const feed = toFeed([entry('Q1', 'Alpha')], [], 2026, new Date('2026-10-01T00:00:00Z'))
+    const details = new Map([['Q1', { tmdbId: 11, imdbId: undefined, streamQids: [] }]])
+    const fetchJson = vi.fn(async () => ({ results: india }))
+    const withTmdb = await attachProviders(feed, details, { key: 'k'.repeat(32), fetchJson })
+    expect(withTmdb.providersCheckedAt).toBe('2026-10-01T00:00:00.000Z')
+    const withoutKey = await attachProviders(feed, details, { key: '' })
+    expect(withoutKey.providersCheckedAt).toBeUndefined()
+  })
+})
+
+describe('carryForwardProviders', () => {
+  const at = new Date('2026-10-02T00:00:00Z')
+  const tmdbTitle = (qid, providers, extra = {}) => ({ ...entry(qid, qid), providers, providersSource: 'tmdb', tmdbId: 100, ...extra })
+  const previousFeed = (titles, extra = {}) => ({ ...toFeed([], [], 2026, new Date('2026-09-01T00:00:00Z')), titles, ...extra })
+
+  it('keeps TMDB channels from the previous feed when this run has none', () => {
+    const next = {
+      ...toFeed([], [], 2026, at),
+      titles: [
+        { ...entry('Q1', 'Alpha'), providers: [{ platformId: 'prime', kind: 'stream' }], providersSource: 'wikidata' },
+        { ...entry('Q2', 'Beta'), providers: [] },
+      ],
+    }
+    const previous = previousFeed(
+      [tmdbTitle('Q1', [{ platformId: 'netflix', kind: 'stream' }]), tmdbTitle('Q2', [], { tmdbId: 200 })],
+      { providersCheckedAt: '2026-08-15T00:00:00.000Z' },
+    )
+    const out = carryForwardProviders(next, previous)
+    expect(out.titles[0]).toMatchObject({
+      qid: 'Q1',
+      title: 'Alpha',
+      providersSource: 'tmdb',
+      tmdbId: 100,
+      providers: [
+        { platformId: 'netflix', kind: 'stream' },
+        { platformId: 'prime', kind: 'stream' },
+      ],
+    })
+    expect(out.titles[1]).toMatchObject({ qid: 'Q2', providersSource: 'tmdb', tmdbId: 200, providers: [] })
+    expect(out.providersCheckedAt).toBe('2026-08-15T00:00:00.000Z')
+    expect(out.source).toContain('JustWatch via TMDB')
+    expect(next.titles[0].providersSource).toBe('wikidata')
+    expect(previous.titles[0].providers).toHaveLength(1)
+  })
+
+  it('falls back to the previous generatedAt when it has no providersCheckedAt', () => {
+    const next = { ...toFeed([], [], 2026, at), titles: [{ ...entry('Q1', 'Alpha'), providers: [] }] }
+    const previous = previousFeed([tmdbTitle('Q1', [{ platformId: 'netflix', kind: 'stream' }])])
+    expect(carryForwardProviders(next, previous).providersCheckedAt).toBe('2026-09-01T00:00:00.000Z')
+  })
+
+  it('prefers fresh TMDB data and ignores non-TMDB or vanished titles', () => {
+    const next = {
+      ...toFeed([], [], 2026, at),
+      providersCheckedAt: at.toISOString(),
+      titles: [
+        tmdbTitle('Q1', [{ platformId: 'hotstar', kind: 'stream' }]),
+        { ...entry('Q2', 'Beta'), providers: [] },
+      ],
+    }
+    const previous = previousFeed([
+      tmdbTitle('Q1', [{ platformId: 'netflix', kind: 'stream' }]),
+      { ...entry('Q2', 'Beta'), providers: [{ platformId: 'prime', kind: 'stream' }], providersSource: 'wikidata' },
+      tmdbTitle('Q9', [{ platformId: 'zee5', kind: 'stream' }]),
+    ])
+    const out = carryForwardProviders(next, previous)
+    expect(out).toEqual(next)
+  })
+
+  it('returns the next feed untouched for a missing or malformed previous feed', () => {
+    const next = { ...toFeed([], [], 2026, at), titles: [{ ...entry('Q1', 'Alpha'), providers: [] }] }
+    expect(carryForwardProviders(next, null)).toEqual(next)
+    expect(carryForwardProviders(next, { titles: 'nope' })).toEqual(next)
+    expect(carryForwardProviders(next, { titles: [null, { id: 'wd-Q1', providersSource: 'tmdb', providers: 'x' }] })).toEqual(next)
+  })
+})
+
+describe('parseEnv', () => {
+  it('reads KEY=value lines, skipping comments and stripping quotes', () => {
+    const text = '# local only\r\nTMDB_API_KEY=abc123\r\nexport OTHER="quoted value"\nSINGLE=\'x\'\n\nBROKEN LINE\n'
+    expect(parseEnv(text)).toEqual({ TMDB_API_KEY: 'abc123', OTHER: 'quoted value', SINGLE: 'x' })
+    expect(parseEnv('')).toEqual({})
   })
 })

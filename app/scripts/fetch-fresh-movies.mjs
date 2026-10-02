@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 // Builds movies-fresh.json: this year's released films from Wikidata (CC0), ranked by how many
 // Wikipedia language editions cover them, with Indian streaming channels from TMDB (JustWatch data)
-// when TMDB_API_KEY is set. Keeps the previous file when Wikidata is unreachable.
+// when TMDB_API_KEY is set (env or app/.env.local). Without a key, earlier TMDB channels in the output
+// file are carried forward. Keeps the previous file when Wikidata is unreachable.
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 
 const ENDPOINT = 'https://query.wikidata.org/sparql'
 const USER_AGENT = 'WillowFreshMovies/1.0 (https://raviacn95.github.io/child-management-system/)'
@@ -13,6 +15,8 @@ const TMDB_API = 'https://api.themoviedb.org/3'
 const TMDB_CONCURRENCY = 4
 const TMDB_TIMEOUT_MS = 10_000
 const TMDB_BUDGET_MS = 60_000
+const TMDB_ATTEMPTS = 3
+const TMDB_RETRY_DELAY_MS = 500
 const SOURCE = 'Wikidata (CC0) — films released this year, ranked by Wikipedia coverage'
 const TMDB_CREDIT = 'streaming data: JustWatch via TMDB'
 
@@ -318,8 +322,22 @@ async function tmdbLookup(entry, detail, tmdb) {
 
 async function fetchTmdbJson(url, headers) {
   const res = await fetch(url, { headers, signal: AbortSignal.timeout(TMDB_TIMEOUT_MS) })
-  if (!res.ok) throw new Error(`TMDB HTTP ${res.status}`)
+  if (!res.ok) throw Object.assign(new Error(`TMDB HTTP ${res.status}`), { status: res.status })
   return res.json()
+}
+
+/** Dropped connections, timeouts, 429 and 5xx are worth another try; 401/404 are not. */
+async function withRetry(call, delayMs) {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await call()
+    } catch (error) {
+      const status = Number(error?.status)
+      const transient = !status || status === 429 || status >= 500
+      if (!transient || attempt >= TMDB_ATTEMPTS) throw error
+      await new Promise((resolve) => setTimeout(resolve, delayMs * attempt))
+    }
+  }
 }
 
 /**
@@ -330,9 +348,10 @@ export async function attachProviders(feed, details, opts = {}) {
   const key = opts.key ?? ''
   const fetchJson = opts.fetchJson ?? fetchTmdbJson
   const deadline = opts.deadline ?? Date.now() + TMDB_BUDGET_MS
+  const retryDelayMs = opts.retryDelayMs ?? TMDB_RETRY_DELAY_MS
   const tmdb = (path) => {
     const req = tmdbRequest(path, key)
-    return fetchJson(req.url, req.headers)
+    return withRetry(() => fetchJson(req.url, req.headers), retryDelayMs)
   }
   const results = new Array(feed.titles.length)
   let next = 0
@@ -356,7 +375,70 @@ export async function attachProviders(feed, details, opts = {}) {
   }
   await Promise.all(Array.from({ length: Math.min(TMDB_CONCURRENCY, feed.titles.length) }, worker))
   const usedTmdb = results.some((title) => title.providersSource === 'tmdb')
-  return { ...feed, source: usedTmdb ? `${SOURCE}; ${TMDB_CREDIT}` : SOURCE, titles: results }
+  return {
+    ...feed,
+    source: usedTmdb ? `${SOURCE}; ${TMDB_CREDIT}` : SOURCE,
+    ...(usedTmdb ? { providersCheckedAt: feed.generatedAt } : {}),
+    titles: results,
+  }
+}
+
+/**
+ * Keeps TMDB channels from the previous feed for titles this run could not check on TMDB (no key in CI,
+ * or a failed lookup). `providersCheckedAt` then reports the older check so stale channels stay visible.
+ */
+export function carryForwardProviders(next, previous) {
+  const earlier = new Map(
+    (Array.isArray(previous?.titles) ? previous.titles : [])
+      .filter((title) => title?.providersSource === 'tmdb' && Array.isArray(title.providers) && typeof title.id === 'string')
+      .map((title) => [title.id, title]),
+  )
+  let carried = 0
+  const titles = next.titles.map((title) => {
+    const prev = earlier.get(title.id)
+    if (!prev || title.providersSource === 'tmdb') return title
+    carried++
+    return {
+      ...title,
+      providers: mergeProviders(prev.providers, title.providers ?? []),
+      providersSource: 'tmdb',
+      ...(Number.isInteger(prev.tmdbId) ? { tmdbId: prev.tmdbId } : {}),
+    }
+  })
+  if (!carried) return next
+  const checkedAt = previous.providersCheckedAt ?? previous.generatedAt
+  return {
+    ...next,
+    source: `${SOURCE}; ${TMDB_CREDIT}`,
+    ...(typeof checkedAt === 'string' ? { providersCheckedAt: checkedAt } : {}),
+    titles,
+  }
+}
+
+/** Minimal KEY=value reader for app/.env.local; no variable expansion. */
+export function parseEnv(text) {
+  const env = {}
+  for (const line of String(text).split(/\r?\n/)) {
+    const match = line.match(/^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$/)
+    if (!match) continue
+    env[match[1]] = match[2].replace(/^(['"])(.*)\1$/, '$2')
+  }
+  return env
+}
+
+function readJson(path) {
+  try {
+    return JSON.parse(readFileSync(path, 'utf8'))
+  } catch {
+    return null
+  }
+}
+
+function tmdbKey() {
+  const fromEnv = (process.env.TMDB_API_KEY ?? '').trim()
+  if (fromEnv) return fromEnv
+  const local = fileURLToPath(new URL('../.env.local', import.meta.url))
+  return existsSync(local) ? (parseEnv(readFileSync(local, 'utf8')).TMDB_API_KEY ?? '').trim() : ''
 }
 
 async function sparql(query) {
@@ -389,12 +471,14 @@ async function main() {
         console.warn(`film ids not fetched: ${error instanceof Error ? error.message : error}`)
         return new Map()
       })
-    const key = (process.env.TMDB_API_KEY ?? '').trim()
-    if (!key) console.log('TMDB_API_KEY not set: streaming channels from Wikidata only')
-    const withProviders = await attachProviders(feed, details, { key })
+    const key = tmdbKey()
+    if (!key) console.log('TMDB_API_KEY not set: new channels from Wikidata only, earlier TMDB channels kept')
+    const previous = existsSync(out) ? readJson(out) : null
+    const withProviders = carryForwardProviders(await attachProviders(feed, details, { key }), previous)
     writeFileSync(out, `${JSON.stringify(withProviders, null, 2)}\n`)
     const streaming = withProviders.titles.filter((title) => title.providers.length).length
-    console.log(`wrote ${out}: ${feed.titles.length} titles from ${year}, ${streaming} with streaming channels`)
+    const checked = withProviders.providersCheckedAt ? `, TMDB checked ${withProviders.providersCheckedAt}` : ''
+    console.log(`wrote ${out}: ${feed.titles.length} titles from ${year}, ${streaming} with streaming channels${checked}`)
   } catch (error) {
     console.warn(`fresh movies not refreshed: ${error instanceof Error ? error.message : error}`)
     if (!existsSync(out)) writeFileSync(out, `${JSON.stringify(toFeed([], [], year, now), null, 2)}\n`)

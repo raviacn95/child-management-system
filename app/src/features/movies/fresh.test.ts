@@ -95,6 +95,16 @@ describe('parseFreshFeed', () => {
     expect(parsed?.titles[0]?.providersSource).toBeUndefined()
     expect(parsed?.titles[0]?.tmdbId).toBeUndefined()
   })
+
+  it('reads when channels were last checked and tolerates older or bad feeds', () => {
+    expect(parseFreshFeed({ ...feed(['wd-Q1']), providersCheckedAt: '2026-09-01T00:00:00.000Z' })?.providersCheckedAt).toBe(
+      '2026-09-01T00:00:00.000Z',
+    )
+    expect(parseFreshFeed(feed(['wd-Q1']))?.providersCheckedAt).toBeUndefined()
+    const bad = parseFreshFeed({ ...feed(['wd-Q1']), providersCheckedAt: 'yesterday' })
+    expect(bad?.titles).toHaveLength(1)
+    expect(bad?.providersCheckedAt).toBeUndefined()
+  })
 })
 
 function title(overrides: Partial<FreshTitle>): FreshTitle {

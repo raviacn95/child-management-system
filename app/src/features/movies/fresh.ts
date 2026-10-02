@@ -50,6 +50,7 @@ const freshFeedShape = z.object({
   generatedAt: z.string().datetime(),
   year: z.number().int(),
   source: z.string().max(200).default(''),
+  providersCheckedAt: z.string().datetime().optional().catch(undefined),
   titles: z.array(z.unknown()),
 })
 

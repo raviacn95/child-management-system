@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-02T09:21:59.321Z",
+  "generatedAt": "2026-10-02T10:21:42.019Z",
   "year": 2026,
-  "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage",
+  "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
     {
       "id": "wd-Q129677718",
@@ -14,6 +14,7 @@
       "india": false,
       "sitelinks": 23,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1248832
     },
     {
@@ -26,6 +27,7 @@
       "india": true,
       "sitelinks": 3,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1317872
     },
     {
@@ -38,6 +40,7 @@
       "india": true,
       "sitelinks": 8,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1213243
     },
     {
@@ -50,6 +53,7 @@
       "india": false,
       "sitelinks": 22,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1384216
     },
     {
@@ -62,6 +66,7 @@
       "india": true,
       "sitelinks": 3,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1508168
     },
     {
@@ -73,7 +78,13 @@
       "lang": "ta",
       "india": true,
       "sitelinks": 4,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1408162
     },
     {
@@ -86,6 +97,7 @@
       "india": false,
       "sitelinks": 28,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1101383
     },
     {
@@ -98,6 +110,7 @@
       "india": true,
       "sitelinks": 8,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1709391
     },
     {
@@ -109,7 +122,13 @@
       "lang": "",
       "india": true,
       "sitelinks": 3,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "sunnxt",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1479832
     },
     {
@@ -122,6 +141,7 @@
       "india": false,
       "sitelinks": 54,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 969681
     },
     {
@@ -134,6 +154,7 @@
       "india": false,
       "sitelinks": 24,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1204680
     },
     {
@@ -146,6 +167,7 @@
       "india": false,
       "sitelinks": 32,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1108427
     },
     {
@@ -158,6 +180,7 @@
       "india": false,
       "sitelinks": 66,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1368337
     },
     {
@@ -169,7 +192,13 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 7,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1122030
     },
     {
@@ -187,7 +216,7 @@
           "kind": "stream"
         }
       ],
-      "providersSource": "wikidata",
+      "providersSource": "tmdb",
       "tmdbId": 1155818
     },
     {
@@ -199,7 +228,17 @@
       "lang": "en",
       "india": false,
       "sitelinks": 38,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        },
+        {
+          "platformId": "prime",
+          "kind": "rent"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1081003
     },
     {
@@ -211,7 +250,17 @@
       "lang": "en",
       "india": false,
       "sitelinks": 38,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        },
+        {
+          "platformId": "prime",
+          "kind": "rent"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1275779
     },
     {
@@ -223,7 +272,13 @@
       "lang": "te",
       "india": true,
       "sitelinks": 4,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1057265
     },
     {
@@ -235,7 +290,13 @@
       "lang": "ml",
       "india": true,
       "sitelinks": 4,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 847742
     },
     {
@@ -253,7 +314,7 @@
           "kind": "stream"
         }
       ],
-      "providersSource": "wikidata",
+      "providersSource": "tmdb",
       "tmdbId": 454639
     },
     {
@@ -266,6 +327,7 @@
       "india": false,
       "sitelinks": 27,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1401459
     },
     {
@@ -277,7 +339,13 @@
       "lang": "en",
       "india": false,
       "sitelinks": 33,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "hotstar",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1228710
     },
     {
@@ -290,6 +358,7 @@
       "india": true,
       "sitelinks": 3,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1673393
     },
     {
@@ -301,7 +370,13 @@
       "lang": "en",
       "india": false,
       "sitelinks": 28,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1301421
     },
     {
@@ -313,7 +388,13 @@
       "lang": "ta",
       "india": true,
       "sitelinks": 4,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1433117
     },
     {
@@ -325,7 +406,17 @@
       "lang": "en",
       "india": false,
       "sitelinks": 34,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        },
+        {
+          "platformId": "prime",
+          "kind": "rent"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 931285
     },
     {
@@ -337,19 +428,14 @@
       "lang": "en",
       "india": false,
       "sitelinks": 36,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "hotstar",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1314481
-    },
-    {
-      "id": "wd-Q137570236",
-      "qid": "Q137570236",
-      "title": "Bindusagar",
-      "year": 2026,
-      "released": "2026-04-17",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": []
     },
     {
       "id": "wd-Q116677364",
@@ -360,7 +446,21 @@
       "lang": "en",
       "india": false,
       "sitelinks": 46,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "hotstar",
+          "kind": "stream"
+        },
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        },
+        {
+          "platformId": "prime",
+          "kind": "rent"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 936075
     },
     {
@@ -373,6 +473,7 @@
       "india": true,
       "sitelinks": 3,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1586092
     },
     {
@@ -385,6 +486,7 @@
       "india": true,
       "sitelinks": 3,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1376856
     },
     {
@@ -396,8 +498,31 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 14,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        },
+        {
+          "platformId": "hotstar",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1582770
+    },
+    {
+      "id": "wd-Q138497144",
+      "qid": "Q138497144",
+      "title": "Korpur",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1493079
     },
     {
       "id": "wd-Q134435699",
@@ -408,7 +533,13 @@
       "lang": "ml",
       "india": true,
       "sitelinks": 2,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1260210
     },
     {
@@ -420,7 +551,17 @@
       "lang": "en",
       "india": false,
       "sitelinks": 46,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        },
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 687163
     },
     {
@@ -432,7 +573,13 @@
       "lang": "en",
       "india": false,
       "sitelinks": 23,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 875828
     },
     {
@@ -444,8 +591,45 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 4,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1625582
+    },
+    {
+      "id": "wd-Q138510258",
+      "qid": "Q138510258",
+      "title": "Masthishka Maranam",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1444032
+    },
+    {
+      "id": "wd-Q138562396",
+      "qid": "Q138562396",
+      "title": "Son Of",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1669290
     },
     {
       "id": "wd-Q126488898",
@@ -457,6 +641,7 @@
       "india": false,
       "sitelinks": 22,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 467905
     },
     {
@@ -468,7 +653,13 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 4,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1275574
     },
     {
@@ -486,7 +677,7 @@
           "kind": "stream"
         }
       ],
-      "providersSource": "wikidata",
+      "providersSource": "tmdb",
       "tmdbId": 1265609
     },
     {
@@ -498,7 +689,13 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 8,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1339876
     },
     {
@@ -510,7 +707,13 @@
       "lang": "en",
       "india": false,
       "sitelinks": 23,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1171145
     },
     {
@@ -523,6 +726,7 @@
       "india": false,
       "sitelinks": 25,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 950028
     },
     {
@@ -534,7 +738,13 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 7,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1213898
     },
     {
@@ -547,6 +757,7 @@
       "india": true,
       "sitelinks": 4,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1437714
     },
     {
@@ -559,6 +770,7 @@
       "india": true,
       "sitelinks": 2,
       "providers": [],
+      "providersSource": "tmdb",
       "tmdbId": 1536901
     },
     {
@@ -570,7 +782,17 @@
       "lang": "en",
       "india": false,
       "sitelinks": 26,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        },
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1236153
     },
     {
@@ -582,7 +804,13 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 3,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "hotstar",
+          "kind": "ads"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1617536
     },
     {
@@ -594,7 +822,13 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 2,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1282440
     },
     {
@@ -612,7 +846,7 @@
           "kind": "stream"
         }
       ],
-      "providersSource": "wikidata",
+      "providersSource": "tmdb",
       "tmdbId": 1306368
     },
     {
@@ -624,7 +858,13 @@
       "lang": "",
       "india": true,
       "sitelinks": 2,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1407432
     },
     {
@@ -636,20 +876,14 @@
       "lang": "te",
       "india": true,
       "sitelinks": 2,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1442975
-    },
-    {
-      "id": "wd-Q135647565",
-      "qid": "Q135647565",
-      "title": "Mana Shankara Vara Prasad Garu",
-      "year": 2026,
-      "released": "2026-01-12",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1439713
     },
     {
       "id": "wd-Q124301053",
@@ -660,20 +894,14 @@
       "lang": "te",
       "india": true,
       "sitelinks": 5,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "hotstar",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1022453
-    },
-    {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",
@@ -684,7 +912,13 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 7,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1196946
     },
     {
@@ -696,7 +930,13 @@
       "lang": "ta",
       "india": true,
       "sitelinks": 6,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1515729
     },
     {
@@ -708,20 +948,14 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 3,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1069567
-    },
-    {
-      "id": "wd-Q136759525",
-      "qid": "Q136759525",
-      "title": "Chatha Pacha: The Ring of Rowdies",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "tmdbId": 1439594
     },
     {
       "id": "wd-Q137805148",
@@ -732,7 +966,27 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 3,
-      "providers": []
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
+      "id": "wd-Q136759525",
+      "qid": "Q136759525",
+      "title": "Chatha Pacha: The Ring of Rowdies",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1439594
     },
     {
       "id": "wd-Q137843190",
@@ -743,8 +997,15 @@
       "lang": "te",
       "india": true,
       "sitelinks": 2,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
       "tmdbId": 1594670
     }
-  ]
+  ],
+  "providersCheckedAt": "2026-10-02T10:21:42.019Z"
 }

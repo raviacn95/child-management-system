@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-02T22:15:55.619Z",
+  "generatedAt": "2026-10-02T22:23:03.743Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -288,18 +288,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q139570451",
-      "qid": "Q139570451",
-      "title": "Phera",
-      "year": 2026,
-      "released": "2026-05-29",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1493932
-    },
-    {
       "id": "wd-Q135025214",
       "qid": "Q135025214",
       "title": "Drishyam 3",
@@ -347,6 +335,18 @@
       "providers": [],
       "tmdbId": 1401459,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q139149095",
+      "qid": "Q139149095",
+      "title": "Saptadingar Guptodhon",
+      "year": 2026,
+      "released": "2026-05-15",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1441301
     },
     {
       "id": "wd-Q124246549",
@@ -399,17 +399,6 @@
       ],
       "tmdbId": 1301421,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q139578176",
-      "qid": "Q139578176",
-      "title": "Pratyabartan",
-      "year": 2026,
-      "released": "2026-05-01",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": []
     },
     {
       "id": "wd-Q139496302",
@@ -485,6 +474,18 @@
       "india": true,
       "sitelinks": 2,
       "providers": []
+    },
+    {
+      "id": "wd-Q139501127",
+      "qid": "Q139501127",
+      "title": "Bibi Payra",
+      "year": 2026,
+      "released": "2026-04-10",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1431260
     },
     {
       "id": "wd-Q116677364",
@@ -582,6 +583,19 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q138497144",
+      "qid": "Q138497144",
+      "title": "Korpur",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1493079
+    },
+    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -646,6 +660,37 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q138510258",
+      "qid": "Q138510258",
+      "title": "Masthishka Maranam",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "tmdbId": 1444032,
+      "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q138562396",
+      "qid": "Q138562396",
+      "title": "Son Of",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1669290,
+      "providersSource": "tmdb"
+    },
+    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -699,18 +744,6 @@
       "watchIds": {
         "netflix": "81768525"
       }
-    },
-    {
-      "id": "wd-Q137874897",
-      "qid": "Q137874897",
-      "title": "OCD",
-      "year": 2026,
-      "released": "2026-02-06",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -796,19 +829,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137802630",
-      "qid": "Q137802630",
-      "title": "Hok Kolorob",
-      "year": 2026,
-      "released": "2026-01-23",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1536901,
-      "providersSource": "tmdb"
-    },
-    {
       "id": "wd-Q124566659",
       "qid": "Q124566659",
       "title": "Mercy",
@@ -846,24 +866,6 @@
         }
       ],
       "tmdbId": 1617536,
-      "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137799437",
-      "qid": "Q137799437",
-      "title": "Happy Patel: Khatarnak Jasoos",
-      "year": 2026,
-      "released": "2026-01-16",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "tmdbId": 1282440,
       "providersSource": "tmdb"
     },
     {
@@ -975,19 +977,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1004,6 +993,19 @@
       ],
       "tmdbId": 1439594,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
     },
     {
       "id": "wd-Q137843190",

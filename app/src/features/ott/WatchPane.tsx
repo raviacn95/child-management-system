@@ -13,7 +13,8 @@ import {
   rememberScreen,
   type AwaySession,
 } from './returnSession'
-import { openOfficialApp } from './watchDesk'
+import { openPlan } from './openPlan'
+import { currentOpenEnv, openOfficialApp } from './watchDesk'
 
 export type WatchSession = {
   url: string
@@ -142,7 +143,8 @@ export function useOpenWatch() {
   return useCallback(
     (session: WatchSession) => {
       if (ctx) {
-        ctx.openWatch(session)
+        if (openPlan({ url: session.url, ...currentOpenEnv() })?.mode === 'embed') ctx.openWatch(session)
+        else ctx.openOfficialNow(session)
         return
       }
       openOfficialApp(session.url)
@@ -175,7 +177,7 @@ function WatchFrame({
         className="min-h-0 w-full flex-1 border-0 bg-paper"
         title={`${session.platformName} — ${session.title}`}
         src={session.url}
-        referrerPolicy="no-referrer"
+        referrerPolicy="strict-origin-when-cross-origin"
         allow="fullscreen; autoplay; encrypted-media"
       />
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-line bg-paper px-3 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">

@@ -1,11 +1,16 @@
 package care.willow.childcare;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import com.getcapacitor.BridgeActivity;
+import com.getcapacitor.BridgeWebViewClient;
+import java.net.URISyntaxException;
 
 public class MainActivity extends BridgeActivity {
     private String lastHandledToken = "";
@@ -14,6 +19,7 @@ public class MainActivity extends BridgeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        routeAppIntents();
         prepareLiveWebView();
         handleReturnIntent(getIntent());
     }
@@ -64,5 +70,61 @@ public class MainActivity extends BridgeActivity {
         lastHandledToken = token;
         final String js = "window.location.hash='#/return?token=" + token + "';";
         getBridge().getWebView().post(() -> getBridge().eval(js, null));
+    }
+
+    private void routeAppIntents() {
+        if (getBridge() == null || getBridge().getWebView() == null) return;
+        getBridge().setWebViewClient(new BridgeWebViewClient(getBridge()) {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                Uri url = request.getUrl();
+                if (url != null && "intent".equalsIgnoreCase(url.getScheme())) {
+                    openAppIntent(url.toString());
+                    return true;
+                }
+                return super.shouldOverrideUrlLoading(view, request);
+            }
+        });
+    }
+
+    private void openAppIntent(String uri) {
+        Intent intent;
+        try {
+            intent = Intent.parseUri(uri, Intent.URI_INTENT_SCHEME);
+        } catch (URISyntaxException e) {
+            return;
+        }
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        intent.setComponent(null);
+        intent.setSelector(null);
+        String pkg = intent.getPackage();
+        String fallback = intent.getStringExtra("browser_fallback_url");
+        if (tryStart(intent)) return;
+        if (pkg != null && (tryStart(launcherFor(pkg, Intent.CATEGORY_LEANBACK_LAUNCHER)) || tryStart(launcherFor(pkg, Intent.CATEGORY_LAUNCHER)))) {
+            return;
+        }
+        if (fallback != null && fallback.startsWith("https://")) {
+            Intent web = new Intent(Intent.ACTION_VIEW, Uri.parse(fallback)).addCategory(Intent.CATEGORY_BROWSABLE);
+            if (tryStart(web)) return;
+        }
+        if (pkg == null) return;
+        Uri play = Uri.parse("market://details?id=" + pkg);
+        Uri amazon = Uri.parse("amzn://apps/android?p=" + pkg);
+        boolean fireOs = "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
+        if (tryStart(new Intent(Intent.ACTION_VIEW, fireOs ? amazon : play))) return;
+        tryStart(new Intent(Intent.ACTION_VIEW, fireOs ? play : amazon));
+    }
+
+    private static Intent launcherFor(String pkg, String category) {
+        return new Intent(Intent.ACTION_MAIN).addCategory(category).setPackage(pkg).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
+    private boolean tryStart(Intent intent) {
+        try {
+            startActivity(intent);
+            return true;
+        } catch (ActivityNotFoundException | SecurityException e) {
+            return false;
+        }
     }
 }

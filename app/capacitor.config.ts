@@ -8,6 +8,8 @@ const config: CapacitorConfig = {
   webDir: 'dist',
   android: {
     allowMixedContent: false,
+    // Tells the live site this shell's MainActivity launches intent:// links (see NATIVE_INTENT_MARKER).
+    appendUserAgent: 'WillowIntents/1',
   },
 }
 

@@ -1,7 +1,15 @@
+import { isNativeShell, isTvMode } from '../../lib/tv'
+import { openPlan, type OpenEnv } from './openPlan'
+
 export const WATCH_RETURN_KEY = 'willow-watch-return'
 
 export type LocationLike = {
   href: string
+  assign: (url: string) => void
+}
+
+export type Launcher = {
+  open: (url: string, target: string, features: string) => unknown
   assign: (url: string) => void
 }
 
@@ -24,14 +32,34 @@ export function watchReturnHref() {
   }
 }
 
-/** Keep Willow on screen. Official apps open in a new context so Back / Close still lands here. */
-export function openOfficialApp(url: string, target = 'willow_player') {
+export function currentOpenEnv(): OpenEnv {
+  return {
+    tv: isTvMode(),
+    native: isNativeShell(),
+    ua: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+    origin: typeof window !== 'undefined' ? window.location.origin : undefined,
+  }
+}
+
+const browserLauncher: Launcher = {
+  open: (url, target, features) => window.open(url, target, features),
+  assign: (url) => window.location.assign(url),
+}
+
+/**
+ * Keep Willow on screen: apps and TVs get the official app through Android, browsers get a new tab.
+ * Must run inside the click handler so the tab is not popup-blocked.
+ */
+export function openOfficialApp(url: string, env: OpenEnv = currentOpenEnv(), launcher: Launcher = browserLauncher) {
   if (!url || typeof window === 'undefined') return false
+  const plan = openPlan({ url, ...env })
+  if (!plan) return false
   try {
     sessionStorage.setItem(WATCH_RETURN_KEY, window.location.href)
   } catch {
     /* private mode */
   }
-  const opened = window.open(url, target)
-  return Boolean(opened)
+  if (plan.mode === 'navigate') launcher.assign(plan.href)
+  else launcher.open(plan.href, '_blank', 'noopener')
+  return true
 }

@@ -7,6 +7,14 @@ async function loginDirector(page: Page) {
   await page.getByTestId('look-splash').waitFor({ state: 'hidden', timeout: 3000 }).catch(() => undefined)
 }
 
+async function stubStorefronts(page: Page) {
+  await page.context().route(/^https:\/\//, (route) =>
+    route.request().resourceType() === 'document'
+      ? route.fulfill({ contentType: 'text/html', body: '<title>Official storefront</title>' })
+      : route.continue(),
+  )
+}
+
 test('home, movies, and TV show the cited top-picks feed', async ({ page }) => {
   await loginDirector(page)
   await expect(page.getByTestId('top-picks').first()).toBeVisible()
@@ -23,16 +31,19 @@ test('home, movies, and TV show the cited top-picks feed', async ({ page }) => {
   await expect(page.getByTestId('top-picks')).toBeVisible()
   await expect(page.getByTestId('top-pick-card')).toHaveCount(10)
   await expect(page.getByTestId('movie-card')).toHaveCount(100)
-  const pagesBefore = page.context().pages().length
+  await stubStorefronts(page)
+  const popup = page.context().waitForEvent('page')
   await page
     .getByTestId('top-pick-watch')
     .first()
     .getByRole('button', { name: /Amazon Prime Video|Netflix|Google Play Movies|JustWatch/ })
     .first()
     .click()
-  await expect(page.getByTestId('watch-desk')).toBeVisible()
-  expect(page.context().pages().length).toBe(pagesBefore)
-  await page.getByTestId('watch-close').click()
+  const storefront = await popup
+  expect(storefront.url()).toMatch(/^https:\/\//)
+  await storefront.close()
+  await expect(page.getByTestId('watch-desk')).toHaveCount(0)
+  await expect(page.getByTestId('top-picks')).toBeVisible()
 
   await page.goto('/#/tv')
   await expect(page.getByTestId('tv-home')).toBeVisible()

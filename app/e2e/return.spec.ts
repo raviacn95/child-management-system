@@ -2,11 +2,20 @@ import { expect, test, type Page } from '@playwright/test'
 
 async function loginDirector(page: Page) {
   await page.addInitScript(() => {
-    window.open = () => null
+    const opened: string[] = []
+    Object.defineProperty(window, '__opened', { value: opened })
+    window.open = (url?: string | URL) => {
+      opened.push(String(url))
+      return null
+    }
   })
   await page.goto('/#/login')
   await page.getByRole('button', { name: 'Sign in' }).click()
   await expect(page.getByRole('heading', { name: /Today at a glance/i })).toBeVisible()
+}
+
+function opened(page: Page) {
+  return page.evaluate(() => (window as unknown as { __opened: string[] }).__opened)
 }
 
 test('official app launch keeps Willow and the return banner restores movies', async ({ page }) => {
@@ -19,10 +28,9 @@ test('official app launch keeps Willow and the return banner restores movies', a
     .getByRole('link', { name: /Amazon Prime Video|Google Play Movies|SonyLIV|JustWatch|Netflix/ })
     .first()
     .click()
-  await expect(page.getByTestId('watch-desk')).toBeVisible()
-  expect(page.context().pages().length).toBe(pagesBefore)
-  await page.getByTestId('watch-official').click()
   await expect(page.getByTestId('watch-desk')).toHaveCount(0)
+  expect(page.context().pages().length).toBe(pagesBefore)
+  expect(await opened(page)).toEqual([expect.stringMatching(/^https:\/\//)])
   await expect(page.getByTestId('return-banner')).toBeVisible()
   await expect(page.getByTestId('movies-page')).toBeVisible()
   await expect(page.getByTestId('return-banner')).not.toContainText(/PIN|allerg|@/i)
@@ -68,14 +76,11 @@ test('expired return token falls back without leaving Willow', async ({ page }) 
   await expect(page.getByTestId('channel-pack')).toBeVisible()
 })
 
-test('learning channels open in the watch desk instead of a new tab', async ({ page }) => {
+test('learning channels open the official YouTube page in a new tab instead of a blocked frame', async ({ page }) => {
   await loginDirector(page)
   await page.goto('/#/learning?band=5-8')
-  const pagesBefore = page.context().pages().length
   await page.getByTestId('open-channel').first().click()
-  await expect(page.getByTestId('watch-desk')).toBeVisible()
-  expect(page.context().pages().length).toBe(pagesBefore)
-  await page.getByTestId('watch-close').click()
+  expect(await opened(page)).toEqual([expect.stringMatching(/^https:\/\/www\.youtube\.com\//)])
   await expect(page.getByTestId('watch-desk')).toHaveCount(0)
   await expect(page.getByTestId('channel-pack')).toBeVisible()
 })

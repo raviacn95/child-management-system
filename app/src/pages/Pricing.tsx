@@ -7,7 +7,7 @@ import { checkoutUrlFor, formatInr, PLANS, type Plan } from '../features/revenue
 import { useStore } from '../store'
 
 function PlanAction({ plan, signedIn }: { plan: Plan; signedIn: boolean }) {
-  const buttonClass = 'mt-4 inline-flex w-full items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold'
+  const buttonClass = 'pricing-cta mt-4 inline-flex w-full items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold'
   if (plan.action === 'start') {
     return (
       <Link className={`${buttonClass} border border-line`} to={signedIn ? homePath() : '/get-app'} data-testid={`plan-${plan.id}-cta`}>
@@ -72,10 +72,10 @@ export function PricingPage() {
         </p>
         <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {PLANS.map((plan) => (
-            <article key={plan.id} className={`card flex flex-col p-5 ${plan.id === 'plus' ? 'ring-2 ring-pine/30' : ''}`} data-testid={`plan-${plan.id}`}>
+            <article key={plan.id} className={`card pricing-plan flex flex-col p-5 ${plan.id === 'plus' ? 'pricing-plan-featured ring-2 ring-pine/30' : ''}`} data-testid={`plan-${plan.id}`}>
               <h2 className="font-display text-xl font-semibold">{plan.name}</h2>
               <p className="mt-2">
-                <span className="text-3xl font-semibold">{formatInr(plan.priceInr)}</span>
+                <span className="text-3xl font-semibold tabular-nums">{formatInr(plan.priceInr)}</span>
                 {plan.priceInr ? <span className="text-sm text-muted"> / {plan.period}</span> : null}
               </p>
               <p className="mt-1 text-sm text-muted">{plan.blurb}</p>

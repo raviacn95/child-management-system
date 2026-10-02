@@ -8,6 +8,7 @@ import { watchUrl } from './catalog'
 import { asMovieLang, freshLangs, isJustAdded, orderFresh, releasedLabel, type FreshTitle } from './fresh'
 import { LANG_LABEL } from './schema'
 import { useFreshMovies } from './useFreshMovies'
+import type { YearSort } from './yearSort'
 
 const WEB_VISIBLE = 12
 const TV_VISIBLE = 18
@@ -37,12 +38,13 @@ export function FreshReleasesRow() {
   const tv = isTvMode()
   const openWatch = useOpenWatch()
   const [lang, setLang] = useState('all')
+  const [order, setOrder] = useState<YearSort>('newest')
   const [showAll, setShowAll] = useState(false)
 
   const view = useMemo(() => {
     if (!cache) return null
     const now = new Date()
-    const ordered = orderFresh(cache, now)
+    const ordered = orderFresh(cache, now, order)
     const shown = lang === 'all' ? ordered : ordered.filter((title) => title.lang === lang)
     return {
       now,
@@ -50,7 +52,7 @@ export function FreshReleasesRow() {
       langs: freshLangs(cache.feed.titles),
       justAdded: ordered.filter((title) => isJustAdded(cache, title.id, now)).length,
     }
-  }, [cache, lang])
+  }, [cache, lang, order])
 
   if (!cache || !view || cache.feed.titles.length === 0) {
     return status === 'loading' ? (
@@ -93,21 +95,38 @@ export function FreshReleasesRow() {
         </Button>
       </div>
 
-      {view.langs.length > 1 ? (
-        <div className="mb-3 flex flex-wrap gap-2" role="group" aria-label="New films by language">
-          {['all', ...view.langs].map((id) => (
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        {view.langs.length > 1 ? (
+          <div className="flex flex-wrap gap-2" role="group" aria-label="New films by language">
+            {['all', ...view.langs].map((id) => (
+              <Button
+                key={id}
+                variant={lang === id ? 'primary' : 'ghost'}
+                data-tv-focus="1"
+                aria-pressed={lang === id}
+                onClick={() => setLang(id)}
+              >
+                {id === 'all' ? 'All new' : chipLabel(id)}
+              </Button>
+            ))}
+          </div>
+        ) : (
+          <span />
+        )}
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Release order">
+          {(['newest', 'oldest'] as const).map((id) => (
             <Button
               key={id}
-              variant={lang === id ? 'primary' : 'ghost'}
+              variant={order === id ? 'soft' : 'ghost'}
               data-tv-focus="1"
-              aria-pressed={lang === id}
-              onClick={() => setLang(id)}
+              aria-pressed={order === id}
+              onClick={() => setOrder(id)}
             >
-              {id === 'all' ? 'All new' : chipLabel(id)}
+              {id === 'newest' ? 'Newest first' : 'Oldest first'}
             </Button>
           ))}
         </div>
-      ) : null}
+      </div>
 
       <ul className={tv ? 'movie-rail' : 'grid gap-3 sm:grid-cols-2 xl:grid-cols-3'}>
         {visible.map((title) => (

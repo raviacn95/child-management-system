@@ -39,7 +39,7 @@ export function Badge({
     gold: 'bg-gold-soft text-gold',
   }
   return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${map[tone]}`}>
+    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ui-badge ${map[tone]}`}>
       {children}
     </span>
   )
@@ -59,7 +59,7 @@ export function Button({
   }
   return (
     <button
-      className={`inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold transition disabled:opacity-40 ${styles[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold transition disabled:opacity-40 ${styles[variant]} ui-btn ui-btn-${variant} ${className}`}
       {...props}
     >
       {children}
@@ -77,9 +77,9 @@ export function Stat({
   hint?: string
 }) {
   return (
-    <div className="card p-4">
+    <div className="card ui-stat p-4">
       <p className="text-xs font-semibold tracking-wide text-muted uppercase">{label}</p>
-      <p className="font-display mt-1 text-2xl font-semibold text-ink">{value}</p>
+      <p className="font-display mt-1 text-2xl font-semibold text-ink tabular-nums">{value}</p>
       {hint ? <p className="mt-1 text-xs text-muted">{hint}</p> : null}
     </div>
   )
@@ -101,7 +101,7 @@ export function Field({
 }
 
 export const inputClass =
-  'w-full rounded-xl border border-line bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-pine'
+  'w-full rounded-xl border border-line bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-pine ui-input'
 
 export function Empty({ title, body }: { title: string; body: string }) {
   return (
@@ -122,10 +122,10 @@ export function PageHead({
   actions?: ReactNode
 }) {
   return (
-    <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+    <div className="page-head mb-6 flex flex-wrap items-end justify-between gap-3">
       <div>
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-ink">{title}</h1>
-        {subtitle ? <p className="mt-1 text-sm text-muted">{subtitle}</p> : null}
+        <h1 className="font-display text-3xl font-semibold tracking-tight text-balance text-ink">{title}</h1>
+        {subtitle ? <p className="mt-1.5 max-w-3xl text-sm text-pretty text-muted">{subtitle}</p> : null}
       </div>
       {actions}
     </div>

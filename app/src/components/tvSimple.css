@@ -40,7 +40,25 @@ html[data-tv='1'] .tv-strip-item {
   padding: 1.25rem;
 }
 
+.card.tv-card {
+  background-image: linear-gradient(180deg, color-mix(in srgb, var(--color-pine-soft) 60%, transparent), transparent 4.5rem);
+}
+
+/* The card holding remote focus lifts and takes the gold ring colour so it reads from the sofa. */
+html[data-tv='1'] .tv-card:focus-within {
+  border-color: var(--color-gold);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--color-gold) 45%, transparent),
+    0 22px 44px -22px rgb(0 0 0 / 0.45);
+  transform: translateY(-4px);
+}
+
+html[data-tv='1'] main .ui-btn[aria-pressed] {
+  padding-inline: 1.5rem;
+}
+
 .tv-card-title {
+  letter-spacing: -0.01em;
   font-size: 1.2rem;
   font-weight: 700;
   line-height: 1.25;
@@ -73,7 +91,8 @@ html[data-tv='1'] .fresh-card h3 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html[data-tv='1'] [data-tv-focus]:focus {
+  html[data-tv='1'] [data-tv-focus]:focus,
+  html[data-tv='1'] .tv-card:focus-within {
     transform: none;
   }
 }

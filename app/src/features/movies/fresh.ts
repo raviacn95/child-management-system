@@ -69,7 +69,8 @@ export function isJustAdded(cache: FreshCache, id: string, now: Date) {
   return Boolean(at) && now.getTime() - Date.parse(at) <= JUST_ADDED_MS
 }
 
-export function orderFresh(cache: FreshCache, now: Date): FreshTitle[] {
+export function orderFresh(cache: FreshCache, now: Date, direction: 'newest' | 'oldest' = 'newest'): FreshTitle[] {
+  if (direction === 'oldest') return [...cache.feed.titles].sort((a, b) => a.released.localeCompare(b.released))
   const added = (title: FreshTitle) => (isJustAdded(cache, title.id, now) ? 1 : 0)
   return [...cache.feed.titles].sort((a, b) => added(b) - added(a) || b.released.localeCompare(a.released))
 }

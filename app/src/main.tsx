@@ -10,6 +10,7 @@ import { listenForLiveRelease, syncLiveRelease } from './lib/liveRelease'
 import { markBootStart, markBootSuccess, rollbackToPreviousRelease } from './lib/releaseGuard'
 import './theme/tokens.css'
 import './index.css'
+import './theme/polish.css'
 
 async function boot() {
   markBootStart()

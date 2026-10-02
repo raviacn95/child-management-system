@@ -2,13 +2,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ExternalLink, RefreshCw } from 'lucide-react'
 import { Badge, Button, Field, inputClass } from '../../components/ui'
-import { currentYearFirst } from './fresh'
 import { platforms, recommendMovies } from './recommend'
 import { LANG_LABEL, type MovieKind, type MovieLang, type MovieShelfKind } from './schema'
 import { useStore } from '../../store'
 import { isTvMode } from '../../lib/tv'
 import { fireTvIntent } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
+import { applyYearOrder, type YearSort } from './yearSort'
 
 const FAMILY_LANGS: { id: MovieLang | 'all'; label: string }[] = [
   { id: 'all', label: 'All languages' },
@@ -61,7 +61,7 @@ export function MovieShelf({
   const [kind, setKind] = useState<MovieKind | 'all'>('all')
   const [platformId, setPlatformId] = useState('')
   const [decade, setDecade] = useState<number | 'all'>('all')
-  const [sort, setSort] = useState<'mix' | 'critic' | 'youtube' | 'instagram' | 'erotic'>(erotic ? 'erotic' : 'mix')
+  const [sort, setSort] = useState<'mix' | 'critic' | 'youtube' | 'instagram' | 'erotic' | YearSort>(erotic ? 'erotic' : 'mix')
   const [seed, setSeed] = useState(() => `live-${Date.now()}`)
   const [openKey, setOpenKey] = useState<string | null>(null)
   const openWatch = useOpenWatch()
@@ -111,6 +111,7 @@ export function MovieShelf({
     })
   }, [shelf, limit, lang, kind, platformId, decade, sort, seed, erotic, tv, connectedKey])
 
+  const titles = applyYearOrder(result.titles, sort === 'newest' || sort === 'oldest' ? sort : 'ranked')
   const langLabel = lang === 'all' ? null : LANG_LABEL[lang]
   const countLine = langLabel
     ? `Showing ${result.count} original ${langLabel} titles`
@@ -136,7 +137,13 @@ export function MovieShelf({
 
       <div className="mb-4 flex flex-wrap gap-2">
         {langs.map((l) => (
-          <Button key={l.id} data-tv-focus="1" variant={lang === l.id ? 'primary' : 'ghost'} onClick={() => setLang(l.id)}>
+          <Button
+            key={l.id}
+            data-tv-focus="1"
+            variant={lang === l.id ? 'primary' : 'ghost'}
+            aria-pressed={lang === l.id}
+            onClick={() => setLang(l.id)}
+          >
             {l.label}
           </Button>
         ))}
@@ -148,11 +155,11 @@ export function MovieShelf({
       ) : null}
       {erotic ? (
         <div className="mb-4 flex flex-wrap gap-2">
-          <Button variant={decade === 'all' ? 'primary' : 'ghost'} onClick={() => setDecade('all')}>
+          <Button variant={decade === 'all' ? 'primary' : 'ghost'} aria-pressed={decade === 'all'} onClick={() => setDecade('all')}>
             All years
           </Button>
           {DECADES.map((d) => (
-            <Button key={d} variant={decade === d ? 'primary' : 'ghost'} onClick={() => setDecade(d)}>
+            <Button key={d} variant={decade === d ? 'primary' : 'ghost'} aria-pressed={decade === d} onClick={() => setDecade(d)}>
               {d}s
             </Button>
           ))}
@@ -173,6 +180,8 @@ export function MovieShelf({
             <option value="critic">Critics first</option>
             <option value="youtube">YouTube recs</option>
             <option value="instagram">Instagram recs</option>
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
           </select>
         </Field>
         <Field label="Channel">
@@ -191,11 +200,11 @@ export function MovieShelf({
         {countLine} · seed {result.seed}
       </p>
       <ul className={tv ? 'movie-rail' : 'grid gap-3 sm:grid-cols-2 xl:grid-cols-3'}>
-        {currentYearFirst(result.titles).map((t, i) => {
+        {titles.map((t, i) => {
           const key = `${t.id}-${i}`
           const open = openKey === key
           return (
-            <li key={key} className="card p-4" data-testid={erotic ? 'erotic-card' : 'movie-card'}>
+            <li key={key} className="card movie-card p-4" data-testid={erotic ? 'erotic-card' : 'movie-card'}>
               {open ? (
                 <div data-testid="movie-detail">
                   <Button
@@ -226,7 +235,7 @@ export function MovieShelf({
                   >
                     <div className="flex items-start justify-between gap-2">
                       <h3 className="font-semibold">
-                        {i + 1}. {t.title}
+                        <span className="movie-rank">{i + 1}.</span> {t.title}
                       </h3>
                       <Badge tone={erotic ? 'clay' : t.originalLang === 'ml' ? 'pine' : 'sand'}>{t.kind}</Badge>
                     </div>

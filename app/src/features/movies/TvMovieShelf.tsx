@@ -4,11 +4,17 @@ import { Button } from '../../components/ui'
 import { useStore } from '../../store'
 import { fireTvIntent } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
-import { currentYearFirst } from './fresh'
 import { recommendMovies } from './recommend'
 import { LANG_LABEL, type MovieLang, type RankedMovie } from './schema'
+import { applyYearOrder, type YearOrder } from './yearSort'
 
 const TV_LIMIT = 24
+
+const TV_ORDERS: { id: YearOrder; label: string }[] = [
+  { id: 'ranked', label: 'Top picks' },
+  { id: 'newest', label: 'Newest' },
+  { id: 'oldest', label: 'Oldest' },
+]
 
 const TV_LANGS: { id: MovieLang | 'all'; label: string }[] = [
   { id: 'all', label: 'All languages' },
@@ -28,6 +34,7 @@ export function TvMovieShelf() {
   const { state } = useStore()
   const openWatch = useOpenWatch()
   const [lang, setLang] = useState<MovieLang | 'all'>('all')
+  const [order, setOrder] = useState<YearOrder>('ranked')
   const [seed, setSeed] = useState(() => `tv-${Date.now()}`)
   const connectedKey = (state.ottAccounts ?? [])
     .filter((account) => account.userId === state.currentUserId && account.connected)
@@ -46,8 +53,8 @@ export function TvMovieShelf() {
       tv: true,
       connectedPlatformIds: ids,
     })
-    return { titles: currentYearFirst(result.titles), connected: ids }
-  }, [lang, seed, connectedKey])
+    return { titles: applyYearOrder(result.titles, order), connected: ids }
+  }, [lang, order, seed, connectedKey])
 
   return (
     <section className="tv-shelf" data-testid="tv-movie-shelf" aria-labelledby="tv-shelf-heading">
@@ -67,6 +74,19 @@ export function TvMovieShelf() {
             variant={lang === item.id ? 'primary' : 'ghost'}
             aria-pressed={lang === item.id}
             onClick={() => setLang(item.id)}
+          >
+            {item.label}
+          </Button>
+        ))}
+      </div>
+      <div className="mb-5 flex flex-wrap gap-3" role="group" aria-label="Order">
+        {TV_ORDERS.map((item) => (
+          <Button
+            key={item.id}
+            data-tv-focus="1"
+            variant={order === item.id ? 'soft' : 'ghost'}
+            aria-pressed={order === item.id}
+            onClick={() => setOrder(item.id)}
           >
             {item.label}
           </Button>

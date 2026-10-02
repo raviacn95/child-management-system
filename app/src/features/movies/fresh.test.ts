@@ -87,6 +87,11 @@ describe('orderFresh', () => {
     const cache = mergeFreshFeed(mergeFreshFeed(null, feed(['wd-Q1', 'wd-Q2']), NOW), feed(['wd-Q1', 'wd-Q2', 'wd-Q3']), NOW)
     expect(orderFresh(cache, NOW).map((t) => t.id)).toEqual(['wd-Q3', 'wd-Q2', 'wd-Q1'])
   })
+
+  it('lists the earliest releases first when asked for oldest', () => {
+    const cache = mergeFreshFeed(mergeFreshFeed(null, feed(['wd-Q1', 'wd-Q2']), NOW), feed(['wd-Q1', 'wd-Q2', 'wd-Q3']), NOW)
+    expect(orderFresh(cache, NOW, 'oldest').map((t) => t.id)).toEqual(['wd-Q1', 'wd-Q2', 'wd-Q3'])
+  })
 })
 
 describe('freshLangs', () => {

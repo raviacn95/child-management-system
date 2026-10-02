@@ -49,8 +49,8 @@ describe('freshToCatalogTitles', () => {
       shelf: 'family',
       adult: false,
     })
-    expect(out[1].why).toContain('JioHotstar')
-    expect(out[1].why).toContain('Rent on Apple TV')
+    expect(out[1].why).toBe('New in 2026, released 2026-02-01.')
+    expect(out[1].why).not.toMatch(/JioHotstar|Apple TV|Netflix|Rent on|In India/i)
   })
 
   it('leaves out films with no channel, an unknown channel or an unknown language', () => {

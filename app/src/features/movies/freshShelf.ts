@@ -31,14 +31,8 @@ export function freshToCatalogTitles(feed: FreshFeed | null | undefined): MovieT
     .sort((a, b) => b.released.localeCompare(a.released))
     .flatMap((fresh) => {
       const lang = asMovieLang(fresh.lang)
-      const channels = sortedProviders(fresh).flatMap((provider) => {
-        const platform = platforms.find((p) => p.id === provider.platformId)
-        return platform ? [{ ...provider, name: platform.name }] : []
-      })
+      const channels = sortedProviders(fresh).filter((provider) => platforms.some((p) => p.id === provider.platformId))
       if (!lang || !channels.length || staticKeys.has(catalogKey(fresh.title, fresh.year))) return []
-      const where = channels
-        .map((c) => (c.kind === 'rent' ? `Rent on ${c.name}` : c.kind === 'buy' ? `Buy on ${c.name}` : c.name))
-        .join(', ')
       const parsed = titleSchema.safeParse({
         id: fresh.id,
         title: fresh.title,
@@ -49,7 +43,7 @@ export function freshToCatalogTitles(feed: FreshFeed | null | undefined): MovieT
         genres: [],
         platformIds: channels.map((c) => c.platformId),
         scores: NO_SCORES,
-        why: `New in ${fresh.year}, released ${fresh.released}. In India: ${where}.`,
+        why: `New in ${fresh.year}, released ${fresh.released}.`,
         adult: false,
         shelf: 'family',
       })

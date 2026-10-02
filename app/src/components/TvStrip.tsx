@@ -1,11 +1,14 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { prefetchRoute } from '../app/prefetch'
+import { tvFocusRoot } from '../features/cast/remoteKeys'
 import { TV_NAV } from '../lib/tvNav'
 import { moveTvFocus, steerKey } from '../lib/tvSteer'
 import { canSee } from '../lib/rbac'
 import type { Role } from '../types'
 import './tvSimple.css'
+
+const CastReceiver = lazy(() => import('../features/cast/CastReceiver'))
 
 export function TvStrip({ role }: { role: Role }) {
   const location = useLocation()
@@ -18,7 +21,7 @@ export function TvStrip({ role }: { role: Role }) {
       const tag = (event.target as HTMLElement | null)?.tagName
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
       event.preventDefault()
-      moveTvFocus(dir)
+      moveTvFocus(dir, tvFocusRoot())
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -31,20 +34,33 @@ export function TvStrip({ role }: { role: Role }) {
   }, [location.pathname])
 
   return (
-    <nav className="tv-strip" data-testid="tv-strip" aria-label="Living room">
-      {items.map((item) => (
+    <>
+      <nav className="tv-strip" data-testid="tv-strip" aria-label="Living room">
+        {items.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            data-tv-focus="1"
+            data-testid={`tv-strip-${item.key}`}
+            onFocus={() => prefetchRoute(item.to)}
+            className={({ isActive }) => `tv-strip-item${isActive ? ' tv-strip-item-active' : ''}`}
+          >
+            {item.key === 'hub' ? 'Home' : item.key === 'tv' ? 'TV tonight' : label(item.key)}
+          </NavLink>
+        ))}
         <NavLink
-          key={item.to}
-          to={item.to}
+          to="/tv-link"
           data-tv-focus="1"
-          data-testid={`tv-strip-${item.key}`}
-          onFocus={() => prefetchRoute(item.to)}
+          data-testid="tv-strip-link-phone"
           className={({ isActive }) => `tv-strip-item${isActive ? ' tv-strip-item-active' : ''}`}
         >
-          {item.key === 'hub' ? 'Home' : item.key === 'tv' ? 'TV tonight' : label(item.key)}
+          Link phone
         </NavLink>
-      ))}
-    </nav>
+      </nav>
+      <Suspense fallback={null}>
+        <CastReceiver />
+      </Suspense>
+    </>
   )
 }
 

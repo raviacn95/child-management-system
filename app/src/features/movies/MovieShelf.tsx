@@ -6,6 +6,7 @@ import { platforms, recommendMovies } from './recommend'
 import { LANG_LABEL, type MovieKind, type MovieLang, type MovieShelfKind } from './schema'
 import { useStore } from '../../store'
 import { isTvMode } from '../../lib/tv'
+import { PlayOnTv } from '../cast/PlayOnTv'
 import { fireTvIntent } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
 import { applyYearOrder, type YearSort } from './yearSort'
@@ -273,6 +274,7 @@ export function MovieShelf({
                     </p>
                   </button>
                   <div className="mt-3 flex flex-wrap gap-1.5" data-testid={erotic ? 'erotic-watch' : 'movie-watch'}>
+                    <PlayOnTv title={t.title} year={t.year} lang={t.originalLang} links={t.watchLinks} />
                     {t.watchLinks.map((w) => {
                       const href = tv ? fireTvIntent(w.platformId, t.title, t.year, t.originalLang) : w.url
                       return (

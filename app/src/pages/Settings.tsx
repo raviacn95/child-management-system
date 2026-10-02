@@ -17,6 +17,7 @@ import { useTheme } from '../theme/ThemeProvider'
 import { useSourceUpdate } from '../features/install/useSourceUpdate'
 import { AffiliateSettings } from '../features/shopping/AffiliateSettings'
 import { RevenueSettings } from '../features/revenue/RevenueSettings'
+import { CastSettings } from '../features/cast/CastSettings'
 
 export function SettingsPage() {
   const { t, i18n } = useTranslation()
@@ -66,6 +67,7 @@ export function SettingsPage() {
 
       <AffiliateSettings />
       <RevenueSettings />
+      <CastSettings />
 
       <div className="mb-6 grid gap-4 md:grid-cols-3">
         <div className="card p-5 md:col-span-3">

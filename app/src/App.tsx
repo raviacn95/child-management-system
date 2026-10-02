@@ -47,6 +47,9 @@ const Shop = lazy(() => import('./pages/Shop').then((m) => ({ default: m.Shop })
 const TransportPage = lazy(() => import('./pages/Transport').then((m) => ({ default: m.TransportPage })))
 const StaffPage = lazy(() => import('./pages/Staff').then((m) => ({ default: m.StaffPage })))
 const Workers = lazy(() => import('./pages/Workers').then((m) => ({ default: m.Workers })))
+const LinkTvPage = lazy(() => import('./pages/LinkTv').then((m) => ({ default: m.LinkTvPage })))
+const RemotePage = lazy(() => import('./pages/Remote').then((m) => ({ default: m.RemotePage })))
+const TvLinkPage = lazy(() => import('./pages/TvLink').then((m) => ({ default: m.TvLinkPage })))
 
 function Guard({ children }: { children: ReactNode }) {
   const { state } = useStore()
@@ -79,6 +82,8 @@ function AppRoutes() {
         <Route path="/get-app" element={<GetApp />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/return" element={<ReturnPage />} />
+        <Route path="/link" element={<LinkTvPage />} />
+        <Route path="/remote" element={<RemotePage />} />
         <Route
           element={
             <Guard>
@@ -113,6 +118,7 @@ function AppRoutes() {
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/tv-link" element={<TvLinkPage />} />
         </Route>
         <Route path="*" element={<Navigate to={homePath()} replace />} />
       </Routes>

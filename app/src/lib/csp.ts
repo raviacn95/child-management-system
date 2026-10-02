@@ -5,7 +5,7 @@ export const PRODUCTION_CSP = [
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
   "img-src 'self' data: https:",
-  "connect-src 'self'",
+  "connect-src 'self' https://ntfy.sh wss://ntfy.sh",
   "frame-src 'self' https:",
   "object-src 'none'",
   "base-uri 'self'",

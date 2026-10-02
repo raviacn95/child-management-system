@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { RefreshCw, Sparkles } from 'lucide-react'
 import { Badge, Button } from '../../components/ui'
 import { isTvMode } from '../../lib/tv'
+import { PlayOnTv } from '../cast/PlayOnTv'
 import { fireTvIntent, officialWatchUrl } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
 import { platforms } from './catalog'
@@ -202,6 +203,13 @@ export function FreshReleasesRow() {
                 </p>
               ) : null}
               <div className="mt-3 flex flex-wrap gap-2">
+                <PlayOnTv
+                  title={title.title}
+                  year={title.year}
+                  lang={title.lang}
+                  watchIds={title.watchIds}
+                  links={channels.map((channel) => ({ platformId: channel.platformId, platformName: channel.name }))}
+                />
                 <Button
                   variant="ghost"
                   data-tv-focus="1"

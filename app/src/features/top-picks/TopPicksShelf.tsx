@@ -4,6 +4,7 @@ import { Badge, Button } from '../../components/ui'
 import { isTvMode } from '../../lib/tv'
 import { useStore } from '../../store'
 import { useTheme } from '../../theme/ThemeProvider'
+import { PlayOnTv } from '../cast/PlayOnTv'
 import { fireTvIntent } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
 import { hubRowTitle, recommendTopPicks } from './feed'
@@ -85,6 +86,7 @@ export function TopPicksShelf() {
                     </div>
                   </button>
                   <div className="mt-3 flex flex-wrap gap-1.5" data-testid="top-pick-watch">
+                    <PlayOnTv title={pick.title} year={pick.year} lang={pick.originalLang} links={pick.watchLinks} />
                     {pick.watchLinks.map((link) => {
                       const href = tv ? fireTvIntent(link.platformId, pick.title, pick.year, pick.originalLang) : link.url
                       return (

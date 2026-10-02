@@ -9,6 +9,8 @@ import { isTvMode } from '../../lib/tv'
 import { fireTvIntent } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
 import { applyYearOrder, type YearSort } from './yearSort'
+import { freshToCatalogTitles, withFreshTitles } from './freshShelf'
+import { useFreshMovies } from './useFreshMovies'
 
 const FAMILY_LANGS: { id: MovieLang | 'all'; label: string }[] = [
   { id: 'all', label: 'All languages' },
@@ -39,6 +41,7 @@ const EROTIC_LANGS: { id: MovieLang | 'all'; label: string }[] = [
 ]
 
 const DECADES = [1960, 1970, 1980, 1990, 2000, 2010, 2020] as const
+const FRESH_ON_SHELF = 30
 
 export function MovieShelf({
   compact = false,
@@ -61,6 +64,7 @@ export function MovieShelf({
     .sort()
     .join(',')
   const preferAdFree = state.preferAdFree !== false
+  const { cache: freshCache } = useFreshMovies(!erotic)
   const limit = erotic ? 150 : 100
   const langs = erotic ? EROTIC_LANGS : FAMILY_LANGS
   const [lang, setLang] = useState<MovieLang | 'all'>('all')
@@ -119,11 +123,28 @@ export function MovieShelf({
     })
   }, [shelf, limit, lang, kind, platformId, decade, sort, seed, erotic, tv, connectedKey, adFreeKey, preferAdFree])
 
-  const titles = applyYearOrder(result.titles, sort === 'newest' || sort === 'oldest' ? sort : 'ranked')
+  const shelfTitles = useMemo(() => {
+    if (erotic) return result.titles
+    return withFreshTitles(result.titles, freshToCatalogTitles(freshCache?.feed), {
+      limit,
+      maxFresh: FRESH_ON_SHELF,
+      lang: lang === 'all' ? undefined : lang,
+      kind: kind === 'all' ? undefined : kind,
+      platformId: platformId || undefined,
+      region: state.countryCode,
+      links: {
+        tv,
+        connectedIds: connectedKey ? connectedKey.split(',') : [],
+        adFreeIds: adFreeKey ? adFreeKey.split(',') : [],
+        preferAdFree,
+      },
+    })
+  }, [result, freshCache, erotic, limit, lang, kind, platformId, state.countryCode, tv, connectedKey, adFreeKey, preferAdFree])
+  const titles = applyYearOrder(shelfTitles, sort === 'newest' || sort === 'oldest' ? sort : 'ranked')
   const langLabel = lang === 'all' ? null : LANG_LABEL[lang]
   const countLine = langLabel
-    ? `Showing ${result.count} original ${langLabel} titles`
-    : `Showing ${result.count} titles`
+    ? `Showing ${titles.length} original ${langLabel} titles`
+    : `Showing ${titles.length} titles`
 
   return (
     <section className={compact ? '' : 'mt-10'} data-testid={erotic ? 'erotic-shelf' : 'movie-shelf'}>

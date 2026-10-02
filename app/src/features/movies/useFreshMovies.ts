@@ -22,7 +22,7 @@ async function fetchFeed() {
 }
 
 /** This year's releases, re-checked every 10 minutes and whenever the screen comes back into view. */
-export function useFreshMovies() {
+export function useFreshMovies(enabled = true) {
   const [cache, setCache] = useState<FreshCache | null>(() => loadFreshCache())
   const [status, setStatus] = useState<FreshStatus>('idle')
   const cacheRef = useRef(cache)
@@ -54,6 +54,7 @@ export function useFreshMovies() {
   }, [])
 
   useEffect(() => {
+    if (!enabled) return
     void refresh()
     const timer = window.setInterval(() => void refresh(), FRESH_POLL_MS)
     const onWake = () => {
@@ -71,7 +72,7 @@ export function useFreshMovies() {
       window.removeEventListener('focus', onWake)
       window.removeEventListener('online', onWake)
     }
-  }, [refresh])
+  }, [enabled, refresh])
 
-  return { cache, status, refresh }
+  return { cache: enabled ? cache : null, status, refresh }
 }

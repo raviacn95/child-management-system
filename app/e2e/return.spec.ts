@@ -16,7 +16,6 @@ test('official app launch keeps Willow and the return banner restores movies', a
   const pagesBefore = page.context().pages().length
   await page
     .getByTestId('movie-watch')
-    .first()
     .getByRole('link', { name: /Amazon Prime Video|Google Play Movies|SonyLIV|JustWatch|Netflix/ })
     .first()
     .click()

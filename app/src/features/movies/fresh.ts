@@ -8,6 +8,14 @@ const JUST_ADDED_MS = 48 * 60 * 60 * 1000
 const RECENT_RELEASE_MS = 7 * 24 * 60 * 60 * 1000
 const DAY_MS = 24 * 60 * 60 * 1000
 const LANG_ORDER = ['ml', 'hi', 'ta', 'te', 'kn', 'bn', 'mr', 'pa', 'en', 'ko', 'ja', 'fr', 'es', 'it', 'de', 'pt']
+const IN_CINEMAS_MS = 56 * DAY_MS
+
+export const PROVIDER_KINDS = ['stream', 'free', 'ads', 'rent', 'buy'] as const
+const freshProviderSchema = z.object({
+  platformId: z.string().regex(/^[a-z0-9]{2,24}$/),
+  kind: z.enum(PROVIDER_KINDS),
+})
+export type FreshProvider = z.infer<typeof freshProviderSchema>
 
 const freshTitleSchema = z.object({
   id: z.string().regex(/^wd-Q\d+$/),
@@ -22,6 +30,19 @@ const freshTitleSchema = z.object({
   lang: z.string().max(3).default(''),
   india: z.boolean().default(false),
   sitelinks: z.number().nonnegative().default(0),
+  providers: z
+    .array(z.unknown())
+    .max(40)
+    .catch([])
+    .default([])
+    .transform((list) =>
+      list.flatMap((item) => {
+        const parsed = freshProviderSchema.safeParse(item)
+        return parsed.success ? [parsed.data] : []
+      }),
+    ),
+  providersSource: z.enum(['tmdb', 'wikidata']).optional().catch(undefined),
+  tmdbId: z.number().int().positive().optional().catch(undefined),
 })
 
 const freshFeedShape = z.object({
@@ -78,6 +99,28 @@ export function orderFresh(cache: FreshCache, now: Date, direction: 'newest' | '
 export function freshLangs(titles: readonly FreshTitle[]): string[] {
   const present = new Set(titles.map((title) => title.lang).filter(Boolean))
   return LANG_ORDER.filter((lang) => present.has(lang))
+}
+
+/** One button per channel, best way to watch first: streaming, free, with ads, rent, buy. */
+export function sortedProviders(title: FreshTitle): FreshProvider[] {
+  const rank = (provider: FreshProvider) => PROVIDER_KINDS.indexOf(provider.kind)
+  const best = new Map<string, FreshProvider>()
+  for (const provider of title.providers) {
+    const prev = best.get(provider.platformId)
+    if (!prev || rank(provider) < rank(prev)) best.set(provider.platformId, provider)
+  }
+  return [...best.values()].sort((a, b) => rank(a) - rank(b))
+}
+
+/** Honest status for a film with no listed channel; null when one is listed. */
+export function availabilityNote(title: FreshTitle, now: Date) {
+  if (title.providers.length) return null
+  if (now.getTime() - Date.parse(`${title.released}T00:00:00Z`) <= IN_CINEMAS_MS) return 'In cinemas'
+  return title.providersSource === 'tmdb' ? 'Not streaming in India yet' : 'Streaming channel not confirmed yet'
+}
+
+export function hasTmdbData(feed: FreshFeed) {
+  return feed.titles.some((title) => title.providersSource === 'tmdb')
 }
 
 export function asMovieLang(lang: string): MovieLang | undefined {

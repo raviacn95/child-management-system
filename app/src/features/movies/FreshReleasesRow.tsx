@@ -4,15 +4,51 @@ import { Badge, Button } from '../../components/ui'
 import { isTvMode } from '../../lib/tv'
 import { fireTvIntent } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
-import { watchUrl } from './catalog'
-import { asMovieLang, freshLangs, isJustAdded, orderFresh, releasedLabel, type FreshTitle } from './fresh'
+import { platforms, watchUrl } from './catalog'
+import {
+  asMovieLang,
+  availabilityNote,
+  freshLangs,
+  hasTmdbData,
+  isJustAdded,
+  orderFresh,
+  releasedLabel,
+  sortedProviders,
+  type FreshProvider,
+  type FreshTitle,
+} from './fresh'
 import { LANG_LABEL } from './schema'
 import { useFreshMovies } from './useFreshMovies'
 import type { YearSort } from './yearSort'
 
 const WEB_VISIBLE = 12
 const TV_VISIBLE = 18
+const WEB_CHANNELS = 8
+const TV_CHANNELS = 4
 const MINUTE_MS = 60 * 1000
+
+function channelLabel(kind: FreshProvider['kind'], name: string) {
+  if (kind === 'free') return `${name} · Free`
+  if (kind === 'ads') return `${name} · Free with ads`
+  if (kind === 'rent') return `Rent · ${name}`
+  if (kind === 'buy') return `Buy · ${name}`
+  return name
+}
+
+function channelAction(kind: FreshProvider['kind']) {
+  if (kind === 'rent') return 'Rent'
+  if (kind === 'buy') return 'Buy'
+  return 'Watch'
+}
+
+function channelsFor(title: FreshTitle, max: number) {
+  return sortedProviders(title)
+    .flatMap((provider) => {
+      const platform = platforms.find((p) => p.id === provider.platformId)
+      return platform ? [{ ...provider, name: platform.name }] : []
+    })
+    .slice(0, max)
+}
 
 function langLabel(title: FreshTitle) {
   const lang = asMovieLang(title.lang)
@@ -129,37 +165,62 @@ export function FreshReleasesRow() {
       </div>
 
       <ul className={tv ? 'movie-rail' : 'grid gap-3 sm:grid-cols-2 xl:grid-cols-3'}>
-        {visible.map((title) => (
-          <li key={title.id} className="card fresh-card p-4" data-testid="fresh-card">
-            <div className="flex items-start justify-between gap-2">
-              <h3 className="font-semibold">{title.title}</h3>
-              {isJustAdded(cache, title.id, view.now) ? <Badge tone="gold">Just added</Badge> : null}
-            </div>
-            <p className="mt-1 text-xs text-muted">
-              {releasedLabel(title.released, view.now)} · {langLabel(title)}
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <Button
-                variant="soft"
-                data-tv-focus="1"
-                data-testid="fresh-where"
-                aria-label={`Where to watch ${title.title}`}
-                onClick={() => open('justwatch', 'JustWatch', title)}
-              >
-                Where to watch
-              </Button>
-              <Button
-                variant="ghost"
-                data-tv-focus="1"
-                data-testid="fresh-trailer"
-                aria-label={`Trailer for ${title.title}`}
-                onClick={() => open('youtube', 'YouTube', title, `${title.title} official trailer`)}
-              >
-                Trailer
-              </Button>
-            </div>
-          </li>
-        ))}
+        {visible.map((title) => {
+          const channels = channelsFor(title, tv ? TV_CHANNELS : WEB_CHANNELS)
+          const note = channels.length ? null : availabilityNote(title, view.now)
+          return (
+            <li key={title.id} className="card fresh-card p-4" data-testid="fresh-card">
+              <div className="flex items-start justify-between gap-2">
+                <h3 className="font-semibold">{title.title}</h3>
+                {isJustAdded(cache, title.id, view.now) ? <Badge tone="gold">Just added</Badge> : null}
+              </div>
+              <p className="mt-1 text-xs text-muted">
+                {releasedLabel(title.released, view.now)} · {langLabel(title)}
+              </p>
+              {channels.length ? (
+                <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label={`Channels for ${title.title}`}>
+                  {channels.map((channel) => (
+                    <Button
+                      key={channel.platformId}
+                      variant={channel.kind === 'rent' || channel.kind === 'buy' ? 'ghost' : 'soft'}
+                      data-tv-focus="1"
+                      data-testid="fresh-channel"
+                      data-provider-kind={channel.kind}
+                      aria-label={`${channelAction(channel.kind)} ${title.title} on ${channel.name}`}
+                      onClick={() => open(channel.platformId, channel.name, title)}
+                    >
+                      {channelLabel(channel.kind, channel.name)}
+                    </Button>
+                  ))}
+                </div>
+              ) : note ? (
+                <p className="mt-3 text-sm font-semibold text-gold" data-testid="fresh-availability">
+                  {note}
+                </p>
+              ) : null}
+              <div className="mt-3 flex flex-wrap gap-2">
+                <Button
+                  variant="ghost"
+                  data-tv-focus="1"
+                  data-testid="fresh-where"
+                  aria-label={`Where to watch ${title.title}`}
+                  onClick={() => open('justwatch', 'JustWatch', title)}
+                >
+                  Where to watch
+                </Button>
+                <Button
+                  variant="ghost"
+                  data-tv-focus="1"
+                  data-testid="fresh-trailer"
+                  aria-label={`Trailer for ${title.title}`}
+                  onClick={() => open('youtube', 'YouTube', title, `${title.title} official trailer`)}
+                >
+                  Trailer
+                </Button>
+              </div>
+            </li>
+          )
+        })}
       </ul>
 
       {view.shown.length > limit ? (
@@ -167,7 +228,13 @@ export function FreshReleasesRow() {
           {showAll ? 'Show fewer' : `Show all ${view.shown.length} new films`}
         </Button>
       ) : null}
-      <p className="mt-2 text-xs text-muted">Release list from Wikidata (CC0). Buttons open official storefront search.</p>
+      <p className="mt-2 text-xs text-muted" data-testid="fresh-credit">
+        Release list from Wikidata (CC0).
+        {hasTmdbData(cache.feed)
+          ? ' Streaming data: JustWatch via TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB.'
+          : ''}{' '}
+        Channels change often — buttons open the official storefront search.
+      </p>
     </section>
   )
 }

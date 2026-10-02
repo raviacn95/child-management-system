@@ -4,12 +4,15 @@ import { Button } from '../../components/ui'
 import { useStore } from '../../store'
 import { fireTvIntent } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
+import { freshToCatalogTitles, withFreshTitles } from './freshShelf'
 import { recommendMovies } from './recommend'
 import { LANG_LABEL, type MovieLang } from './schema'
 import { bestLink } from './tvWatch'
+import { useFreshMovies } from './useFreshMovies'
 import { applyYearOrder, type YearOrder } from './yearSort'
 
 const TV_LIMIT = 24
+const TV_FRESH = 8
 
 const TV_ORDERS: { id: YearOrder; label: string }[] = [
   { id: 'ranked', label: 'Top picks' },
@@ -44,6 +47,7 @@ export function TvMovieShelf() {
     .sort()
     .join(',')
   const preferAdFree = state.preferAdFree !== false
+  const { cache: freshCache } = useFreshMovies()
 
   const { titles, connected, adFreeIds } = useMemo(() => {
     const ids = connectedKey ? connectedKey.split(',') : []
@@ -59,8 +63,15 @@ export function TvMovieShelf() {
       adFreePlatformIds: adFree,
       preferAdFree,
     })
-    return { titles: applyYearOrder(result.titles, order), connected: ids, adFreeIds: adFree }
-  }, [lang, order, seed, connectedKey, adFreeKey, preferAdFree])
+    const withFresh = withFreshTitles(result.titles, freshToCatalogTitles(freshCache?.feed), {
+      limit: TV_LIMIT,
+      maxFresh: TV_FRESH,
+      lang: lang === 'all' ? undefined : lang,
+      region: state.countryCode,
+      links: { tv: true, connectedIds: ids, adFreeIds: adFree, preferAdFree },
+    })
+    return { titles: applyYearOrder(withFresh, order), connected: ids, adFreeIds: adFree }
+  }, [lang, order, seed, connectedKey, adFreeKey, preferAdFree, freshCache, state.countryCode])
 
   return (
     <section className="tv-shelf" data-testid="tv-movie-shelf" aria-labelledby="tv-shelf-heading">

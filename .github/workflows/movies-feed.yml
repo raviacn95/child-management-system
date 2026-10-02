@@ -28,7 +28,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Fetch this year's releases from Wikidata
+      - name: Fetch this year's releases from Wikidata and channels from TMDB
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         run: |
           cp site/movies-fresh.json /tmp/previous.json 2>/dev/null || echo '{"titles":[]}' > /tmp/previous.json
           cp /tmp/previous.json /tmp/fresh.json

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-02T11:07:14.948Z",
+  "generatedAt": "2026-10-02T11:54:56.644Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -168,7 +168,10 @@
       "sitelinks": 32,
       "providers": [],
       "tmdbId": 1108427,
-      "providersSource": "tmdb"
+      "providersSource": "tmdb",
+      "watchIds": {
+        "appletv": "movie/umc.cmc.6iwbg2fxayjdbyw9trffmbyo8"
+      }
     },
     {
       "id": "wd-Q131547207",
@@ -261,7 +264,10 @@
         }
       ],
       "tmdbId": 1275779,
-      "providersSource": "tmdb"
+      "providersSource": "tmdb",
+      "watchIds": {
+        "appletv": "movie/umc.cmc.1i56xrk36gdembwgd2qfll4qi"
+      }
     },
     {
       "id": "wd-Q133573186",
@@ -346,7 +352,10 @@
         }
       ],
       "tmdbId": 1228710,
-      "providersSource": "tmdb"
+      "providersSource": "tmdb",
+      "watchIds": {
+        "appletv": "movie/umc.cmc.31m58rsmdk9f165zgt7vawkxk"
+      }
     },
     {
       "id": "wd-Q139665854",
@@ -417,7 +426,10 @@
         }
       ],
       "tmdbId": 931285,
-      "providersSource": "tmdb"
+      "providersSource": "tmdb",
+      "watchIds": {
+        "appletv": "movie/umc.cmc.1450gnnq7lxnn3lg6dyp362a9"
+      }
     },
     {
       "id": "wd-Q134611972",
@@ -435,7 +447,10 @@
         }
       ],
       "tmdbId": 1314481,
-      "providersSource": "tmdb"
+      "providersSource": "tmdb",
+      "watchIds": {
+        "appletv": "movie/umc.cmc.35h034299h2gv3oha94mx52uz"
+      }
     },
     {
       "id": "wd-Q137570236",
@@ -447,18 +462,6 @@
       "india": true,
       "sitelinks": 2,
       "providers": []
-    },
-    {
-      "id": "wd-Q139501127",
-      "qid": "Q139501127",
-      "title": "Bibi Payra",
-      "year": 2026,
-      "released": "2026-04-10",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1431260
     },
     {
       "id": "wd-Q116677364",
@@ -484,7 +487,10 @@
         }
       ],
       "tmdbId": 936075,
-      "providersSource": "tmdb"
+      "providersSource": "tmdb",
+      "watchIds": {
+        "appletv": "movie/umc.cmc.655k6wal020m8folvcy526dff"
+      }
     },
     {
       "id": "wd-Q138948459",
@@ -535,19 +541,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q138497144",
-      "qid": "Q138497144",
-      "title": "Korpur",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1493079
-    },
-    {
       "id": "wd-Q134435699",
       "qid": "Q134435699",
       "title": "Aadu 3",
@@ -585,7 +578,10 @@
         }
       ],
       "tmdbId": 687163,
-      "providersSource": "tmdb"
+      "providersSource": "tmdb",
+      "watchIds": {
+        "appletv": "movie/umc.cmc.7jxdlxvz304lj3iwhtrhbe8fv"
+      }
     },
     {
       "id": "wd-Q124355470",
@@ -603,7 +599,10 @@
         }
       ],
       "tmdbId": 875828,
-      "providersSource": "tmdb"
+      "providersSource": "tmdb",
+      "watchIds": {
+        "netflix": "81319485"
+      }
     },
     {
       "id": "wd-Q138381591",
@@ -621,24 +620,6 @@
         }
       ],
       "tmdbId": 1625582,
-      "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q138510258",
-      "qid": "Q138510258",
-      "title": "Masthishka Maranam",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "tmdbId": 1444032,
       "providersSource": "tmdb"
     },
     {
@@ -665,7 +646,10 @@
       "sitelinks": 22,
       "providers": [],
       "tmdbId": 467905,
-      "providersSource": "tmdb"
+      "providersSource": "tmdb",
+      "watchIds": {
+        "appletv": "movie/umc.cmc.6ulh30ntityj9dv8x4x2r4a5y"
+      }
     },
     {
       "id": "wd-Q137783833",
@@ -701,19 +685,10 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1265609
-    },
-    {
-      "id": "wd-Q137874897",
-      "qid": "Q137874897",
-      "title": "OCD",
-      "year": 2026,
-      "released": "2026-02-06",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1062545
+      "tmdbId": 1265609,
+      "watchIds": {
+        "netflix": "81768525"
+      }
     },
     {
       "id": "wd-Q131763755",
@@ -749,7 +724,10 @@
         }
       ],
       "tmdbId": 1171145,
-      "providersSource": "tmdb"
+      "providersSource": "tmdb",
+      "watchIds": {
+        "appletv": "movie/umc.cmc.5ehogrykfkoxztizi9hjo9pd8"
+      }
     },
     {
       "id": "wd-Q134083296",
@@ -796,6 +774,19 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137802630",
+      "qid": "Q137802630",
+      "title": "Hok Kolorob",
+      "year": 2026,
+      "released": "2026-01-23",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1536901,
+      "providersSource": "tmdb"
+    },
+    {
       "id": "wd-Q124566659",
       "qid": "Q124566659",
       "title": "Mercy",
@@ -836,6 +827,24 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137799437",
+      "qid": "Q137799437",
+      "title": "Happy Patel: Khatarnak Jasoos",
+      "year": 2026,
+      "released": "2026-01-16",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "tmdbId": 1282440,
+      "providersSource": "tmdb"
+    },
+    {
       "id": "wd-Q131189949",
       "qid": "Q131189949",
       "title": "The Rip",
@@ -851,7 +860,46 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1306368
+      "tmdbId": 1306368,
+      "watchIds": {
+        "netflix": "81915745"
+      }
+    },
+    {
+      "id": "wd-Q137713080",
+      "qid": "Q137713080",
+      "title": "Anaganaga Oka Raju",
+      "year": 2026,
+      "released": "2026-01-14",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "tmdbId": 1407432,
+      "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137718780",
+      "qid": "Q137718780",
+      "title": "Bhartha Mahasayulaku Wignyapthi",
+      "year": 2026,
+      "released": "2026-01-13",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "tmdbId": 1442975,
+      "providersSource": "tmdb"
     },
     {
       "id": "wd-Q135647565",
@@ -929,7 +977,10 @@
         }
       ],
       "tmdbId": 1515729,
-      "providersSource": "tmdb"
+      "providersSource": "tmdb",
+      "watchIds": {
+        "netflix": "82188226"
+      }
     },
     {
       "id": "wd-Q116701310",

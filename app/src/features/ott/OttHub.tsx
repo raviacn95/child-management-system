@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Badge, Button, Field, inputClass, PageHead } from '../../components/ui'
 import { platforms } from '../movies/catalog'
 import { watchUrl } from '../movies/catalog'
+import { CustomAppsCard } from './CustomAppsCard'
 import { fireTvIntent } from './fireTv'
 import { useOpenWatch } from './WatchPane'
 import { useStore } from '../../store'
@@ -131,6 +132,7 @@ export function OttHub() {
           {selectedHint ? <p className="mt-1.5 text-xs text-muted">{selectedHint}</p> : null}
         </div>
       </section>
+      <CustomAppsCard />
       <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         {mine.length === 0 ? (
           <li className="card p-5 text-sm text-muted">No OTTs saved yet. Add Prime, Netflix, SonyLIV, Hotstar…</li>

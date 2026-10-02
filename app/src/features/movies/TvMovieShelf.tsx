@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Play, RefreshCw } from 'lucide-react'
 import { Button } from '../../components/ui'
 import { useStore } from '../../store'
+import { CustomAppLinks } from '../ott/CustomAppLinks'
 import { fireTvIntent, tvOpensLabel } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
 import { freshToCatalogTitles, withFreshTitles } from './freshShelf'
@@ -151,6 +152,7 @@ export function TvMovieShelf() {
                 >
                   Trailer
                 </Button>
+                <CustomAppLinks title={title.title} year={title.year} look="tv" />
               </div>
               {link ? (
                 <p className="mt-2 text-sm text-muted" data-testid="tv-movie-opens">

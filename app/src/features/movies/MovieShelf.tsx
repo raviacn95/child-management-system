@@ -7,6 +7,7 @@ import { LANG_LABEL, type MovieKind, type MovieLang, type MovieShelfKind } from 
 import { useStore } from '../../store'
 import { isTvMode } from '../../lib/tv'
 import { PlayOnTv } from '../cast/PlayOnTv'
+import { CustomAppLinks } from '../ott/CustomAppLinks'
 import { fireTvIntent } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
 import { applyYearOrder, type YearSort } from './yearSort'
@@ -302,6 +303,7 @@ export function MovieShelf({
                         </a>
                       )
                     })}
+                    <CustomAppLinks title={t.title} year={t.year} shelf={erotic ? 'erotic' : 'family'} />
                   </div>
                 </div>
               )}

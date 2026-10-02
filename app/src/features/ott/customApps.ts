@@ -28,7 +28,7 @@ const draftSchema = z.object({
     .string()
     .trim()
     .optional()
-    .transform((pkg) => pkg || undefined)
+    .transform((pkg) => pkg?.replace(/\.apk$/i, '') || undefined)
     .refine((pkg) => pkg === undefined || ANDROID_PACKAGE.test(pkg), 'Android package looks like com.example.app'),
   scope: z.enum(['all', 'erotic']),
 })
@@ -53,8 +53,8 @@ function hostOf(searchUrl: string) {
   }
 }
 
-function isBlocked(app: { name: string; searchUrl: string }) {
-  return mentionsBlockedPlatform(app.name) || mentionsBlockedPlatform(hostOf(app.searchUrl))
+function isBlocked(app: { name: string; searchUrl: string; androidPackage?: string }) {
+  return mentionsBlockedPlatform(app.name) || mentionsBlockedPlatform(hostOf(app.searchUrl)) || mentionsBlockedPlatform(app.androidPackage ?? '')
 }
 
 function newId() {
@@ -73,10 +73,10 @@ export function customSearchUrl(app: CustomApp, title: string, year?: number) {
   return app.searchUrl.replaceAll(TITLE_SLOT, encodeURIComponent(query))
 }
 
-/** On TV with a saved package, Android opens the app itself and falls back to the web search. */
-export function customAppLink(app: CustomApp, title: string, year: number | undefined, tv: boolean) {
+/** With a saved package, the phone and the TV open that app. The website search is the backup. */
+export function customAppLink(app: CustomApp, title: string, year?: number) {
   const web = customSearchUrl(app, title, year)
-  if (!tv || !app.androidPackage) return web
+  if (!app.androidPackage) return web
   const u = new URL(web)
   return `intent://${u.host}${u.pathname}${u.search}#Intent;scheme=https;package=${app.androidPackage};S.browser_fallback_url=${encodeURIComponent(web)};end`
 }

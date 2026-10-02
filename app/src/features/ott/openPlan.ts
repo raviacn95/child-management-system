@@ -108,6 +108,6 @@ export function openPlan({ url, ...env }: OpenEnv & { url: string }): OpenPlan |
   if (!intent && !web) return null
   if (!env.tv && web && canEmbed(web, env.origin)) return { mode: 'embed', href: web }
   if (env.native) return nativePlan(url, intent, web, env)
-  if (intent && env.tv && ANDROID_UA.test(env.ua)) return { mode: 'navigate', href: url }
+  if (intent && ANDROID_UA.test(env.ua)) return { mode: 'navigate', href: url }
   return web ? { mode: 'new-tab', href: web } : null
 }

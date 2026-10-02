@@ -94,6 +94,17 @@ describe('openPlan', () => {
     })
   })
 
+  it('lets a phone browser hand a packaged intent to the installed app', () => {
+    expect(openPlan({ url: NETFLIX_INTENT, tv: false, native: false, ua: PHONE_UA })).toEqual({
+      mode: 'navigate',
+      href: NETFLIX_INTENT,
+    })
+    expect(openPlan({ url: NETFLIX_INTENT, tv: false, native: true, ua: `${PHONE_UA} ${NATIVE_INTENT_MARKER}` })).toEqual({
+      mode: 'navigate',
+      href: NETFLIX_INTENT,
+    })
+  })
+
   it('wraps a phone link in a package-free intent so Android picks the official app or browser', () => {
     const plan = openPlan({ url: NETFLIX, tv: false, native: true, ua: `${PHONE_UA} ${NATIVE_INTENT_MARKER}` })
     expect(plan?.mode).toBe('navigate')

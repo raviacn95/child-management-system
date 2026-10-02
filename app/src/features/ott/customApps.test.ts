@@ -58,7 +58,10 @@ describe('parseCustomApp', () => {
 
   it('checks the optional Android package name', () => {
     expect(parseCustomApp({ ...draft, androidPackage: 'com.example.films' }).ok).toBe(true)
+    const apk = parseCustomApp({ ...draft, androidPackage: 'com.example.films.apk' })
+    expect(apk.ok && apk.app.androidPackage).toBe('com.example.films')
     expect(parseCustomApp({ ...draft, androidPackage: '' }).ok).toBe(true)
+    expect(parseCustomApp({ ...draft, androidPackage: 'com.ullu.app' })).toEqual({ ok: false, error: 'This app is blocked in India' })
     expect(parseCustomApp({ ...draft, androidPackage: 'not a package' }).ok).toBe(false)
     expect(parseCustomApp({ ...draft, androidPackage: 'com.x;S.evil=1' }).ok).toBe(false)
   })
@@ -77,18 +80,16 @@ describe('links', () => {
     expect(customSearchUrl(app, 'Tom & Jerry')).toBe('https://films.example.com/search?q=Tom%20%26%20Jerry')
   })
 
-  it('opens the web search on phones and TVs without a package', () => {
-    expect(customAppLink(app, 'Drishyam', 2013, false)).toBe(customSearchUrl(app, 'Drishyam', 2013))
-    expect(customAppLink(app, 'Drishyam', 2013, true)).toBe(customSearchUrl(app, 'Drishyam', 2013))
+  it('opens the web search when no package is saved', () => {
+    expect(customAppLink(app, 'Drishyam', 2013)).toBe(customSearchUrl(app, 'Drishyam', 2013))
   })
 
-  it('asks Android to open the app on TV when a package is saved', () => {
+  it('asks the phone and the TV to open the saved app, with the website as backup', () => {
     const withPkg = { ...app, androidPackage: 'com.example.films' }
     const web = customSearchUrl(withPkg, 'Drishyam', 2013)
-    expect(customAppLink(withPkg, 'Drishyam', 2013, true)).toBe(
+    expect(customAppLink(withPkg, 'Drishyam', 2013)).toBe(
       `intent://films.example.com/search?q=Drishyam%202013#Intent;scheme=https;package=com.example.films;S.browser_fallback_url=${encodeURIComponent(web)};end`,
     )
-    expect(customAppLink(withPkg, 'Drishyam', 2013, false)).toBe(web)
   })
 })
 

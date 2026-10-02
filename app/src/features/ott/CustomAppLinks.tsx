@@ -1,6 +1,5 @@
 import { ExternalLink, Play } from 'lucide-react'
 import { Button } from '../../components/ui'
-import { isTvMode } from '../../lib/tv'
 import { appsForShelf, customAppLink, useCustomApps } from './customApps'
 import { useOpenWatch } from './WatchPane'
 
@@ -17,11 +16,10 @@ export function CustomAppLinks({
 }) {
   const apps = appsForShelf(useCustomApps(), shelf)
   const openWatch = useOpenWatch()
-  const tv = isTvMode()
   if (apps.length === 0) return null
 
   return apps.map((app) => {
-    const href = customAppLink(app, title, year, tv)
+    const href = customAppLink(app, title, year)
     const open = () => openWatch({ url: href, title, platformName: app.name })
     if (look === 'tv') {
       return (

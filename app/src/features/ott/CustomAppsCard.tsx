@@ -1,6 +1,5 @@
 import { useState, type FormEvent } from 'react'
 import { Badge, Button, Field, inputClass } from '../../components/ui'
-import { isTvMode } from '../../lib/tv'
 import { addCustomApp, customAppLink, removeCustomApp, useCustomApps, type CustomAppScope } from './customApps'
 import { useOpenWatch } from './WatchPane'
 
@@ -13,7 +12,6 @@ const SAMPLE_TITLE = 'Drishyam'
 export function CustomAppsCard() {
   const apps = useCustomApps()
   const openWatch = useOpenWatch()
-  const tv = isTvMode()
   const [name, setName] = useState('')
   const [searchUrl, setSearchUrl] = useState('')
   const [androidPackage, setAndroidPackage] = useState('')
@@ -39,7 +37,8 @@ export function CustomAppsCard() {
       <h2 className="font-display text-xl">Add your own app</h2>
       <p className="mt-1 text-sm text-muted">
         Search any movie on the app&apos;s website, copy the address, and put <code>{'{q}'}</code> where the movie name was.
-        Willow adds a button for it next to Netflix and Prime. Saved on this device only.
+        Add the Android package name too: on your phone and Fire TV, Willow opens that installed app. The website is the
+        backup. Saved on this device only.
       </p>
       <form className="mt-4 grid gap-3 md:grid-cols-3" onSubmit={submit}>
         <Field label="App name">
@@ -54,11 +53,14 @@ export function CustomAppsCard() {
             onChange={(e) => setSearchUrl(e.target.value)}
           />
         </Field>
-        <Field label="Android TV package (optional)">
+        <Field label="Android package name">
           <input
             className={inputClass}
             value={androidPackage}
             placeholder="com.example.app"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
             onChange={(e) => setAndroidPackage(e.target.value)}
           />
         </Field>
@@ -96,12 +98,13 @@ export function CustomAppsCard() {
                   {app.name} {app.scope === 'erotic' ? <Badge tone="clay">Erotic only</Badge> : null}
                 </p>
                 <p className="truncate text-xs text-muted">{app.searchUrl}</p>
+                {app.androidPackage ? <p className="truncate text-xs text-muted">{app.androidPackage}</p> : null}
               </div>
               <div className="flex gap-2">
                 <Button
                   variant="ghost"
                   data-tv-focus="1"
-                  onClick={() => openWatch({ url: customAppLink(app, SAMPLE_TITLE, undefined, tv), title: SAMPLE_TITLE, platformName: app.name })}
+                  onClick={() => openWatch({ url: customAppLink(app, SAMPLE_TITLE), title: SAMPLE_TITLE, platformName: app.name })}
                 >
                   Test
                 </Button>

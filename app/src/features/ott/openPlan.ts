@@ -14,7 +14,7 @@ export type OpenEnv = {
   origin?: string
 }
 
-export type ParsedIntent = { pkg?: string; target: string; fallback?: string; launch?: boolean }
+export type ParsedIntent = { pkg?: string; target: string; fallback?: string; launch?: boolean; appName?: string }
 
 const FIRE_TV_UA = /\bAFT[A-Z0-9]/
 const ANDROID_UA = /Android/i
@@ -29,6 +29,17 @@ function httpsOnly(href: string | undefined) {
   }
 }
 
+function safeAppName(value: string) {
+  let decoded = ''
+  try {
+    decoded = decodeURIComponent(value).trim()
+  } catch {
+    return undefined
+  }
+  if (decoded.length === 0 || decoded.length > 30 || !/^[\p{L}\p{N} .&+'’-]+$/u.test(decoded)) return undefined
+  return decoded
+}
+
 export function parseIntent(href: string): ParsedIntent | null {
   if (!href.startsWith('intent:')) return null
   const at = href.indexOf('#Intent;')
@@ -39,6 +50,7 @@ export function parseIntent(href: string): ParsedIntent | null {
   let fallback: string | undefined
   let main = false
   let launcher = false
+  let appName: string | undefined
   for (const part of href.slice(at + '#Intent;'.length).split(';')) {
     if (part === 'end') break
     const eq = part.indexOf('=')
@@ -49,6 +61,7 @@ export function parseIntent(href: string): ParsedIntent | null {
     else if (key === 'package') pkg = /^[A-Za-z][\w.]*$/.test(value) ? value : undefined
     else if (key === 'action' && value === 'android.intent.action.MAIN') main = true
     else if (key === 'category' && value === 'android.intent.category.LAUNCHER') launcher = true
+    else if (key === 'S.app_name') appName = safeAppName(value)
     else if (key === 'S.browser_fallback_url') {
       try {
         fallback = decodeURIComponent(value)
@@ -57,7 +70,9 @@ export function parseIntent(href: string): ParsedIntent | null {
       }
     }
   }
-  if (main && launcher && pkg && !scheme) return { pkg, target: '', launch: true }
+  if (main && launcher && !scheme && (pkg || appName)) {
+    return { ...(pkg ? { pkg } : {}), target: '', launch: true, ...(appName ? { appName } : {}) }
+  }
   if (!scheme || !head.startsWith('//')) return null
   return { pkg, target: `${scheme}:${head}`, fallback }
 }
@@ -108,7 +123,7 @@ function nativePlan(url: string, intent: ParsedIntent | null, web: string, env: 
 export function openPlan({ url, ...env }: OpenEnv & { url: string }): OpenPlan | null {
   if (!url) return null
   const intent = parseIntent(url)
-  if (intent?.launch && intent.pkg) {
+  if (intent?.launch && (intent.pkg || intent.appName)) {
     if (env.native || ANDROID_UA.test(env.ua)) return { mode: 'navigate', href: url }
     return null
   }

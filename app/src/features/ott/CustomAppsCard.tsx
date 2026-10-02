@@ -14,13 +14,12 @@ export function CustomAppsCard() {
   const openWatch = useOpenWatch()
   const [name, setName] = useState('')
   const [searchUrl, setSearchUrl] = useState('')
-  const [androidPackage, setAndroidPackage] = useState('')
   const [scope, setScope] = useState<CustomAppScope>('all')
   const [error, setError] = useState('')
 
   const submit = (e: FormEvent) => {
     e.preventDefault()
-    const result = addCustomApp({ name, searchUrl, androidPackage, scope })
+    const result = addCustomApp({ name, searchUrl, scope })
     if (!result.ok) {
       setError(result.error)
       return
@@ -28,7 +27,6 @@ export function CustomAppsCard() {
     setError('')
     setName('')
     setSearchUrl('')
-    setAndroidPackage('')
     setScope('all')
   }
 
@@ -36,10 +34,10 @@ export function CustomAppsCard() {
     <section className="card mb-6 p-5" data-testid="custom-apps">
       <h2 className="font-display text-xl">Add your own app</h2>
       <p className="mt-1 text-sm text-muted">
-        Add the Android package name and the button opens that app. A website is optional: search any movie there, copy
-        the address, and put <code>{'{q}'}</code> where the movie name was. Saved on this device only.
+        Type the app name as it appears on your phone. Leave the website blank and the button opens that app. Or add a
+        search link with <code>{'{q}'}</code> where the movie name was. Saved on this device only.
       </p>
-      <form className="mt-4 grid gap-3 md:grid-cols-3" onSubmit={submit}>
+      <form className="mt-4 grid gap-3 md:grid-cols-2" onSubmit={submit}>
         <Field label="App name">
           <input className={inputClass} value={name} maxLength={30} onChange={(e) => setName(e.target.value)} />
         </Field>
@@ -52,18 +50,7 @@ export function CustomAppsCard() {
             onChange={(e) => setSearchUrl(e.target.value)}
           />
         </Field>
-        <Field label="Android package name">
-          <input
-            className={inputClass}
-            value={androidPackage}
-            placeholder="com.example.app"
-            autoCapitalize="none"
-            autoCorrect="off"
-            spellCheck={false}
-            onChange={(e) => setAndroidPackage(e.target.value)}
-          />
-        </Field>
-        <div className="flex flex-wrap items-center gap-2 md:col-span-3">
+        <div className="flex flex-wrap items-center gap-2 md:col-span-2">
           <div className="flex flex-wrap gap-2" role="group" aria-label="Show on">
             {SCOPES.map((s) => (
               <Button
@@ -83,7 +70,7 @@ export function CustomAppsCard() {
           </Button>
         </div>
         {error ? (
-          <p role="alert" className="text-sm text-clay md:col-span-3">
+          <p role="alert" className="text-sm text-clay md:col-span-2">
             {error}
           </p>
         ) : null}

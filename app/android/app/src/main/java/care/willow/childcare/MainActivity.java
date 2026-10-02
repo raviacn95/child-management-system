@@ -2,12 +2,17 @@ package care.willow.childcare;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Toast;
+import java.util.List;
+import java.util.Locale;
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.BridgeWebViewClient;
 import java.net.URISyntaxException;
@@ -99,6 +104,13 @@ public class MainActivity extends BridgeActivity {
         intent.setSelector(null);
         String pkg = intent.getPackage();
         String fallback = intent.getStringExtra("browser_fallback_url");
+        String appName = cleanAppName(intent.getStringExtra("app_name"));
+        if (pkg == null) {
+            Intent named = launcherNamed(appName);
+            if (named != null) tryStart(named);
+            else if (appName != null) Toast.makeText(this, "No installed app named " + appName, Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (tryStart(intent)) return;
         // TV apps such as com.netflix.ninja accept title links without declaring BROWSABLE.
         if (pkg != null && Intent.ACTION_VIEW.equals(intent.getAction()) && intent.getData() != null
@@ -119,6 +131,34 @@ public class MainActivity extends BridgeActivity {
         boolean fireOs = "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
         if (tryStart(new Intent(Intent.ACTION_VIEW, fireOs ? amazon : play))) return;
         tryStart(new Intent(Intent.ACTION_VIEW, fireOs ? play : amazon));
+    }
+
+    private String cleanAppName(String wanted) {
+        if (wanted == null) return null;
+        String trimmed = wanted.trim();
+        if (trimmed.isEmpty() || trimmed.length() > 30 || trimmed.indexOf('\n') >= 0 || trimmed.indexOf('\r') >= 0) return null;
+        return trimmed;
+    }
+
+    /** Opens the launcher activity whose label matches the name the user typed. */
+    private Intent launcherNamed(String wanted) {
+        if (wanted == null) return null;
+        String needle = wanted.toLowerCase(Locale.ROOT);
+        PackageManager pm = getPackageManager();
+        String[] categories = { Intent.CATEGORY_LEANBACK_LAUNCHER, Intent.CATEGORY_LAUNCHER };
+        for (String category : categories) {
+            List<ResolveInfo> apps = pm.queryIntentActivities(new Intent(Intent.ACTION_MAIN).addCategory(category), 0);
+            for (ResolveInfo info : apps) {
+                if (info.activityInfo == null) continue;
+                CharSequence label = info.loadLabel(pm);
+                if (label == null || !label.toString().trim().toLowerCase(Locale.ROOT).equals(needle)) continue;
+                Intent launch = new Intent(Intent.ACTION_MAIN).addCategory(category);
+                launch.setClassName(info.activityInfo.packageName, info.activityInfo.name);
+                launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                return launch;
+            }
+        }
+        return null;
     }
 
     private static Intent launcherFor(String pkg, String category) {

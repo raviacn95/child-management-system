@@ -49,6 +49,8 @@ describe('parseIntent', () => {
   it('reads an intent that only launches an installed app', () => {
     const launch = 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.example.films;end'
     expect(parseIntent(launch)).toEqual({ pkg: 'com.example.films', target: '', launch: true })
+    const named = 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.app_name=My%20Films;end'
+    expect(parseIntent(named)).toEqual({ target: '', launch: true, appName: 'My Films' })
   })
 })
 
@@ -101,7 +103,7 @@ describe('openPlan', () => {
   })
 
   it('opens an installed app on the phone when there is no website', () => {
-    const launch = 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.example.films;end'
+    const launch = 'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.app_name=Netflix;end'
     expect(openPlan({ url: launch, tv: false, native: false, ua: PHONE_UA })).toEqual({ mode: 'navigate', href: launch })
     expect(openPlan({ url: launch, tv: false, native: true, ua: `${PHONE_UA} ${NATIVE_INTENT_MARKER}` })).toEqual({
       mode: 'navigate',

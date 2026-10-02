@@ -71,21 +71,15 @@ describe('parseCustomApp', () => {
     expect(parseCustomApp({ ...draft, name: 'x'.repeat(31) }).ok).toBe(false)
   })
 
-  it('opens the app itself when the website is left blank', () => {
-    const result = parseCustomApp({ name: 'My Films', searchUrl: ' ', androidPackage: 'com.example.films', scope: 'all' })
+  it('opens the named app when the website is left blank', () => {
+    const result = parseCustomApp({ name: 'My Films', searchUrl: ' ', scope: 'all' })
     expect(result.ok).toBe(true)
     if (!result.ok) return
     expect(result.app.searchUrl).toBeUndefined()
+    expect(result.app.androidPackage).toBeUndefined()
     expect(customAppLink(result.app, 'Drishyam', 2013)).toBe(
-      'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.example.films;end',
+      'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.app_name=My%20Films;end',
     )
-  })
-
-  it('needs a website or a package', () => {
-    expect(parseCustomApp({ name: 'My Films', searchUrl: '', scope: 'all' })).toEqual({
-      ok: false,
-      error: 'Add a website link or an Android package name',
-    })
   })
 })
 

@@ -40,11 +40,6 @@ const draftSchema = z
       .refine((pkg) => pkg === undefined || ANDROID_PACKAGE.test(pkg), 'Android package looks like com.example.app'),
     scope: z.enum(['all', 'erotic']),
   })
-  .superRefine((app, ctx) => {
-    if (!app.searchUrl && !app.androidPackage) {
-      ctx.addIssue({ code: 'custom', message: 'Add a website link or an Android package name', path: ['searchUrl'] })
-    }
-  })
 
 const appSchema = draftSchema.extend({ id: z.string().min(1).max(40) })
 
@@ -87,10 +82,12 @@ export function customSearchUrl(app: CustomApp, title: string, year?: number) {
   return app.searchUrl.replaceAll(TITLE_SLOT, encodeURIComponent(query))
 }
 
-/** A package with no website just opens the app. With a website, the phone and TV open that app at the search. */
+/** No website: the phone opens the installed app with this name. A website searches that title. */
 export function customAppLink(app: CustomApp, title: string, year?: number) {
-  if (!app.searchUrl && app.androidPackage) {
-    return `intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=${app.androidPackage};end`
+  if (!app.searchUrl) {
+    const named = `S.app_name=${encodeURIComponent(app.name)}`
+    const pkg = app.androidPackage ? `package=${app.androidPackage};` : ''
+    return `intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;${pkg}${named};end`
   }
   const web = customSearchUrl(app, title, year)
   if (!app.androidPackage) return web

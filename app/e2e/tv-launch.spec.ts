@@ -56,11 +56,14 @@ test.describe('Fire TV app shell', () => {
 test.describe('Fire TV shell installed before intent support', () => {
   test.use({ userAgent: FIRE_TV_UA, viewport: { width: 1280, height: 720 } })
 
-  test('a movie opens the official app page in the Fire TV Appstore', async ({ page }) => {
+  test('a movie opens its Netflix title link or the official app page in the Fire TV Appstore', async ({ page }) => {
+    await page.context().route(/^https:\/\/(www\.)?netflix\.com\//, (route) => route.abort())
     await openTvMovies(page, { shell: true })
     const navigations = await watchNavigations(page)
     await page.getByTestId('tv-movie-watch').first().click()
-    await expect.poll(() => navigations.find((url) => url.startsWith('amzn://apps/android?p='))).toBeTruthy()
+    await expect
+      .poll(() => navigations.find((url) => url.startsWith('amzn://apps/android?p=') || /^https:\/\/netflix\.com\/title\/\d+$/.test(url)))
+      .toBeTruthy()
     await expect(page.getByTestId('watch-desk')).toHaveCount(0)
     await expect(page.getByTestId('movies-page')).toBeVisible()
   })

@@ -127,6 +127,48 @@ describe('openPlan', () => {
     )
   })
 
+  describe('Netflix title links', () => {
+    const TITLE = 'https://www.netflix.com/title/81497215'
+    const TITLE_INTENT = `intent://www.netflix.com/title/81497215#Intent;scheme=https;package=com.netflix.ninja;S.browser_fallback_url=${encodeURIComponent(TITLE)};S.source=30;end`
+
+    it('reads the title intent with its extra and keeps the title page as fallback', () => {
+      expect(parseIntent(TITLE_INTENT)).toEqual({ pkg: 'com.netflix.ninja', target: TITLE, fallback: TITLE })
+    })
+
+    it('launches the title intent as-is in the new Fire TV shell', () => {
+      expect(openPlan({ url: TITLE_INTENT, tv: true, native: true, ua: `${FIRE_TV_UA} ${NATIVE_INTENT_MARKER}` })).toEqual({
+        mode: 'navigate',
+        href: TITLE_INTENT,
+      })
+    })
+
+    it('hands the verified bare-domain title link to Android in older TV shells instead of the Appstore page', () => {
+      expect(openPlan({ url: TITLE_INTENT, tv: true, native: true, ua: FIRE_TV_UA })).toEqual({
+        mode: 'navigate',
+        href: 'https://netflix.com/title/81497215',
+      })
+      expect(openPlan({ url: TITLE_INTENT, tv: true, native: true, ua: ANDROID_TV_UA })?.href).toBe(
+        'https://netflix.com/title/81497215',
+      )
+    })
+
+    it('opens the title page in a new tab on desktop and through App Links in old phone shells', () => {
+      expect(openPlan({ url: TITLE_INTENT, tv: true, native: false, ua: DESKTOP_UA })).toEqual({ mode: 'new-tab', href: TITLE })
+      expect(openPlan({ url: TITLE, tv: false, native: false, ua: DESKTOP_UA })).toEqual({ mode: 'new-tab', href: TITLE })
+      expect(openPlan({ url: TITLE, tv: false, native: true, ua: PHONE_UA })).toEqual({
+        mode: 'navigate',
+        href: 'https://netflix.com/title/81497215',
+      })
+    })
+
+    it('keeps the Appstore page for older TV shells when the link is not a verified title link', () => {
+      const prime = `intent://app.primevideo.com/detail?gti=amzn1.dv.gti.1744bdf3-351d-4617-a849-43bc7f9e8f41#Intent;scheme=https;package=com.amazon.avod.thirdpartyclient;S.browser_fallback_url=${encodeURIComponent('https://www.primevideo.com/detail/amzn1.dv.gti.1744bdf3-351d-4617-a849-43bc7f9e8f41')};end`
+      expect(openPlan({ url: prime, tv: true, native: true, ua: FIRE_TV_UA })?.href).toBe(
+        'amzn://apps/android?p=com.amazon.avod.thirdpartyclient',
+      )
+    })
+  })
+
   it('refuses non-https links and empty input', () => {
     expect(openPlan({ url: '', tv: false, native: false, ua: DESKTOP_UA })).toBeNull()
     expect(openPlan({ url: 'javascript:alert(1)', tv: false, native: false, ua: DESKTOP_UA })).toBeNull()

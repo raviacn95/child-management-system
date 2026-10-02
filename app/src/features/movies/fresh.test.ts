@@ -59,6 +59,19 @@ describe('parseFreshFeed', () => {
     expect(parsed?.titles[0]?.providersSource).toBeUndefined()
   })
 
+  it('reads official watch IDs when present, drops malformed ones, and stays valid without them', () => {
+    const raw = feed(['wd-Q1', 'wd-Q2', 'wd-Q3'])
+    const parsed = parseFreshFeed({
+      ...raw,
+      titles: [
+        { ...raw.titles[0], watchIds: { netflix: '81497215', prime: 'B01MSPI8JN', evil: 'javascript:1' } },
+        { ...raw.titles[1], watchIds: 'junk' },
+        raw.titles[2],
+      ],
+    })
+    expect(parsed?.titles.map((t) => t.watchIds)).toEqual([{ netflix: '81497215' }, {}, undefined])
+  })
+
   it('keeps valid providers and drops malformed ones', () => {
     const raw = feed(['wd-Q1'])
     const parsed = parseFreshFeed({

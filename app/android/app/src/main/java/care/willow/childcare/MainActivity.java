@@ -100,6 +100,12 @@ public class MainActivity extends BridgeActivity {
         String pkg = intent.getPackage();
         String fallback = intent.getStringExtra("browser_fallback_url");
         if (tryStart(intent)) return;
+        // TV apps such as com.netflix.ninja accept title links without declaring BROWSABLE.
+        if (pkg != null && Intent.ACTION_VIEW.equals(intent.getAction()) && intent.getData() != null
+                && "https".equals(intent.getData().getScheme())) {
+            intent.removeCategory(Intent.CATEGORY_BROWSABLE);
+            if (tryStart(intent)) return;
+        }
         if (pkg != null && (tryStart(launcherFor(pkg, Intent.CATEGORY_LEANBACK_LAUNCHER)) || tryStart(launcherFor(pkg, Intent.CATEGORY_LAUNCHER)))) {
             return;
         }

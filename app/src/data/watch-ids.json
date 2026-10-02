@@ -1,0 +1,2186 @@
+{
+  "schemaVersion": 1,
+  "source": "Wikidata (CC0) — official streaming IDs matched on exact title and year",
+  "titles": {
+    "12th-fail": {
+      "title": "12th Fail",
+      "year": 2023,
+      "qid": "Q122921105",
+      "ids": {
+        "netflix": "81761732",
+        "hotstar": "1260161273",
+        "appletv": "movie/umc.cmc.22akjgefslahezpwegmoevdap"
+      }
+    },
+    "2018-ml": {
+      "title": "2018",
+      "year": 2023,
+      "qid": "Q115878911",
+      "ids": {
+        "appletv": "movie/umc.cmc.7bztg3m40jlgv5868u5wh4ujz"
+      }
+    },
+    "3-idiots": {
+      "title": "3 Idiots",
+      "year": 2009,
+      "qid": "Q229633",
+      "ids": {
+        "netflix": "70121522",
+        "appletv": "movie/umc.cmc.7c2srvr0qpnqcxrdf23lhl9gi"
+      }
+    },
+    "aavesham": {
+      "title": "Aavesham",
+      "year": 2024,
+      "qid": "Q125372922",
+      "ids": {
+        "prime": "amzn1.dv.gti.1744bdf3-351d-4617-a849-43bc7f9e8f41",
+        "hotstar": "1271320425",
+        "appletv": "movie/umc.cmc.6f80deky77jn442czeqpsn5av"
+      }
+    },
+    "andhadhun": {
+      "title": "Andhadhun",
+      "year": 2018,
+      "qid": "Q44612834",
+      "ids": {
+        "netflix": "81039381",
+        "appletv": "movie/umc.cmc.4j7zw48zujb15dd0ljho1kan8"
+      }
+    },
+    "aparajito": {
+      "title": "Aparajito",
+      "year": 1956,
+      "qid": "Q622382",
+      "ids": {
+        "netflix": "60031657",
+        "prime": "amzn1.dv.gti.1ab9ca45-9827-16cb-8c2a-dcb142f067a5",
+        "appletv": "movie/umc.cmc.199q3ynfmprxlp5s6vpngok6y"
+      }
+    },
+    "apur-sansar": {
+      "title": "Apur Sansar",
+      "year": 1959,
+      "qid": "Q622376",
+      "ids": {
+        "netflix": "60031663",
+        "appletv": "movie/umc.cmc.2qfpq5vcat2hrcp8dre975mxb"
+      }
+    },
+    "article-15": {
+      "title": "Article 15",
+      "year": 2019,
+      "qid": "Q62073524",
+      "ids": {
+        "netflix": "81154455"
+      }
+    },
+    "aspirants": {
+      "title": "Aspirants",
+      "year": 2021,
+      "qid": "Q106765478",
+      "ids": {
+        "appletv": "show/umc.cmc.25etx5uens26m939b9ggjyhkv"
+      }
+    },
+    "asuran": {
+      "title": "Asuran",
+      "year": 2019,
+      "qid": "Q60738331",
+      "ids": {
+        "appletv": "movie/umc.cmc.2641hvbkydttnxn6jb7kqkeo3"
+      }
+    },
+    "autograph-bn": {
+      "title": "Autograph",
+      "year": 2010,
+      "qid": "Q4826295",
+      "ids": {
+        "appletv": "movie/umc.cmc.756peggte7wdvw8jruu7h3w1e"
+      }
+    },
+    "ayyappanum": {
+      "title": "Ayyappanum Koshiyum",
+      "year": 2020,
+      "qid": "Q85744478",
+      "ids": {
+        "appletv": "movie/umc.cmc.5ck636rnk68hxz3svw5tn9fwy"
+      }
+    },
+    "badhaai-do": {
+      "title": "Badhaai Do",
+      "year": 2022,
+      "qid": "Q105671795",
+      "ids": {
+        "netflix": "81350338"
+      }
+    },
+    "barfi": {
+      "title": "Barfi!",
+      "year": 2012,
+      "qid": "Q2558109",
+      "ids": {
+        "netflix": "70219525"
+      }
+    },
+    "bhaag-milkha": {
+      "title": "Bhaag Milkha Bhaag",
+      "year": 2013,
+      "qid": "Q4900468",
+      "ids": {
+        "hotstar": "1000001354",
+        "appletv": "movie/umc.cmc.i6fb6ctcbk3zuzptzslzoy8r"
+      }
+    },
+    "bheeshma-parvam": {
+      "title": "Bheeshma Parvam",
+      "year": 2022,
+      "qid": "Q105833849",
+      "ids": {
+        "appletv": "movie/umc.cmc.3alboob9g7783mpfyvhr7lr25"
+      }
+    },
+    "black-hi": {
+      "title": "Black",
+      "year": 2005,
+      "qid": "Q515416",
+      "ids": {
+        "netflix": "70031975"
+      }
+    },
+    "chak-de": {
+      "title": "Chak De! India",
+      "year": 2007,
+      "qid": "Q1029548",
+      "ids": {
+        "netflix": "70077853",
+        "appletv": "movie/umc.cmc.61qruvcx5a0u55cecouzwp9ih"
+      }
+    },
+    "charulata-bn": {
+      "title": "Charulata",
+      "year": 1964,
+      "qid": "Q639597",
+      "ids": {
+        "netflix": "70057483",
+        "appletv": "movie/umc.cmc.6em320ttfr9ie6jmcmloqbamu"
+      }
+    },
+    "chefs-table": {
+      "title": "Chef's Table",
+      "year": 2015,
+      "qid": "Q20164367",
+      "ids": {
+        "netflix": "80007945",
+        "appletv": "show/umc.cmc.5qu2de69d927dus3gweyzcul3"
+      }
+    },
+    "chemmeen": {
+      "title": "Chemmeen",
+      "year": 1965,
+      "qid": "Q3595616",
+      "ids": {
+        "netflix": "1184074",
+        "appletv": "movie/umc.cmc.5l9kjkiwb8x8ssdncigbiq737"
+      }
+    },
+    "chhichhore": {
+      "title": "Chhichhore",
+      "year": 2019,
+      "qid": "Q59725641",
+      "ids": {
+        "hotstar": "1260012713",
+        "appletv": "movie/umc.cmc.6r5hwt5y5os9n07qky6iryvfp"
+      }
+    },
+    "court-marathi": {
+      "title": "Court",
+      "year": 2014,
+      "qid": "Q19891224",
+      "ids": {
+        "netflix": "80017218",
+        "appletv": "movie/umc.cmc.4lis5qnm3i8wbfevc2aj65h4p"
+      }
+    },
+    "cu-soon": {
+      "title": "C U Soon",
+      "year": 2020,
+      "qid": "Q98688750",
+      "ids": {
+        "appletv": "movie/umc.cmc.13s32rn5jodv7ixswcknvnpt9"
+      }
+    },
+    "cubicles": {
+      "title": "Cubicles",
+      "year": 2019,
+      "qid": "Q108563910",
+      "ids": {
+        "sonyliv": "1700000817"
+      }
+    },
+    "dangal": {
+      "title": "Dangal",
+      "year": 2016,
+      "qid": "Q20762668",
+      "ids": {
+        "netflix": "80166185"
+      }
+    },
+    "dead-poets": {
+      "title": "Dead Poets Society",
+      "year": 1989,
+      "qid": "Q106316",
+      "ids": {
+        "netflix": "426589",
+        "appletv": "movie/umc.cmc.40eizj37hvedszozcidhgpari"
+      }
+    },
+    "dear-zindagi": {
+      "title": "Dear Zindagi",
+      "year": 2016,
+      "qid": "Q24807410",
+      "ids": {
+        "netflix": "80158042",
+        "appletv": "movie/umc.cmc.g2obarfcdqu0fhvvdeu9imds"
+      }
+    },
+    "drishyam-2": {
+      "title": "Drishyam 2",
+      "year": 2021,
+      "qid": "Q102036246",
+      "ids": {
+        "appletv": "movie/umc.cmc.2k0jmo0pz0yhxjl6qm8osvz9k"
+      }
+    },
+    "er-365-2": {
+      "title": "365 Days: This Day",
+      "year": 2022,
+      "qid": "Q111526671",
+      "ids": {
+        "netflix": "81397576",
+        "appletv": "movie/umc.cmc.43jnha6hd78b6hil1angm4uzq"
+      }
+    },
+    "er-365-3": {
+      "title": "The Next 365 Days",
+      "year": 2022,
+      "qid": "Q112943746",
+      "ids": {
+        "netflix": "81397579",
+        "appletv": "movie/umc.cmc.5k948aukxax3oc0z2p6bld2er"
+      }
+    },
+    "er-365-days": {
+      "title": "365 Days",
+      "year": 2020,
+      "qid": "Q85520182",
+      "ids": {
+        "netflix": "81245964"
+      }
+    },
+    "er-aanum-pennum": {
+      "title": "Aanum Pennum",
+      "year": 2021,
+      "qid": "Q106372021",
+      "ids": {
+        "appletv": "movie/umc.cmc.1lr6w4f2gd200z4911pctncmi"
+      }
+    },
+    "er-aitraaz": {
+      "title": "Aitraaz",
+      "year": 2004,
+      "qid": "Q3413700",
+      "ids": {
+        "netflix": "70021551",
+        "prime": "amzn1.dv.gti.c27a6554-406d-42bc-b1e2-9cc1ddc8a82b"
+      }
+    },
+    "er-american-gigolo": {
+      "title": "American Gigolo",
+      "year": 1980,
+      "qid": "Q692720",
+      "ids": {
+        "netflix": "60000211",
+        "appletv": "movie/umc.cmc.f9ym4xb78euznpokpbgrup92"
+      }
+    },
+    "er-anatomy-hell": {
+      "title": "Anatomy of Hell",
+      "year": 2004,
+      "qid": "Q59531",
+      "ids": {
+        "netflix": "70019235"
+      }
+    },
+    "er-anora": {
+      "title": "Anora",
+      "year": 2024,
+      "qid": "Q123185887",
+      "ids": {
+        "netflix": "81952362",
+        "prime": "amzn1.dv.gti.c3fe4c70-a2f4-4f32-8306-3613baeac4a7",
+        "appletv": "movie/umc.cmc.ka0xf4gk3tckil4x7x14hpcy"
+      }
+    },
+    "er-arjun-reddy": {
+      "title": "Arjun Reddy",
+      "year": 2017,
+      "qid": "Q28419404",
+      "ids": {
+        "hotstar": "1260014808"
+      }
+    },
+    "er-babygirl": {
+      "title": "Babygirl",
+      "year": 2024,
+      "qid": "Q123861757",
+      "ids": {
+        "appletv": "movie/umc.cmc.5d51mnarv52adwnk1mhas3sfp"
+      }
+    },
+    "er-basic-instinct": {
+      "title": "Basic Instinct",
+      "year": 1992,
+      "qid": "Q146673",
+      "ids": {
+        "netflix": "286139",
+        "appletv": "movie/umc.cmc.53cwcq7n4pvb0e0hgffq0fugd"
+      }
+    },
+    "er-belle-de-jour": {
+      "title": "Belle de Jour",
+      "year": 1967,
+      "qid": "Q470375",
+      "ids": {
+        "netflix": "60000631",
+        "appletv": "movie/umc.cmc.13wq703ubvr2enaqcj363sjp6"
+      }
+    },
+    "er-benedetta": {
+      "title": "Benedetta",
+      "year": 2021,
+      "qid": "Q55595776",
+      "ids": {
+        "appletv": "movie/umc.cmc.1554i51i5961w8dcnqho5ls4"
+      }
+    },
+    "er-betty-blue": {
+      "title": "Betty Blue",
+      "year": 1986,
+      "qid": "Q850338",
+      "ids": {
+        "netflix": "60010137",
+        "appletv": "movie/umc.cmc.2ahh9h7xlw98fld4m405btnkb"
+      }
+    },
+    "er-blue-velvet": {
+      "title": "Blue Velvet",
+      "year": 1986,
+      "qid": "Q660950",
+      "ids": {
+        "netflix": "319022",
+        "prime": "amzn1.dv.gti.c9c6e55f-1c10-497b-b72b-abdd5b3eac72",
+        "appletv": "movie/umc.cmc.33lsrdtequl92bh2q4qufz09j"
+      }
+    },
+    "er-body-evidence": {
+      "title": "Body of Evidence",
+      "year": 1993,
+      "qid": "Q890084",
+      "ids": {
+        "netflix": "60030291",
+        "appletv": "movie/umc.cmc.z8627lwlyj0iz0wn0u9cnjpt"
+      }
+    },
+    "er-body-heat": {
+      "title": "Body Heat",
+      "year": 1981,
+      "qid": "Q472096",
+      "ids": {
+        "appletv": "movie/umc.cmc.4zk9qx2h0sq1lgbgbcfu83cid"
+      }
+    },
+    "er-bolero-1984": {
+      "title": "Bolero",
+      "year": 1984,
+      "qid": "Q1754755",
+      "ids": {
+        "netflix": "60035944",
+        "prime": "amzn1.dv.gti.de0f5b0f-6e51-40af-94d5-2f4feb7ed6f3",
+        "appletv": "movie/umc.cmc.3sw1w3z1z2vpbk876hocfduk0"
+      }
+    },
+    "er-boogie-nights": {
+      "title": "Boogie Nights",
+      "year": 1997,
+      "qid": "Q291170",
+      "ids": {
+        "netflix": "1180077",
+        "appletv": "movie/umc.cmc.5pcve0xhxr0jif0v7dzacepim"
+      }
+    },
+    "er-bound-1996": {
+      "title": "Bound",
+      "year": 1996,
+      "qid": "Q864930",
+      "ids": {
+        "netflix": "326674",
+        "prime": "amzn1.dv.gti.13cb00ce-5932-4b5e-84e9-67ec96694108",
+        "appletv": "movie/umc.cmc.14h6ctfrpoaaiu4lbndk1pxcy"
+      }
+    },
+    "er-bridgerton": {
+      "title": "Bridgerton",
+      "year": 2020,
+      "qid": "Q85748936",
+      "ids": {
+        "netflix": "80232398"
+      }
+    },
+    "er-brokeback": {
+      "title": "Brokeback Mountain",
+      "year": 2005,
+      "qid": "Q160618",
+      "ids": {
+        "netflix": "70023965",
+        "appletv": "movie/umc.cmc.rgagpqyoonuqiddm96d66tu2"
+      }
+    },
+    "er-caligula": {
+      "title": "Caligula",
+      "year": 1979,
+      "qid": "Q217685",
+      "ids": {
+        "netflix": "344745"
+      }
+    },
+    "er-call-girl": {
+      "title": "Secret Diary of a Call Girl",
+      "year": 2007,
+      "qid": "Q388389",
+      "ids": {
+        "netflix": "70136150",
+        "appletv": "show/umc.cmc.eazfwf1s745l7i2fgmey9m2b"
+      }
+    },
+    "er-challengers": {
+      "title": "Challengers",
+      "year": 2024,
+      "qid": "Q111458251",
+      "ids": {
+        "appletv": "movie/umc.cmc.53cuz33n4e74ixj8whccj87oc"
+      }
+    },
+    "er-chloe": {
+      "title": "Chloe",
+      "year": 2009,
+      "qid": "Q1075182",
+      "ids": {
+        "netflix": "70124183",
+        "appletv": "movie/umc.cmc.3jslz5a28dtfzoflgo8m9dedj"
+      }
+    },
+    "er-chokher-bali": {
+      "title": "Chokher Bali",
+      "year": 2003,
+      "qid": "Q1637583",
+      "ids": {
+        "netflix": "70019043"
+      }
+    },
+    "er-closer": {
+      "title": "Closer",
+      "year": 2004,
+      "qid": "Q212098",
+      "ids": {
+        "netflix": "70011210",
+        "appletv": "movie/umc.cmc.3211dzgtsemixk6l6ladoysmy"
+      }
+    },
+    "er-color-night": {
+      "title": "Color of Night",
+      "year": 1994,
+      "qid": "Q1111228",
+      "ids": {
+        "netflix": "387875",
+        "appletv": "movie/umc.cmc.5xfjpeo42m9glq701l0eu52a4"
+      }
+    },
+    "er-concubine": {
+      "title": "The Concubine",
+      "year": 2012,
+      "qid": "Q491969",
+      "ids": {
+        "netflix": "80091196"
+      }
+    },
+    "er-crash-1996": {
+      "title": "Crash",
+      "year": 1996,
+      "qid": "Q839133",
+      "ids": {
+        "netflix": "404309"
+      }
+    },
+    "er-curious-yellow": {
+      "title": "I Am Curious (Yellow)",
+      "year": 1967,
+      "qid": "Q2054210",
+      "ids": {
+        "netflix": "60026725"
+      }
+    },
+    "er-damage-1992": {
+      "title": "Damage",
+      "year": 1992,
+      "qid": "Q1542915",
+      "ids": {
+        "netflix": "415356",
+        "appletv": "movie/umc.cmc.20z92q8ocplg83go00o225udu"
+      }
+    },
+    "er-dev-d": {
+      "title": "Dev.D",
+      "year": 2009,
+      "qid": "Q3506295",
+      "ids": {
+        "netflix": "70113305"
+      }
+    },
+    "er-dirty-picture": {
+      "title": "The Dirty Picture",
+      "year": 2011,
+      "qid": "Q3090065",
+      "ids": {
+        "netflix": "70257776"
+      }
+    },
+    "er-don-jon": {
+      "title": "Don Jon",
+      "year": 2013,
+      "qid": "Q499918",
+      "ids": {
+        "netflix": "70267239",
+        "appletv": "movie/umc.cmc.5u8s4m2e5mphhc093a5ft4pro"
+      }
+    },
+    "er-dosar": {
+      "title": "Dosar",
+      "year": 2006,
+      "qid": "Q5299245",
+      "ids": {
+        "prime": "amzn1.dv.gti.0ff368e1-2c08-4712-b590-e65e9a1eef5f",
+        "appletv": "movie/umc.cmc.5igq1e1c87mhq6l44vt6gjbvw"
+      }
+    },
+    "er-dreamers": {
+      "title": "The Dreamers",
+      "year": 2003,
+      "qid": "Q822946",
+      "ids": {
+        "netflix": "60031542",
+        "appletv": "movie/umc.cmc.ywp3v5afq87jfj2wwh6z0l5x"
+      }
+    },
+    "er-emmanuelle": {
+      "title": "Emmanuelle",
+      "year": 1974,
+      "qid": "Q1313289",
+      "ids": {
+        "appletv": "movie/umc.cmc.6r55a8zrswq49544nrgd12xf6"
+      }
+    },
+    "er-eyes-wide-shut": {
+      "title": "Eyes Wide Shut",
+      "year": 1999,
+      "qid": "Q209481",
+      "ids": {
+        "netflix": "5670434",
+        "appletv": "movie/umc.cmc.1irw7dm1va90skxgsout422l9"
+      }
+    },
+    "er-fatal-attraction": {
+      "title": "Fatal Attraction",
+      "year": 1987,
+      "qid": "Q504157",
+      "ids": {
+        "netflix": "60010341",
+        "appletv": "movie/umc.cmc.68aqtsyld8c3nj981pz0cl1n2"
+      }
+    },
+    "er-fellow-travelers": {
+      "title": "Fellow Travelers",
+      "year": 2023,
+      "qid": "Q113110570",
+      "ids": {
+        "appletv": "show/umc.cmc.1rco9v5i6fgz4zm71g3vvr6yt"
+      }
+    },
+    "er-fifty-darker": {
+      "title": "Fifty Shades Darker",
+      "year": 2017,
+      "qid": "Q22662385",
+      "ids": {
+        "netflix": "80131194",
+        "appletv": "movie/umc.cmc.2fz05ph5k9mphoxw9669wbon0"
+      }
+    },
+    "er-fifty-freed": {
+      "title": "Fifty Shades Freed",
+      "year": 2018,
+      "qid": "Q22712210",
+      "ids": {
+        "netflix": "80200957",
+        "prime": "amzn1.dv.gti.01ad04cc-1bb6-49a9-a18f-bc81fd3b7e95",
+        "appletv": "movie/umc.cmc.3fn098wjqdm3kftgijn021i5d"
+      }
+    },
+    "er-fifty-grey": {
+      "title": "Fifty Shades of Grey",
+      "year": 2015,
+      "qid": "Q14566553",
+      "ids": {
+        "netflix": "80013872",
+        "appletv": "movie/umc.cmc.4ag0mvetbi9sovd6rzaxyl0cn"
+      }
+    },
+    "er-fire-1996": {
+      "title": "Fire",
+      "year": 1996,
+      "qid": "Q1418833",
+      "ids": {
+        "netflix": "60000778"
+      }
+    },
+    "er-forbidden-quest": {
+      "title": "Forbidden Quest",
+      "year": 2006,
+      "qid": "Q482899",
+      "ids": {
+        "netflix": "70120321"
+      }
+    },
+    "er-four-shots": {
+      "title": "Four More Shots Please!",
+      "year": 2019,
+      "qid": "Q60769848",
+      "ids": {
+        "appletv": "show/umc.cmc.527kuoyro5qy80utq6hj76uo3"
+      }
+    },
+    "er-frozen-flower": {
+      "title": "A Frozen Flower",
+      "year": 2008,
+      "qid": "Q484709",
+      "ids": {
+        "netflix": "70142545",
+        "appletv": "movie/umc.cmc.4pj21of4dub22xt7srg31l3wn"
+      }
+    },
+    "er-gehraiyaan": {
+      "title": "Gehraiyaan",
+      "year": 2022,
+      "qid": "Q110362258",
+      "ids": {
+        "appletv": "movie/umc.cmc.1a5d8vok2ylifq53upgmhaasj"
+      }
+    },
+    "er-ghare-baire": {
+      "title": "Ghare Baire",
+      "year": 1984,
+      "qid": "Q717188",
+      "ids": {
+        "appletv": "movie/umc.cmc.3jqnetmz75mq1k29q8loro0rx"
+      }
+    },
+    "er-gods-country": {
+      "title": "God's Own Country",
+      "year": 2017,
+      "qid": "Q28212152",
+      "ids": {
+        "netflix": "80170875",
+        "appletv": "movie/umc.cmc.cy9ib5k2g3qk0wg5pj5ii3ai"
+      }
+    },
+    "er-handmaiden": {
+      "title": "The Handmaiden",
+      "year": 2016,
+      "qid": "Q20444585",
+      "ids": {
+        "appletv": "movie/umc.cmc.2xjevbtpvvfu38pd43sel3poe"
+      }
+    },
+    "er-hate-story": {
+      "title": "Hate Story",
+      "year": 2012,
+      "qid": "Q5681216",
+      "ids": {
+        "netflix": "70236582"
+      }
+    },
+    "er-hate-story-2": {
+      "title": "Hate Story 2",
+      "year": 2014,
+      "qid": "Q17198963",
+      "ids": {
+        "appletv": "movie/umc.cmc.wd7w7zn2qvy0bov3ntij9i16"
+      }
+    },
+    "er-hate-story-3": {
+      "title": "Hate Story 3",
+      "year": 2015,
+      "qid": "Q19824695",
+      "ids": {
+        "appletv": "movie/umc.cmc.11a2eyxa56te2u3o6m86szaba"
+      }
+    },
+    "er-hate-story-4": {
+      "title": "Hate Story 4",
+      "year": 2018,
+      "qid": "Q42322844",
+      "ids": {
+        "appletv": "movie/umc.cmc.6q0qdpx56qjzrle311fwlpvim"
+      }
+    },
+    "er-housemaid": {
+      "title": "The Housemaid",
+      "year": 2010,
+      "qid": "Q485782",
+      "ids": {
+        "netflix": "70139521",
+        "appletv": "movie/umc.cmc.3pj9dbuqyc1ohot2xnkwq1s3o"
+      }
+    },
+    "er-imagine-light": {
+      "title": "All We Imagine as Light",
+      "year": 2024,
+      "qid": "Q125422662",
+      "ids": {
+        "appletv": "movie/umc.cmc.mii4ukvzatk6lwmsej6gm38m"
+      }
+    },
+    "er-intimacy": {
+      "title": "Intimacy",
+      "year": 2001,
+      "qid": "Q76827",
+      "ids": {
+        "netflix": "60031326",
+        "appletv": "movie/umc.cmc.3ndoshajdf2b3nxirzbeu15nl"
+      }
+    },
+    "er-ishq-ml": {
+      "title": "Ishq",
+      "year": 2019,
+      "qid": "Q65028806",
+      "ids": {
+        "appletv": "movie/umc.cmc.4af2481z6rtroz5n3kwkrlg7v"
+      }
+    },
+    "er-kaatru": {
+      "title": "Kaatru Veliyidai",
+      "year": 2017,
+      "qid": "Q27957965",
+      "ids": {
+        "appletv": "movie/umc.cmc.4t649370ibs6gsdstz3re4pi1"
+      }
+    },
+    "er-kabir-singh": {
+      "title": "Kabir Singh",
+      "year": 2019,
+      "qid": "Q58411760",
+      "ids": {
+        "netflix": "81107545"
+      }
+    },
+    "er-kadambari-bn": {
+      "title": "Kadambari",
+      "year": 2015,
+      "qid": "Q22000549",
+      "ids": {
+        "appletv": "movie/umc.cmc.6nmq00fosscnx3lfkzei6bpfa"
+      }
+    },
+    "er-kama-sutra": {
+      "title": "Kama Sutra: A Tale of Love",
+      "year": 1996,
+      "qid": "Q1624299",
+      "ids": {
+        "netflix": "664274",
+        "appletv": "movie/umc.cmc.214k0be7dj37n9hopmbcgq31i"
+      }
+    },
+    "er-kinsey": {
+      "title": "Kinsey",
+      "year": 2004,
+      "qid": "Q83656",
+      "ids": {
+        "netflix": "70011202",
+        "appletv": "movie/umc.cmc.68a41jp07cnjbldv933689lgu"
+      }
+    },
+    "er-lady-chatterley-06": {
+      "title": "Lady Chatterley",
+      "year": 2006,
+      "qid": "Q151751",
+      "ids": {
+        "netflix": "70068657",
+        "appletv": "movie/umc.cmc.6ls4mmaevccc3lcu2k22hmtve"
+      }
+    },
+    "er-lady-chatterley-22": {
+      "title": "Lady Chatterley's Lover",
+      "year": 2022,
+      "qid": "Q113482264",
+      "ids": {
+        "netflix": "81476441",
+        "appletv": "movie/umc.cmc.7gynj508ihj9zquyajh14yxfx"
+      }
+    },
+    "er-lady-fire": {
+      "title": "Portrait of a Lady on Fire",
+      "year": 2019,
+      "qid": "Q63246568",
+      "ids": {
+        "netflix": "81031057",
+        "appletv": "movie/umc.cmc.6vs2ly3786rfgnwhiymmdu8h2"
+      }
+    },
+    "er-last-tango": {
+      "title": "Last Tango in Paris",
+      "year": 1972,
+      "qid": "Q570567",
+      "ids": {
+        "netflix": "687496",
+        "appletv": "movie/umc.cmc.3rs5uolthdi0w37jvo31i7k9d"
+      }
+    },
+    "er-lawyers-wife": {
+      "title": "A Good Lawyer's Wife",
+      "year": 2003,
+      "qid": "Q3549462",
+      "ids": {
+        "appletv": "movie/umc.cmc.44hl9d8wovordqlaagxhbzkgb"
+      }
+    },
+    "er-love-exposure": {
+      "title": "Love Exposure",
+      "year": 2008,
+      "qid": "Q1138083",
+      "ids": {
+        "netflix": "70122132"
+      }
+    },
+    "er-love-lies": {
+      "title": "Love Lies Bleeding",
+      "year": 2024,
+      "qid": "Q113488690",
+      "ids": {
+        "appletv": "movie/umc.cmc.38pzhet2eyf8r4kx046mhxrdg"
+      }
+    },
+    "er-love-noe": {
+      "title": "Love",
+      "year": 2015,
+      "qid": "Q19829024",
+      "ids": {
+        "netflix": "80057969"
+      }
+    },
+    "er-lovelace": {
+      "title": "Lovelace",
+      "year": 2013,
+      "qid": "Q3072040",
+      "ids": {
+        "netflix": "70241594",
+        "appletv": "movie/umc.cmc.6mmpajpziq5kn87mk9f86owyh"
+      }
+    },
+    "er-lust-caution": {
+      "title": "Lust, Caution",
+      "year": 2007,
+      "qid": "Q718524",
+      "ids": {
+        "netflix": "70059999",
+        "appletv": "movie/umc.cmc.31t8m66yjq1f499poggu1npye"
+      }
+    },
+    "er-lust-stories": {
+      "title": "Lust Stories",
+      "year": 2018,
+      "qid": "Q54959074",
+      "ids": {
+        "netflix": "80991033",
+        "appletv": "movie/umc.cmc.4lk3st5flkjd4zpm12miukfd8"
+      }
+    },
+    "er-lust-stories-2": {
+      "title": "Lust Stories 2",
+      "year": 2023,
+      "qid": "Q119133685",
+      "ids": {
+        "netflix": "81479822"
+      }
+    },
+    "er-magic-mike": {
+      "title": "Magic Mike",
+      "year": 2012,
+      "qid": "Q1197932",
+      "ids": {
+        "netflix": "70228101",
+        "appletv": "movie/umc.cmc.45sz4cy8uy362qdqzq5z7w687"
+      }
+    },
+    "er-magic-mike-xxl": {
+      "title": "Magic Mike XXL",
+      "year": 2015,
+      "qid": "Q17893055",
+      "ids": {
+        "netflix": "80031499",
+        "appletv": "movie/umc.cmc.51yp0rmrqgeaap7e8zup4clek"
+      }
+    },
+    "er-maxxxine": {
+      "title": "MaXXXine",
+      "year": 2024,
+      "qid": "Q116032682",
+      "ids": {
+        "appletv": "movie/umc.cmc.7hh7hdix4whegydkptauouew6"
+      }
+    },
+    "er-midnight-cowboy": {
+      "title": "Midnight Cowboy",
+      "year": 1969,
+      "qid": "Q61696",
+      "ids": {
+        "netflix": "759322",
+        "prime": "amzn1.dv.gti.b2446a88-95ed-4ee1-b49e-7678553e468a",
+        "appletv": "movie/umc.cmc.4b6xc23mkw34opgyjz3t62l7i"
+      }
+    },
+    "er-mulholland": {
+      "title": "Mulholland Drive",
+      "year": 2001,
+      "qid": "Q272608",
+      "ids": {
+        "netflix": "60021646",
+        "appletv": "movie/umc.cmc.3rx3gbij95yms1dmvpakffvuc"
+      }
+    },
+    "er-murder-2004": {
+      "title": "Murder",
+      "year": 2004,
+      "qid": "Q3328063",
+      "ids": {
+        "netflix": "70002334"
+      }
+    },
+    "er-night-porter": {
+      "title": "The Night Porter",
+      "year": 1974,
+      "qid": "Q312565",
+      "ids": {
+        "appletv": "movie/umc.cmc.28lv95u8cdqs8n5riaroq8uhr"
+      }
+    },
+    "er-nine-half": {
+      "title": "9½ Weeks",
+      "year": 1986,
+      "qid": "Q644552",
+      "ids": {
+        "netflix": "210599",
+        "appletv": "movie/umc.cmc.5lhykipy9r4840vvebm6b8frs"
+      }
+    },
+    "er-nine-songs": {
+      "title": "9 Songs",
+      "year": 2004,
+      "qid": "Q277457",
+      "ids": {
+        "netflix": "70032585"
+      }
+    },
+    "er-nirbaak": {
+      "title": "Nirbaak",
+      "year": 2015,
+      "qid": "Q18128752",
+      "ids": {
+        "appletv": "movie/umc.cmc.5dh7evisiqmgxjjoet0njlsw0"
+      }
+    },
+    "er-nymph-1": {
+      "title": "Nymphomaniac: Vol. I",
+      "year": 2013,
+      "qid": "Q21468403",
+      "ids": {
+        "netflix": "70297799",
+        "appletv": "movie/umc.cmc.r4w384jqoozlxnc7ii2a21io"
+      }
+    },
+    "er-nymph-2": {
+      "title": "Nymphomaniac: Vol. II",
+      "year": 2013,
+      "qid": "Q21468405",
+      "ids": {
+        "netflix": "70298926",
+        "appletv": "movie/umc.cmc.1l4cau1z56qj9e7xan7n2kneq"
+      }
+    },
+    "er-obsessed": {
+      "title": "Obsessed",
+      "year": 2014,
+      "qid": "Q16256481",
+      "ids": {
+        "appletv": "movie/umc.cmc.vl98pbllai0a6q6t2379wves"
+      }
+    },
+    "er-original-sin": {
+      "title": "Original Sin",
+      "year": 2001,
+      "qid": "Q684538",
+      "ids": {
+        "netflix": "60004449",
+        "appletv": "movie/umc.cmc.65mlaouh45a8i99ln0llrbcf"
+      }
+    },
+    "er-outlander": {
+      "title": "Outlander",
+      "year": 2014,
+      "qid": "Q15072906",
+      "ids": {
+        "netflix": "70285581",
+        "appletv": "show/umc.cmc.b24vsa2aaua8e5l465xek14s"
+      }
+    },
+    "er-passages": {
+      "title": "Passages",
+      "year": 2023,
+      "qid": "Q110270018",
+      "ids": {
+        "appletv": "movie/umc.cmc.3n1ikuy3gtgnmvjml32ztnj9o"
+      }
+    },
+    "er-piano-teacher": {
+      "title": "The Piano Teacher",
+      "year": 2001,
+      "qid": "Q159690",
+      "ids": {
+        "netflix": "60022939",
+        "appletv": "movie/umc.cmc.41l2hqo7n79kh2d8obq7yq5lc"
+      }
+    },
+    "er-poor-things": {
+      "title": "Poor Things",
+      "year": 2023,
+      "qid": "Q108760382",
+      "ids": {
+        "appletv": "movie/umc.cmc.3mshuc064vnbpvdq7rl6d3lpf"
+      }
+    },
+    "er-postman-rings": {
+      "title": "The Postman Always Rings Twice",
+      "year": 1981,
+      "qid": "Q36739",
+      "ids": {
+        "netflix": "868398",
+        "appletv": "movie/umc.cmc.6z3q9tfqozwrc29eeuq07e5p1"
+      }
+    },
+    "er-queer-2024": {
+      "title": "Queer",
+      "year": 2024,
+      "qid": "Q116771681",
+      "ids": {
+        "appletv": "movie/umc.cmc.78kvpzwzy392ikyccp8vw0j4m"
+      }
+    },
+    "er-red-sparrow": {
+      "title": "Red Sparrow",
+      "year": 2018,
+      "qid": "Q28173075",
+      "ids": {
+        "netflix": "80187054",
+        "appletv": "movie/umc.cmc.25ldi58014wux4etiisa92ia9"
+      }
+    },
+    "er-romance-1999": {
+      "title": "Romance",
+      "year": 1999,
+      "qid": "Q1752790",
+      "ids": {
+        "netflix": "18179573",
+        "appletv": "movie/umc.cmc.27rru3963o3frpgiouxoxf1k8"
+      }
+    },
+    "er-rx-100": {
+      "title": "RX 100",
+      "year": 2018,
+      "qid": "Q55392291",
+      "ids": {
+        "appletv": "movie/umc.cmc.5h384jpazy4vj4oqnib4v58dx"
+      }
+    },
+    "er-saltburn": {
+      "title": "Saltburn",
+      "year": 2023,
+      "qid": "Q113135527",
+      "ids": {
+        "appletv": "movie/umc.cmc.39xm0uezcdh9mo95x4uuoyoqt"
+      }
+    },
+    "er-sea-of-love": {
+      "title": "Sea of Love",
+      "year": 1989,
+      "qid": "Q510180",
+      "ids": {
+        "netflix": "940977",
+        "appletv": "movie/umc.cmc.73n7cny36g7h74yu078lgb2xv"
+      }
+    },
+    "er-secretary": {
+      "title": "Secretary",
+      "year": 2002,
+      "qid": "Q742195",
+      "ids": {
+        "netflix": "60023646",
+        "appletv": "movie/umc.cmc.4s611olizzqmy0ghsd2tcqtqm"
+      }
+    },
+    "er-servant": {
+      "title": "The Servant",
+      "year": 2010,
+      "qid": "Q7763384",
+      "ids": {
+        "netflix": "70201183",
+        "appletv": "movie/umc.cmc.201ksh77tye368puv2cfcar6"
+      }
+    },
+    "er-sessions": {
+      "title": "The Sessions",
+      "year": 2012,
+      "qid": "Q514416",
+      "ids": {
+        "netflix": "70209251",
+        "appletv": "movie/umc.cmc.3skanywj76vtvs7m1z67811fd"
+      }
+    },
+    "er-sex-life": {
+      "title": "Sex/Life",
+      "year": 2021,
+      "qid": "Q97671423",
+      "ids": {
+        "netflix": "80991848"
+      }
+    },
+    "er-shame": {
+      "title": "Shame",
+      "year": 2011,
+      "qid": "Q909445",
+      "ids": {
+        "netflix": "70211042",
+        "appletv": "movie/umc.cmc.xilchi2k49g9w8sikspjdwqz"
+      }
+    },
+    "er-shortbus": {
+      "title": "Shortbus",
+      "year": 2006,
+      "qid": "Q930746",
+      "ids": {
+        "netflix": "70053448",
+        "appletv": "movie/umc.cmc.1zbx4qxcmdzunhunot545qrkn"
+      }
+    },
+    "er-showgirls": {
+      "title": "Showgirls",
+      "year": 1995,
+      "qid": "Q532264",
+      "ids": {
+        "netflix": "962109",
+        "appletv": "movie/umc.cmc.4qu6ro9n05h8vq2xyh8um34al"
+      }
+    },
+    "er-skin-live": {
+      "title": "The Skin I Live In",
+      "year": 2011,
+      "qid": "Q1130310",
+      "ids": {
+        "netflix": "70189304",
+        "appletv": "movie/umc.cmc.5qogn4m97tg3v4777k1hr6y2h"
+      }
+    },
+    "er-sliver": {
+      "title": "Sliver",
+      "year": 1993,
+      "qid": "Q581642",
+      "ids": {
+        "netflix": "60035996",
+        "appletv": "movie/umc.cmc.49um5zoextzatbv9zyrabrw9i"
+      }
+    },
+    "er-story-of-o": {
+      "title": "The Story of O",
+      "year": 1975,
+      "qid": "Q7491333",
+      "ids": {
+        "appletv": "movie/umc.cmc.3xmjlk82npn4pk3g12qc7f7rx"
+      }
+    },
+    "er-stranger-lake": {
+      "title": "Stranger by the Lake",
+      "year": 2013,
+      "qid": "Q12902822",
+      "ids": {
+        "netflix": "70285670",
+        "appletv": "movie/umc.cmc.5z8bex6edj5a79srfln7actis"
+      }
+    },
+    "er-striptease": {
+      "title": "Striptease",
+      "year": 1996,
+      "qid": "Q1141460",
+      "ids": {
+        "netflix": "1008681",
+        "appletv": "movie/umc.cmc.6d7g2fwlxloamasrjpwbr7vzj"
+      }
+    },
+    "er-swimming-pool": {
+      "title": "Swimming Pool",
+      "year": 2003,
+      "qid": "Q1500112",
+      "ids": {
+        "netflix": "60029156",
+        "appletv": "movie/umc.cmc.46iqgo38tf3q2vtodj8lxd6br"
+      }
+    },
+    "er-ten-1979": {
+      "title": "10",
+      "year": 1979,
+      "qid": "Q184591",
+      "ids": {
+        "appletv": "movie/umc.cmc.heozpxwmq4pzxjrv1qo2lr98"
+      }
+    },
+    "er-thirst": {
+      "title": "Thirst",
+      "year": 2009,
+      "qid": "Q483780",
+      "ids": {
+        "netflix": "70114016",
+        "appletv": "movie/umc.cmc.yrht46qdxejf6wvbnx32tc7o"
+      }
+    },
+    "er-tie-me-up": {
+      "title": "Tie Me Up! Tie Me Down!",
+      "year": 1990,
+      "qid": "Q600176",
+      "ids": {
+        "appletv": "movie/umc.cmc.50pq25hism4v2zc7jojloxle1"
+      }
+    },
+    "er-titane": {
+      "title": "Titane",
+      "year": 2021,
+      "qid": "Q105393862",
+      "ids": {
+        "netflix": "81481611",
+        "appletv": "movie/umc.cmc.mp8ffk2zxs579cln2vuko2h8"
+      }
+    },
+    "er-tokyo-decadence": {
+      "title": "Tokyo Decadence",
+      "year": 1992,
+      "qid": "Q1476266",
+      "ids": {
+        "netflix": "21931518"
+      }
+    },
+    "er-treacherous": {
+      "title": "The Treacherous",
+      "year": 2015,
+      "qid": "Q19840918",
+      "ids": {
+        "appletv": "movie/umc.cmc.2sn8isgep7loryjv0photdlai"
+      }
+    },
+    "er-unfaithful": {
+      "title": "Unfaithful",
+      "year": 2002,
+      "qid": "Q970089",
+      "ids": {
+        "netflix": "60022959",
+        "appletv": "movie/umc.cmc.3uwafb0hip6yz1jjkyfi6ttwy"
+      }
+    },
+    "er-valley-dolls": {
+      "title": "Beyond the Valley of the Dolls",
+      "year": 1970,
+      "qid": "Q886194",
+      "ids": {
+        "netflix": "70049351",
+        "appletv": "movie/umc.cmc.1zakmn89lgrs731xsueh3sym9"
+      }
+    },
+    "er-wet-woman": {
+      "title": "Wet Woman in the Wind",
+      "year": 2016,
+      "qid": "Q28868415",
+      "ids": {
+        "netflix": "80226637",
+        "appletv": "movie/umc.cmc.5undy5in12ujwmcjw2t9b13jk"
+      }
+    },
+    "er-white-lotus": {
+      "title": "The White Lotus",
+      "year": 2021,
+      "qid": "Q106679014",
+      "ids": {
+        "appletv": "show/umc.cmc.3c8psnhdn9viikje3kvq69fyr"
+      }
+    },
+    "er-y-tu-mama": {
+      "title": "Y tu mamá también",
+      "year": 2001,
+      "qid": "Q128848",
+      "ids": {
+        "netflix": "60023237",
+        "appletv": "movie/umc.cmc.4ixngsy28yq7lebhchh27dnty"
+      }
+    },
+    "family-man": {
+      "title": "The Family Man",
+      "year": 2019,
+      "qid": "Q85807149",
+      "ids": {
+        "appletv": "show/umc.cmc.62v558i4rcq25kadb1460g5oa"
+      }
+    },
+    "gold-hi": {
+      "title": "Gold",
+      "year": 2018,
+      "qid": "Q39070393",
+      "ids": {
+        "appletv": "movie/umc.cmc.xvdn6ic3dsfac26si8l29zvh"
+      }
+    },
+    "great-indian-kitchen": {
+      "title": "The Great Indian Kitchen",
+      "year": 2021,
+      "qid": "Q104884250",
+      "ids": {
+        "appletv": "movie/umc.cmc.5ys30deg5y8nn7cmleitynxii"
+      }
+    },
+    "gully-boy": {
+      "title": "Gully Boy",
+      "year": 2019,
+      "qid": "Q48671143",
+      "ids": {
+        "appletv": "movie/umc.cmc.d45vm4g8a59i2vsj6sh571te"
+      }
+    },
+    "gunjan": {
+      "title": "Gunjan Saxena",
+      "year": 2020,
+      "qid": "Q65065630",
+      "ids": {
+        "netflix": "81292944",
+        "appletv": "movie/umc.cmc.q62ne33tq26p1iq161tt4b9h"
+      }
+    },
+    "haider": {
+      "title": "Haider",
+      "year": 2014,
+      "qid": "Q15726236",
+      "ids": {
+        "netflix": "70303432"
+      }
+    },
+    "heeramandi": {
+      "title": "Heeramandi",
+      "year": 2024,
+      "qid": "Q124416531",
+      "ids": {
+        "netflix": "81122198"
+      }
+    },
+    "hidden-figures": {
+      "title": "Hidden Figures",
+      "year": 2016,
+      "qid": "Q23755544",
+      "ids": {
+        "netflix": "80123775",
+        "appletv": "movie/umc.cmc.4io2m0zk1cs9g1olb2hduzu6z"
+      }
+    },
+    "hindi-medium": {
+      "title": "Hindi Medium",
+      "year": 2017,
+      "qid": "Q27957931",
+      "ids": {
+        "appletv": "movie/umc.cmc.4iijsnn9341ftl5inuh6uxp0t"
+      }
+    },
+    "hirak-rajar": {
+      "title": "Hirak Rajar Deshe",
+      "year": 1980,
+      "qid": "Q717365",
+      "ids": {
+        "netflix": "70114820",
+        "prime": "amzn1.dv.gti.3e2b05a9-7b83-4ad5-8b26-c5ef7d1f570d"
+      }
+    },
+    "hridayam": {
+      "title": "Hridayam",
+      "year": 2022,
+      "qid": "Q85922245",
+      "ids": {
+        "appletv": "movie/umc.cmc.4mvtbvvv3fdtu9ztg85b3m8uv"
+      }
+    },
+    "inside-bills-brain": {
+      "title": "Inside Bill's Brain",
+      "year": 2019,
+      "qid": "Q68319034",
+      "ids": {
+        "netflix": "80184771",
+        "appletv": "show/umc.cmc.34xd8sc38n1k1ebe0z8r6xx52"
+      }
+    },
+    "iqbal": {
+      "title": "Iqbal",
+      "year": 2005,
+      "qid": "Q3429888",
+      "ids": {
+        "netflix": "70048905"
+      }
+    },
+    "iyobinte": {
+      "title": "Iyobinte Pusthakam",
+      "year": 2014,
+      "qid": "Q16736330",
+      "ids": {
+        "appletv": "movie/umc.cmc.1smnokg0h6iked1cuvrei0srb"
+      }
+    },
+    "jai-bhim": {
+      "title": "Jai Bhim",
+      "year": 2021,
+      "qid": "Q108376991",
+      "ids": {
+        "appletv": "movie/umc.cmc.282wybohagl7p6zql1qwga6dh"
+      }
+    },
+    "jallikattu": {
+      "title": "Jallikattu",
+      "year": 2019,
+      "qid": "Q67202673",
+      "ids": {
+        "appletv": "movie/umc.cmc.187lp7e36i0y817nc0gg403j2"
+      }
+    },
+    "jana-gana-mana": {
+      "title": "Jana Gana Mana",
+      "year": 2022,
+      "qid": "Q112072761",
+      "ids": {
+        "netflix": "81477034"
+      }
+    },
+    "jawan": {
+      "title": "Jawan",
+      "year": 2023,
+      "qid": "Q113493289",
+      "ids": {
+        "netflix": "81493411",
+        "appletv": "movie/umc.cmc.4mnynnb1387rj9mxmr69fy7of"
+      }
+    },
+    "jersey-te": {
+      "title": "Jersey",
+      "year": 2019,
+      "qid": "Q60738016",
+      "ids": {
+        "appletv": "movie/umc.cmc.23rh21vgyyfyxqrt4su4a1cnf"
+      }
+    },
+    "joji": {
+      "title": "Joji",
+      "year": 2021,
+      "qid": "Q106363196",
+      "ids": {
+        "appletv": "movie/umc.cmc.1bdt7ca8l1b1hvadc4dn6bvbl"
+      }
+    },
+    "joseph-ml": {
+      "title": "Joseph",
+      "year": 2018,
+      "qid": "Q60482748",
+      "ids": {
+        "appletv": "movie/umc.cmc.675n787n0vbr10qrcv833tbl9"
+      }
+    },
+    "kahaani": {
+      "title": "Kahaani",
+      "year": 2012,
+      "qid": "Q219396",
+      "ids": {
+        "netflix": "70236020"
+      }
+    },
+    "kaithi": {
+      "title": "Kaithi",
+      "year": 2019,
+      "qid": "Q65081848",
+      "ids": {
+        "appletv": "movie/umc.cmc.2dgzf7au974nn5upjq7ri4l72"
+      }
+    },
+    "kancharapalem": {
+      "title": "C/o Kancharapalem",
+      "year": 2018,
+      "qid": "Q61995937",
+      "ids": {
+        "appletv": "movie/umc.cmc.3k92qe32r11svdnzprz4qv88s"
+      }
+    },
+    "kapoor-sons": {
+      "title": "Kapoor & Sons",
+      "year": 2016,
+      "qid": "Q19824742",
+      "ids": {
+        "netflix": "80102019",
+        "appletv": "movie/umc.cmc.3gdxtpn8nhmhfp2xc53lxc5b6"
+      }
+    },
+    "kappela": {
+      "title": "Kappela",
+      "year": 2020,
+      "qid": "Q85773566",
+      "ids": {
+        "netflix": "81289659"
+      }
+    },
+    "khakee-web": {
+      "title": "Khakee: The Bihar Chapter",
+      "year": 2022,
+      "qid": "Q115030676",
+      "ids": {
+        "netflix": "81290872"
+      }
+    },
+    "kireedam-ml": {
+      "title": "Kireedam",
+      "year": 1989,
+      "qid": "Q13111257",
+      "ids": {
+        "appletv": "movie/umc.cmc.5m22bfkmx7qd8hetyq4xhu3w8"
+      }
+    },
+    "kota-factory": {
+      "title": "Kota Factory",
+      "year": 2019,
+      "qid": "Q65060813",
+      "ids": {
+        "netflix": "81249783"
+      }
+    },
+    "kumbalangi-nights": {
+      "title": "Kumbalangi Nights",
+      "year": 2019,
+      "qid": "Q60737728",
+      "ids": {
+        "appletv": "movie/umc.cmc.20vhsjekfkfdrzz5prtz2skny"
+      }
+    },
+    "laapataa": {
+      "title": "Laapataa Ladies",
+      "year": 2024,
+      "qid": "Q124714626",
+      "ids": {
+        "netflix": "81760391"
+      }
+    },
+    "lagaan": {
+      "title": "Lagaan",
+      "year": 2001,
+      "qid": "Q843949",
+      "ids": {
+        "netflix": "60020906"
+      }
+    },
+    "little-things": {
+      "title": "Little Things",
+      "year": 2016,
+      "qid": "Q57241576",
+      "ids": {
+        "netflix": "81011159"
+      }
+    },
+    "lucifer": {
+      "title": "Lucifer",
+      "year": 2019,
+      "qid": "Q55621418",
+      "ids": {
+        "appletv": "movie/umc.cmc.m78owv0euztwtr09nlp3idxb"
+      }
+    },
+    "lunchbox": {
+      "title": "The Lunchbox",
+      "year": 2013,
+      "qid": "Q13423399",
+      "ids": {
+        "netflix": "70278932",
+        "appletv": "movie/umc.cmc.4olwlr963l4i0pc3p8721an1g"
+      }
+    },
+    "manichitrathazhu": {
+      "title": "Manichitrathazhu",
+      "year": 1993,
+      "qid": "Q3530081",
+      "ids": {
+        "prime": "amzn1.dv.gti.00b02e0e-e9b6-c2ee-a94b-0b45eb3a904f",
+        "appletv": "movie/umc.cmc.rkhhlxk4dj3k9czg4l86r4ua"
+      }
+    },
+    "manjummel-boys": {
+      "title": "Manjummel Boys",
+      "year": 2024,
+      "qid": "Q124636001",
+      "ids": {
+        "hotstar": "1271305800"
+      }
+    },
+    "mary-kom": {
+      "title": "Mary Kom",
+      "year": 2014,
+      "qid": "Q16254978",
+      "ids": {
+        "netflix": "80015785",
+        "appletv": "movie/umc.cmc.73x02ob1sh1cwex8ai6pxm4jp"
+      }
+    },
+    "masaan": {
+      "title": "Masaan",
+      "year": 2015,
+      "qid": "Q19824662",
+      "ids": {
+        "netflix": "80059331"
+      }
+    },
+    "memories-ml": {
+      "title": "Memories",
+      "year": 2013,
+      "qid": "Q14563975",
+      "ids": {
+        "appletv": "movie/umc.cmc.3jvmwhacchych8bdpkt9pg5j1"
+      }
+    },
+    "minnal-murali": {
+      "title": "Minnal Murali",
+      "year": 2021,
+      "qid": "Q95432716",
+      "ids": {
+        "netflix": "81497215",
+        "appletv": "movie/umc.cmc.6q5hghncsr2uqdm6qpt6vbnps"
+      }
+    },
+    "ms-dhoni": {
+      "title": "M.S. Dhoni: The Untold Story",
+      "year": 2016,
+      "qid": "Q18127580",
+      "ids": {
+        "hotstar": "1770003314",
+        "appletv": "movie/umc.cmc.6ld5b97ril7ksy9vc68bkchxa"
+      }
+    },
+    "mukundan-unni": {
+      "title": "Mukundan Unni Associates",
+      "year": 2022,
+      "qid": "Q115804919",
+      "ids": {
+        "appletv": "movie/umc.cmc.4pb1gjoydfseow1hergjp6zwz"
+      }
+    },
+    "mumbai-police": {
+      "title": "Mumbai Police",
+      "year": 2013,
+      "qid": "Q6935310",
+      "ids": {
+        "appletv": "movie/umc.cmc.528yc1ph1for7ij3t412q0xlm"
+      }
+    },
+    "newton": {
+      "title": "Newton",
+      "year": 2017,
+      "qid": "Q28914754",
+      "ids": {
+        "appletv": "movie/umc.cmc.4pzyyoj154awa6x8iip2s3fvc"
+      }
+    },
+    "october-hi": {
+      "title": "October",
+      "year": 2018,
+      "qid": "Q48673919",
+      "ids": {
+        "appletv": "movie/umc.cmc.36kwmojnmvrzede13smxkeq3d"
+      }
+    },
+    "oru-vadakkan-selfie": {
+      "title": "Oru Vadakkan Selfie",
+      "year": 2015,
+      "qid": "Q18703221",
+      "ids": {
+        "appletv": "movie/umc.cmc.35wvthbd44ayptsokprhrw9nx"
+      }
+    },
+    "our-planet": {
+      "title": "Our Planet",
+      "year": 2019,
+      "qid": "Q60747233",
+      "ids": {
+        "netflix": "80049832"
+      }
+    },
+    "panchayat": {
+      "title": "Panchayat",
+      "year": 2020,
+      "qid": "Q96398312",
+      "ids": {
+        "appletv": "show/umc.cmc.sqgdyl29qmrkuia7cmzc57q9"
+      }
+    },
+    "panga": {
+      "title": "Panga",
+      "year": 2020,
+      "qid": "Q61995311",
+      "ids": {
+        "appletv": "movie/umc.cmc.2bbiotow7ceabmftc6k2ad7s4"
+      }
+    },
+    "papanasam": {
+      "title": "Papanasam",
+      "year": 2015,
+      "qid": "Q18129183",
+      "ids": {
+        "appletv": "movie/umc.cmc.7c46k7gx39s91bqztiak2dpfz"
+      }
+    },
+    "pathaan": {
+      "title": "Pathaan",
+      "year": 2023,
+      "qid": "Q114620212",
+      "ids": {
+        "appletv": "movie/umc.cmc.4m5r5olcjrfbqhe4oxsgdqhes"
+      }
+    },
+    "pather-panchali": {
+      "title": "Pather Panchali",
+      "year": 1955,
+      "qid": "Q622380",
+      "ids": {
+        "netflix": "60031660",
+        "appletv": "movie/umc.cmc.3caufxjrcc39x1fxmfvylj9vh"
+      }
+    },
+    "piku": {
+      "title": "Piku",
+      "year": 2015,
+      "qid": "Q18703891",
+      "ids": {
+        "netflix": "80049194",
+        "appletv": "movie/umc.cmc.2tbouzwo5wcg0ve5gjr46kwnp"
+      }
+    },
+    "pursuit-happyness": {
+      "title": "The Pursuit of Happyness",
+      "year": 2006,
+      "qid": "Q220515",
+      "ids": {
+        "netflix": "70044605",
+        "appletv": "movie/umc.cmc.5elxsau2bij3kmoadwoomll4s"
+      }
+    },
+    "queen-hi": {
+      "title": "Queen",
+      "year": 2014,
+      "qid": "Q15907466",
+      "ids": {
+        "netflix": "80032081",
+        "appletv": "movie/umc.cmc.6llfe33ltrg6mczd2u7k5eakd"
+      }
+    },
+    "queens-gambit": {
+      "title": "The Queen's Gambit",
+      "year": 2020,
+      "qid": "Q85808226",
+      "ids": {
+        "netflix": "80234304",
+        "appletv": "show/umc.cmc.51tonxqwh6310w384ht2y3772"
+      }
+    },
+    "raat-akeli-hai": {
+      "title": "Raat Akeli Hai",
+      "year": 2020,
+      "qid": "Q97495364",
+      "ids": {
+        "netflix": "81269716"
+      }
+    },
+    "raazi": {
+      "title": "Raazi",
+      "year": 2018,
+      "qid": "Q39057768",
+      "ids": {
+        "appletv": "movie/umc.cmc.44ptu9olauxgp33ha7qufbe0s"
+      }
+    },
+    "rang-de-basanti": {
+      "title": "Rang De Basanti",
+      "year": 2006,
+      "qid": "Q924135",
+      "ids": {
+        "netflix": "70047320"
+      }
+    },
+    "romancham": {
+      "title": "Romancham",
+      "year": 2023,
+      "qid": "Q116973714",
+      "ids": {
+        "appletv": "movie/umc.cmc.6wl1hl9cg117lvcp7jxl62cu9"
+      }
+    },
+    "rrr": {
+      "title": "RRR",
+      "year": 2022,
+      "qid": "Q60424165",
+      "ids": {
+        "hotstar": "1260108123"
+      }
+    },
+    "sairat": {
+      "title": "Sairat",
+      "year": 2016,
+      "qid": "Q23647145",
+      "ids": {
+        "appletv": "movie/umc.cmc.6ss936an7hv98pzr18myu2quc"
+      }
+    },
+    "scam-1992": {
+      "title": "Scam 1992",
+      "year": 2020,
+      "qid": "Q100709273",
+      "ids": {
+        "sonyliv": "1700000292"
+      }
+    },
+    "she-netflix": {
+      "title": "She",
+      "year": 2020,
+      "qid": "Q90408115",
+      "ids": {
+        "netflix": "81183494"
+      }
+    },
+    "shershaah": {
+      "title": "Shershaah",
+      "year": 2021,
+      "qid": "Q65065643",
+      "ids": {
+        "appletv": "movie/umc.cmc.3zd49o0mubiexnuroywnhaxsv"
+      }
+    },
+    "ship-of-theseus": {
+      "title": "Ship of Theseus",
+      "year": 2012,
+      "qid": "Q14243960",
+      "ids": {
+        "netflix": "70260516",
+        "appletv": "movie/umc.cmc.4ke6scpzb0mfyvqvq2nnsadk1"
+      }
+    },
+    "sita-ramam": {
+      "title": "Sita Ramam",
+      "year": 2022,
+      "qid": "Q113455828",
+      "ids": {
+        "hotstar": "1260123526",
+        "appletv": "movie/umc.cmc.qiknx2cbt4jw1hbyd90k0pye"
+      }
+    },
+    "social-dilemma": {
+      "title": "The Social Dilemma",
+      "year": 2020,
+      "qid": "Q99191029",
+      "ids": {
+        "netflix": "81254224",
+        "appletv": "movie/umc.cmc.4ps6g6mobm6ce6rlf497d9asi"
+      }
+    },
+    "soorarai": {
+      "title": "Soorarai Pottru",
+      "year": 2020,
+      "qid": "Q63135778",
+      "ids": {
+        "appletv": "movie/umc.cmc.lf7315psof60zqfq27kq0nlk"
+      }
+    },
+    "soul": {
+      "title": "Soul",
+      "year": 2020,
+      "qid": "Q64744044",
+      "ids": {
+        "appletv": "movie/umc.cmc.6wle5itf2fkzl2gvlw9r14xcx"
+      }
+    },
+    "spadikam": {
+      "title": "Spadikam",
+      "year": 1995,
+      "qid": "Q7572787",
+      "ids": {
+        "appletv": "movie/umc.cmc.57fqgm4s7g005lyz68fdgo2ve"
+      }
+    },
+    "stanley-ka-dabba": {
+      "title": "Stanley Ka Dabba",
+      "year": 2011,
+      "qid": "Q7599714",
+      "ids": {
+        "appletv": "movie/umc.cmc.5b8j1z7lh8osr80rbo69diwzf"
+      }
+    },
+    "sudani": {
+      "title": "Sudani from Nigeria",
+      "year": 2018,
+      "qid": "Q43639467",
+      "ids": {
+        "netflix": "81013200"
+      }
+    },
+    "swades": {
+      "title": "Swades",
+      "year": 2004,
+      "qid": "Q1759650",
+      "ids": {
+        "netflix": "70019491",
+        "appletv": "movie/umc.cmc.6gmywd0w0btz392p2psxj4qwh"
+      }
+    },
+    "taare-zameen": {
+      "title": "Taare Zameen Par",
+      "year": 2007,
+      "qid": "Q1043614",
+      "ids": {
+        "netflix": "70087087"
+      }
+    },
+    "take-off": {
+      "title": "Take Off",
+      "year": 2017,
+      "qid": "Q29226396",
+      "ids": {
+        "appletv": "movie/umc.cmc.jwzoz78cm25d1jel2vb8kl4l"
+      }
+    },
+    "talvar": {
+      "title": "Talvar",
+      "year": 2015,
+      "qid": "Q17492514",
+      "ids": {
+        "netflix": "80080618",
+        "appletv": "movie/umc.cmc.5y4b0llse4fijz31ax39qsyqq"
+      }
+    },
+    "ted-lasso": {
+      "title": "Ted Lasso",
+      "year": 2020,
+      "qid": "Q96407897",
+      "ids": {
+        "appletv": "show/umc.cmc.vtoh0mn0xn7t3c643xqonfzy"
+      }
+    },
+    "the-bear": {
+      "title": "The Bear",
+      "year": 2022,
+      "qid": "Q112761982",
+      "ids": {
+        "appletv": "show/umc.cmc.javg04xbn3eonbgfvnaqmodk"
+      }
+    },
+    "the-disciple": {
+      "title": "The Disciple",
+      "year": 2020,
+      "qid": "Q97831298",
+      "ids": {
+        "netflix": "81387783",
+        "appletv": "movie/umc.cmc.1904ouli2mfarxvo7p952cgyw"
+      }
+    },
+    "thondimuthal": {
+      "title": "Thondimuthalum Driksakshiyum",
+      "year": 2017,
+      "qid": "Q28127585",
+      "ids": {
+        "appletv": "movie/umc.cmc.46fqdjnei3396f3khqzi4086v"
+      }
+    },
+    "tp-band-of-brothers": {
+      "title": "Band of Brothers",
+      "year": 2001,
+      "qid": "Q208048",
+      "ids": {
+        "netflix": "70308702",
+        "appletv": "show/umc.cmc.6w0w9swttxab3xshv7zsh7tr8"
+      }
+    },
+    "tp-breaking-bad": {
+      "title": "Breaking Bad",
+      "year": 2008,
+      "qid": "Q1079",
+      "ids": {
+        "netflix": "70143836",
+        "appletv": "show/umc.cmc.1v90fu25sgywa1e14jwnrt9uc"
+      }
+    },
+    "tp-chernobyl": {
+      "title": "Chernobyl",
+      "year": 2019,
+      "qid": "Q48741246",
+      "ids": {
+        "netflix": "81104911",
+        "hotstar": "1260004866",
+        "appletv": "show/umc.cmc.4r07f208iugn79go4pmvpcqbt"
+      }
+    },
+    "tp-dark-knight": {
+      "title": "The Dark Knight",
+      "year": 2008,
+      "qid": "Q163872",
+      "ids": {
+        "netflix": "70079583",
+        "appletv": "movie/umc.cmc.1uf4c3neuc9yxhnjv7t4rd5wa"
+      }
+    },
+    "tp-eeaao": {
+      "title": "Everything Everywhere All at Once",
+      "year": 2022,
+      "qid": "Q83808444",
+      "ids": {
+        "netflix": "81569721",
+        "appletv": "movie/umc.cmc.5cxq4yswbsp3apykshwrcb890"
+      }
+    },
+    "tp-godfather": {
+      "title": "The Godfather",
+      "year": 1972,
+      "qid": "Q47703",
+      "ids": {
+        "netflix": "60011152",
+        "appletv": "movie/umc.cmc.3ew9fykdnpfaq9t2jq5da011c"
+      }
+    },
+    "tp-inception": {
+      "title": "Inception",
+      "year": 2010,
+      "qid": "Q25188",
+      "ids": {
+        "netflix": "70131314",
+        "appletv": "movie/umc.cmc.6loas01ow0w4lkatxxloz7a6e"
+      }
+    },
+    "tp-peaky-blinders": {
+      "title": "Peaky Blinders",
+      "year": 2013,
+      "qid": "Q14944179",
+      "ids": {
+        "netflix": "80002479",
+        "appletv": "show/umc.cmc.459oxvwc0a8dbydz8kf7w76xw"
+      }
+    },
+    "tp-shawshank": {
+      "title": "The Shawshank Redemption",
+      "year": 1994,
+      "qid": "Q172241",
+      "ids": {
+        "netflix": "70005379",
+        "prime": "amzn1.dv.gti.20b4c3cf-b703-aebb-41bd-0dc683f8c0c8",
+        "appletv": "movie/umc.cmc.459n4f98t82t8ommdoa7ebnny"
+      }
+    },
+    "tp-stranger-things": {
+      "title": "Stranger Things",
+      "year": 2016,
+      "qid": "Q19798734",
+      "ids": {
+        "netflix": "80057281",
+        "appletv": "show/umc.cmc.6a4s868u4ocy2a9zg6ochi2nd"
+      }
+    },
+    "traffic-ml": {
+      "title": "Traffic",
+      "year": 2011,
+      "qid": "Q7832440",
+      "ids": {
+        "appletv": "movie/umc.cmc.61t4mhjiw7lw4vgurnfehqk7c"
+      }
+    },
+    "udaan": {
+      "title": "Udaan",
+      "year": 2010,
+      "qid": "Q2402889",
+      "ids": {
+        "netflix": "70139542"
+      }
+    },
+    "ustad-hotel": {
+      "title": "Ustad Hotel",
+      "year": 2012,
+      "qid": "Q7902166",
+      "ids": {
+        "appletv": "movie/umc.cmc.5gthuqrz1ik0igyclbxv4m0z9"
+      }
+    },
+    "varathan": {
+      "title": "Varathan",
+      "year": 2018,
+      "qid": "Q56277805",
+      "ids": {
+        "appletv": "movie/umc.cmc.796h5c2m8nf3i1a34pa06yawr"
+      }
+    },
+    "vikram-2022": {
+      "title": "Vikram",
+      "year": 2022,
+      "qid": "Q102147287",
+      "ids": {
+        "hotstar": "1260106598",
+        "appletv": "movie/umc.cmc.51l0i1qpk1n67eqzaypjvnihg"
+      }
+    },
+    "virus-ml": {
+      "title": "Virus",
+      "year": 2019,
+      "qid": "Q60738253",
+      "ids": {
+        "appletv": "movie/umc.cmc.4uf6btfemm4ujjcsfzlv356xi"
+      }
+    },
+    "wake-up-sid": {
+      "title": "Wake Up Sid",
+      "year": 2009,
+      "qid": "Q3565236",
+      "ids": {
+        "netflix": "70123119",
+        "appletv": "movie/umc.cmc.3laoizdjpe5r0dn56407dijvh"
+      }
+    },
+    "zindagi-na-milegi": {
+      "title": "Zindagi Na Milegi Dobara",
+      "year": 2011,
+      "qid": "Q3067642",
+      "ids": {
+        "netflix": "70202336",
+        "appletv": "movie/umc.cmc.5tkaayi3uspoevcbp69rxj9oi"
+      }
+    }
+  }
+}

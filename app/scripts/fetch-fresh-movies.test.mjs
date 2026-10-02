@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import {
   attachProviders,
+  attachWatchIds,
   carryForwardProviders,
   detailsQuery,
   mapTmdbProviderName,
@@ -249,6 +250,22 @@ describe('attachProviders', () => {
     expect(withTmdb.providersCheckedAt).toBe('2026-10-01T00:00:00.000Z')
     const withoutKey = await attachProviders(feed, details, { key: '' })
     expect(withoutKey.providersCheckedAt).toBeUndefined()
+  })
+})
+
+describe('attachWatchIds', () => {
+  const feed = (titles) => ({ ...toFeed([], [], 2026, new Date('2026-10-02T00:00:00Z')), titles })
+
+  it('adds IDs found on Wikidata and leaves other titles untouched', () => {
+    const next = attachWatchIds(feed([entry('Q1', 'A'), entry('Q2', 'B')]), new Map([['Q1', { netflix: '81497215' }]]), null)
+    expect(next.titles[0].watchIds).toEqual({ netflix: '81497215' })
+    expect(next.titles[1]).not.toHaveProperty('watchIds')
+  })
+
+  it('keeps the previous IDs when Wikidata could not be asked', () => {
+    const previous = feed([{ ...entry('Q1', 'A'), watchIds: { netflix: '81497215' } }])
+    expect(attachWatchIds(feed([entry('Q1', 'A')]), null, previous).titles[0].watchIds).toEqual({ netflix: '81497215' })
+    expect(attachWatchIds(feed([entry('Q1', 'A')]), new Map(), previous).titles[0]).not.toHaveProperty('watchIds')
   })
 })
 

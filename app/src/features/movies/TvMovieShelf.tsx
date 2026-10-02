@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { Play, RefreshCw } from 'lucide-react'
 import { Button } from '../../components/ui'
 import { useStore } from '../../store'
-import { fireTvIntent } from '../ott/fireTv'
+import { fireTvIntent, tvOpensLabel } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
 import { freshToCatalogTitles, withFreshTitles } from './freshShelf'
 import { recommendMovies } from './recommend'
@@ -152,6 +152,11 @@ export function TvMovieShelf() {
                   Trailer
                 </Button>
               </div>
+              {link ? (
+                <p className="mt-2 text-sm text-muted" data-testid="tv-movie-opens">
+                  {tvOpensLabel(link.platformId, title.title, title.year)}
+                </p>
+              ) : null}
             </li>
           )
         })}

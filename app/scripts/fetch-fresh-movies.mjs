@@ -5,6 +5,7 @@
 // file are carried forward. Keeps the previous file when Wikidata is unreachable.
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
+import { fetchWatchIds } from './fetch-watch-ids.mjs'
 
 const ENDPOINT = 'https://query.wikidata.org/sparql'
 const USER_AGENT = 'WillowFreshMovies/1.0 (https://raviacn95.github.io/child-management-system/)'
@@ -415,6 +416,25 @@ export function carryForwardProviders(next, previous) {
   }
 }
 
+/**
+ * Adds `watchIds` (official Netflix / Prime Video / JioHotstar / Apple TV / SonyLIV IDs from Wikidata) per title.
+ * `idsByQid` is null when Wikidata could not be asked; the previous feed's IDs are kept then.
+ */
+export function attachWatchIds(feed, idsByQid, previous) {
+  const earlier = new Map(
+    (Array.isArray(previous?.titles) ? previous.titles : [])
+      .filter((title) => typeof title?.id === 'string' && title.watchIds && typeof title.watchIds === 'object')
+      .map((title) => [title.id, title.watchIds]),
+  )
+  return {
+    ...feed,
+    titles: feed.titles.map((title) => {
+      const ids = idsByQid ? idsByQid.get(title.qid) : earlier.get(title.id)
+      return ids && Object.keys(ids).length ? { ...title, watchIds: ids } : title
+    }),
+  }
+}
+
 /** Minimal KEY=value reader for app/.env.local; no variable expansion. */
 export function parseEnv(text) {
   const env = {}
@@ -474,11 +494,22 @@ async function main() {
     const key = tmdbKey()
     if (!key) console.log('TMDB_API_KEY not set: new channels from Wikidata only, earlier TMDB channels kept')
     const previous = existsSync(out) ? readJson(out) : null
+    const watchIds = await fetchWatchIds(
+      feed.titles.map((title) => title.qid),
+      sparql,
+    ).catch((error) => {
+      console.warn(`watch IDs not fetched: ${error instanceof Error ? error.message : error}`)
+      return null
+    })
     const withProviders = carryForwardProviders(await attachProviders(feed, details, { key }), previous)
-    writeFileSync(out, `${JSON.stringify(withProviders, null, 2)}\n`)
-    const streaming = withProviders.titles.filter((title) => title.providers.length).length
-    const checked = withProviders.providersCheckedAt ? `, TMDB checked ${withProviders.providersCheckedAt}` : ''
-    console.log(`wrote ${out}: ${feed.titles.length} titles from ${year}, ${streaming} with streaming channels${checked}`)
+    const withIds = attachWatchIds(withProviders, watchIds, previous)
+    writeFileSync(out, `${JSON.stringify(withIds, null, 2)}\n`)
+    const streaming = withIds.titles.filter((title) => title.providers.length).length
+    const netflix = withIds.titles.filter((title) => title.watchIds?.netflix).length
+    const checked = withIds.providersCheckedAt ? `, TMDB checked ${withIds.providersCheckedAt}` : ''
+    console.log(
+      `wrote ${out}: ${feed.titles.length} titles from ${year}, ${streaming} with streaming channels, ${netflix} with a Netflix ID${checked}`,
+    )
   } catch (error) {
     console.warn(`fresh movies not refreshed: ${error instanceof Error ? error.message : error}`)
     if (!existsSync(out)) writeFileSync(out, `${JSON.stringify(toFeed([], [], year, now), null, 2)}\n`)

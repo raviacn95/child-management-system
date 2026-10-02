@@ -11,6 +11,8 @@ import {
   type PlatformAds,
 } from './schema'
 import { adLabelFor, rankWatchIds, type RankContext } from '../ott/adFree'
+import { titleLink } from '../ott/deepLink'
+import { watchIdsFor } from '../ott/watchIds'
 import { z } from 'zod'
 
 /** Remake / shared-story clusters so we do not list the same plot twice as if it were two originals. */
@@ -116,7 +118,7 @@ export function watchLinks(title: MovieTitle, opts?: WatchLinkOptions) {
     return {
       platformId: id,
       platformName: p?.name ?? id,
-      url: watchUrl(id, title.title, title.year, title.originalLang),
+      url: titleLink(id, watchIdsFor(title.title, title.year))?.web ?? watchUrl(id, title.title, title.year, title.originalLang),
       adFree: adLabel === 'ad-free',
       adLabel,
     }

@@ -2,9 +2,9 @@ import { useMemo, useState } from 'react'
 import { RefreshCw, Sparkles } from 'lucide-react'
 import { Badge, Button } from '../../components/ui'
 import { isTvMode } from '../../lib/tv'
-import { fireTvIntent } from '../ott/fireTv'
+import { fireTvIntent, officialWatchUrl } from '../ott/fireTv'
 import { useOpenWatch } from '../ott/WatchPane'
-import { platforms, watchUrl } from './catalog'
+import { platforms } from './catalog'
 import {
   asMovieLang,
   availabilityNote,
@@ -103,7 +103,10 @@ export function FreshReleasesRow() {
 
   function open(platformId: string, platformName: string, title: FreshTitle, query = title.title) {
     const originalLang = asMovieLang(title.lang)
-    const url = tv ? fireTvIntent(platformId, query, title.year, originalLang) : watchUrl(platformId, query, title.year, originalLang)
+    const ids = query === title.title ? title.watchIds : undefined
+    const url = tv
+      ? fireTvIntent(platformId, query, title.year, originalLang, ids)
+      : officialWatchUrl(platformId, query, title.year, originalLang, ids)
     openWatch({ url, title: title.title, platformName })
   }
 

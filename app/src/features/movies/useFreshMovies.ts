@@ -8,6 +8,7 @@ import {
   saveFreshCache,
   type FreshCache,
 } from './fresh'
+import { rememberWatchIds } from '../ott/watchIds'
 
 export type FreshStatus = 'idle' | 'loading' | 'error'
 
@@ -23,7 +24,11 @@ async function fetchFeed() {
 
 /** This year's releases, re-checked every 10 minutes and whenever the screen comes back into view. */
 export function useFreshMovies(enabled = true) {
-  const [cache, setCache] = useState<FreshCache | null>(() => loadFreshCache())
+  const [cache, setCache] = useState<FreshCache | null>(() => {
+    const saved = loadFreshCache()
+    if (saved) rememberWatchIds(saved.feed.titles)
+    return saved
+  })
   const [status, setStatus] = useState<FreshStatus>('idle')
   const cacheRef = useRef(cache)
   const busy = useRef(false)
@@ -43,6 +48,7 @@ export function useFreshMovies(enabled = true) {
           : mergeFreshFeed(prev, feed, new Date())
       cacheRef.current = next
       saveFreshCache(next)
+      rememberWatchIds(next.feed.titles)
       setCache(next)
       setStatus('idle')
     } catch (error) {

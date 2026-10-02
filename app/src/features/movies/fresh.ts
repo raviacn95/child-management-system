@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { movieLangSchema, type MovieLang } from './schema'
+import { watchIdsSchema } from '../ott/deepLink'
 
 export const FRESH_FEED_FILE = 'movies-fresh.json'
 export const FRESH_POLL_MS = 10 * 60 * 1000
@@ -43,6 +44,7 @@ const freshTitleSchema = z.object({
     ),
   providersSource: z.enum(['tmdb', 'wikidata']).optional().catch(undefined),
   tmdbId: z.number().int().positive().optional().catch(undefined),
+  watchIds: watchIdsSchema.optional(),
 })
 
 const freshFeedShape = z.object({

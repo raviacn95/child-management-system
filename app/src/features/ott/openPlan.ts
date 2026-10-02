@@ -1,3 +1,5 @@
+import { opensAppByLink } from './deepLink'
+
 /** Appended to the WebView user agent by app shells whose MainActivity launches `intent://` links. */
 export const NATIVE_INTENT_MARKER = 'WillowIntents/1'
 
@@ -93,6 +95,7 @@ function nativePlan(url: string, intent: ParsedIntent | null, web: string, env: 
     if (intent) return { mode: 'navigate', href: url }
     return web ? { mode: 'navigate', href: toIntent(web) } : null
   }
+  if (env.tv && intent?.pkg && opensAppByLink(intent.target)) return { mode: 'navigate', href: outsideOldShell(intent.target) }
   if (env.tv && intent?.pkg) return { mode: 'navigate', href: storeHref(intent.pkg, env.ua) }
   return web ? { mode: 'navigate', href: outsideOldShell(web) } : null
 }

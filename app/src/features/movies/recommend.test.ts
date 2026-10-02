@@ -26,12 +26,12 @@ describe('movie catalog scale', () => {
       expect(t.watchLinks.length).toBeGreaterThan(0)
       expect(t.watchLinks.every((w) => w.url.startsWith('https://'))).toBe(true)
       const hotstar = t.watchLinks.find((w) => w.platformId === 'hotstar')
-      if (hotstar) {
+      if (hotstar && !/^https:\/\/www\.hotstar\.com\/in\/\d+$/.test(hotstar.url)) {
         expect(hotstar.url).toMatch(/search_query=/)
         expect(decodeURIComponent(hotstar.url)).toContain(t.title)
       }
       const prime = t.watchLinks.find((w) => w.platformId === 'prime')
-      if (prime) {
+      if (prime && !/^https:\/\/www\.primevideo\.com\/detail\/amzn1\.dv\.gti\.[0-9a-f-]+$/.test(prime.url)) {
         expect(prime.url).toMatch(/phrase=/)
         expect(decodeURIComponent(prime.url)).toContain(t.title)
       }

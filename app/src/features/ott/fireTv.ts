@@ -1,6 +1,8 @@
 import { watchUrl } from '../movies/catalog'
 import type { MovieLang } from '../movies/schema'
+import { deepLinkFor, deviceFor, intentUri, OPENS_LABEL, titleLink, type DeepLinkPlan, type WatchIds } from './deepLink'
 import { openOfficialApp } from './watchDesk'
+import { watchIdsFor } from './watchIds'
 
 /** Native Fire TV / Android TV packages. Playback stays in the official app (already logged in on the Stick). */
 export const FIRE_TV_PACKAGES: Record<string, string> = {
@@ -39,22 +41,42 @@ export const ANDROID_TV_PACKAGES: Record<string, string> = {
 
 const FIRE_TV_UA = /\bAFT[A-Z0-9]/
 
-export function tvPackageFor(platformId: string, ua = typeof navigator !== 'undefined' ? navigator.userAgent : '') {
+const currentUa = () => (typeof navigator !== 'undefined' ? navigator.userAgent : '')
+
+export function tvPackageFor(platformId: string, ua = currentUa()) {
   const map = FIRE_TV_UA.test(ua) ? FIRE_TV_PACKAGES : ANDROID_TV_PACKAGES
   return Object.prototype.hasOwnProperty.call(map, platformId) ? map[platformId] : undefined
 }
 
-export function fireTvIntent(platformId: string, movieTitle?: string, year?: number, originalLang?: MovieLang) {
-  const pkg = tvPackageFor(platformId)
-  const web = watchUrl(platformId, movieTitle || platformId, year, originalLang)
-  if (!pkg) return web
-  const fallback = encodeURIComponent(web)
+/** Official page for a movie: its title page when Wikidata knows the platform's ID, else the storefront search. */
+export function officialWatchUrl(platformId: string, movieTitle: string, year?: number, originalLang?: MovieLang, ids = watchIdsFor(movieTitle, year)) {
+  return titleLink(platformId, ids)?.web ?? watchUrl(platformId, movieTitle, year, originalLang)
+}
+
+export function tvDeepLink(
+  platformId: string,
+  movieTitle?: string,
+  year?: number,
+  originalLang?: MovieLang,
+  ids: WatchIds | undefined = watchIdsFor(movieTitle, year),
+  ua = currentUa(),
+): DeepLinkPlan {
+  const searchUrl = watchUrl(platformId, movieTitle || platformId, year, originalLang)
+  return deepLinkFor(platformId, { ids, searchUrl, pkg: tvPackageFor(platformId, ua) }, deviceFor({ tv: true, ua }))
+}
+
+export function fireTvIntent(platformId: string, movieTitle?: string, year?: number, originalLang?: MovieLang, ids?: WatchIds) {
+  const plan = tvDeepLink(platformId, movieTitle, year, originalLang, ids ?? watchIdsFor(movieTitle, year))
   try {
-    const u = new URL(web)
-    return `intent://${u.host}${u.pathname}${u.search}#Intent;scheme=${u.protocol.replace(':', '')};package=${pkg};S.browser_fallback_url=${fallback};end`
+    return intentUri(plan) ?? plan.web
   } catch {
-    return web
+    return plan.web
   }
+}
+
+/** Short TV hint under a Watch button: whether the click lands on the movie, a search, or just the app. */
+export function tvOpensLabel(platformId: string, movieTitle: string, year?: number, ids?: WatchIds) {
+  return OPENS_LABEL[tvDeepLink(platformId, movieTitle, year, undefined, ids ?? watchIdsFor(movieTitle, year)).opens]
 }
 
 export function openStorefront(platformId: string, movieTitle?: string, tv = false) {

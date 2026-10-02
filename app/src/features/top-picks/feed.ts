@@ -1,6 +1,7 @@
 import catalogJson from '../../data/top-picks.json'
-import { platformAds, platforms, watchUrl } from '../movies/catalog'
+import { platformAds, platforms } from '../movies/catalog'
 import { rankWatchIds } from '../ott/adFree'
+import { officialWatchUrl } from '../ott/fireTv'
 import type { LookId } from '../../theme/looks'
 import { rankedTopPickSchema, topPicksCatalogSchema, type RankedTopPick } from './schema'
 
@@ -20,7 +21,7 @@ function officialLinks(pick: (typeof topPicksCatalog.items)[number], opts: TopPi
     return {
       platformId: id,
       platformName: p?.name ?? id,
-      url: watchUrl(id, pick.title, pick.year, pick.originalLang),
+      url: officialWatchUrl(id, pick.title, pick.year, pick.originalLang),
     }
   })
 }

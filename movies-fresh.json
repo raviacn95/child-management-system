@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-02T09:08:12.832Z",
+  "generatedAt": "2026-10-02T09:25:02.563Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage",
   "titles": [
@@ -355,6 +355,16 @@
       "sitelinks": 4
     },
     {
+      "id": "wd-Q138562396",
+      "qid": "Q138562396",
+      "title": "Son Of",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2
+    },
+    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -510,16 +520,6 @@
       "title": "Bhartha Mahasayulaku Wignyapthi",
       "year": 2026,
       "released": "2026-01-13",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2
-    },
-    {
-      "id": "wd-Q135647565",
-      "qid": "Q135647565",
-      "title": "Mana Shankara Vara Prasad Garu",
-      "year": 2026,
-      "released": "2026-01-12",
       "lang": "te",
       "india": true,
       "sitelinks": 2

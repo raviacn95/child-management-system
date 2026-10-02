@@ -108,6 +108,13 @@ public class MainActivity extends BridgeActivity {
         String activity = activityInPackage(intent.getStringExtra("activity"), pkg);
         if (pkg != null && intent.getData() == null && Intent.ACTION_MAIN.equals(intent.getAction())) {
             if (openInstalledApp(pkg, activity)) return;
+            Toast.makeText(this, "That app is not installed", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (pkg != null && appName != null && intent.getData() != null && "https".equals(intent.getData().getScheme())) {
+            Intent view = new Intent(Intent.ACTION_VIEW, intent.getData()).setPackage(pkg).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            if (tryStart(view)) return;
+            if (openInstalledApp(pkg, activity)) return;
             if (fallback != null && fallback.startsWith("https://")) {
                 Intent web = new Intent(Intent.ACTION_VIEW, Uri.parse(fallback)).addCategory(Intent.CATEGORY_BROWSABLE);
                 if (tryStart(web)) return;

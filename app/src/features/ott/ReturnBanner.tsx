@@ -22,8 +22,8 @@ export function ReturnBanner({
       <div className="return-banner-copy">
         <p className="font-semibold">Return to Willow™</p>
         <p className="text-xs text-muted">
-          {away.label} is open outside this page. No child records were sent. Use Return, your device Back control, or
-          this banner.
+          {away.label} is open{away.title && away.title !== away.label ? ` for ${away.title}` : ''}. Use Return or your
+          device Back control to come back.
         </p>
       </div>
       <div className="return-banner-actions">

@@ -116,12 +116,16 @@ function launchTail(app: CustomApp) {
   return parts.join(';')
 }
 
-/** A saved package opens that installed app. The website is used only when no package is saved, or when the app is not installed. */
+/** A search link opens that title. With a package, the installed app gets the link. Without one, the app just opens. */
 export function customAppLink(app: CustomApp, title: string, year?: number) {
+  if (app.searchUrl && app.androidPackage) {
+    const web = customSearchUrl(app, title, year)
+    const u = new URL(web)
+    const activity = app.activity ? `;S.activity=${encodeURIComponent(app.activity)}` : ''
+    return `intent://${u.host}${u.pathname}${u.search}#Intent;scheme=https;package=${app.androidPackage};S.app_name=${encodeURIComponent(app.name)}${activity};S.browser_fallback_url=${encodeURIComponent(web)};end`
+  }
   if (app.androidPackage || !app.searchUrl) {
-    const web = app.searchUrl ? customSearchUrl(app, title, year) : ''
-    const fallback = web ? `;S.browser_fallback_url=${encodeURIComponent(web)}` : ''
-    return `intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;${launchTail(app)}${fallback};end`
+    return `intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;${launchTail(app)};end`
   }
   return customSearchUrl(app, title, year)
 }

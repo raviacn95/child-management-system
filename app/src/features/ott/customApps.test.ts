@@ -45,8 +45,19 @@ describe('parseCustomApp', () => {
     expect(result).toEqual({ ok: false, error: 'Put {q} in the link where the movie name goes' })
   })
 
-  it('refuses links that are not https', () => {
-    for (const searchUrl of ['http://films.example.com/?q={q}', 'javascript:alert(1)//{q}', 'intent://x/{q}', 'films {q}']) {
+  it('accepts the app’s own link when it has {q}', () => {
+    const result = parseCustomApp({ ...draft, searchUrl: 'filmsapp://films.example/open?q={q}' })
+    expect(result.ok && result.app.searchUrl).toBe('filmsapp://films.example/open?q={q}')
+  })
+
+  it('refuses web links that are not https, and links that are not a real app address', () => {
+    for (const searchUrl of [
+      'http://films.example.com/?q={q}',
+      'javascript:alert(1)//{q}',
+      'intent://x/{q}',
+      'films {q}',
+      'filmsapp://films.example/open?q={q};end',
+    ]) {
       expect(parseCustomApp({ ...draft, searchUrl }).ok).toBe(false)
     }
   })
@@ -124,6 +135,21 @@ describe('links', () => {
     const web = customSearchUrl(withPkg, 'Drishyam', 2013)
     expect(customAppLink(withPkg, 'Drishyam', 2013)).toBe(
       `intent://${new URL(web).host}${new URL(web).pathname}${new URL(web).search}#Intent;scheme=https;package=com.example.films;S.app_name=My%20Films;S.browser_fallback_url=${encodeURIComponent(web)};end`,
+    )
+  })
+
+  it('sends an app link, with the movie title filled in, to the installed package', () => {
+    const result = parseCustomApp({
+      name: 'Films',
+      searchUrl: 'filmsapp://films.example/open?q={q}',
+      androidPackage: 'com.example.films',
+      activity: '.MainActivity',
+      scope: 'all',
+    })
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(customAppLink(result.app, 'Drishyam', 2013)).toBe(
+      'intent://films.example/open?q=Drishyam%202013#Intent;scheme=filmsapp;package=com.example.films;S.app_name=Films;S.activity=com.example.films.MainActivity;end',
     )
   })
 })

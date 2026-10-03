@@ -111,10 +111,16 @@ public class MainActivity extends BridgeActivity {
             Toast.makeText(this, "That app is not installed", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (pkg != null && appName != null && intent.getData() != null && "https".equals(intent.getData().getScheme())) {
-            Intent view = new Intent(Intent.ACTION_VIEW, intent.getData()).setPackage(pkg).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        String scheme = intent.getData() == null ? null : intent.getData().getScheme();
+        if (appName != null && intent.getData() != null && isTitleScheme(scheme) && (pkg != null || !"https".equalsIgnoreCase(scheme))) {
+            Intent view = new Intent(Intent.ACTION_VIEW, intent.getData()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            if (pkg != null) view.setPackage(pkg);
             if (tryStart(view)) return;
-            if (openInstalledApp(pkg, activity)) return;
+            if (pkg != null && openInstalledApp(pkg, activity)) return;
+            if (pkg == null) {
+                Intent named = launcherNamed(appName);
+                if (named != null && tryStart(named)) return;
+            }
             if (fallback != null && fallback.startsWith("https://")) {
                 Intent web = new Intent(Intent.ACTION_VIEW, Uri.parse(fallback)).addCategory(Intent.CATEGORY_BROWSABLE);
                 if (tryStart(web)) return;
@@ -123,7 +129,7 @@ public class MainActivity extends BridgeActivity {
             return;
         }
         if (activity != null && tryStart(explicitActivity(pkg, activity))) return;
-        if (pkg == null) {
+        if (pkg == null && intent.getData() == null) {
             Intent named = launcherNamed(appName);
             if (named != null) tryStart(named);
             else if (appName != null) Toast.makeText(this, "No installed app named " + appName, Toast.LENGTH_SHORT).show();
@@ -160,6 +166,16 @@ public class MainActivity extends BridgeActivity {
             if (tryStart(installed)) return true;
         }
         return tryStart(launcherFor(pkg, Intent.CATEGORY_LAUNCHER));
+    }
+
+    private boolean isTitleScheme(String scheme) {
+        if (scheme == null) return false;
+        String name = scheme.toLowerCase(Locale.ROOT);
+        if (name.equals("https")) return true;
+        if (name.equals("http") || name.equals("javascript") || name.equals("intent") || name.equals("file")
+                || name.equals("content") || name.equals("data") || name.equals("blob") || name.equals("about")
+                || name.equals("willow") || name.equals("market") || name.equals("amzn")) return false;
+        return name.matches("[a-z][a-z0-9+.-]{1,31}");
     }
 
     private String activityInPackage(String activity, String pkg) {

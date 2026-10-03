@@ -38,8 +38,9 @@ export function CustomAppsCard() {
     <section className="card mb-6 p-5" data-testid="custom-apps">
       <h2 className="font-display text-xl">Add your own app</h2>
       <p className="mt-1 text-sm text-muted">
-        Package name opens that installed app. Add a search link with <code>{'{q}'}</code> to send the movie title into
-        it. Leave the link blank and the app opens on its home screen. Activity is optional. Saved on this device only.
+        Package name opens that installed app. A search link with <code>{'{q}'}</code> sends the movie title. Use an
+        https:// link, or the app’s own link such as myapp://open?q={'{q}'}. Leave the link blank and the app opens on
+        its home screen. Activity is optional. Saved on this device only.
       </p>
       <form className="mt-4 grid gap-3 md:grid-cols-2" onSubmit={submit}>
         <Field label="App name">
@@ -72,7 +73,7 @@ export function CustomAppsCard() {
             className={inputClass}
             value={searchUrl}
             inputMode="url"
-            placeholder="https://www.example.com/search?q={q}"
+            placeholder="myapp://open?q={q}"
             onChange={(e) => setSearchUrl(e.target.value)}
           />
         </Field>

@@ -127,13 +127,30 @@ describe('openPlan', () => {
     })
   })
 
-  it('wraps a phone link in a package-free intent so Android picks the official app or browser', () => {
+  it('names the phone app when wrapping Netflix, Prime, and the other phone storefronts', () => {
     const plan = openPlan({ url: NETFLIX, tv: false, native: true, ua: `${PHONE_UA} ${NATIVE_INTENT_MARKER}` })
     expect(plan?.mode).toBe('navigate')
     expect(plan?.href).toBe(
-      `intent://www.netflix.com/search?q=Mardaani%203%202026%20Hindi#Intent;scheme=https;S.browser_fallback_url=${encodeURIComponent(NETFLIX)};end`,
+      `intent://www.netflix.com/search?q=Mardaani%203%202026%20Hindi#Intent;scheme=https;package=com.netflix.mediaclient;S.browser_fallback_url=${encodeURIComponent(NETFLIX)};end`,
     )
-    expect(plan?.href).not.toContain('package=')
+    const prime = 'https://www.primevideo.com/search?phrase=Drishyam'
+    expect(openPlan({ url: prime, tv: false, native: true, ua: `${PHONE_UA} ${NATIVE_INTENT_MARKER}` })?.href).toContain(
+      'package=com.amazon.avod.thirdpartyclient',
+    )
+    const hotstar = 'https://www.hotstar.com/in/search?q=Drishyam'
+    expect(openPlan({ url: hotstar, tv: false, native: true, ua: `${PHONE_UA} ${NATIVE_INTENT_MARKER}` })?.href).toContain(
+      'package=in.startv.hotstar',
+    )
+    const justwatch = 'https://www.justwatch.com/in/search?q=Drishyam'
+    expect(openPlan({ url: justwatch, tv: false, native: true, ua: `${PHONE_UA} ${NATIVE_INTENT_MARKER}` })?.href).not.toContain(
+      'package=',
+    )
+  })
+
+  it('does not put the phone package on a TV link', () => {
+    const plan = openPlan({ url: NETFLIX, tv: true, native: true, ua: `${FIRE_TV_UA} ${NATIVE_INTENT_MARKER}` })
+    expect(plan?.href).not.toContain('com.netflix.mediaclient')
+    expect(plan?.href).toContain('scheme=https')
   })
 
   it('opens the Fire TV Appstore page for the app in older shells that cannot parse intents', () => {
@@ -200,6 +217,14 @@ describe('openPlan', () => {
         'amzn://apps/android?p=com.amazon.avod.thirdpartyclient',
       )
     })
+  })
+
+  it('opens an app’s own link on Android and does nothing with it on the desktop', () => {
+    const href =
+      'intent://films.example/open?q=Drishyam%202013#Intent;scheme=filmsapp;package=com.example.films;S.app_name=Films;end'
+    expect(openPlan({ url: href, tv: false, native: true, ua: PHONE_UA })).toEqual({ mode: 'navigate', href })
+    expect(openPlan({ url: href, tv: false, native: false, ua: PHONE_UA })).toEqual({ mode: 'navigate', href })
+    expect(openPlan({ url: href, tv: false, native: false, ua: DESKTOP_UA })).toBeNull()
   })
 
   it('refuses non-https links and empty input', () => {

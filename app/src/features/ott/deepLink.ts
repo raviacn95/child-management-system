@@ -47,6 +47,28 @@ export type TitleLink = {
 
 const TV_DEVICES: ReadonlySet<DeepLinkDevice> = new Set(['firetv', 'androidtv'])
 
+/** Phone builds. TV shells keep their own packages and must not use these. */
+const PHONE_PACKAGES: Record<string, string> = {
+  'netflix.com': 'com.netflix.mediaclient',
+  'primevideo.com': 'com.amazon.avod.thirdpartyclient',
+  'app.primevideo.com': 'com.amazon.avod.thirdpartyclient',
+  'hotstar.com': 'in.startv.hotstar',
+  'jiohotstar.com': 'in.startv.hotstar',
+  'sonyliv.com': 'com.sonyliv',
+  'zee5.com': 'com.graymatrix.did',
+  'youtube.com': 'com.google.android.youtube',
+  'sunnxt.com': 'com.suntv.sunnxt',
+}
+
+export function phonePackageFor(url: string) {
+  try {
+    const host = new URL(url).hostname.toLowerCase().replace(/^www\./, '')
+    return PHONE_PACKAGES[host]
+  } catch {
+    return undefined
+  }
+}
+
 function idFor(platformId: string, ids: WatchIds | undefined) {
   if (!ids || !Object.prototype.hasOwnProperty.call(WATCH_ID_SHAPES, platformId)) return undefined
   const key = platformId as WatchIdPlatform

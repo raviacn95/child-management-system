@@ -1,4 +1,5 @@
-import { opensAppByLink } from './deepLink'
+import { searchLinkParts } from './customApps'
+import { opensAppByLink, phonePackageFor } from './deepLink'
 
 /** Appended to the WebView user agent by app shells whose MainActivity launches `intent://` links. */
 export const NATIVE_INTENT_MARKER = 'WillowIntents/1'
@@ -27,6 +28,12 @@ function httpsOnly(href: string | undefined) {
   } catch {
     return ''
   }
+}
+
+function privateAppTarget(href: string | undefined) {
+  if (!href) return ''
+  const parts = searchLinkParts(href)
+  return parts && parts.scheme !== 'https' ? href : ''
 }
 
 function safeAppName(value: string) {
@@ -90,9 +97,11 @@ export function canEmbed(url: string, origin?: string) {
   return parsed.pathname === '/embed' || parsed.pathname.startsWith('/embed/')
 }
 
-function toIntent(web: string) {
+function toIntent(web: string, attachPhonePackage: boolean) {
   const u = new URL(web)
-  return `intent://${u.host}${u.pathname}${u.search}#Intent;scheme=https;S.browser_fallback_url=${encodeURIComponent(web)};end`
+  const pkg = attachPhonePackage ? phonePackageFor(web) : undefined
+  const packagePart = pkg ? `;package=${pkg}` : ''
+  return `intent://${u.host}${u.pathname}${u.search}#Intent;scheme=https${packagePart};S.browser_fallback_url=${encodeURIComponent(web)};end`
 }
 
 function storeHref(pkg: string, ua: string) {
@@ -113,7 +122,7 @@ function outsideOldShell(web: string) {
 function nativePlan(url: string, intent: ParsedIntent | null, web: string, env: OpenEnv): OpenPlan | null {
   if (env.ua.includes(NATIVE_INTENT_MARKER)) {
     if (intent) return { mode: 'navigate', href: url }
-    return web ? { mode: 'navigate', href: toIntent(web) } : null
+    return web ? { mode: 'navigate', href: toIntent(web, !env.tv) } : null
   }
   if (env.tv && intent?.pkg && opensAppByLink(intent.target)) return { mode: 'navigate', href: outsideOldShell(intent.target) }
   if (env.tv && intent?.pkg) return { mode: 'navigate', href: storeHref(intent.pkg, env.ua) }
@@ -127,9 +136,14 @@ export function openPlan({ url, ...env }: OpenEnv & { url: string }): OpenPlan |
     if (env.native || ANDROID_UA.test(env.ua)) return { mode: 'navigate', href: url }
     return null
   }
-  if (intent && !httpsOnly(intent.target)) return null
+  const privateApp = privateAppTarget(intent?.target)
+  if (intent && !httpsOnly(intent.target) && !privateApp) return null
   const web = httpsOnly(intent ? intent.fallback || intent.target : url)
   if (!intent && !web) return null
+  if (privateApp) {
+    if (env.native || ANDROID_UA.test(env.ua)) return { mode: 'navigate', href: url }
+    return null
+  }
   if (!env.tv && web && canEmbed(web, env.origin)) return { mode: 'embed', href: web }
   if (env.native) return nativePlan(url, intent, web, env)
   if (intent && ANDROID_UA.test(env.ua)) return { mode: 'navigate', href: url }

@@ -23,7 +23,8 @@ test('a custom app adds its own search button next to Netflix and Prime', async 
   await addApp(page, 'Pocket', '')
   await addApp(page, 'Shelf', '', false, 'com.example.shelf', '.HomeActivity')
   await addApp(page, 'Late Night', 'https://late.example.com/find/{q}', true)
-  await expect(page.getByTestId('custom-app-row')).toHaveCount(4)
+  await addApp(page, 'App Link', 'filmsapp://films.example/open?q={q}', false, 'com.example.films')
+  await expect(page.getByTestId('custom-app-row')).toHaveCount(5)
 
   await page.goto('/#/movies')
   const card = page.getByTestId('movie-card').first()
@@ -33,6 +34,10 @@ test('a custom app adds its own search button next to Netflix and Prime', async 
   await expect(card.getByRole('link', { name: 'Open Pocket' })).toHaveAttribute(
     'href',
     'intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.app_name=Pocket;end',
+  )
+  await expect(card.getByRole('link', { name: /Search .+ on App Link/ })).toHaveAttribute(
+    'href',
+    /^intent:\/\/films\.example\/open\?q=.+#Intent;scheme=filmsapp;package=com\.example\.films;S\.app_name=App%20Link;end$/,
   )
   await expect(card.getByRole('link', { name: 'Open Shelf' })).toHaveAttribute(
     'href',

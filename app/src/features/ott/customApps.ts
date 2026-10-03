@@ -8,15 +8,26 @@ const CHANGE_EVENT = 'willow-custom-apps-change'
 const TITLE_SLOT = '{q}'
 const ANDROID_PACKAGE = /^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/
 const CLASS_NAME = /^[A-Za-z][A-Za-z0-9_]*(\.[A-Za-z][A-Za-z0-9_]*)+$/
+const SCHEME_NAME = /^[a-z][a-z0-9+.-]{1,31}$/
+const BLOCKED_SCHEMES = new Set(['http', 'javascript', 'intent', 'file', 'content', 'data', 'blob', 'about', 'willow', 'market', 'amzn'])
 
 export type CustomAppScope = 'all' | 'erotic'
 
-function httpsSearch(url: string) {
+export function searchLinkParts(url: string) {
   try {
-    return new URL(url.replaceAll(TITLE_SLOT, 'test')).protocol === 'https:'
+    const parsed = new URL(url)
+    const scheme = parsed.protocol.replace(/:$/, '').toLowerCase()
+    if (!SCHEME_NAME.test(scheme) || BLOCKED_SCHEMES.has(scheme)) return null
+    if (!parsed.hostname || parsed.username || parsed.password || parsed.hash) return null
+    if (/[;\s#]/.test(`${parsed.hostname}${parsed.pathname}${parsed.search}`)) return null
+    return { scheme, host: parsed.host, path: parsed.pathname, search: parsed.search }
   } catch {
-    return false
+    return null
   }
+}
+
+function allowedSearch(url: string) {
+  return searchLinkParts(url.replaceAll(TITLE_SLOT, 'test')) !== null
 }
 
 const draftSchema = z
@@ -31,7 +42,9 @@ const draftSchema = z
       .superRefine((url, ctx) => {
         if (!url) return
         if (!url.includes(TITLE_SLOT)) ctx.addIssue({ code: 'custom', message: 'Put {q} in the link where the movie name goes' })
-        else if (!httpsSearch(url)) ctx.addIssue({ code: 'custom', message: 'Use a full https:// link' })
+        else if (!allowedSearch(url)) {
+          ctx.addIssue({ code: 'custom', message: 'Use an https:// link, or the app’s own link like myapp://open?q={q}' })
+        }
       }),
     androidPackage: z
       .string()
@@ -116,18 +129,22 @@ function launchTail(app: CustomApp) {
   return parts.join(';')
 }
 
-/** A search link opens that title. With a package, the installed app gets the link. Without one, the app just opens. */
+function titleIntent(app: CustomApp, filled: string, parts: NonNullable<ReturnType<typeof searchLinkParts>>) {
+  const packagePart = app.androidPackage ? `;package=${app.androidPackage}` : ''
+  const activity = app.activity ? `;S.activity=${encodeURIComponent(app.activity)}` : ''
+  const fallback = parts.scheme === 'https' ? `;S.browser_fallback_url=${encodeURIComponent(filled)}` : ''
+  return `intent://${parts.host}${parts.path}${parts.search}#Intent;scheme=${parts.scheme}${packagePart};S.app_name=${encodeURIComponent(app.name)}${activity}${fallback};end`
+}
+
+/** A search link opens that title in the installed app. An https link without a package stays on the web. */
 export function customAppLink(app: CustomApp, title: string, year?: number) {
-  if (app.searchUrl && app.androidPackage) {
-    const web = customSearchUrl(app, title, year)
-    const u = new URL(web)
-    const activity = app.activity ? `;S.activity=${encodeURIComponent(app.activity)}` : ''
-    return `intent://${u.host}${u.pathname}${u.search}#Intent;scheme=https;package=${app.androidPackage};S.app_name=${encodeURIComponent(app.name)}${activity};S.browser_fallback_url=${encodeURIComponent(web)};end`
-  }
-  if (app.androidPackage || !app.searchUrl) {
+  const filled = app.searchUrl ? customSearchUrl(app, title, year) : ''
+  const parts = filled ? searchLinkParts(filled) : null
+  if (parts && (app.androidPackage || parts.scheme !== 'https')) return titleIntent(app, filled, parts)
+  if (app.androidPackage || !filled) {
     return `intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;${launchTail(app)};end`
   }
-  return customSearchUrl(app, title, year)
+  return filled
 }
 
 export function appsForShelf(apps: readonly CustomApp[], shelf: 'family' | 'erotic') {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-03T21:18:24.267Z",
+  "generatedAt": "2026-10-03T21:51:00.642Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -541,15 +541,22 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q138497144",
-      "qid": "Q138497144",
-      "title": "Korpur",
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
       "year": 2026,
       "released": "2026-03-19",
-      "lang": "bn",
+      "lang": "ml",
       "india": true,
       "sitelinks": 2,
-      "providers": []
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "tmdbId": 1260210,
+      "providersSource": "tmdb"
     },
     {
       "id": "wd-Q107105860",
@@ -616,18 +623,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q138510258",
-      "qid": "Q138510258",
-      "title": "Masthishka Maranam",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1444032
-    },
-    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -681,18 +676,6 @@
       "watchIds": {
         "netflix": "81768525"
       }
-    },
-    {
-      "id": "wd-Q137874897",
-      "qid": "Q137874897",
-      "title": "OCD",
-      "year": 2026,
-      "released": "2026-02-06",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -787,7 +770,8 @@
       "india": true,
       "sitelinks": 2,
       "providers": [],
-      "tmdbId": 1536901
+      "tmdbId": 1536901,
+      "providersSource": "tmdb"
     },
     {
       "id": "wd-Q124566659",
@@ -838,8 +822,14 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1282440
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "tmdbId": 1282440,
+      "providersSource": "tmdb"
     },
     {
       "id": "wd-Q131189949",
@@ -899,6 +889,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
+      "year": 2026,
+      "released": "2026-01-12",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1439713
+    },
+    {
       "id": "wd-Q124301053",
       "qid": "Q124301053",
       "title": "The RajaSaab",
@@ -915,6 +917,18 @@
       ],
       "tmdbId": 1022453,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137575105",
+      "qid": "Q137575105",
+      "title": "Nari Choritro Bejay Jotil",
+      "year": 2026,
+      "released": "2026-01-09",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",
@@ -974,19 +988,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1005,6 +1006,19 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q137843190",
       "qid": "Q137843190",
       "title": "Psych Siddhartha",
@@ -1013,8 +1027,14 @@
       "lang": "te",
       "india": true,
       "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1594670
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        }
+      ],
+      "tmdbId": 1594670,
+      "providersSource": "tmdb"
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

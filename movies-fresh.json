@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-03T16:19:26.010Z",
+  "generatedAt": "2026-10-03T21:18:24.267Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -12,7 +12,7 @@
       "released": "2026-10-01",
       "lang": "en",
       "india": false,
-      "sitelinks": 23,
+      "sitelinks": 24,
       "providers": [],
       "tmdbId": 1248832,
       "providersSource": "tmdb"
@@ -541,6 +541,17 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q138497144",
+      "qid": "Q138497144",
+      "title": "Korpur",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": []
+    },
+    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -617,18 +628,6 @@
       "tmdbId": 1444032
     },
     {
-      "id": "wd-Q138562396",
-      "qid": "Q138562396",
-      "title": "Son Of",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1669290
-    },
-    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -682,6 +681,18 @@
       "watchIds": {
         "netflix": "81768525"
       }
+    },
+    {
+      "id": "wd-Q137874897",
+      "qid": "Q137874897",
+      "title": "OCD",
+      "year": 2026,
+      "released": "2026-02-06",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -904,18 +915,6 @@
       ],
       "tmdbId": 1022453,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",

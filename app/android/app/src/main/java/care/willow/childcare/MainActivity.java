@@ -112,10 +112,13 @@ public class MainActivity extends BridgeActivity {
             return;
         }
         String scheme = intent.getData() == null ? null : intent.getData().getScheme();
+        String query = searchQuery(intent.getStringExtra("query"));
         if (appName != null && intent.getData() != null && isTitleScheme(scheme) && (pkg != null || !"https".equalsIgnoreCase(scheme))) {
             Intent view = new Intent(Intent.ACTION_VIEW, intent.getData()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (pkg != null) view.setPackage(pkg);
+            if (query != null) view.putExtra("query", query);
             if (tryStart(view)) return;
+            if (pkg != null && query != null && tryStart(searchIntent(pkg, query))) return;
             if (pkg != null && openInstalledApp(pkg, activity)) return;
             if (pkg == null) {
                 Intent named = launcherNamed(appName);
@@ -166,6 +169,19 @@ public class MainActivity extends BridgeActivity {
             if (tryStart(installed)) return true;
         }
         return tryStart(launcherFor(pkg, Intent.CATEGORY_LAUNCHER));
+    }
+
+    private String searchQuery(String query) {
+        if (query == null) return null;
+        String trimmed = query.trim();
+        if (trimmed.isEmpty() || trimmed.length() > 120 || trimmed.indexOf('\n') >= 0 || trimmed.indexOf('\r') >= 0) return null;
+        return trimmed;
+    }
+
+    private static Intent searchIntent(String pkg, String query) {
+        Intent search = new Intent(Intent.ACTION_SEARCH).setPackage(pkg).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        search.putExtra("query", query);
+        return search;
     }
 
     private boolean isTitleScheme(String scheme) {

@@ -114,10 +114,13 @@ export function parseCustomApp(input: CustomAppDraft, id = newId()): CustomAppRe
   return { ok: true, app: { id, ...parsed.data, activity } }
 }
 
+function searchQuery(title: string, year?: number) {
+  return [title.trim(), year].filter(Boolean).join(' ')
+}
+
 export function customSearchUrl(app: CustomApp, title: string, year?: number) {
   if (!app.searchUrl) return ''
-  const query = [title.trim(), year].filter(Boolean).join(' ')
-  return app.searchUrl.replaceAll(TITLE_SLOT, encodeURIComponent(query))
+  return app.searchUrl.replaceAll(TITLE_SLOT, encodeURIComponent(searchQuery(title, year)))
 }
 
 function launchTail(app: CustomApp) {
@@ -129,18 +132,18 @@ function launchTail(app: CustomApp) {
   return parts.join(';')
 }
 
-function titleIntent(app: CustomApp, filled: string, parts: NonNullable<ReturnType<typeof searchLinkParts>>) {
+function titleIntent(app: CustomApp, filled: string, parts: NonNullable<ReturnType<typeof searchLinkParts>>, query: string) {
   const packagePart = app.androidPackage ? `;package=${app.androidPackage}` : ''
-  const activity = app.activity ? `;S.activity=${encodeURIComponent(app.activity)}` : ''
   const fallback = parts.scheme === 'https' ? `;S.browser_fallback_url=${encodeURIComponent(filled)}` : ''
-  return `intent://${parts.host}${parts.path}${parts.search}#Intent;scheme=${parts.scheme}${packagePart};S.app_name=${encodeURIComponent(app.name)}${activity}${fallback};end`
+  return `intent://${parts.host}${parts.path}${parts.search}#Intent;scheme=${parts.scheme}${packagePart};S.app_name=${encodeURIComponent(app.name)};S.query=${encodeURIComponent(query)}${fallback};end`
 }
 
 /** A search link opens that title in the installed app. An https link without a package stays on the web. */
 export function customAppLink(app: CustomApp, title: string, year?: number) {
+  const query = searchQuery(title, year)
   const filled = app.searchUrl ? customSearchUrl(app, title, year) : ''
   const parts = filled ? searchLinkParts(filled) : null
-  if (parts && (app.androidPackage || parts.scheme !== 'https')) return titleIntent(app, filled, parts)
+  if (parts && query && (app.androidPackage || parts.scheme !== 'https')) return titleIntent(app, filled, parts, query)
   if (app.androidPackage || !filled) {
     return `intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;${launchTail(app)};end`
   }

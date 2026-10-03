@@ -134,7 +134,7 @@ describe('links', () => {
     const withPkg = { ...app, androidPackage: 'com.example.films' }
     const web = customSearchUrl(withPkg, 'Drishyam', 2013)
     expect(customAppLink(withPkg, 'Drishyam', 2013)).toBe(
-      `intent://${new URL(web).host}${new URL(web).pathname}${new URL(web).search}#Intent;scheme=https;package=com.example.films;S.app_name=My%20Films;S.browser_fallback_url=${encodeURIComponent(web)};end`,
+      `intent://${new URL(web).host}${new URL(web).pathname}${new URL(web).search}#Intent;scheme=https;package=com.example.films;S.app_name=My%20Films;S.query=Drishyam%202013;S.browser_fallback_url=${encodeURIComponent(web)};end`,
     )
   })
 
@@ -149,8 +149,9 @@ describe('links', () => {
     expect(result.ok).toBe(true)
     if (!result.ok) return
     expect(customAppLink(result.app, 'Drishyam', 2013)).toBe(
-      'intent://films.example/open?q=Drishyam%202013#Intent;scheme=filmsapp;package=com.example.films;S.app_name=Films;S.activity=com.example.films.MainActivity;end',
+      'intent://films.example/open?q=Drishyam%202013#Intent;scheme=filmsapp;package=com.example.films;S.app_name=Films;S.query=Drishyam%202013;end',
     )
+    expect(customAppLink(result.app, 'Drishyam', 2013)).not.toContain('S.activity=')
   })
 })
 

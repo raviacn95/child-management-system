@@ -37,7 +37,7 @@ test('a custom app adds its own search button next to Netflix and Prime', async 
   )
   await expect(card.getByRole('link', { name: /Search .+ on App Link/ })).toHaveAttribute(
     'href',
-    /^intent:\/\/films\.example\/open\?q=.+#Intent;scheme=filmsapp;package=com\.example\.films;S\.app_name=App%20Link;end$/,
+    /^intent:\/\/films\.example\/open\?q=.+#Intent;scheme=filmsapp;package=com\.example\.films;S\.app_name=App%20Link;S\.query=.+;end$/,
   )
   await expect(card.getByRole('link', { name: 'Open Shelf' })).toHaveAttribute(
     'href',

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-04T05:56:07.229Z",
+  "generatedAt": "2026-10-04T12:24:15.738Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -152,7 +152,7 @@
       "released": "2026-07-25",
       "lang": "en",
       "india": false,
-      "sitelinks": 25,
+      "sitelinks": 26,
       "providers": [],
       "tmdbId": 1204680,
       "providersSource": "tmdb"
@@ -335,18 +335,6 @@
       "providers": [],
       "tmdbId": 1401459,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q139149095",
-      "qid": "Q139149095",
-      "title": "Saptadingar Guptodhon",
-      "year": 2026,
-      "released": "2026-05-15",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1441301
     },
     {
       "id": "wd-Q124246549",
@@ -642,7 +630,7 @@
       "released": "2026-02-20",
       "lang": "en",
       "india": false,
-      "sitelinks": 22,
+      "sitelinks": 23,
       "providers": [],
       "tmdbId": 467905,
       "providersSource": "tmdb",
@@ -688,6 +676,18 @@
       "watchIds": {
         "netflix": "81768525"
       }
+    },
+    {
+      "id": "wd-Q137874897",
+      "qid": "Q137874897",
+      "title": "OCD",
+      "year": 2026,
+      "released": "2026-02-06",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -736,7 +736,7 @@
       "released": "2026-01-24",
       "lang": "en",
       "india": false,
-      "sitelinks": 25,
+      "sitelinks": 26,
       "providers": [],
       "tmdbId": 950028,
       "providersSource": "tmdb"
@@ -993,6 +993,19 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1009,19 +1022,6 @@
       ],
       "tmdbId": 1439594,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

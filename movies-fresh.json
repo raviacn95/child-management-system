@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-05T05:44:07.850Z",
+  "generatedAt": "2026-10-05T14:43:47.404Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -16,6 +16,18 @@
       "providers": [],
       "tmdbId": 1248832,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q131900904",
+      "qid": "Q131900904",
+      "title": "Heart of the Beast",
+      "year": 2026,
+      "released": "2026-09-24",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 22,
+      "providers": [],
+      "tmdbId": 1263337
     },
     {
       "id": "wd-Q129255849",
@@ -41,19 +53,6 @@
       "sitelinks": 8,
       "providers": [],
       "tmdbId": 1213243,
-      "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q132256832",
-      "qid": "Q132256832",
-      "title": "The Dog Stars",
-      "year": 2026,
-      "released": "2026-08-26",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 22,
-      "providers": [],
-      "tmdbId": 1384216,
       "providersSource": "tmdb"
     },
     {
@@ -773,18 +772,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137802630",
-      "qid": "Q137802630",
-      "title": "Hok Kolorob",
-      "year": 2026,
-      "released": "2026-01-23",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1536901
-    },
-    {
       "id": "wd-Q124566659",
       "qid": "Q124566659",
       "title": "Mercy",
@@ -1022,6 +1009,18 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1616166
+    },
+    {
+      "id": "wd-Q137843190",
+      "qid": "Q137843190",
+      "title": "Psych Siddhartha",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1594670
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T06:23:39.555Z",
+  "generatedAt": "2026-10-06T15:58:07.736Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -875,24 +875,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137718780",
-      "qid": "Q137718780",
-      "title": "Bhartha Mahasayulaku Wignyapthi",
-      "year": 2026,
-      "released": "2026-01-13",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "zee5",
-          "kind": "stream"
-        }
-      ],
-      "tmdbId": 1442975,
-      "providersSource": "tmdb"
-    },
-    {
       "id": "wd-Q135647565",
       "qid": "Q135647565",
       "title": "Mana Shankara Vara Prasad Garu",
@@ -1021,6 +1003,18 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1616166
+    },
+    {
+      "id": "wd-Q137843190",
+      "qid": "Q137843190",
+      "title": "Psych Siddhartha",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1594670
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

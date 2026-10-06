@@ -1,10 +1,10 @@
 {
-  "id": "9612bbc9339c1b000a5616913165c9e1dc69fa89",
-  "run": 56,
-  "name": "Willow live 56 - web, Android, and PWA update",
+  "id": "b963e7b2ebda8120da9d81ddb66d2178e61a8dcd",
+  "run": 57,
+  "name": "Willow live 57 - web, Android, and PWA update",
   "changes": "Latest Willow UI, playback, reliability, and performance improvements.",
-  "builtAt": "2026-10-06T19:25:10.348Z",
+  "builtAt": "2026-10-06T20:30:46.181Z",
   "channel": "live",
   "fallback": "previous",
-  "integrity": "sha256:14c7d0195d0fe07fa4660dfea4bf32b1096395b8fc374eeef1afd412ab934ec2"
+  "integrity": "sha256:ed19ac8434e5c9f879887deb112f414754076f25182c130d583c3e10cb3c7554"
 }

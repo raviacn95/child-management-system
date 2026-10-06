@@ -40,6 +40,7 @@ function renderPattern(pattern) {
     '# OUTPUT INSTRUCTIONS',
     '',
     '- Reply with JSON only: {"ideas":[{"title":"","steps":"","materials":"","question":""}]} with exactly 3 ideas.',
+    '- Keep each field under 30 words. Write "steps" as one short paragraph.',
     '- Do not add a preamble.',
   ].join('\n')
 }

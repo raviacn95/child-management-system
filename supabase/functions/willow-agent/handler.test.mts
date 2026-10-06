@@ -5,17 +5,20 @@ import { memoryQuota, quotaLimits, supabaseQuota } from './quota.mts'
 
 const ORIGIN = 'https://raviacn95.github.io'
 
-function grokReturning(content: string, calls: { body?: unknown }[] = []) {
-  return (async (_url: unknown, init?: RequestInit) => {
-    calls.push({ body: JSON.parse(String(init?.body ?? '{}')) })
-    return new Response(JSON.stringify({ choices: [{ message: { content } }] }), { status: 200 })
+type Call = { url?: string; auth?: string; body?: unknown }
+
+function modelReturning(content: string, calls: Call[] = []) {
+  return (async (url: unknown, init?: RequestInit) => {
+    const headers = (init?.headers ?? {}) as Record<string, string>
+    calls.push({ url: String(url), auth: headers.Authorization, body: JSON.parse(String(init?.body ?? '{}')) })
+    return new Response(JSON.stringify({ message: { role: 'assistant', content } }), { status: 200 })
   }) as typeof fetch
 }
 
 function deps(over: Partial<AgentDeps> = {}): AgentDeps {
   return {
-    env: (key) => ({ GROK_API_KEY: 'test-key' })[key],
-    fetch: grokReturning('{"say":"Opening Movies.","action":{"type":"navigate","page":"movies"}}'),
+    env: (key) => ({ AI_API_KEY: 'test-key' })[key],
+    fetch: modelReturning('{"say":"Opening Movies.","action":{"type":"navigate","page":"movies"}}'),
     allow: async () => true,
     ...over,
   }
@@ -30,13 +33,15 @@ function post(body: unknown, origin = ORIGIN) {
 }
 
 test('answers with a validated action and CORS for the live site', async () => {
-  const calls: { body?: unknown }[] = []
-  const res = await handleAgent(post({ text: 'take me to movies' }), deps({ fetch: grokReturning('{"say":"Opening Movies.","action":{"type":"navigate","page":"movies"}}', calls) }), 'client-1')
+  const calls: Call[] = []
+  const res = await handleAgent(post({ text: 'take me to movies' }), deps({ fetch: modelReturning('{"say":"Opening Movies.","action":{"type":"navigate","page":"movies"}}', calls) }), 'client-1')
   assert.equal(res.status, 200)
   assert.equal(res.headers.get('access-control-allow-origin'), ORIGIN)
   assert.deepEqual(await res.json(), { say: 'Opening Movies.', action: { type: 'navigate', page: 'movies' } })
-  const sent = calls[0].body as { model: string; messages: { content: string }[] }
-  assert.equal(sent.model, 'grok-3-mini')
+  assert.equal(calls[0].url, 'https://ollama.com/api/chat')
+  assert.equal(calls[0].auth, 'Bearer test-key')
+  const sent = calls[0].body as { model: string; format: string; stream: boolean }
+  assert.deepEqual([sent.model, sent.format, sent.stream], ['gpt-oss:120b', 'json', false])
   assert.equal(JSON.stringify(sent).includes('client-1'), false)
 })
 
@@ -50,8 +55,8 @@ test('rejects other origins, wrong methods, and big or bad bodies', async () => 
 })
 
 test('never sends private or adult requests to the model', async () => {
-  const calls: { body?: unknown }[] = []
-  const d = deps({ fetch: grokReturning('{}', calls) })
+  const calls: Call[] = []
+  const d = deps({ fetch: modelReturning('{}', calls) })
   const privateRes = await handleAgent(post({ text: 'my pin is 4821' }), d, 'c')
   assert.equal(privateRes.status, 400)
   assert.equal((await privateRes.json()).error, 'private')
@@ -60,9 +65,9 @@ test('never sends private or adult requests to the model', async () => {
   assert.equal(calls.length, 0)
 })
 
-test('reports missing key, spent quota, and quota outages without calling Grok', async () => {
-  const calls: { body?: unknown }[] = []
-  const fetcher = grokReturning('{}', calls)
+test('reports missing key, spent quota, and quota outages without calling the model', async () => {
+  const calls: Call[] = []
+  const fetcher = modelReturning('{}', calls)
   assert.equal((await handleAgent(post({ text: 'movies' }), deps({ env: () => undefined, fetch: fetcher }), 'c')).status, 503)
   assert.equal((await handleAgent(post({ text: 'movies' }), deps({ allow: async () => false, fetch: fetcher }), 'c')).status, 429)
   const logs: string[] = []
@@ -76,13 +81,18 @@ test('reports missing key, spent quota, and quota outages without calling Grok',
   assert.equal(calls.length, 0)
 })
 
-test('maps Grok failures to a friendly 502', async () => {
+test('maps model failures to a friendly 502 and a spent allowance to resting', async () => {
   const failing = (async () => new Response('nope', { status: 500 })) as typeof fetch
   const res = await handleAgent(post({ text: 'movies' }), deps({ fetch: failing }), 'c')
   assert.equal(res.status, 502)
   assert.match((await res.json()).say, /did not answer/)
   const throwing = (async () => Promise.reject(new Error('network'))) as typeof fetch
   assert.equal((await handleAgent(post({ text: 'movies' }), deps({ fetch: throwing }), 'c')).status, 502)
+  for (const status of [402, 429]) {
+    const spent = (async () => new Response('{}', { status })) as typeof fetch
+    const body = await (await handleAgent(post({ text: 'movies' }), deps({ fetch: spent }), 'c')).json()
+    assert.deepEqual([body.error, body.say], ['busy', 'The AI helper is resting. Simple requests still work.'])
+  }
 })
 
 test('hashes the client address instead of keeping it', async () => {

@@ -1,4 +1,5 @@
 import { ADULT_SAY, agentMessages, cleanAgentText, parseAgentReply, wantsAdult, type AgentReply } from './agent.mts'
+import { chatOnce, resolveProvider } from './provider.mts'
 
 export type AgentDeps = {
   env: (key: string) => string | undefined
@@ -9,9 +10,6 @@ export type AgentDeps = {
 
 type ErrorCode = 'forbidden_origin' | 'method' | 'too_large' | 'invalid' | 'private' | 'not_configured' | 'rate_limited' | 'busy' | 'upstream'
 
-const GROK_URL = 'https://api.x.ai/v1/chat/completions'
-const DEFAULT_MODEL = 'grok-3-mini'
-const GROK_TIMEOUT_MS = 15_000
 const MAX_BODY = 2048
 const DEFAULT_ORIGINS = [
   'https://raviacn95.github.io',
@@ -86,25 +84,8 @@ export async function clientKey(req: Request, salt = '') {
     .join('')
 }
 
-async function askGrok(text: string, deps: AgentDeps, key: string): Promise<AgentReply | null> {
-  const response = await deps.fetch(GROK_URL, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: deps.env('GROK_MODEL') || DEFAULT_MODEL,
-      temperature: 0.2,
-      max_tokens: 600,
-      messages: agentMessages(text),
-    }),
-    signal: AbortSignal.timeout(GROK_TIMEOUT_MS),
-  })
-  if (!response.ok) {
-    deps.log?.('agent.upstream_status', { status: response.status })
-    return null
-  }
-  const data = (await response.json()) as { choices?: { message?: { content?: unknown } }[] }
-  return parseAgentReply(data.choices?.[0]?.message?.content)
-}
+/** 402 and 429 mean the provider's free allowance is spent, not that it is broken. */
+const SPENT = new Set([402, 429])
 
 async function readBody(req: Request) {
   const declared = Number(req.headers.get('content-length') ?? 0)
@@ -130,8 +111,8 @@ export async function handleAgent(req: Request, deps: AgentDeps, client: string)
   if (!input.ok) return fail(input.error, origin)
   if (wantsAdult(input.text)) return reply({ say: ADULT_SAY, action: { type: 'none' } }, 200, origin)
 
-  const key = deps.env('GROK_API_KEY')
-  if (!key) return fail('not_configured', origin)
+  const provider = resolveProvider(deps.env)
+  if (!provider) return fail('not_configured', origin)
 
   try {
     if (!(await deps.allow(client))) return fail('rate_limited', origin)
@@ -141,10 +122,12 @@ export async function handleAgent(req: Request, deps: AgentDeps, client: string)
   }
 
   try {
-    const answer = await askGrok(input.text, deps, key)
-    return answer ? reply(answer, 200, origin) : fail('upstream', origin)
+    const result = await chatOnce(provider, agentMessages(input.text), { json: true, temperature: 0.2, maxTokens: 600 }, deps.fetch)
+    if (result.ok) return reply(parseAgentReply(result.content), 200, origin)
+    deps.log?.('agent.upstream_status', { provider: provider.id, status: result.status })
+    return fail(SPENT.has(result.status) ? 'busy' : 'upstream', origin)
   } catch (error) {
-    deps.log?.('agent.upstream_error', { name: error instanceof Error ? error.name : 'unknown' })
+    deps.log?.('agent.upstream_error', { provider: provider.id, name: error instanceof Error ? error.name : 'unknown' })
     return fail('upstream', origin)
   }
 }

@@ -6,6 +6,7 @@ import { coachMessages, coachText } from './coachPrompt.mjs'
 import { allowRate, authorize, readJson, validateOrder, validateQuote } from './security.mjs'
 import { clientKey, handleAgent } from '../supabase/functions/willow-agent/handler.mts'
 import { memoryQuota, quotaLimits } from '../supabase/functions/willow-agent/quota.mts'
+import { chatOnce, resolveProvider } from '../supabase/functions/willow-agent/provider.mts'
 
 const root = dirname(fileURLToPath(import.meta.url))
 const catalog = JSON.parse(readFileSync(join(root, '../app/src/data/qc-catalog.json'), 'utf8'))
@@ -35,28 +36,19 @@ function grokRateAllowed(ip) {
   return allowRate(grokWindow, ip, 10, 60_000)
 }
 
+const agentEnv = (key) => process.env[key]
+
 async function grokCoach(input) {
-  if (!process.env.GROK_API_KEY) {
-    return { configured: false, message: 'Grok assistant is not configured. Willow local recommendations remain available.' }
+  const provider = resolveProvider(agentEnv)
+  if (!provider) {
+    return { configured: false, message: 'The AI coach is not configured. Willow local recommendations remain available.' }
   }
-  const response = await fetch('https://api.x.ai/v1/chat/completions', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${process.env.GROK_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: process.env.GROK_MODEL || 'grok-3-mini',
-      temperature: 0.3,
-      max_tokens: 500,
-      messages: coachMessages(input),
-    }),
-  })
-  if (!response.ok) throw new Error(`Grok request failed (${response.status})`)
-  const data = await response.json()
-  const text = coachText(data.choices?.[0]?.message?.content)
+  const result = await chatOnce(provider, coachMessages(input), { json: true, temperature: 0.3, maxTokens: 1200 }, fetch)
+  if (!result.ok) throw new Error(`AI request failed (${provider.id} ${result.status})`)
+  const text = coachText(result.content)
   if (!text) return { configured: true, message: 'Those ideas were withheld. Willow local recommendations remain available.' }
   return { configured: true, text }
 }
-
-const agentEnv = (key) => process.env[key]
 const agentDeps = { env: agentEnv, fetch, allow: memoryQuota(quotaLimits(agentEnv)), log: (event, detail) => console.warn(event, detail ?? {}) }
 
 /** Same handler as the Supabase willow-agent function; Origin is dropped because only the Vite proxy reaches this port. */

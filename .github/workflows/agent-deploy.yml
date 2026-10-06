@@ -20,6 +20,9 @@ jobs:
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
       SUPABASE_PROJECT_REF: ${{ vars.SUPABASE_PROJECT_REF }}
       SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      AI_API_KEY: ${{ secrets.AI_API_KEY }}
+      AI_PROVIDER: ${{ vars.AI_PROVIDER }}
+      AI_MODEL: ${{ vars.AI_MODEL }}
       GROK_API_KEY: ${{ secrets.GROK_API_KEY }}
       READY: ${{ secrets.SUPABASE_ACCESS_TOKEN != '' && vars.SUPABASE_PROJECT_REF != '' }}
     steps:
@@ -41,9 +44,18 @@ jobs:
         run: |
           supabase link --project-ref "$SUPABASE_PROJECT_REF" --password "$SUPABASE_DB_PASSWORD"
           supabase db push --password "$SUPABASE_DB_PASSWORD"
-      - name: Store the Grok key as a function secret
-        if: env.READY == 'true' && env.GROK_API_KEY != ''
-        run: supabase secrets set --project-ref "$SUPABASE_PROJECT_REF" GROK_API_KEY="$GROK_API_KEY"
+      - name: Store the AI settings as function secrets
+        if: env.READY == 'true'
+        run: |
+          settings=()
+          for name in AI_API_KEY AI_PROVIDER AI_MODEL GROK_API_KEY; do
+            if [ -n "${!name}" ]; then settings+=("$name=${!name}"); fi
+          done
+          if [ ${#settings[@]} -eq 0 ]; then
+            echo "::notice::Add the AI_API_KEY secret (an ollama.com API key) so willow-agent can answer."
+          else
+            supabase secrets set --project-ref "$SUPABASE_PROJECT_REF" "${settings[@]}"
+          fi
       - name: Deploy willow-agent
         if: env.READY == 'true'
         run: supabase functions deploy willow-agent --project-ref "$SUPABASE_PROJECT_REF" --no-verify-jwt

@@ -53,6 +53,13 @@ test('keeps only allowlisted actions and fields', () => {
   assert.deepEqual(parseAgentReply('{"action":{"type":"open_movie","title":"   "}}').action, { type: 'none' })
 })
 
+test('drops the promise in say when the action was rejected', () => {
+  assert.deepEqual(parseAgentReply('{"say":"I can help you find your bills here.","action":{"type":"billing"}}'), { say: HELP_SAY, action: { type: 'none' } })
+  assert.deepEqual(parseAgentReply('{"say":"Finding Squid Game.","action":{"type:":"find_movies"}}'), { say: HELP_SAY, action: { type: 'none' } })
+  assert.deepEqual(parseAgentReply('{"say":"I cannot ignore my instructions."}'), { say: HELP_SAY, action: { type: 'none' } })
+  assert.deepEqual(parseAgentReply('{"say":"I open pages and find movies.","action":{"type":"none"}}'), { say: 'I open pages and find movies.', action: { type: 'none' } })
+})
+
 test('scrubs links and private details from say and falls back on junk', () => {
   const reply = parseAgentReply('{"say":"Watch at https://evil.example now","action":{"type":"find_movies"}}')
   assert.equal(reply.say.includes('http'), false)

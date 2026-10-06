@@ -49,7 +49,7 @@ export function Learning() {
       setCoachMessage(result.message ?? '')
     } catch {
       setCoachText('')
-      setCoachMessage('Grok assistant is unavailable. Willow local recommendations remain available.')
+      setCoachMessage('The AI coach is unavailable. Willow local recommendations remain available.')
     } finally {
       setCoachBusy(false)
     }
@@ -65,7 +65,7 @@ export function Learning() {
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h2 className="font-display text-xl">Willow Coach</h2>
-            <p className="mt-1 text-sm text-muted">Optional Grok ideas use only age band, interests, country, and module. Names, notes, allergies, and IDs stay local.</p>
+            <p className="mt-1 text-sm text-muted">Optional AI ideas use only age band, interests, country, and module. Names, notes, allergies, and IDs stay local.</p>
           </div>
           <Button type="button" variant="soft" disabled={coachBusy || !selectedChild} onClick={() => void askGrok()}>
             {coachBusy ? 'Thinking…' : 'Create activity ideas'}

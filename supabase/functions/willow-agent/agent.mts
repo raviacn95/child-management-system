@@ -243,9 +243,10 @@ export function parseAgentReply(raw: unknown): AgentReply {
   const end = text.lastIndexOf('}')
   if (!text || LEAK.test(text) || start < 0 || end <= start) return { say: HELP_SAY, action: { type: 'none' } }
   try {
-    const parsed = JSON.parse(text.slice(start, end + 1)) as { say?: unknown; action?: unknown }
+    const parsed = JSON.parse(text.slice(start, end + 1)) as { say?: unknown; action?: { type?: unknown } }
     const action = actionFrom(parsed.action)
-    return { say: sayFrom(parsed.say, action), action }
+    const rejected = action.type === 'none' && parsed.action?.type !== 'none'
+    return { say: rejected ? HELP_SAY : sayFrom(parsed.say, action), action }
   } catch {
     return { say: HELP_SAY, action: { type: 'none' } }
   }

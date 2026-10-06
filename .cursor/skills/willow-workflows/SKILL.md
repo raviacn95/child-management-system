@@ -37,7 +37,8 @@ Write prompts for these jobs as identity, steps, and a fixed output. Do not past
 - The request body is exactly `{"text": ...}`. Text with a roster name, a number, an email, or a health word stays on the device.
 - The model returns one action from the `supabase/functions/willow-agent/agent.mts` enums. The client builds every URL from the official platform list and never uses a URL from the model.
 - Keep the server enums and `app/src/features/agent/schema.ts` matched; `contract.test.ts` fails if they drift.
-- `GROK_API_KEY` is a Supabase secret only. `VITE_AGENT_URL` is the public function URL; left empty, the app answers on the device only.
+- The model comes from `supabase/functions/willow-agent/provider.mts`. The default is Ollama Cloud `gpt-oss:120b` (free tier, about 1-2 s). Set `AI_PROVIDER` to `groq`, `gemini`, or `xai` to switch. Local Ollama is for development only, because the hosted function cannot reach a PC.
+- `AI_API_KEY` is a Supabase secret only. `VITE_AGENT_URL` is the public function URL; left empty, the app answers on the device only.
 
 ## Update versus APK
 

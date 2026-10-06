@@ -31,6 +31,15 @@ test('picks free hosted presets and keeps the old Grok settings working', () => 
   assert.deepEqual([grok?.id, grok?.model, grok?.url], ['xai', 'grok-4', 'https://api.x.ai/v1/chat/completions'])
 })
 
+test('accepts the setup-sheet names for both Ollama hosts', () => {
+  const cloud = resolveProvider(envOf({ AI_PROVIDER: 'ollama', AI_API_KEY: 'k', AI_MODEL: 'gpt-oss:120b-cloud' }))
+  assert.deepEqual([cloud?.url, cloud?.model], ['https://ollama.com/api/chat', 'gpt-oss:120b'])
+  const local = resolveProvider(envOf({ AI_PROVIDER: 'ollama', AI_MODEL: 'gpt-oss:120b' }))
+  assert.deepEqual([local?.url, local?.model], ['http://localhost:11434/api/chat', 'gpt-oss:120b-cloud'])
+  const offline = resolveProvider(envOf({ AI_PROVIDER: 'qwen3', AI_API_KEY: 'k' }))
+  assert.deepEqual([offline?.url, offline?.model, offline?.key], ['http://localhost:11434/api/chat', 'qwen3:latest', 'k'])
+})
+
 test('rejects plain-http remote hosts, credentials in the URL, and keyless remote hosts', () => {
   assert.equal(resolveProvider(envOf({ AI_PROVIDER: 'ollama', AI_BASE_URL: 'http://192.168.1.9:11434' })), null)
   assert.equal(resolveProvider(envOf({ AI_API_KEY: 'k', AI_BASE_URL: 'https://u:p@ollama.com' })), null)
@@ -52,7 +61,7 @@ test('sends Ollama chat with JSON format and no thinking, and strips think block
   const result = await chatOnce(local, MESSAGES, { json: true, temperature: 0.2, maxTokens: 600 }, recording({ message: { content: '<think>{x}</think> {"ok":1}' } }, calls))
   assert.deepEqual(result, { ok: true, content: '{"ok":1}' })
   assert.equal(calls[0].headers.Authorization, undefined)
-  assert.deepEqual(calls[0].body, { model: 'gpt-oss:120b', messages: MESSAGES, stream: false, think: false, format: 'json', options: { temperature: 0.2, num_predict: 600 } })
+  assert.deepEqual(calls[0].body, { model: 'gpt-oss:120b-cloud', messages: MESSAGES, stream: false, think: false, format: 'json', options: { temperature: 0.2, num_predict: 600 } })
 })
 
 test('sends OpenAI-style chat for hosted presets and reports HTTP errors', async () => {

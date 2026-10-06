@@ -31,8 +31,16 @@ const PRESETS: Record<ProviderId, { protocol: Provider['protocol']; base: string
   xai: { protocol: 'openai', base: 'https://api.x.ai/v1', model: 'grok-3-mini', keyEnv: 'GROK_API_KEY' },
 }
 
+/** The PC's Ollama app calls the free cloud copy `gpt-oss:120b-cloud`; ollama.com calls it `gpt-oss:120b`. */
+function ollamaModel(model: string, local: boolean) {
+  if (local && model === 'gpt-oss:120b') return 'gpt-oss:120b-cloud'
+  if (!local && model === 'gpt-oss:120b-cloud') return 'gpt-oss:120b'
+  return model
+}
+
 function pickProvider(env: Env): ProviderId | null {
   const named = (env('AI_PROVIDER') ?? '').trim().toLowerCase()
+  if (named === 'qwen3') return 'ollama'
   if (named) return (PROVIDER_IDS as readonly string[]).includes(named) ? (named as ProviderId) : null
   if (env('AI_API_KEY') || env('OLLAMA_API_KEY')) return 'ollama'
   if (env('GROQ_API_KEY')) return 'groq'
@@ -64,22 +72,25 @@ function timeout(env: Env, local: boolean) {
 
 /** Reads AI_PROVIDER, AI_API_KEY, AI_MODEL, AI_BASE_URL, AI_TIMEOUT_MS. Returns null when the AI is off or misconfigured. */
 export function resolveProvider(env: Env): Provider | null {
+  const named = (env('AI_PROVIDER') ?? '').trim().toLowerCase()
   const id = pickProvider(env)
   if (!id) return null
   const preset = PRESETS[id]
   const key = env('AI_API_KEY') || env(preset.keyEnv) || undefined
-  const defaultBase = id === 'ollama' && !key ? OLLAMA_LOCAL : preset.base
+  const offline = named === 'qwen3'
+  const defaultBase = id === 'ollama' && (offline || !key) ? OLLAMA_LOCAL : preset.base
   const base = baseUrl(env('AI_BASE_URL') || defaultBase)
   if (!base) return null
   const local = isLoopback(base)
   if (!key && !local) return null
   const legacyModel = id === 'xai' ? env('GROK_MODEL') : undefined
+  const requested = env('AI_MODEL') || (offline ? 'qwen3:latest' : legacyModel || preset.model)
   const path = preset.protocol === 'ollama' ? '/api/chat' : '/chat/completions'
   return {
     id,
     protocol: preset.protocol,
     url: `${base.origin}${base.pathname.replace(/\/+$/, '')}${path}`,
-    model: env('AI_MODEL') || legacyModel || preset.model,
+    model: id === 'ollama' ? ollamaModel(requested, local) : requested,
     key,
     timeoutMs: timeout(env, local),
   }

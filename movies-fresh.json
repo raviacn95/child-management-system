@@ -1,9 +1,21 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T15:58:07.736Z",
+  "generatedAt": "2026-10-06T19:22:45.815Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
+    {
+      "id": "wd-Q141475414",
+      "qid": "Q141475414",
+      "title": "Drishyam: The Conclusion",
+      "year": 2026,
+      "released": "2026-10-02",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1269325
+    },
     {
       "id": "wd-Q129677718",
       "qid": "Q129677718",
@@ -540,6 +552,19 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q138497144",
+      "qid": "Q138497144",
+      "title": "Korpur",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1493079
+    },
+    {
       "id": "wd-Q134435699",
       "qid": "Q134435699",
       "title": "Aadu 3",
@@ -781,7 +806,8 @@
       "india": true,
       "sitelinks": 2,
       "providers": [],
-      "tmdbId": 1536901
+      "tmdbId": 1536901,
+      "providersSource": "tmdb"
     },
     {
       "id": "wd-Q124566659",
@@ -832,8 +858,14 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1282440
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "tmdbId": 1282440,
+      "providersSource": "tmdb"
     },
     {
       "id": "wd-Q131189949",
@@ -855,24 +887,6 @@
       "watchIds": {
         "netflix": "81915745"
       }
-    },
-    {
-      "id": "wd-Q137713080",
-      "qid": "Q137713080",
-      "title": "Anaganaga Oka Raju",
-      "year": 2026,
-      "released": "2026-01-14",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "tmdbId": 1407432,
-      "providersSource": "tmdb"
     },
     {
       "id": "wd-Q135647565",
@@ -903,18 +917,6 @@
       ],
       "tmdbId": 1022453,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",
@@ -1013,8 +1015,14 @@
       "lang": "te",
       "india": true,
       "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1594670
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        }
+      ],
+      "tmdbId": 1594670,
+      "providersSource": "tmdb"
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

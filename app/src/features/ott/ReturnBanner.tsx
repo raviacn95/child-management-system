@@ -6,12 +6,10 @@ export function ReturnBanner({
   away,
   onReturn,
   onKeep,
-  onStop,
 }: {
   away: AwaySession
   onReturn: () => void
   onKeep: () => void
-  onStop: () => void
 }) {
   useEffect(() => {
     document.querySelector<HTMLButtonElement>('[data-testid="return-now"]')?.focus()
@@ -29,11 +27,8 @@ export function ReturnBanner({
         <Button type="button" data-testid="return-now" onClick={onReturn}>
           Return now
         </Button>
-        <Button type="button" variant="ghost" onClick={onKeep}>
+        <Button type="button" variant="ghost" data-testid="return-keep" onClick={onKeep}>
           Keep playing
-        </Button>
-        <Button type="button" variant="soft" data-testid="return-stop" onClick={onStop}>
-          Stop session
         </Button>
       </div>
     </div>

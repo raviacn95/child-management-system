@@ -135,8 +135,7 @@ export function WatchProvider({ children }: { children: ReactNode }) {
             setSession(null)
             navigate(away.screen || lastScreen())
           }}
-          onKeep={() => undefined}
-          onStop={() => {
+          onKeep={() => {
             clearAway()
             setAway(null)
           }}

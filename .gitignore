@@ -2,6 +2,13 @@ node_modules/
 dist/
 .DS_Store
 *.local
+*.log
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.p12
 repos/
 verify*.png
 login.png

@@ -38,9 +38,9 @@ export function LearningPacksPanel() {
               className="block rounded-xl border border-line p-3 hover:border-pine"
             >
               <div className="flex items-center justify-between gap-2">
-                <p className="font-semibold">
+                <p className="min-w-0 font-semibold">
                   {pack.label}{' '}
-                  <span className="text-xs font-normal text-muted">
+                  <span className="whitespace-nowrap text-xs font-normal text-muted">
                     {pack.ageMin}–{pack.ageMax} yr
                   </span>
                 </p>

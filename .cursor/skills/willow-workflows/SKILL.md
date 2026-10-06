@@ -1,6 +1,6 @@
 ---
 name: willow-workflows
-description: Willow-specific rules for phone-to-TV pairing, official streaming links, in-app Update versus APK install, Playwright, and GitHub Pages. Use when changing cast pairing, movie or channel open links, the Android shell, Playwright tests, or a deploy.
+description: Willow-specific rules for phone-to-TV pairing, official streaming links, the movie-list refresh, Willow Coach, in-app Update versus APK install, Playwright, and GitHub Pages. Use when changing cast pairing, movie or channel open links, the Android shell, Playwright tests, or a deploy.
 ---
 
 # Willow workflows
@@ -19,6 +19,17 @@ Write prompts for these jobs as identity, steps, and a fixed output. Do not past
 - A custom app is a name the user typed, plus an optional package and a search link that contains `{q}`. Do not preset an unofficial package or scheme.
 - Phone title links name the installed package. TV links stay web links.
 - Movie-card aria-label stays `Open ${title}`.
+
+## Movie list
+
+- New titles are refreshed on a schedule by `.github/workflows/movies-feed.yml` onto `gh-pages` `movies-fresh.json`.
+- The TMDB key stays in GitHub secrets. Do not commit it or put it in a prompt.
+- Leave the list unchanged when the fetched titles match the live file.
+
+## Willow Coach
+
+- The model receives only an age band, an allowlisted interest, a country code, and the module.
+- A reply that repeats the instructions, or that includes medical details, contact details, or sexual content about a child, is withheld.
 
 ## Update versus APK
 

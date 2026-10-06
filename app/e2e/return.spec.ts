@@ -35,6 +35,21 @@ test('official app launch keeps Willow and the return banner restores movies', a
   await expect(page.getByTestId('movies-page')).toBeVisible()
   await expect(page.getByTestId('return-banner')).not.toContainText(/PIN|allerg|@/i)
   await expect(page.getByTestId('return-stop')).toHaveCount(0)
+  await page.getByTestId('return-keep').click()
+  await expect(page.getByTestId('return-banner')).toHaveCount(0)
+  await expect(page.getByTestId('movies-page')).toBeVisible()
+})
+
+test('Return now on the banner restores the last screen', async ({ page }) => {
+  await loginDirector(page)
+  await page.goto('/#/movies')
+  await expect(page.getByTestId('movies-page')).toBeVisible()
+  await page
+    .getByTestId('movie-watch')
+    .getByRole('link', { name: /Amazon Prime Video|Google Play Movies|SonyLIV|JustWatch|Netflix/ })
+    .first()
+    .click()
+  await expect(page.getByTestId('return-banner')).toBeVisible()
   await page.getByTestId('return-now').click()
   await expect(page.getByTestId('return-banner')).toHaveCount(0)
   await expect(page.getByTestId('movies-page')).toBeVisible()

@@ -1,6 +1,6 @@
 ---
 name: willow-workflows
-description: Willow-specific rules for phone-to-TV pairing, official streaming links, the movie-list refresh, Willow Coach, in-app Update versus APK install, Playwright, and GitHub Pages. Use when changing cast pairing, movie or channel open links, the Android shell, Playwright tests, or a deploy.
+description: Willow-specific rules for phone-to-TV pairing, official streaming links, the movie-list refresh, Willow Coach, the Ask Willow agent, in-app Update versus APK install, Playwright, and GitHub Pages. Use when changing cast pairing, movie or channel open links, the agent, the Android shell, Playwright tests, or a deploy.
 ---
 
 # Willow workflows
@@ -30,6 +30,14 @@ Write prompts for these jobs as identity, steps, and a fixed output. Do not past
 
 - The model receives only an age band, an allowlisted interest, a country code, and the module.
 - A reply that repeats the instructions, or that includes medical details, contact details, or sexual content about a child, is withheld.
+
+## Ask Willow agent
+
+- The device parser in `app/src/features/agent/localIntent.ts` runs first. Only text it cannot place goes to the `willow-agent` Supabase function, which calls Grok.
+- The request body is exactly `{"text": ...}`. Text with a roster name, a number, an email, or a health word stays on the device.
+- The model returns one action from the `supabase/functions/willow-agent/agent.mts` enums. The client builds every URL from the official platform list and never uses a URL from the model.
+- Keep the server enums and `app/src/features/agent/schema.ts` matched; `contract.test.ts` fails if they drift.
+- `GROK_API_KEY` is a Supabase secret only. `VITE_AGENT_URL` is the public function URL; left empty, the app answers on the device only.
 
 ## Update versus APK
 

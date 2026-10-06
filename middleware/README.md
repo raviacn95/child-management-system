@@ -18,6 +18,7 @@ Listens on `http://127.0.0.1:8790`.
 | POST | `/orders` | Persist a sandbox cart/order |
 | GET | `/orders/:id` | Status |
 | POST | `/webhooks/order` | Status callback (`confirmed` → `packed` → `rider` → `delivered`) |
+| POST | `/agent` | Ask Willow helper (`{"text":"..."}` → one allowlisted action). Same handler as the `willow-agent` Supabase Edge Function; needs `GROK_API_KEY` in this process's environment |
 
 Point the Vite app at it with `VITE_QC_API=http://127.0.0.1:8790`. The UI still works without this process (local sandbox engine).
 

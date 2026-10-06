@@ -1,0 +1,49 @@
+name: Deploy Willow agent
+
+on:
+  push:
+    branches: [main]
+    paths: ['supabase/**', '.github/workflows/agent-deploy.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agent-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_PROJECT_REF: ${{ vars.SUPABASE_PROJECT_REF }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      GROK_API_KEY: ${{ secrets.GROK_API_KEY }}
+      READY: ${{ secrets.SUPABASE_ACCESS_TOKEN != '' && vars.SUPABASE_PROJECT_REF != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test the function
+        run: node --test supabase/functions/willow-agent/*.test.mts
+      - name: Waiting for Supabase settings
+        if: env.READY != 'true'
+        run: echo "::notice::Add the SUPABASE_ACCESS_TOKEN secret and SUPABASE_PROJECT_REF variable to deploy willow-agent."
+      - uses: supabase/setup-cli@v1
+        if: env.READY == 'true'
+        with:
+          version: latest
+      - name: Apply database migrations (agent quota table)
+        if: env.READY == 'true' && env.SUPABASE_DB_PASSWORD != ''
+        run: |
+          supabase link --project-ref "$SUPABASE_PROJECT_REF" --password "$SUPABASE_DB_PASSWORD"
+          supabase db push --password "$SUPABASE_DB_PASSWORD"
+      - name: Store the Grok key as a function secret
+        if: env.READY == 'true' && env.GROK_API_KEY != ''
+        run: supabase secrets set --project-ref "$SUPABASE_PROJECT_REF" GROK_API_KEY="$GROK_API_KEY"
+      - name: Deploy willow-agent
+        if: env.READY == 'true'
+        run: supabase functions deploy willow-agent --project-ref "$SUPABASE_PROJECT_REF" --no-verify-jwt

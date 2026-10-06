@@ -3,26 +3,19 @@ import react from '@vitejs/plugin-react'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { visualizer } from 'rollup-plugin-visualizer'
-import type { IndexHtmlTransformContext } from 'vite'
+import { loadEnv, type IndexHtmlTransformContext } from 'vite'
 import { imagetools } from 'vite-imagetools'
 import { compression } from 'vite-plugin-compression2'
 import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vitest/config'
+import { buildCsp, CSP_ENDPOINT_KEYS } from './src/lib/cspPolicy.ts'
 
 const root = fileURLToPath(new URL('.', import.meta.url))
 
-const CSP = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline'",
-  "font-src 'self' data:",
-  "img-src 'self' data: https:",
-  "connect-src 'self' https://ntfy.sh wss://ntfy.sh",
-  "frame-src 'self' https:",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "frame-ancestors 'none'",
-].join('; ')
+function cspFor(mode: string) {
+  const env = loadEnv(mode, root, 'VITE_')
+  return buildCsp(CSP_ENDPOINT_KEYS.map((key) => env[key]))
+}
 
 export default defineConfig(({ mode }) => ({
   base: './',
@@ -91,7 +84,7 @@ export default defineConfig(({ mode }) => ({
         if (ctx.server) return html
         return html.replace(
           '<head>',
-          `<head>\n    <meta http-equiv="Content-Security-Policy" content="${CSP}">`,
+          `<head>\n    <meta http-equiv="Content-Security-Policy" content="${cspFor(mode)}">`,
         )
       },
     },

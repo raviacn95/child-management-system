@@ -1,16 +1,11 @@
-/** Production CSP is injected at build time. Keep this in sync with vite.config.ts. */
-export const PRODUCTION_CSP = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline'",
-  "font-src 'self' data:",
-  "img-src 'self' data: https:",
-  "connect-src 'self' https://ntfy.sh wss://ntfy.sh",
-  "frame-src 'self' https:",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "frame-ancestors 'none'",
-].join('; ')
+import { buildCsp } from './cspPolicy'
+
+/** Production CSP is injected at build time by vite.config.ts from the same builder and env keys (CSP_ENDPOINT_KEYS). */
+export const PRODUCTION_CSP = buildCsp([
+  import.meta.env.VITE_AGENT_URL,
+  import.meta.env.VITE_LEADS_ENDPOINT,
+  import.meta.env.VITE_ANALYTICS_ENDPOINT,
+])
 
 export const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',

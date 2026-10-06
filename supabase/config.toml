@@ -1,0 +1,5 @@
+project_id = "willow"
+
+[functions.willow-agent]
+# The function checks origin, input, and a Postgres quota itself, so browsers call it without a Supabase JWT.
+verify_jwt = false

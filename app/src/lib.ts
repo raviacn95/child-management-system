@@ -84,7 +84,7 @@ export function money(n: number, country?: string | null) {
   })
 }
 
-export { canSee } from './lib/rbac'
+export { canOpen, canSee } from './lib/rbac'
 
 export function bodyMassIndex(kg: number, cm: number) {
   const m = cm / 100

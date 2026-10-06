@@ -94,6 +94,16 @@ export function canSee(role: Role, module: string) {
   return PARENT.includes(module as ModuleKey)
 }
 
+const DIRECTOR_PAGES = new Set<string>(['enrollment', 'inventory', 'reports', 'settings'])
+const STAFF_PAGES = new Set<string>(['attendance', 'staff'])
+
+/** Pages a role sees in the menu: canSee plus the director-only and staff-only pages. */
+export function canOpen(role: Role, module: string) {
+  if (DIRECTOR_PAGES.has(module)) return role === 'director'
+  if (STAFF_PAGES.has(module)) return role !== 'parent'
+  return canSee(role, module)
+}
+
 export function canDo(role: Role, action: ActionKey) {
   if (role === 'director') return true
   return ACTIONS[action].includes(role)

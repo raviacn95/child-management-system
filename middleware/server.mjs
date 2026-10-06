@@ -4,6 +4,8 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { coachMessages, coachText } from './coachPrompt.mjs'
 import { allowRate, authorize, readJson, validateOrder, validateQuote } from './security.mjs'
+import { clientKey, handleAgent } from '../supabase/functions/willow-agent/handler.mts'
+import { memoryQuota, quotaLimits } from '../supabase/functions/willow-agent/quota.mts'
 
 const root = dirname(fileURLToPath(import.meta.url))
 const catalog = JSON.parse(readFileSync(join(root, '../app/src/data/qc-catalog.json'), 'utf8'))
@@ -52,6 +54,19 @@ async function grokCoach(input) {
   const text = coachText(data.choices?.[0]?.message?.content)
   if (!text) return { configured: true, message: 'Those ideas were withheld. Willow local recommendations remain available.' }
   return { configured: true, text }
+}
+
+const agentEnv = (key) => process.env[key]
+const agentDeps = { env: agentEnv, fetch, allow: memoryQuota(quotaLimits(agentEnv)), log: (event, detail) => console.warn(event, detail ?? {}) }
+
+/** Same handler as the Supabase willow-agent function; Origin is dropped because only the Vite proxy reaches this port. */
+async function agentRoute(req, res) {
+  const body = req.method === 'POST' ? JSON.stringify(await readJson(req)) : undefined
+  const request = new Request('http://127.0.0.1/agent', { method: req.method, headers: { 'content-type': 'application/json' }, body })
+  const client = await clientKey(new Request('http://127.0.0.1/', { headers: { 'x-forwarded-for': req.socket.remoteAddress || 'local' } }))
+  const response = await handleAgent(request, agentDeps, client)
+  res.writeHead(response.status, Object.fromEntries(response.headers))
+  res.end(await response.text())
 }
 
 function pinPrefix(pin = '') {
@@ -209,6 +224,7 @@ const server = createServer(async (req, res) => {
       if (!input) return json(res, 400, { error: 'Only ageBand, interests, countryCode, and a supported module are accepted.' })
       return json(res, 200, await grokCoach(input))
     }
+    if (url.pathname === '/agent') return agentRoute(req, res)
     if (req.method === 'POST' && url.pathname === '/auto_order') {
       const auth = authorize(req, ['director', 'teacher', 'parent'])
       if (!auth.ok) return json(res, auth.status, { error: auth.error })

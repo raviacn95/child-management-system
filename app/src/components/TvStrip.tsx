@@ -79,6 +79,15 @@ export function TvStrip({ role, siteName }: { role: Role; siteName?: string }) {
           >
             Link phone
           </NavLink>
+          <button
+            type="button"
+            data-tv-focus="1"
+            data-testid="tv-strip-ask"
+            className="tv-strip-item"
+            onClick={() => window.dispatchEvent(new Event('willow-search'))}
+          >
+            Ask
+          </button>
         </nav>
         <TvClock />
       </header>

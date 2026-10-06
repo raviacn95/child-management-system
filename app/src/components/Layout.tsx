@@ -33,7 +33,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { prefetchRoute } from '../app/prefetch'
-import { canSee, formatTime } from '../lib'
+import { canOpen, formatTime } from '../lib'
 import { packOf } from '../data/country'
 import { useStore } from '../store'
 import { Avatar, Badge } from './ui'
@@ -88,13 +88,7 @@ export function Layout() {
 
   const items = useMemo(() => {
     if (!user) return []
-    return NAV.filter((n) => {
-      if (n.key === 'enrollment' || n.key === 'inventory' || n.key === 'reports' || n.key === 'settings') {
-        return user.role === 'director'
-      }
-      if (n.key === 'attendance' || n.key === 'staff') return user.role !== 'parent'
-      return canSee(user.role, n.key)
-    })
+    return NAV.filter((n) => canOpen(user.role, n.key))
   }, [user])
   const groups = useMemo(() => groupNav(items), [items])
   const tabs = useMemo(() => {

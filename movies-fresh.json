@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T21:37:05.488Z",
+  "generatedAt": "2026-10-06T21:48:09.748Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -30,18 +30,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q131900904",
-      "qid": "Q131900904",
-      "title": "Heart of the Beast",
-      "year": 2026,
-      "released": "2026-09-24",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 22,
-      "providers": [],
-      "tmdbId": 1263337
-    },
-    {
       "id": "wd-Q129255849",
       "qid": "Q129255849",
       "title": "Sardar 2",
@@ -65,6 +53,19 @@
       "sitelinks": 8,
       "providers": [],
       "tmdbId": 1213243,
+      "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q132256832",
+      "qid": "Q132256832",
+      "title": "The Dog Stars",
+      "year": 2026,
+      "released": "2026-08-26",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 22,
+      "providers": [],
+      "tmdbId": 1384216,
       "providersSource": "tmdb"
     },
     {
@@ -634,6 +635,24 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q138510258",
+      "qid": "Q138510258",
+      "title": "Masthishka Maranam",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "tmdbId": 1444032,
+      "providersSource": "tmdb"
+    },
+    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -687,6 +706,18 @@
       "watchIds": {
         "netflix": "81768525"
       }
+    },
+    {
+      "id": "wd-Q137874897",
+      "qid": "Q137874897",
+      "title": "OCD",
+      "year": 2026,
+      "released": "2026-02-06",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -864,24 +895,6 @@
       }
     },
     {
-      "id": "wd-Q137713080",
-      "qid": "Q137713080",
-      "title": "Anaganaga Oka Raju",
-      "year": 2026,
-      "released": "2026-01-14",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "tmdbId": 1407432,
-      "providersSource": "tmdb"
-    },
-    {
       "id": "wd-Q135647565",
       "qid": "Q135647565",
       "title": "Mana Shankara Vara Prasad Garu",
@@ -910,18 +923,6 @@
       ],
       "tmdbId": 1022453,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",
@@ -981,6 +982,19 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -997,19 +1011,6 @@
       ],
       "tmdbId": 1439594,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
     },
     {
       "id": "wd-Q137843190",

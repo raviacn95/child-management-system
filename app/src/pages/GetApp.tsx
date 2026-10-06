@@ -6,7 +6,7 @@ import { LookPicker } from '../components/LookPicker'
 import { ShareButton } from '../features/share/ShareSheet'
 import { Button } from '../components/ui'
 import { APK_RELEASE_URL, apkDownloadUrl, apkTvDownloadUrl, LIVE_SITE } from '../features/install/assets'
-import { installSurface, isIosSafari, prefersApkInstall } from '../features/install/detect'
+import { installSurface, isEdgeDesktop, isIosSafari, prefersApkInstall } from '../features/install/detect'
 import { useInstallPrompt } from '../features/install/InstallProvider'
 import { downloadLiveLauncher, launchPlan, openLiveAppWindow } from '../features/install/launcher'
 import { startTvApkInstall, tvApkFallbackUrl } from '../features/install/tvApk'
@@ -23,7 +23,7 @@ async function copyText(text: string) {
 
 export function GetApp() {
   const { state } = useStore()
-  const { installed, install, status } = useInstallPrompt()
+  const { installed, install, status, canInstall } = useInstallPrompt()
   const signedIn = Boolean(state.currentUserId)
   const surface = installSurface()
   const wantApk = prefersApkInstall()
@@ -33,6 +33,7 @@ export function GetApp() {
   const [launched, setLaunched] = useState('')
   const [tvInstall, setTvInstall] = useState('')
   const onTv = detectFireTv()
+  const onEdge = isEdgeDesktop()
 
   useEffect(() => {
     let cancelled = false
@@ -183,6 +184,33 @@ export function GetApp() {
                 </p>
               )}
             </div>
+          </section>
+
+          <section className="card p-6" data-testid="edge-install">
+            <Monitor className="text-pine" />
+            <h2 className="font-display mt-3 text-2xl font-semibold">Microsoft Edge</h2>
+            <p className="mt-2 text-sm text-muted">
+              Install Willow as a proper Edge app with its own window, taskbar icon, and offline shell. Your Willow data
+              stays in this browser profile.
+            </p>
+            <Button
+              className="mt-5 min-h-12 w-full text-base"
+              type="button"
+              disabled={installed}
+              onClick={() => {
+                void install()
+                setLaunched('edge')
+              }}
+              data-testid="edge-install-button"
+            >
+              <Download size={18} />
+              {installed ? 'Willow is installed' : canInstall ? 'Install in Edge' : 'Open Edge install menu'}
+            </Button>
+            <p className="mt-3 text-xs text-muted">
+              {onEdge && !canInstall
+                ? 'In Edge, open ⋯ → Apps → Install Willow. If the button above is available, it will open the same install prompt.'
+                : 'Use Microsoft Edge on Windows or macOS for the full app-window experience.'}
+            </p>
           </section>
 
           <section className="card p-6" data-testid="firestick-install">

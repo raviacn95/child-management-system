@@ -10,7 +10,7 @@ import {
   type MovieTitle,
   type PlatformAds,
 } from './schema'
-import { adLabelFor, rankWatchIds, type RankContext } from '../ott/adFree'
+import { adLabelFor, isListedAdFree, rankWatchIds, type RankContext } from '../ott/adFree'
 import { titleLink } from '../ott/deepLink'
 import { watchIdsFor } from '../ott/watchIds'
 import { z } from 'zod'
@@ -101,10 +101,23 @@ export function watchUrl(platformId: string, movieTitle: string, year?: number, 
   return fillSearchUrl(p.searchUrl, query)
 }
 
+export function trailerUrl(movieTitle: string, year?: number, originalLang?: MovieLang) {
+  const query = `${watchQuery(movieTitle, year, originalLang)} official trailer`
+  return `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(query)}&autoplay=1&mute=1&rel=0&modestbranding=1`
+}
+
 export function watchLinks(title: MovieTitle, opts?: WatchLinkOptions) {
-  const extras = (opts?.tv ? ['justwatch'] : ['justwatch', 'youtube']).filter((id) => platformIds.has(id))
-  const listedIds = title.platformIds.filter((id) => !(opts?.tv && id === 'play'))
-  const connectedIds = (opts?.connectedIds ?? []).filter((id) => platformIds.has(id))
+  const resolver = {
+    platformId: 'justwatch',
+    platformName: 'Where to watch',
+    url: watchUrl('justwatch', title.title, title.year, title.originalLang),
+    resolver: true,
+    adFree: false,
+    adLabel: 'unknown' as const,
+  }
+  const listedIds = title.platformIds.filter((id) => id !== 'justwatch' && !(opts?.tv && id === 'play'))
+  const connectedIds = (opts?.connectedIds ?? []).filter((id) => id !== 'justwatch' && platformIds.has(id))
+  const extras = (opts?.tv ? [] : ['youtube']).filter((id) => platformIds.has(id))
   const ctx: RankContext = {
     listedIds,
     connectedIds,
@@ -112,17 +125,21 @@ export function watchLinks(title: MovieTitle, opts?: WatchLinkOptions) {
     preferAdFree: opts?.preferAdFree ?? true,
     platformAds,
   }
-  return rankWatchIds([...new Set([...listedIds, ...connectedIds, ...extras])], ctx).map((id) => {
+  const ranked = rankWatchIds([...new Set([...listedIds, ...connectedIds, ...extras])], ctx)
+  const links = ranked.map((id) => {
     const p = platforms.find((x) => x.id === id)
     const adLabel = adLabelFor(id, ctx)
     return {
       platformId: id,
       platformName: p?.name ?? id,
       url: titleLink(id, watchIdsFor(title.title, title.year))?.web ?? watchUrl(id, title.title, title.year, title.originalLang),
+      resolver: false,
       adFree: adLabel === 'ad-free',
       adLabel,
     }
   })
+  const lead = ranked.filter((id) => isListedAdFree(id, ctx)).length
+  return [...links.slice(0, lead), resolver, ...links.slice(lead)]
 }
 
 export function catalogStats() {

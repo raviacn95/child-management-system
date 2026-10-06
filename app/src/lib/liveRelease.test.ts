@@ -30,8 +30,16 @@ describe('live release pipeline', () => {
   })
 
   it('parses a Pages stamp and reloads only when the id changed', () => {
-    const remote = parseRelease({ id: 'abc123def456', run: 88, channel: 'live' })
+    const remote = parseRelease({
+      id: 'abc123def456',
+      run: 88,
+      name: 'Willow live 88 - UI refresh',
+      changes: 'Updated navigation and playback.',
+      channel: 'live',
+    })
     expect(remote?.id).toBe('abc123def456')
+    expect(remote?.name).toBe('Willow live 88 - UI refresh')
+    expect(sourceStatusCopy({ status: 'available', remote: remote! })).toContain('Updated navigation and playback.')
     expect(shouldApplyRemote(null, remote!)).toBe(true)
     expect(shouldApplyRemote('abc123def456', remote!)).toBe(false)
     expect(shouldApplyRemote('old', parseRelease({ id: 'dev', channel: 'local' })!)).toBe(false)

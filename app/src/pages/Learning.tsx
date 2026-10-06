@@ -6,6 +6,11 @@ import { isOn } from '../lib/flags'
 import { childName } from '../lib'
 import { packOf } from '../data/country'
 import { useStore } from '../store'
+import { apiPost } from '../api/client'
+import { ageBandFromYears, interestsForChild, yearsFromDob } from '../features/learning/recommend'
+import { z } from 'zod'
+
+const grokCoachSchema = z.object({ configured: z.boolean(), text: z.string().optional(), message: z.string().optional() })
 
 export function Learning() {
   const { t } = useTranslation()
@@ -18,8 +23,37 @@ export function Learning() {
   const [domain, setDomain] = useState(packOf(state.countryCode).learningDomains[0])
   const [notes, setNotes] = useState('')
   const [nextSteps, setNextSteps] = useState('')
+  const [coachText, setCoachText] = useState('')
+  const [coachBusy, setCoachBusy] = useState(false)
+  const [coachMessage, setCoachMessage] = useState('')
 
   const obs = state.observations.filter((o) => kids.some((c) => c.id === o.childId))
+  const selectedChild = kids.find((c) => c.id === childId) ?? kids[0]
+
+  async function askGrok() {
+    if (!selectedChild) return
+    setCoachBusy(true)
+    setCoachMessage('')
+    try {
+      const result = await apiPost(
+        '/qc-api/grok/learning-coach',
+        {
+          ageBand: ageBandFromYears(yearsFromDob(selectedChild.dob)),
+          interests: interestsForChild(selectedChild),
+          countryCode: state.countryCode,
+          module: 'learning',
+        },
+        grokCoachSchema,
+      )
+      setCoachText(result.text ?? '')
+      setCoachMessage(result.message ?? '')
+    } catch {
+      setCoachText('')
+      setCoachMessage('Grok assistant is unavailable. Willow local recommendations remain available.')
+    } finally {
+      setCoachBusy(false)
+    }
+  }
 
   return (
     <div>
@@ -27,6 +61,19 @@ export function Learning() {
         title={t('learning.title')}
         subtitle={`${packOf(state.countryCode).name} domains: ${packOf(state.countryCode).learningDomains.join(', ')}.`}
       />
+      <section className="card mb-6 p-4" data-testid="grok-learning-coach">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2 className="font-display text-xl">Willow Coach</h2>
+            <p className="mt-1 text-sm text-muted">Optional Grok ideas use only age band, interests, country, and module. Names, notes, allergies, and IDs stay local.</p>
+          </div>
+          <Button type="button" variant="soft" disabled={coachBusy || !selectedChild} onClick={() => void askGrok()}>
+            {coachBusy ? 'Thinking…' : 'Create activity ideas'}
+          </Button>
+        </div>
+        {coachMessage ? <p className="mt-3 text-sm text-muted">{coachMessage}</p> : null}
+        {coachText ? <pre className="mt-3 whitespace-pre-wrap rounded-xl border border-line bg-sand p-3 text-sm">{coachText}</pre> : null}
+      </section>
       {user.role !== 'parent' ? (
         <form
           className="card mb-6 grid gap-3 p-4 md:grid-cols-2"

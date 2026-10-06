@@ -32,6 +32,7 @@ export function safeWhatsapp(raw: unknown) {
 
 export type RevenueConfig = {
   plusCheckout: string
+  plusYearlyCheckout: string
   packsCheckout: string
   leadsEndpoint: string
   salesEmail: string
@@ -41,6 +42,7 @@ export type RevenueConfig = {
 export function readRevenueConfig(source: Record<string, unknown> = import.meta.env): RevenueConfig {
   return {
     plusCheckout: safeCheckoutUrl(source.VITE_PLUS_CHECKOUT_URL),
+    plusYearlyCheckout: safeCheckoutUrl(source.VITE_PLUS_YEARLY_CHECKOUT_URL),
     packsCheckout: safeCheckoutUrl(source.VITE_PACKS_CHECKOUT_URL),
     leadsEndpoint: safeEndpoint(source.VITE_LEADS_ENDPOINT),
     salesEmail: safeEmail(source.VITE_SALES_EMAIL),

@@ -91,3 +91,18 @@ Production-shaped references used for depth: eVaka, Sunshine Care, Safari Leader
 - Supplies/inventory, occupancy & collection **reports**
 
 Data is stored in the browser (`localStorage`). Reset it from Settings.
+
+## Optional Supabase foundation
+
+The repository includes an opt-in Supabase Auth and Postgres foundation. It is disabled unless both public Vite variables are set:
+
+```bash
+cd app
+copy .env.example .env.local
+# Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env.local
+npm run dev
+```
+
+Apply `supabase/migrations/0001_willow_foundation.sql` in the Supabase SQL editor before enabling production accounts. The login screen then supports email verification, password reset, Google/GitHub OAuth, and database-backed session tokens. Without those variables, the local demo accounts continue to work.
+
+Sensitive payload helpers use AES-GCM with PBKDF2 key derivation in `app/src/lib/fieldEncryption.ts`. The browser never receives a Supabase service-role key. The migration is intentionally additive: existing business modules still use the local demo store until their tables and tenant-specific RLS policies are migrated.

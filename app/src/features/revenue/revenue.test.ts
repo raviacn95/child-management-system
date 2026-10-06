@@ -4,6 +4,7 @@ import { clickReport, missedClicks, readShopClicks, recordShopClick, resetShopCl
 import { readRevenueConfig, safeCheckoutUrl, safeEmail, safeWhatsapp } from './config'
 import { activeGiftGuides, giftLink, GIFT_GUIDES } from './giftGuides'
 import { leadText, submitLead, validateLead } from './leads'
+import { prepareFeedback } from './feedback'
 import { checkoutUrlFor, formatInr, PLANS } from './plans'
 import {
   captureReferral,
@@ -21,6 +22,7 @@ import { liveSponsored } from './sponsored'
 const SITE = 'https://raviacn95.github.io/child-management-system/'
 const CONFIG = {
   plusCheckout: 'https://rzp.io/l/willow-plus',
+  plusYearlyCheckout: 'https://rzp.io/l/willow-plus-year',
   packsCheckout: '',
   leadsEndpoint: '',
   salesEmail: '',
@@ -49,6 +51,7 @@ describe('revenue config', () => {
     expect(safeWhatsapp('123')).toBe('')
     expect(readRevenueConfig({ VITE_PLUS_CHECKOUT_URL: 'https://evil.example', VITE_LEADS_ENDPOINT: 'http://x.y' })).toEqual({
       plusCheckout: '',
+      plusYearlyCheckout: '',
       packsCheckout: '',
       leadsEndpoint: '',
       salesEmail: '',
@@ -69,6 +72,17 @@ describe('plans', () => {
     expect(checkoutUrlFor('packs', CONFIG, '')).toBe('')
     expect(checkoutUrlFor('center', CONFIG, '')).toBe('')
     expect(checkoutUrlFor('plus', CONFIG, 'WIL-ABCDEF')).toBe('https://rzp.io/l/willow-plus?ref=WIL-ABCDEF')
+    expect(checkoutUrlFor('plus', CONFIG, '', 'year')).toBe('https://rzp.io/l/willow-plus-year')
+    expect(checkoutUrlFor('plus', { ...CONFIG, plusYearlyCheckout: '' }, '', 'year')).toBe('')
+    expect(PLANS.find((plan) => plan.id === 'plus')?.yearlyPriceInr).toBe(1990)
+  })
+})
+
+describe('feedback', () => {
+  it('keeps a short product note and refuses child details', () => {
+    expect(prepareFeedback('Please add a yearly reminder').ok).toBe(true)
+    expect(prepareFeedback('short').ok).toBe(false)
+    expect(prepareFeedback('My child has a medical note').ok).toBe(false)
   })
 })
 

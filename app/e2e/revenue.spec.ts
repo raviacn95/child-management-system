@@ -17,6 +17,7 @@ test('pricing page shows plans and validates demo requests without child data', 
   await expect(page.getByTestId('pricing')).toBeVisible()
   for (const id of ['free', 'plus', 'packs', 'center']) await expect(page.getByTestId(`plan-${id}`)).toBeVisible()
   await expect(page.getByTestId('plan-plus')).toContainText('₹199')
+  await expect(page.getByTestId('plan-plus-yearly-price')).toContainText('₹1,990')
   await expect(page.getByTestId('plan-plus-cta')).toContainText(/Opening soon|Get Willow Plus/)
 
   await page.getByTestId('lead-org').fill('Little Oaks Daycare')
@@ -33,6 +34,13 @@ test('pricing page shows plans and validates demo requests without child data', 
   await page.getByTestId('lead-message').fill('40 children, two branches')
   await page.getByTestId('lead-submit').click()
   await expect(page.getByTestId('lead-status')).toBeVisible()
+
+  await page.getByLabel('Feedback').fill('medical note')
+  await page.getByTestId('feedback-send').click()
+  await expect(page.getByTestId('feedback').getByRole('alert')).toContainText(/child details/i)
+  await page.getByLabel('Feedback').fill('Please add a yearly reminder')
+  await page.getByTestId('feedback-send').click()
+  await expect(page.getByTestId('feedback')).toContainText(/Copied|sent|Opening/i)
 })
 
 test('referral code from an invite link is kept and settings show the go-live checklist', async ({ page }) => {

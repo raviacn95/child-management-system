@@ -37,6 +37,7 @@ Anyone can open **Get the app** without signing in: [/#/get-app](https://raviacn
 
 - **Android phone / tablet:** download **willow.apk**, open the file, tap Install. After that, tap **Update** in the app — it checks the official Willow source and updates only if this copy is behind. Do not uninstall. Never open a Willow-Live-App.desktop text file.
 - **Laptop / Chromebook (Chrome or Edge):** the site can install a live app window.
+- **Microsoft Edge:** open the live site → **Get the app** → **Install in Edge**, or use Edge’s `...` menu → **Apps** → **Install Willow**.
 - **iPhone / iPad:** Share → Add to Home Screen.
 - **Fire Stick / Android TV:** same APK also published as `willow-movies.apk`.
 

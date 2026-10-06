@@ -20,3 +20,5 @@ Listens on `http://127.0.0.1:8790`.
 | POST | `/webhooks/order` | Status callback (`confirmed` → `packed` → `rider` → `delivered`) |
 
 Point the Vite app at it with `VITE_QC_API=http://127.0.0.1:8790`. The UI still works without this process (local sandbox engine).
+
+For a deployed middleware instance, set `WILLOW_JWT_SECRET` to require HS256 bearer tokens on partner and coaching endpoints. Set `WILLOW_WEBHOOK_SECRET` to protect order callbacks. These are transitional controls until the app is connected to a managed identity provider and database; never use demo credentials or commit either secret.

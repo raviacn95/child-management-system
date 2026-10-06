@@ -43,6 +43,16 @@ public class MainActivity extends BridgeActivity {
         handleReturnIntent(getIntent());
     }
 
+    @Override
+    public void onBackPressed() {
+        WebView web = getBridge() == null ? null : getBridge().getWebView();
+        if (web != null && web.canGoBack()) {
+            web.goBack();
+            return;
+        }
+        super.onBackPressed();
+    }
+
     private void prepareLiveWebView() {
         if (getBridge() == null || getBridge().getWebView() == null) return;
         WebView web = getBridge().getWebView();
@@ -113,12 +123,17 @@ public class MainActivity extends BridgeActivity {
         }
         String scheme = intent.getData() == null ? null : intent.getData().getScheme();
         String query = searchQuery(intent.getStringExtra("query"));
+        String screen = activityInPackage(intent.getStringExtra("screen"), pkg);
         if (appName != null && intent.getData() != null && isTitleScheme(scheme) && (pkg != null || !"https".equalsIgnoreCase(scheme))) {
             Intent view = new Intent(Intent.ACTION_VIEW, intent.getData()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (pkg != null) view.setPackage(pkg);
             if (query != null) view.putExtra("query", query);
+            if (pkg != null && screen != null) {
+                Intent targeted = new Intent(view);
+                targeted.setClassName(pkg, screen);
+                if (tryStart(targeted)) return;
+            }
             if (tryStart(view)) return;
-            if (pkg != null && query != null && tryStart(searchIntent(pkg, query))) return;
             if (pkg != null && openInstalledApp(pkg, activity)) return;
             if (pkg == null) {
                 Intent named = launcherNamed(appName);
@@ -176,12 +191,6 @@ public class MainActivity extends BridgeActivity {
         String trimmed = query.trim();
         if (trimmed.isEmpty() || trimmed.length() > 120 || trimmed.indexOf('\n') >= 0 || trimmed.indexOf('\r') >= 0) return null;
         return trimmed;
-    }
-
-    private static Intent searchIntent(String pkg, String query) {
-        Intent search = new Intent(Intent.ACTION_SEARCH).setPackage(pkg).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        search.putExtra("query", query);
-        return search;
     }
 
     private boolean isTitleScheme(String scheme) {

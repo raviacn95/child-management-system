@@ -110,6 +110,15 @@ export function recommendMovies(raw: MovieRecommendRequest = {}) {
       : pool.filter((t) => t.languages.some((l) => want.has(l)))
   }
   if (input.kind) pool = pool.filter((t) => t.kind === input.kind)
+  if (input.region) {
+    const region = input.region.toUpperCase()
+    pool = pool.filter((t) =>
+      t.platformIds.some((id) => {
+        const platform = platforms.find((candidate) => candidate.id === id)
+        return platform?.region.toUpperCase() === region
+      }),
+    )
+  }
   if (input.platformId) pool = pool.filter((t) => t.platformIds.includes(input.platformId!))
   if (input.decade != null) {
     const start = input.decade
@@ -156,11 +165,11 @@ export function recommendMovies(raw: MovieRecommendRequest = {}) {
     safeguards:
       shelf === 'erotic'
         ? [
-            '18+ only. Titles are adult cinema/series with explicit intimacy — not for children, classrooms, or shared family screens.',
+            '18+ only. Mature titles are not for children, classrooms, or shared family screens.',
             'A language chip keeps original-language titles only. Dubbed copies and remakes of the same story are hidden.',
             'Catalog excludes titles centered on minors. Willow does not host, scrape, or pirate streams.',
-            'Watch links open official storefront search with the original language in the query (Prime, Netflix, MUBI, ALTT, and 50+ others).',
-            'Ranking mixes critic/audience agreement, hidden gems, and diversity — not a popularity loop that repeats the same plot.',
+            'Where to watch opens an official availability resolver; storefront buttons are clearly labeled as searches.',
+            'Ranking mixes critic/audience agreement, hidden gems, language, decade, and diversity — not popularity alone.',
           ]
         : [
             'A language chip keeps original-language movies and series only. Dubbed copies and remakes of the same story are hidden.',

@@ -39,7 +39,7 @@ export function Badge({
     gold: 'bg-gold-soft text-gold',
   }
   return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ui-badge ${map[tone]}`}>
+    <span className={`badge inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ui-badge ${map[tone]}`}>
       {children}
     </span>
   )
@@ -59,7 +59,7 @@ export function Button({
   }
   return (
     <button
-      className={`inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold transition disabled:opacity-40 ${styles[variant]} ui-btn ui-btn-${variant} ${className}`}
+      className={`btn inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold transition disabled:opacity-40 ${styles[variant]} ui-btn ui-btn-${variant} ${className}`}
       {...props}
     >
       {children}
@@ -101,7 +101,7 @@ export function Field({
 }
 
 export const inputClass =
-  'w-full rounded-xl border border-line bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-pine ui-input'
+  'input w-full rounded-xl border border-line bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-pine ui-input'
 
 export function Empty({ title, body }: { title: string; body: string }) {
   return (

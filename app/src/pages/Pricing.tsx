@@ -2,6 +2,7 @@ import { Check, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { BrandRights } from '../components/BrandRights'
 import { homePath } from '../lib/tv'
+import { FeedbackCard } from '../features/revenue/FeedbackCard'
 import { LeadForm } from '../features/revenue/LeadForm'
 import { checkoutUrlFor, formatInr, PLANS, type Plan } from '../features/revenue/plans'
 import { useStore } from '../store'
@@ -28,7 +29,8 @@ function PlanAction({ plan, signedIn }: { plan: Plan; signedIn: boolean }) {
     )
   }
   const href = checkoutUrlFor(plan.id)
-  if (!href) {
+  const yearly = plan.yearlyPriceInr ? checkoutUrlFor(plan.id, undefined, undefined, 'year') : ''
+  if (!href && !yearly) {
     return (
       <p className={`${buttonClass} border border-dashed border-line text-muted`} data-testid={`plan-${plan.id}-cta`}>
         Opening soon
@@ -36,15 +38,22 @@ function PlanAction({ plan, signedIn }: { plan: Plan; signedIn: boolean }) {
     )
   }
   return (
-    <a
-      className={`${buttonClass} bg-pine text-white`}
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      data-testid={`plan-${plan.id}-cta`}
-    >
-      {plan.id === 'plus' ? 'Get Willow Plus' : 'Buy packs'}
-    </a>
+    <>
+      {href ? (
+        <a className={`${buttonClass} bg-pine text-white`} href={href} target="_blank" rel="noreferrer" data-testid={`plan-${plan.id}-cta`}>
+          {plan.id === 'plus' ? 'Get Willow Plus' : 'Buy packs'}
+        </a>
+      ) : (
+        <p className={`${buttonClass} border border-dashed border-line text-muted`} data-testid={`plan-${plan.id}-cta`}>
+          Opening soon
+        </p>
+      )}
+      {yearly ? (
+        <a className={`${buttonClass} border border-line`} href={yearly} target="_blank" rel="noreferrer" data-testid={`plan-${plan.id}-yearly`}>
+          {formatInr(plan.yearlyPriceInr ?? 0)} / year
+        </a>
+      ) : null}
+    </>
   )
 }
 
@@ -79,6 +88,11 @@ export function PricingPage() {
                 {plan.priceInr ? <span className="text-sm text-muted"> / {plan.period}</span> : null}
               </p>
               <p className="mt-1 text-sm text-muted">{plan.blurb}</p>
+              {plan.yearlyPriceInr ? (
+                <p className="mt-1 text-sm text-muted" data-testid="plan-plus-yearly-price">
+                  or {formatInr(plan.yearlyPriceInr)} / year, two months free
+                </p>
+              ) : null}
               <ul className="mt-4 flex-1 space-y-2 text-sm">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex gap-2">
@@ -94,6 +108,7 @@ export function PricingPage() {
         <div id="lead-form" className="mt-10">
           <LeadForm />
         </div>
+        <FeedbackCard />
         <p className="mt-6 text-xs text-muted">
           Free guides: <a className="text-pine underline" href="guides/">parenting checklists and printable planners</a>.
         </p>

@@ -8,6 +8,8 @@ export const INDEX_MAX_BYTES = 1_500_000
 export type LiveRelease = {
   id: string
   run?: number
+  name?: string
+  changes?: string
   builtAt?: string
   channel?: string
   fallback?: string
@@ -41,9 +43,15 @@ export function parseRelease(raw: unknown): LiveRelease | null {
   const run = Number(rec.run)
   const fallback = rec.fallback === undefined ? undefined : String(rec.fallback)
   if (fallback && fallback.length > 32) return null
+  const name = rec.name === undefined ? undefined : String(rec.name).trim()
+  const changes = rec.changes === undefined ? undefined : String(rec.changes).trim()
+  if (name && name.length > 120) return null
+  if (changes && changes.length > 500) return null
   return {
     id,
     run: Number.isFinite(run) ? run : 0,
+    name,
+    changes,
     builtAt,
     channel,
     fallback,
@@ -293,15 +301,18 @@ export function listenForLiveRelease() {
 }
 
 export function sourceStatusCopy(check: SourceCheck | { status: 'reloading'; id?: string }) {
+  const release = 'remote' in check && check.remote ? check.remote : null
+  const label = release?.name ? ` ${release.name}.` : ''
+  const changes = release?.changes ? ` Changes: ${release.changes}` : ''
   switch (check.status) {
     case 'dev':
       return 'This is a local Willow. The installed app checks the official source.'
     case 'current':
       return 'This app matches the official Willow source.'
     case 'available':
-      return 'A newer Willow is on the official source. Updating…'
+      return `A newer Willow is on the official source.${label}${changes} Updating…`
     case 'stale-shell':
-      return 'This copy is behind the official source. Updating…'
+      return `This copy is behind the official source.${label}${changes} Updating…`
     case 'reloading':
       return 'Updating from the official Willow source…'
     case 'missing':

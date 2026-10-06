@@ -6,7 +6,8 @@ import { useStore } from '../../store'
 import { useTheme } from '../../theme/ThemeProvider'
 import { PlayOnTv } from '../cast/PlayOnTv'
 import { fireTvIntent } from '../ott/fireTv'
-import { useOpenWatch } from '../ott/WatchPane'
+import { useWatchDesk } from '../ott/WatchPane'
+import { trailerUrl } from '../movies/catalog'
 import { hubRowTitle, recommendTopPicks } from './feed'
 
 export function TopPicksShelf() {
@@ -19,7 +20,7 @@ export function TopPicksShelf() {
     adFreeIds: mine.filter((a) => a.adTier === 'ad-free').map((a) => a.platformId),
     preferAdFree: state.preferAdFree !== false,
   })
-  const openWatch = useOpenWatch()
+  const { openOfficialNow } = useWatchDesk()
   const [openId, setOpenId] = useState<string | null>(null)
 
   useEffect(() => {
@@ -87,6 +88,20 @@ export function TopPicksShelf() {
                   </button>
                   <div className="mt-3 flex flex-wrap gap-1.5" data-testid="top-pick-watch">
                     <PlayOnTv title={pick.title} year={pick.year} lang={pick.originalLang} links={pick.watchLinks} />
+                    <button
+                      type="button"
+                      className="rounded-lg bg-pine px-2 py-1 text-xs font-semibold text-[var(--color-pine-ink)] hover:brightness-110"
+                      data-tv-focus="1"
+                      onClick={() =>
+                        openOfficialNow({
+                          url: trailerUrl(pick.title, pick.year, pick.originalLang),
+                          title: `${pick.title} trailer`,
+                          platformName: 'YouTube trailer',
+                        })
+                      }
+                    >
+                      YouTube trailer
+                    </button>
                     {pick.watchLinks.map((link) => {
                       const href = tv ? fireTvIntent(link.platformId, pick.title, pick.year, pick.originalLang) : link.url
                       return (
@@ -95,7 +110,7 @@ export function TopPicksShelf() {
                           type="button"
                           className="rounded-lg border border-line px-2 py-1 text-xs font-semibold text-pine hover:border-pine"
                           data-tv-focus="1"
-                          onClick={() => openWatch({ url: href, title: pick.title, platformName: link.platformName })}
+                          onClick={() => openOfficialNow({ url: href, title: pick.title, platformName: link.platformName })}
                         >
                           {link.platformName}
                         </button>

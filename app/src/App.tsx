@@ -1,5 +1,6 @@
 import { useEffect, type ReactNode } from 'react'
 import { lazy, Suspense } from 'react'
+import { Theme as RadixTheme } from '@radix-ui/themes'
 import { HashRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from './api/client'
@@ -14,6 +15,7 @@ import { InstallProvider } from './features/install/InstallProvider'
 import { WatchProvider } from './features/ott/WatchPane'
 import { StoreProvider, useStore } from './store'
 import { ThemeProvider } from './theme/ThemeProvider'
+import { track } from './lib/analytics'
 import { captureReferral } from './features/revenue/referral'
 
 const Attendance = lazy(() => import('./pages/Attendance').then((m) => ({ default: m.Attendance })))
@@ -68,6 +70,12 @@ function Guest({ children }: { children: ReactNode }) {
 }
 
 function AppRoutes() {
+  const location = useLocation()
+
+  useEffect(() => {
+    track('page_view', location.pathname)
+  }, [location.pathname])
+
   return (
     <Suspense fallback={<PageFallback />}>
       <Routes>
@@ -136,21 +144,23 @@ export default function App() {
   }, [])
   return (
     <ErrorBoundary>
-      <ThemeProvider>
-        <QueryClientProvider client={queryClient}>
-          <StoreProvider>
-            <InstallProvider>
-              <HashRouter>
-                <WatchProvider>
-                  <ExperienceProvider>
-                    <AppRoutes />
-                  </ExperienceProvider>
-                </WatchProvider>
-              </HashRouter>
-            </InstallProvider>
-          </StoreProvider>
-        </QueryClientProvider>
-      </ThemeProvider>
+      <RadixTheme accentColor="teal" grayColor="sand" radius="large" scaling="100%">
+        <ThemeProvider>
+          <QueryClientProvider client={queryClient}>
+            <StoreProvider>
+              <InstallProvider>
+                <HashRouter>
+                  <WatchProvider>
+                    <ExperienceProvider>
+                      <AppRoutes />
+                    </ExperienceProvider>
+                  </WatchProvider>
+                </HashRouter>
+              </InstallProvider>
+            </StoreProvider>
+          </QueryClientProvider>
+        </ThemeProvider>
+      </RadixTheme>
     </ErrorBoundary>
   )
 }

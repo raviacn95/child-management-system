@@ -24,7 +24,7 @@ function goLiveSteps(): Step[] {
       id: 'plus',
       label: 'Willow Plus checkout',
       done: Boolean(config.plusCheckout),
-      how: 'Create a ₹199/month Razorpay Subscription or Payment Page and set VITE_PLUS_CHECKOUT_URL.',
+      how: 'Create a ₹199/month Razorpay Subscription and set VITE_PLUS_CHECKOUT_URL. Optional yearly page: VITE_PLUS_YEARLY_CHECKOUT_URL at ₹1,990.',
       href: 'https://dashboard.razorpay.com/',
     },
     {

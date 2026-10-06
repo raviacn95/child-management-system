@@ -227,6 +227,8 @@ export function ChannelPack({ kids }: { kids: Child[] }) {
                     url: `${channel.youtubeUrl}?autoplay=0`,
                     title: channel.name,
                     platformName: 'YouTube',
+                    mediaId: `learning:channel:${channel.id}`,
+                    module: 'learning',
                   })
                 }
               >
@@ -242,6 +244,8 @@ export function ChannelPack({ kids }: { kids: Child[] }) {
                       url: `${channel.playlistUrl}?autoplay=0`,
                       title: channel.name,
                       platformName: 'YouTube playlist',
+                      mediaId: `learning:playlist:${channel.id}`,
+                      module: 'learning',
                     })
                   }
                 >
@@ -258,6 +262,8 @@ export function ChannelPack({ kids }: { kids: Child[] }) {
                       url: youtubeKidsUrl(channel.youtubeUrl),
                       title: channel.name,
                       platformName: 'YouTube Kids',
+                      mediaId: `learning:kids:${channel.id}`,
+                      module: 'learning',
                     })
                   }
                 >

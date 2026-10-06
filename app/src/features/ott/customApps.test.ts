@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import {
   CUSTOM_APPS_KEY,
   addCustomApp,
+  appLinkFromParts,
   appsForShelf,
   customAppLink,
   customSearchUrl,
@@ -118,6 +119,26 @@ describe('parseCustomApp', () => {
   })
 })
 
+describe('appLinkFromParts', () => {
+  it('builds an app link and puts the movie name in q', () => {
+    const built = appLinkFromParts('FilmsApp', 'films.example', 'open')
+    expect(built).toEqual({ ok: true, searchUrl: 'filmsapp://films.example/open?q={q}' })
+    if (!built.ok) return
+    const parsed = parseCustomApp({ name: 'Films', searchUrl: built.searchUrl, androidPackage: 'com.example.films', scope: 'all' })
+    expect(parsed.ok && customAppLink(parsed.app, 'Drishyam', 2013)).toContain('scheme=filmsapp')
+    expect(parsed.ok && customAppLink(parsed.app, 'Drishyam', 2013)).toContain('q=Drishyam%202013')
+  })
+
+  it('refuses a scheme or host on its own, and a blocked host', () => {
+    expect(appLinkFromParts('filmsapp', '', '/open')).toEqual({ ok: false, error: 'Add both the scheme and the host' })
+    expect(appLinkFromParts('javascript', 'films.example', '/open').ok).toBe(false)
+    const ullu = appLinkFromParts('filmsapp', 'ullu.example', '/open')
+    expect(ullu.ok).toBe(true)
+    if (!ullu.ok) return
+    expect(parseCustomApp({ name: 'Films', searchUrl: ullu.searchUrl, scope: 'all' }).ok).toBe(false)
+  })
+})
+
 describe('links', () => {
   const app: CustomApp = { id: 'a1', ...draft }
 
@@ -149,7 +170,7 @@ describe('links', () => {
     expect(result.ok).toBe(true)
     if (!result.ok) return
     expect(customAppLink(result.app, 'Drishyam', 2013)).toBe(
-      'intent://films.example/open?q=Drishyam%202013#Intent;scheme=filmsapp;package=com.example.films;S.app_name=Films;S.query=Drishyam%202013;end',
+      'intent://films.example/open?q=Drishyam%202013#Intent;scheme=filmsapp;package=com.example.films;S.app_name=Films;S.query=Drishyam%202013;S.screen=com.example.films.MainActivity;end',
     )
     expect(customAppLink(result.app, 'Drishyam', 2013)).not.toContain('S.activity=')
   })

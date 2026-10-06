@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft, ExternalLink, RefreshCw } from 'lucide-react'
 import { Badge, Button, Field, inputClass } from '../../components/ui'
 import { platforms, recommendMovies } from './recommend'
+import { trailerUrl } from './catalog'
 import { LANG_LABEL, type MovieKind, type MovieLang, type MovieShelfKind } from './schema'
 import { useStore } from '../../store'
 import { isTvMode } from '../../lib/tv'
 import { PlayOnTv } from '../cast/PlayOnTv'
 import { CustomAppLinks } from '../ott/CustomAppLinks'
 import { fireTvIntent } from '../ott/fireTv'
-import { useOpenWatch } from '../ott/WatchPane'
+import { useWatchDesk } from '../ott/WatchPane'
 import { applyYearOrder, type YearSort } from './yearSort'
 import { freshToCatalogTitles, withFreshTitles } from './freshShelf'
 import { useFreshMovies } from './useFreshMovies'
@@ -76,7 +77,7 @@ export function MovieShelf({
   const [sort, setSort] = useState<'mix' | 'critic' | 'youtube' | 'instagram' | 'erotic' | YearSort>(erotic ? 'erotic' : 'mix')
   const [seed, setSeed] = useState(() => `live-${Date.now()}`)
   const [openKey, setOpenKey] = useState<string | null>(null)
-  const openWatch = useOpenWatch()
+  const { openOfficialNow } = useWatchDesk()
 
   useEffect(() => {
     setOpenKey(null)
@@ -118,12 +119,13 @@ export function MovieShelf({
       decade: decade === 'all' ? undefined : decade,
       weights: nextWeights,
       seed,
+      region: state.countryCode,
       tv,
       connectedPlatformIds: connectedKey ? connectedKey.split(',') : [],
       adFreePlatformIds: adFreeKey ? adFreeKey.split(',') : [],
       preferAdFree,
     })
-  }, [shelf, limit, lang, kind, platformId, decade, sort, seed, erotic, tv, connectedKey, adFreeKey, preferAdFree])
+  }, [shelf, limit, lang, kind, platformId, decade, sort, seed, erotic, tv, connectedKey, adFreeKey, preferAdFree, state.countryCode])
 
   const shelfTitles = useMemo(() => {
     if (erotic) return result.titles
@@ -152,13 +154,12 @@ export function MovieShelf({
     <section className={compact ? '' : 'mt-10'} data-testid={erotic ? 'erotic-shelf' : 'movie-shelf'}>
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>
-          {compact ? null : (
-            <h2 className="font-display text-2xl">{erotic ? '150 erotic titles (18+)' : '100 movies & series'}</h2>
-          )}
+          {compact ? null : <h2 className="font-display text-2xl">{erotic ? '150 mature titles (18+)' : '100 movies & series'}</h2>}
           <p className={`${compact ? '' : 'mt-1 '}text-sm text-muted`}>
             {result.platformCount} official storefronts · catalog {result.totalCatalog} · ranked by critic/audience
-            agreement, hidden gems and diversity{erotic ? ', plus erotic heat' : ''}. Channels open on this page — Close
-            returns here. A language chip is originals only — no dubbed copies.
+            agreement, hidden gems and diversity{erotic ? ', with mature-cinema quality signals' : ''}. Channels open on
+            this page — Close returns here. Region discovery follows the active country pack ({state.countryCode}); a
+            language chip is originals only — no dubbed copies.
           </p>
         </div>
         <Button data-tv-focus="1" onClick={() => setSeed(`live-${Date.now()}`)} aria-label={`Shuffle ${limit} titles`}>
@@ -206,7 +207,7 @@ export function MovieShelf({
         </Field>
         <Field label="Rank by">
           <select className={inputClass} value={sort} onChange={(e) => setSort(e.target.value as typeof sort)}>
-            {erotic ? <option value="erotic">Erotic / nude heat first</option> : null}
+            {erotic ? <option value="erotic">Mature cinema quality</option> : null}
             <option value="mix">Taste + diversity mix</option>
             <option value="critic">Critics first</option>
             <option value="youtube">YouTube recs</option>
@@ -230,7 +231,7 @@ export function MovieShelf({
       <p className="mb-3 text-xs text-muted" data-testid={erotic ? 'erotic-count' : 'movie-count'}>
         {countLine} · seed {result.seed}
       </p>
-      <ul className={tv ? 'movie-rail' : 'grid gap-3 sm:grid-cols-2 xl:grid-cols-3'}>
+      <ul className={tv ? 'movie-rail' : 'movie-grid'}>
         {titles.map((t, i) => {
           const key = `${t.id}-${i}`
           const open = openKey === key
@@ -255,6 +256,11 @@ export function MovieShelf({
                 </div>
               ) : (
                 <div>
+                  <div className="movie-banner" aria-hidden="true">
+                    <span className="movie-banner-mark">W</span>
+                    <span className="movie-banner-title">{t.title}</span>
+                    <span className="movie-banner-meta">{t.year} · {LANG_LABEL[t.originalLang]}</span>
+                  </div>
                   <button
                     type="button"
                     className="movie-open w-full text-left"
@@ -276,6 +282,21 @@ export function MovieShelf({
                   </button>
                   <div className="mt-3 flex flex-wrap gap-1.5" data-testid={erotic ? 'erotic-watch' : 'movie-watch'}>
                     <PlayOnTv title={t.title} year={t.year} lang={t.originalLang} links={t.watchLinks} />
+                    <a
+                      className="movie-trailer-link rounded-lg bg-pine px-2 py-1 text-xs font-semibold text-[var(--color-pine-ink)] hover:brightness-110"
+                      data-tv-focus="1"
+                      href={trailerUrl(t.title, t.year, t.originalLang)}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        openOfficialNow({
+                          url: trailerUrl(t.title, t.year, t.originalLang),
+                          title: `${t.title} trailer`,
+                          platformName: 'YouTube trailer',
+                        })
+                      }}
+                    >
+                      YouTube trailer <ExternalLink className="inline" size={10} />
+                    </a>
                     {t.watchLinks.map((w) => {
                       const href = tv ? fireTvIntent(w.platformId, t.title, t.year, t.originalLang) : w.url
                       return (
@@ -287,10 +308,10 @@ export function MovieShelf({
                           href={href}
                           onClick={(e) => {
                             e.preventDefault()
-                            openWatch({ url: href, title: t.title, platformName: w.platformName })
+                            openOfficialNow({ url: href, title: t.title, platformName: w.platformName })
                           }}
                         >
-                          {w.platformName} <ExternalLink className="inline" size={10} />
+                          {w.resolver ? w.platformName : `Search ${w.platformName}`} <ExternalLink className="inline" size={10} />
                           {w.adLabel === 'ad-free' || w.adLabel === 'has-ads' ? (
                             <span
                               className={`ml-1 rounded px-1 text-[10px] ${w.adLabel === 'ad-free' ? 'bg-pine-soft text-pine' : 'bg-sand text-muted'}`}

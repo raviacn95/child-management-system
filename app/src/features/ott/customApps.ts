@@ -30,6 +30,27 @@ function allowedSearch(url: string) {
   return searchLinkParts(url.replaceAll(TITLE_SLOT, 'test')) !== null
 }
 
+function hostOk(host: string) {
+  return /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/.test(host)
+}
+
+/** Scheme, host, and path from an app link, with the movie name added as `q`. */
+export function appLinkFromParts(scheme: string, host: string, path: string) {
+  const name = scheme.trim().toLowerCase()
+  const site = host.trim().toLowerCase()
+  let route = path.trim()
+  if (!name && !site && !route) return { ok: true as const, searchUrl: '' }
+  if (!name || !site) return { ok: false as const, error: 'Add both the scheme and the host' }
+  if (!SCHEME_NAME.test(name) || BLOCKED_SCHEMES.has(name)) return { ok: false as const, error: 'That scheme cannot be used' }
+  if (!hostOk(site)) return { ok: false as const, error: 'Host looks like films.example' }
+  if (!route) route = '/'
+  if (!route.startsWith('/')) route = `/${route}`
+  if (!/^\/[A-Za-z0-9._~/-]*$/.test(route)) return { ok: false as const, error: 'Path looks like /open' }
+  const searchUrl = `${name}://${site}${route}?q=${TITLE_SLOT}`
+  if (!allowedSearch(searchUrl)) return { ok: false as const, error: 'That app link cannot be used' }
+  return { ok: true as const, searchUrl }
+}
+
 const draftSchema = z
   .object({
     name: z.string().trim().min(1, 'Give the app a name').max(30, 'Keep the name under 30 letters'),
@@ -135,7 +156,8 @@ function launchTail(app: CustomApp) {
 function titleIntent(app: CustomApp, filled: string, parts: NonNullable<ReturnType<typeof searchLinkParts>>, query: string) {
   const packagePart = app.androidPackage ? `;package=${app.androidPackage}` : ''
   const fallback = parts.scheme === 'https' ? `;S.browser_fallback_url=${encodeURIComponent(filled)}` : ''
-  return `intent://${parts.host}${parts.path}${parts.search}#Intent;scheme=${parts.scheme}${packagePart};S.app_name=${encodeURIComponent(app.name)};S.query=${encodeURIComponent(query)}${fallback};end`
+  const screen = app.activity ? `;S.screen=${encodeURIComponent(app.activity)}` : ''
+  return `intent://${parts.host}${parts.path}${parts.search}#Intent;scheme=${parts.scheme}${packagePart};S.app_name=${encodeURIComponent(app.name)};S.query=${encodeURIComponent(query)}${screen}${fallback};end`
 }
 
 /** A search link opens that title in the installed app. An https link without a package stays on the web. */

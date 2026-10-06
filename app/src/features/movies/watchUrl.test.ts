@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { fillSearchUrl, watchUrl } from './catalog'
+import { fillSearchUrl, trailerUrl, watchUrl } from './catalog'
 import { fireTvIntent } from '../ott/fireTv'
 
 describe('official watch links', () => {
@@ -30,5 +30,13 @@ describe('official watch links', () => {
     const href = fireTvIntent('hotstar', 'Drishyam', 2013)
     expect(href).toContain('package=in.startv.hotstar')
     expect(href).toContain('search_query=Drishyam')
+  })
+
+  it('creates a title-aware YouTube trailer fallback', () => {
+    const url = trailerUrl('Kumbalangi Nights', 2019, 'ml')
+    expect(url).toContain('youtube.com/embed?listType=search')
+    expect(url).toContain('autoplay=1')
+    expect(url).toContain('mute=1')
+    expect(decodeURIComponent(url)).toContain('Kumbalangi Nights 2019 Malayalam official trailer')
   })
 })

@@ -25,28 +25,28 @@
 :root,
 [data-look='grove'] {
   color-scheme: light;
-  --color-ink: #2c261f;
-  --color-muted: #5c544c;
-  --color-sand: #efe8dc;
-  --color-paper: #f6f1e8;
-  --color-sidebar: #f3ece1;
-  --color-line: #ddd4c6;
-  --color-pine: #1a6554;
-  --color-pine-ink: #f6f1e8;
-  --color-pine-soft: #dcece6;
-  --color-clay: #b8642c;
-  --color-clay-soft: #f6e6d6;
-  --color-sky: #3a6d8c;
-  --color-sky-soft: #e4eef5;
-  --color-rose: #a63a52;
-  --color-rose-soft: #f6e4ea;
-  --color-gold: #8f6a18;
-  --color-gold-soft: #f4ead0;
+  --color-ink: #173042;
+  --color-muted: #53636b;
+  --color-sand: #eef3f1;
+  --color-paper: #fbfdfc;
+  --color-sidebar: #e5efec;
+  --color-line: #cfddda;
+  --color-pine: #0f766e;
+  --color-pine-ink: #ffffff;
+  --color-pine-soft: #d9f1ec;
+  --color-clay: #c6533a;
+  --color-clay-soft: #fae3de;
+  --color-sky: #2c6e9e;
+  --color-sky-soft: #e1eef8;
+  --color-rose: #b43758;
+  --color-rose-soft: #fae3eb;
+  --color-gold: #9a6500;
+  --color-gold-soft: #fff0c9;
   --radius-card: 1.25rem;
   --shadow-card: 0 1px 0 rgb(44 38 31 / 0.04), 0 18px 40px -28px rgb(26 101 84 / 0.28);
   --app-glow:
-    radial-gradient(900px 420px at 12% -10%, rgb(26 101 84 / 0.1), transparent 55%),
-    radial-gradient(700px 360px at 110% 0%, rgb(184 100 44 / 0.06), transparent 50%);
+    radial-gradient(900px 420px at 12% -10%, rgb(15 118 110 / 0.11), transparent 55%),
+    radial-gradient(700px 360px at 110% 0%, rgb(198 83 58 / 0.07), transparent 50%);
   --header-bg: color-mix(in srgb, var(--color-sand) 86%, transparent);
   --nav-hover: color-mix(in srgb, var(--color-paper) 88%, white);
 }

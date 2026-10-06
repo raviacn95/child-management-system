@@ -90,6 +90,7 @@ export const watchLinkSchema = z.object({
   url: z.string().url(),
   adFree: z.boolean().optional(),
   adLabel: adLabelSchema.optional(),
+  resolver: z.boolean().optional().default(false),
 })
 
 export const rankedTitleSchema = titleSchema.extend({
@@ -116,6 +117,7 @@ export const movieRecommendRequestSchema = z.object({
     })
     .optional(),
   seed: z.string().optional(),
+  region: z.string().max(8).optional(),
   tv: z.boolean().optional(),
   connectedPlatformIds: z.array(z.string()).optional(),
   adFreePlatformIds: z.array(z.string()).optional(),

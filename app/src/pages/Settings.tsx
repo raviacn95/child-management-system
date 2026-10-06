@@ -18,6 +18,7 @@ import { useSourceUpdate } from '../features/install/useSourceUpdate'
 import { AffiliateSettings } from '../features/shopping/AffiliateSettings'
 import { RevenueSettings } from '../features/revenue/RevenueSettings'
 import { CastSettings } from '../features/cast/CastSettings'
+import { analyticsConsent, setAnalyticsConsent } from '../lib/analytics'
 
 export function SettingsPage() {
   const { t, i18n } = useTranslation()
@@ -28,6 +29,7 @@ export function SettingsPage() {
   const [flags, setFlags] = useState<FeatureFlags>(() => readFlags())
   const [tv, setTv] = useState(() => isTvMode())
   const [pinDraft, setPinDraft] = useState('')
+  const [analytics, setAnalytics] = useState(() => analyticsConsent() === 'granted')
   const sourceUpdate = useSourceUpdate()
 
   function toggleFlag(key: keyof FeatureFlags) {
@@ -179,6 +181,26 @@ export function SettingsPage() {
           <a className="mt-2 inline-block text-sm font-semibold text-pine" href="./privacy.html">
             Privacy notice →
           </a>
+          <label className="mt-4 flex items-start gap-3 rounded-xl border border-line p-3 text-sm">
+            <input
+              type="checkbox"
+              checked={analytics}
+              data-testid="analytics-consent"
+              onChange={(event) => {
+                const enabled = event.target.checked
+                setAnalytics(enabled)
+                setAnalyticsConsent(enabled ? 'granted' : 'denied')
+              }}
+            />
+            <span>
+              <span className="font-semibold">Share anonymous app usage</span>
+              <span className="mt-1 block text-xs text-muted">
+                Optional. Willow may send page visits with a random installation ID to its configured first-party
+                analytics server. It never sends names, emails, child records, PINs, or medical notes. You can turn this
+                off here at any time.
+              </span>
+            </span>
+          </label>
           <p className="mt-3 text-xs leading-relaxed text-muted">
             Willow™ and this complete repository are proprietary to the rights holder. Share cards on WhatsApp and
             Facebook carry only the Willow mark — never child records.

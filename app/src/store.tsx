@@ -22,11 +22,13 @@ import type {
   HorizonLog,
   ParentFeedProfile,
   OttAccount,
+  Role,
 } from './types'
 import { nextWebhook } from './lib/autoOrder'
 import { applyWorkerRun } from './workers/engine'
 import { makeAudit, prependAudit } from './lib/audit'
 import { clearSession, issueSession, readSession } from './features/auth/session'
+import { signOutFromSupabase } from './features/auth/supabaseAuth'
 import { sanitizeForDisk, wipeCmsKeys, wipeLegacyCmsKeys, withDemoSecrets } from './lib/privacy'
 
 const KEY = 'willow-cms-v5'
@@ -155,6 +157,7 @@ function uid(prefix: string) {
 interface StoreApi {
   state: AppState
   login: (email: string, password: string, remember?: boolean) => string | null
+  loginWithIdentity: (identity: { id: string; email: string; role?: Role }) => string | null
   logout: () => void
   setSite: (id: string) => void
   resetDemo: () => void
@@ -234,8 +237,33 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         })
         return user.id
       },
+      loginWithIdentity: (identity) => {
+        const existing = state.users.find((user) => user.email.toLowerCase() === identity.email.toLowerCase())
+        const role = identity.role ?? existing?.role ?? 'parent'
+        const user = existing ?? {
+          id: identity.id,
+          name: identity.email.split('@')[0],
+          email: identity.email,
+          password: '',
+          role,
+          avatarHue: 160,
+          classroomIds: [],
+          childIds: [],
+          siteId: state.currentSiteId,
+        }
+        issueSession(user, { persist: true })
+        commit({
+          ...state,
+          users: existing ? state.users : [...state.users, user],
+          currentUserId: user.id,
+          currentSiteId: user.siteId,
+          auditLog: prependAudit(state.auditLog, makeAudit(user.id, 'auth.login.supabase', user.email)),
+        })
+        return user.id
+      },
       logout: () => {
         clearSession()
+        void signOutFromSupabase()
         commit({
           ...state,
           currentUserId: null,

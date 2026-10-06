@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+def willowVersionCode = (System.getenv('WILLOW_VERSION_CODE') ?: project.findProperty('willowVersionCode') ?: '3').toString()
+def willowVersionName = (System.getenv('WILLOW_VERSION_NAME') ?: project.findProperty('willowVersionName') ?: '1.2').toString()
+
 android {
     namespace = "care.willow.childcare"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -7,8 +10,8 @@ android {
         applicationId "care.willow.childcare"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "1.2"
+        versionCode willowVersionCode.toInteger()
+        versionName willowVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -20,6 +23,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (System.getenv('WILLOW_KEYSTORE_FILE')) {
+                signingConfig signingConfigs.maybeCreate('release')
+                signingConfig.storeFile = file(System.getenv('WILLOW_KEYSTORE_FILE'))
+                signingConfig.storePassword = System.getenv('WILLOW_KEYSTORE_PASSWORD')
+                signingConfig.keyAlias = System.getenv('WILLOW_KEY_ALIAS')
+                signingConfig.keyPassword = System.getenv('WILLOW_KEY_PASSWORD')
+            }
         }
     }
 }

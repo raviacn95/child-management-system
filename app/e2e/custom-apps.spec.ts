@@ -24,7 +24,14 @@ test('a custom app adds its own search button next to Netflix and Prime', async 
   await addApp(page, 'Shelf', '', false, 'com.example.shelf', '.HomeActivity')
   await addApp(page, 'Late Night', 'https://late.example.com/find/{q}', true)
   await addApp(page, 'App Link', 'filmsapp://films.example/open?q={q}', false, 'com.example.films')
-  await expect(page.getByTestId('custom-app-row')).toHaveCount(5)
+  const cardForm = page.getByTestId('custom-apps')
+  await cardForm.getByLabel('App name').fill('Route')
+  await cardForm.getByLabel(/Package name/).fill('com.example.route')
+  await cardForm.getByLabel('Scheme (optional)').fill('filmsapp')
+  await cardForm.getByLabel('Host (optional)').fill('films.example')
+  await cardForm.getByLabel('Path (optional)').fill('/open')
+  await cardForm.getByTestId('custom-app-add').click()
+  await expect(page.getByTestId('custom-app-row')).toHaveCount(6)
 
   await page.goto('/#/movies')
   const card = page.getByTestId('movie-card').first()
@@ -38,6 +45,10 @@ test('a custom app adds its own search button next to Netflix and Prime', async 
   await expect(card.getByRole('link', { name: /Search .+ on App Link/ })).toHaveAttribute(
     'href',
     /^intent:\/\/films\.example\/open\?q=.+#Intent;scheme=filmsapp;package=com\.example\.films;S\.app_name=App%20Link;S\.query=.+;end$/,
+  )
+  await expect(card.getByRole('link', { name: /Search .+ on Route/ })).toHaveAttribute(
+    'href',
+    /^intent:\/\/films\.example\/open\?q=.+#Intent;scheme=filmsapp;package=com\.example\.route;S\.app_name=Route;S\.query=.+;end$/,
   )
   await expect(card.getByRole('link', { name: 'Open Shelf' })).toHaveAttribute(
     'href',

@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Badge, Button, Field, inputClass } from '../../components/ui'
-import { addCustomApp, customAppLink, removeCustomApp, useCustomApps, type CustomAppScope } from './customApps'
+import { addCustomApp, appLinkFromParts, customAppLink, removeCustomApp, useCustomApps, type CustomAppScope } from './customApps'
 import { useOpenWatch } from './WatchPane'
 
 const SCOPES: { id: CustomAppScope; label: string }[] = [
@@ -14,6 +14,9 @@ export function CustomAppsCard() {
   const openWatch = useOpenWatch()
   const [name, setName] = useState('')
   const [searchUrl, setSearchUrl] = useState('')
+  const [scheme, setScheme] = useState('')
+  const [host, setHost] = useState('')
+  const [path, setPath] = useState('')
   const [androidPackage, setAndroidPackage] = useState('')
   const [activity, setActivity] = useState('')
   const [scope, setScope] = useState<CustomAppScope>('all')
@@ -21,7 +24,16 @@ export function CustomAppsCard() {
 
   const submit = (e: FormEvent) => {
     e.preventDefault()
-    const result = addCustomApp({ name, searchUrl, androidPackage, activity, scope })
+    let link = searchUrl.trim()
+    if (!link) {
+      const built = appLinkFromParts(scheme, host, path)
+      if (!built.ok) {
+        setError(built.error)
+        return
+      }
+      link = built.searchUrl
+    }
+    const result = addCustomApp({ name, searchUrl: link, androidPackage, activity, scope })
     if (!result.ok) {
       setError(result.error)
       return
@@ -29,6 +41,9 @@ export function CustomAppsCard() {
     setError('')
     setName('')
     setSearchUrl('')
+    setScheme('')
+    setHost('')
+    setPath('')
     setAndroidPackage('')
     setActivity('')
     setScope('all')
@@ -38,9 +53,9 @@ export function CustomAppsCard() {
     <section className="card mb-6 p-5" data-testid="custom-apps">
       <h2 className="font-display text-xl">Add your own app</h2>
       <p className="mt-1 text-sm text-muted">
-        A search link with <code>{'{q}'}</code> sends the movie name into that app. Use an https:// link, or the app’s
-        own link such as myapp://open?q={'{q}'}. Leave Activity blank for a search. Activity opens the home screen.
-        Saved on this device only.
+        A search link with <code>{'{q}'}</code> sends the movie name. Or fill scheme, host, and path and Willow adds{' '}
+        <code>?q={'{q}'}</code>. Leave Activity blank unless that screen should receive the link. Saved on this device
+        only.
       </p>
       <form className="mt-4 grid gap-3 md:grid-cols-2" onSubmit={submit}>
         <Field label="App name">
@@ -66,6 +81,39 @@ export function CustomAppsCard() {
             autoCorrect="off"
             spellCheck={false}
             onChange={(e) => setActivity(e.target.value)}
+          />
+        </Field>
+        <Field label="Scheme (optional)">
+          <input
+            className={inputClass}
+            value={scheme}
+            placeholder="myapp"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            onChange={(e) => setScheme(e.target.value)}
+          />
+        </Field>
+        <Field label="Host (optional)">
+          <input
+            className={inputClass}
+            value={host}
+            placeholder="films.example"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            onChange={(e) => setHost(e.target.value)}
+          />
+        </Field>
+        <Field label="Path (optional)">
+          <input
+            className={inputClass}
+            value={path}
+            placeholder="/open"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            onChange={(e) => setPath(e.target.value)}
           />
         </Field>
         <Field label="Search link with {q} (optional)">

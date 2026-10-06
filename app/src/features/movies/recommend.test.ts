@@ -73,6 +73,14 @@ describe('movie catalog scale', () => {
       expect(t.watchLinks.every((w) => w.url.startsWith('https://'))).toBe(true)
     }
   })
+
+  it('uses the active region to prefer titles with regional storefront coverage', () => {
+    const out = recommendMovies({ shelf: 'erotic', limit: 150, region: 'IN', seed: 'regional-1' })
+    expect(out.count).toBeGreaterThan(0)
+    expect(out.titles.every((title) =>
+      title.platformIds.some((id) => platforms.find((platform) => platform.id === id)?.region === 'IN'),
+    )).toBe(true)
+  })
 })
 
 describe('ad-free first watch links', () => {

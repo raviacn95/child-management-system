@@ -12,6 +12,8 @@ export type Plan = {
   blurb: string
   features: string[]
   action: PlanAction
+  /** Ten months of the monthly price: two months free. */
+  yearlyPriceInr?: number
 }
 
 export const PLANS: Plan[] = [
@@ -29,6 +31,7 @@ export const PLANS: Plan[] = [
     name: 'Willow Plus',
     priceInr: 199,
     period: 'month',
+    yearlyPriceInr: 1990,
     blurb: 'Keeps Willow ad-free and funds new features.',
     features: ['Priority WhatsApp support', 'Early access to new features', 'Monthly printable planner pack', 'Ad-free promise'],
     action: 'checkout',
@@ -62,8 +65,16 @@ export function checkoutUrlFor(
   planId: PlanId,
   config: RevenueConfig = readRevenueConfig(),
   ref: string = referralFrom(),
+  billing: 'month' | 'year' = 'month',
 ) {
-  const base = planId === 'plus' ? config.plusCheckout : planId === 'packs' ? config.packsCheckout : ''
+  const base =
+    planId === 'plus'
+      ? billing === 'year'
+        ? config.plusYearlyCheckout
+        : config.plusCheckout
+      : planId === 'packs'
+        ? config.packsCheckout
+        : ''
   if (!base) return ''
   if (!ref) return base
   const url = new URL(base)

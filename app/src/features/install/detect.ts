@@ -26,6 +26,10 @@ export function isChromiumDesktop() {
   return /Chrome|Edg|Chromium/i.test(ua) && !/Mobile|Android/i.test(ua)
 }
 
+export function isEdgeDesktop(ua = typeof navigator !== 'undefined' ? navigator.userAgent : '') {
+  return /Edg\//i.test(ua) && !/Mobile|Android|EdgiOS|EdgA/i.test(ua)
+}
+
 export function isHandheld(ua = typeof navigator !== 'undefined' ? navigator.userAgent : '') {
   if (/Android|iPhone|iPad|iPod|Mobile/i.test(ua)) return true
   if (typeof navigator !== 'undefined' && navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) return true

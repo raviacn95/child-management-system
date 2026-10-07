@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T22:40:10.772Z",
+  "generatedAt": "2026-10-07T06:03:01.942Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -163,7 +163,7 @@
       "released": "2026-07-25",
       "lang": "en",
       "india": false,
-      "sitelinks": 26,
+      "sitelinks": 27,
       "providers": [],
       "tmdbId": 1204680,
       "providersSource": "tmdb"
@@ -464,6 +464,17 @@
       }
     },
     {
+      "id": "wd-Q137570236",
+      "qid": "Q137570236",
+      "title": "Bindusagar",
+      "year": 2026,
+      "released": "2026-04-17",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": []
+    },
+    {
       "id": "wd-Q116677364",
       "qid": "Q116677364",
       "title": "Michael",
@@ -557,6 +568,17 @@
       ],
       "tmdbId": 1260210,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q138497144",
+      "qid": "Q138497144",
+      "title": "Korpur",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": []
     },
     {
       "id": "wd-Q107105860",
@@ -678,18 +700,6 @@
       }
     },
     {
-      "id": "wd-Q137874897",
-      "qid": "Q137874897",
-      "title": "OCD",
-      "year": 2026,
-      "released": "2026-02-06",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1062545
-    },
-    {
       "id": "wd-Q131763755",
       "qid": "Q131763755",
       "title": "Mardaani 3",
@@ -770,19 +780,6 @@
       "sitelinks": 4,
       "providers": [],
       "tmdbId": 1437714,
-      "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137802630",
-      "qid": "Q137802630",
-      "title": "Hok Kolorob",
-      "year": 2026,
-      "released": "2026-01-23",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1536901,
       "providersSource": "tmdb"
     },
     {
@@ -887,6 +884,18 @@
       "sitelinks": 2,
       "providers": [],
       "tmdbId": 1442975
+    },
+    {
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
+      "year": 2026,
+      "released": "2026-01-12",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1439713
     },
     {
       "id": "wd-Q124301053",
@@ -1005,24 +1014,6 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1616166
-    },
-    {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "prime",
-          "kind": "stream"
-        }
-      ],
-      "tmdbId": 1594670,
-      "providersSource": "tmdb"
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

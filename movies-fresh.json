@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-07T06:03:01.942Z",
+  "generatedAt": "2026-10-07T13:27:20.132Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -464,17 +464,6 @@
       }
     },
     {
-      "id": "wd-Q137570236",
-      "qid": "Q137570236",
-      "title": "Bindusagar",
-      "year": 2026,
-      "released": "2026-04-17",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": []
-    },
-    {
       "id": "wd-Q116677364",
       "qid": "Q116677364",
       "title": "Michael",
@@ -783,6 +772,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137802630",
+      "qid": "Q137802630",
+      "title": "Hok Kolorob",
+      "year": 2026,
+      "released": "2026-01-23",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1536901
+    },
+    {
       "id": "wd-Q124566659",
       "qid": "Q124566659",
       "title": "Mercy",
@@ -916,18 +917,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1445278
-    },
-    {
       "id": "wd-Q136673072",
       "qid": "Q136673072",
       "title": "Ikkis",
@@ -985,6 +974,19 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1003,17 +1005,16 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
+      "id": "wd-Q137843190",
+      "qid": "Q137843190",
+      "title": "Psych Siddhartha",
       "year": 2026,
       "released": "2026-01-01",
-      "lang": "hi",
+      "lang": "te",
       "india": true,
-      "sitelinks": 3,
+      "sitelinks": 2,
       "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
+      "tmdbId": 1594670
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

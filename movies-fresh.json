@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-07T20:38:30.334Z",
+  "generatedAt": "2026-10-08T01:01:53.637Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -30,6 +30,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q131900904",
+      "qid": "Q131900904",
+      "title": "Heart of the Beast",
+      "year": 2026,
+      "released": "2026-09-24",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 22,
+      "providers": [],
+      "tmdbId": 1263337
+    },
+    {
       "id": "wd-Q129255849",
       "qid": "Q129255849",
       "title": "Sardar 2",
@@ -54,18 +66,6 @@
       "providers": [],
       "tmdbId": 1213243,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q132256832",
-      "qid": "Q132256832",
-      "title": "The Dog Stars",
-      "year": 2026,
-      "released": "2026-08-26",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 22,
-      "providers": [],
-      "tmdbId": 1384216
     },
     {
       "id": "wd-Q138716562",
@@ -552,15 +552,16 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q138497144",
-      "qid": "Q138497144",
-      "title": "Korpur",
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
       "year": 2026,
       "released": "2026-03-19",
-      "lang": "bn",
+      "lang": "ml",
       "india": true,
       "sitelinks": 2,
-      "providers": []
+      "providers": [],
+      "tmdbId": 1260210
     },
     {
       "id": "wd-Q107105860",
@@ -639,18 +640,6 @@
       "tmdbId": 1444032
     },
     {
-      "id": "wd-Q138562396",
-      "qid": "Q138562396",
-      "title": "Son Of",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1669290
-    },
-    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -704,18 +693,6 @@
       "watchIds": {
         "netflix": "81768525"
       }
-    },
-    {
-      "id": "wd-Q137874897",
-      "qid": "Q137874897",
-      "title": "OCD",
-      "year": 2026,
-      "released": "2026-02-06",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -841,6 +818,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137799437",
+      "qid": "Q137799437",
+      "title": "Happy Patel: Khatarnak Jasoos",
+      "year": 2026,
+      "released": "2026-01-16",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1282440
+    },
+    {
       "id": "wd-Q131189949",
       "qid": "Q131189949",
       "title": "The Rip",
@@ -872,6 +861,30 @@
       "sitelinks": 2,
       "providers": [],
       "tmdbId": 1407432
+    },
+    {
+      "id": "wd-Q137718780",
+      "qid": "Q137718780",
+      "title": "Bhartha Mahasayulaku Wignyapthi",
+      "year": 2026,
+      "released": "2026-01-13",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1442975
+    },
+    {
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
+      "year": 2026,
+      "released": "2026-01-12",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1439713
     },
     {
       "id": "wd-Q124301053",
@@ -961,19 +974,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -992,16 +992,17 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
       "year": 2026,
       "released": "2026-01-01",
-      "lang": "te",
+      "lang": "hi",
       "india": true,
-      "sitelinks": 2,
+      "sitelinks": 3,
       "providers": [],
-      "tmdbId": 1594670
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

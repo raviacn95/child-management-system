@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-08T01:01:53.637Z",
+  "generatedAt": "2026-10-08T10:37:33.355Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -24,22 +24,10 @@
       "released": "2026-10-01",
       "lang": "en",
       "india": false,
-      "sitelinks": 24,
+      "sitelinks": 25,
       "providers": [],
       "tmdbId": 1248832,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q131900904",
-      "qid": "Q131900904",
-      "title": "Heart of the Beast",
-      "year": 2026,
-      "released": "2026-09-24",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 22,
-      "providers": [],
-      "tmdbId": 1263337
     },
     {
       "id": "wd-Q129255849",
@@ -66,6 +54,18 @@
       "providers": [],
       "tmdbId": 1213243,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q132256832",
+      "qid": "Q132256832",
+      "title": "The Dog Stars",
+      "year": 2026,
+      "released": "2026-08-26",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 22,
+      "providers": [],
+      "tmdbId": 1384216
     },
     {
       "id": "wd-Q138716562",
@@ -450,7 +450,7 @@
       "released": "2026-04-20",
       "lang": "en",
       "india": false,
-      "sitelinks": 36,
+      "sitelinks": 37,
       "providers": [
         {
           "platformId": "hotstar",
@@ -695,6 +695,18 @@
       }
     },
     {
+      "id": "wd-Q137874897",
+      "qid": "Q137874897",
+      "title": "OCD",
+      "year": 2026,
+      "released": "2026-02-06",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1062545
+    },
+    {
       "id": "wd-Q131763755",
       "qid": "Q131763755",
       "title": "Mardaani 3",
@@ -816,18 +828,6 @@
       ],
       "tmdbId": 1617536,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137799437",
-      "qid": "Q137799437",
-      "title": "Happy Patel: Khatarnak Jasoos",
-      "year": 2026,
-      "released": "2026-01-16",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1282440
     },
     {
       "id": "wd-Q131189949",

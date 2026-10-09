@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-08T18:52:02.846Z",
+  "generatedAt": "2026-10-09T01:14:14.600Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -30,6 +30,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q131900904",
+      "qid": "Q131900904",
+      "title": "Heart of the Beast",
+      "year": 2026,
+      "released": "2026-09-24",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 22,
+      "providers": [],
+      "tmdbId": 1263337
+    },
+    {
       "id": "wd-Q129255849",
       "qid": "Q129255849",
       "title": "Sardar 2",
@@ -54,18 +66,6 @@
       "providers": [],
       "tmdbId": 1213243,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q132256832",
-      "qid": "Q132256832",
-      "title": "The Dog Stars",
-      "year": 2026,
-      "released": "2026-08-26",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 22,
-      "providers": [],
-      "tmdbId": 1384216
     },
     {
       "id": "wd-Q138716562",
@@ -346,6 +346,18 @@
       "providers": [],
       "tmdbId": 1401459,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q139149095",
+      "qid": "Q139149095",
+      "title": "Saptadingar Guptodhon",
+      "year": 2026,
+      "released": "2026-05-15",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1441301
     },
     {
       "id": "wd-Q124246549",
@@ -875,18 +887,6 @@
       "tmdbId": 1442975
     },
     {
-      "id": "wd-Q135647565",
-      "qid": "Q135647565",
-      "title": "Mana Shankara Vara Prasad Garu",
-      "year": 2026,
-      "released": "2026-01-12",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1439713
-    },
-    {
       "id": "wd-Q124301053",
       "qid": "Q124301053",
       "title": "The RajaSaab",
@@ -974,6 +974,19 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -990,19 +1003,6 @@
       ],
       "tmdbId": 1439594,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

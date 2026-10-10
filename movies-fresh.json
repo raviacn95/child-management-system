@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-09T10:36:27.243Z",
+  "generatedAt": "2026-10-10T00:53:23.782Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -24,10 +24,22 @@
       "released": "2026-10-01",
       "lang": "en",
       "india": false,
-      "sitelinks": 25,
+      "sitelinks": 26,
       "providers": [],
       "tmdbId": 1248832,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q131900904",
+      "qid": "Q131900904",
+      "title": "Heart of the Beast",
+      "year": 2026,
+      "released": "2026-09-24",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [],
+      "tmdbId": 1263337
     },
     {
       "id": "wd-Q129255849",
@@ -54,18 +66,6 @@
       "providers": [],
       "tmdbId": 1213243,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q132256832",
-      "qid": "Q132256832",
-      "title": "The Dog Stars",
-      "year": 2026,
-      "released": "2026-08-26",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 22,
-      "providers": [],
-      "tmdbId": 1384216
     },
     {
       "id": "wd-Q138716562",
@@ -106,7 +106,7 @@
       "released": "2026-08-09",
       "lang": "en",
       "india": false,
-      "sitelinks": 28,
+      "sitelinks": 29,
       "providers": [],
       "tmdbId": 1101383,
       "providersSource": "tmdb"
@@ -163,7 +163,7 @@
       "released": "2026-07-25",
       "lang": "en",
       "india": false,
-      "sitelinks": 27,
+      "sitelinks": 28,
       "providers": [],
       "tmdbId": 1204680,
       "providersSource": "tmdb"
@@ -346,18 +346,6 @@
       "providers": [],
       "tmdbId": 1401459,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q139149095",
-      "qid": "Q139149095",
-      "title": "Saptadingar Guptodhon",
-      "year": 2026,
-      "released": "2026-05-15",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1441301
     },
     {
       "id": "wd-Q124246549",
@@ -564,6 +552,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1260210
+    },
+    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -571,7 +571,7 @@
       "released": "2026-03-18",
       "lang": "en",
       "india": false,
-      "sitelinks": 46,
+      "sitelinks": 47,
       "providers": [
         {
           "platformId": "prime",
@@ -628,18 +628,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q138562396",
-      "qid": "Q138562396",
-      "title": "Son Of",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1669290
-    },
-    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -693,18 +681,6 @@
       "watchIds": {
         "netflix": "81768525"
       }
-    },
-    {
-      "id": "wd-Q137874897",
-      "qid": "Q137874897",
-      "title": "OCD",
-      "year": 2026,
-      "released": "2026-02-06",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -790,6 +766,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137802630",
+      "qid": "Q137802630",
+      "title": "Hok Kolorob",
+      "year": 2026,
+      "released": "2026-01-23",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1536901
+    },
+    {
       "id": "wd-Q124566659",
       "qid": "Q124566659",
       "title": "Mercy",
@@ -828,6 +816,18 @@
       ],
       "tmdbId": 1617536,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137799437",
+      "qid": "Q137799437",
+      "title": "Happy Patel: Khatarnak Jasoos",
+      "year": 2026,
+      "released": "2026-01-16",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1282440
     },
     {
       "id": "wd-Q131189949",
@@ -873,6 +873,18 @@
       "sitelinks": 2,
       "providers": [],
       "tmdbId": 1442975
+    },
+    {
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
+      "year": 2026,
+      "released": "2026-01-12",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1439713
     },
     {
       "id": "wd-Q124301053",
@@ -962,19 +974,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -993,16 +992,17 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
       "year": 2026,
       "released": "2026-01-01",
-      "lang": "te",
+      "lang": "hi",
       "india": true,
-      "sitelinks": 2,
+      "sitelinks": 3,
       "providers": [],
-      "tmdbId": 1594670
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

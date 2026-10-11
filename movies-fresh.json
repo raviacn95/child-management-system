@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-11T05:49:51.140Z",
+  "generatedAt": "2026-10-11T12:53:07.611Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -66,18 +66,6 @@
       "providers": [],
       "tmdbId": 1213243,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q132256832",
-      "qid": "Q132256832",
-      "title": "The Dog Stars",
-      "year": 2026,
-      "released": "2026-08-26",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 22,
-      "providers": [],
-      "tmdbId": 1384216
     },
     {
       "id": "wd-Q138716562",
@@ -564,18 +552,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q134435699",
-      "qid": "Q134435699",
-      "title": "Aadu 3",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1260210
-    },
-    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -640,6 +616,30 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q138510258",
+      "qid": "Q138510258",
+      "title": "Masthishka Maranam",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1444032
+    },
+    {
+      "id": "wd-Q138562396",
+      "qid": "Q138562396",
+      "title": "Son Of",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1669290
+    },
+    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -674,16 +674,25 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137874897",
-      "qid": "Q137874897",
-      "title": "OCD",
+      "id": "wd-Q130375767",
+      "qid": "Q130375767",
+      "title": "War Machine",
       "year": 2026,
-      "released": "2026-02-06",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1062545
+      "released": "2026-02-12",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 22,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "wikidata",
+      "tmdbId": 1265609,
+      "watchIds": {
+        "netflix": "81768525"
+      }
     },
     {
       "id": "wd-Q131763755",
@@ -807,6 +816,18 @@
       ],
       "tmdbId": 1617536,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137799437",
+      "qid": "Q137799437",
+      "title": "Happy Patel: Khatarnak Jasoos",
+      "year": 2026,
+      "released": "2026-01-16",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1282440
     },
     {
       "id": "wd-Q131189949",
@@ -982,18 +1003,6 @@
       ],
       "tmdbId": 1439594,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1594670
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

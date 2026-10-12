@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-12T10:53:12.580Z",
+  "generatedAt": "2026-10-12T21:17:06.404Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -55,6 +55,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q141168534",
+      "qid": "Q141168534",
+      "title": "NAZA",
+      "year": 2026,
+      "released": "2026-09-10",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [],
+      "tmdbId": 1755291
+    },
+    {
       "id": "wd-Q123740702",
       "qid": "Q123740702",
       "title": "Toxic: A Fairy Tale for Grown-Ups",
@@ -66,18 +78,6 @@
       "providers": [],
       "tmdbId": 1213243,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q132256832",
-      "qid": "Q132256832",
-      "title": "The Dog Stars",
-      "year": 2026,
-      "released": "2026-08-26",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 22,
-      "providers": [],
-      "tmdbId": 1384216
     },
     {
       "id": "wd-Q138716562",
@@ -360,6 +360,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q139149095",
+      "qid": "Q139149095",
+      "title": "Saptadingar Guptodhon",
+      "year": 2026,
+      "released": "2026-05-15",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1441301
+    },
+    {
       "id": "wd-Q124246549",
       "qid": "Q124246549",
       "title": "The Mandalorian and Grogu",
@@ -564,6 +576,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1260210
+    },
+    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -660,6 +684,18 @@
       ],
       "tmdbId": 1275574,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137874897",
+      "qid": "Q137874897",
+      "title": "OCD",
+      "year": 2026,
+      "released": "2026-02-06",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -797,18 +833,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137799437",
-      "qid": "Q137799437",
-      "title": "Happy Patel: Khatarnak Jasoos",
-      "year": 2026,
-      "released": "2026-01-16",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1282440
-    },
-    {
       "id": "wd-Q131189949",
       "qid": "Q131189949",
       "title": "The Rip",
@@ -828,30 +852,6 @@
       "watchIds": {
         "netflix": "81915745"
       }
-    },
-    {
-      "id": "wd-Q137713080",
-      "qid": "Q137713080",
-      "title": "Anaganaga Oka Raju",
-      "year": 2026,
-      "released": "2026-01-14",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1407432
-    },
-    {
-      "id": "wd-Q137718780",
-      "qid": "Q137718780",
-      "title": "Bhartha Mahasayulaku Wignyapthi",
-      "year": 2026,
-      "released": "2026-01-13",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1442975
     },
     {
       "id": "wd-Q135647565",
@@ -953,6 +953,19 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -969,19 +982,6 @@
       ],
       "tmdbId": 1439594,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
     },
     {
       "id": "wd-Q137843190",

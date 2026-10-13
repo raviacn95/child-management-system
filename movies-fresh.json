@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-13T02:37:11.309Z",
+  "generatedAt": "2026-10-13T19:18:47.460Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -360,6 +360,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q139149095",
+      "qid": "Q139149095",
+      "title": "Saptadingar Guptodhon",
+      "year": 2026,
+      "released": "2026-05-15",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1441301
+    },
+    {
       "id": "wd-Q124246549",
       "qid": "Q124246549",
       "title": "The Mandalorian and Grogu",
@@ -485,6 +497,18 @@
       "india": true,
       "sitelinks": 2,
       "providers": []
+    },
+    {
+      "id": "wd-Q139501127",
+      "qid": "Q139501127",
+      "title": "Bibi Payra",
+      "year": 2026,
+      "released": "2026-04-10",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1431260
     },
     {
       "id": "wd-Q116677364",
@@ -672,18 +696,6 @@
       ],
       "tmdbId": 1275574,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137874897",
-      "qid": "Q137874897",
-      "title": "OCD",
-      "year": 2026,
-      "released": "2026-02-06",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -935,24 +947,6 @@
       }
     },
     {
-      "id": "wd-Q116701310",
-      "qid": "Q116701310",
-      "title": "Lakadbaggha 1/2 Movie",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [
-        {
-          "platformId": "appletv",
-          "kind": "rent"
-        }
-      ],
-      "tmdbId": 1069567,
-      "providersSource": "tmdb"
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -971,6 +965,24 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q116701310",
+      "qid": "Q116701310",
+      "title": "Lakadbaggha 1/2 Movie",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        }
+      ],
+      "tmdbId": 1069567,
+      "providersSource": "tmdb"
+    },
+    {
       "id": "wd-Q137805148",
       "qid": "Q137805148",
       "title": "Not a Hero",
@@ -982,18 +994,6 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1616166
-    },
-    {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1594670
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

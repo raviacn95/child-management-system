@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-15T11:32:31.543Z",
+  "generatedAt": "2026-10-15T17:03:07.973Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -204,7 +204,7 @@
       "released": "2026-07-06",
       "lang": "en",
       "india": false,
-      "sitelinks": 67,
+      "sitelinks": 68,
       "providers": [],
       "tmdbId": 1368337,
       "providersSource": "tmdb"
@@ -358,18 +358,6 @@
       "providers": [],
       "tmdbId": 1401459,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q139149095",
-      "qid": "Q139149095",
-      "title": "Saptadingar Guptodhon",
-      "year": 2026,
-      "released": "2026-05-15",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1441301
     },
     {
       "id": "wd-Q124246549",
@@ -576,17 +564,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q138497144",
-      "qid": "Q138497144",
-      "title": "Korpur",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": []
-    },
-    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -651,30 +628,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q138510258",
-      "qid": "Q138510258",
-      "title": "Masthishka Maranam",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1444032
-    },
-    {
-      "id": "wd-Q138562396",
-      "qid": "Q138562396",
-      "title": "Son Of",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1669290
-    },
-    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -707,6 +660,18 @@
       ],
       "tmdbId": 1275574,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137874897",
+      "qid": "Q137874897",
+      "title": "OCD",
+      "year": 2026,
+      "released": "2026-02-06",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -792,6 +757,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137802630",
+      "qid": "Q137802630",
+      "title": "Hok Kolorob",
+      "year": 2026,
+      "released": "2026-01-23",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1536901
+    },
+    {
       "id": "wd-Q124566659",
       "qid": "Q124566659",
       "title": "Mercy",
@@ -830,6 +807,18 @@
       ],
       "tmdbId": 1617536,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137799437",
+      "qid": "Q137799437",
+      "title": "Happy Patel: Khatarnak Jasoos",
+      "year": 2026,
+      "released": "2026-01-16",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1282440
     },
     {
       "id": "wd-Q131189949",
@@ -964,19 +953,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -993,6 +969,31 @@
       ],
       "tmdbId": 1439594,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
+      "id": "wd-Q137843190",
+      "qid": "Q137843190",
+      "title": "Psych Siddhartha",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1594670
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

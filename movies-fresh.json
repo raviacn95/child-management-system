@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-15T04:42:18.053Z",
+  "generatedAt": "2026-10-15T11:32:31.543Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -311,18 +311,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q139570451",
-      "qid": "Q139570451",
-      "title": "Phera",
-      "year": 2026,
-      "released": "2026-05-29",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1493932
-    },
-    {
       "id": "wd-Q135025214",
       "qid": "Q135025214",
       "title": "Drishyam 3",
@@ -370,6 +358,18 @@
       "providers": [],
       "tmdbId": 1401459,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q139149095",
+      "qid": "Q139149095",
+      "title": "Saptadingar Guptodhon",
+      "year": 2026,
+      "released": "2026-05-15",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1441301
     },
     {
       "id": "wd-Q124246549",
@@ -422,17 +422,6 @@
       ],
       "tmdbId": 1301421,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q139578176",
-      "qid": "Q139578176",
-      "title": "Pratyabartan",
-      "year": 2026,
-      "released": "2026-05-01",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": []
     },
     {
       "id": "wd-Q139496302",
@@ -508,18 +497,6 @@
       "india": true,
       "sitelinks": 2,
       "providers": []
-    },
-    {
-      "id": "wd-Q139501127",
-      "qid": "Q139501127",
-      "title": "Bibi Payra",
-      "year": 2026,
-      "released": "2026-04-10",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1431260
     },
     {
       "id": "wd-Q116677364",
@@ -599,16 +576,15 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q134435699",
-      "qid": "Q134435699",
-      "title": "Aadu 3",
+      "id": "wd-Q138497144",
+      "qid": "Q138497144",
+      "title": "Korpur",
       "year": 2026,
       "released": "2026-03-19",
-      "lang": "ml",
+      "lang": "bn",
       "india": true,
       "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1260210
+      "providers": []
     },
     {
       "id": "wd-Q107105860",
@@ -673,6 +649,30 @@
       ],
       "tmdbId": 1625582,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q138510258",
+      "qid": "Q138510258",
+      "title": "Masthishka Maranam",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1444032
+    },
+    {
+      "id": "wd-Q138562396",
+      "qid": "Q138562396",
+      "title": "Son Of",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1669290
     },
     {
       "id": "wd-Q126488898",
@@ -832,18 +832,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137799437",
-      "qid": "Q137799437",
-      "title": "Happy Patel: Khatarnak Jasoos",
-      "year": 2026,
-      "released": "2026-01-16",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1282440
-    },
-    {
       "id": "wd-Q131189949",
       "qid": "Q131189949",
       "title": "The Rip",
@@ -865,16 +853,28 @@
       }
     },
     {
-      "id": "wd-Q135647565",
-      "qid": "Q135647565",
-      "title": "Mana Shankara Vara Prasad Garu",
+      "id": "wd-Q137713080",
+      "qid": "Q137713080",
+      "title": "Anaganaga Oka Raju",
       "year": 2026,
-      "released": "2026-01-12",
+      "released": "2026-01-14",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1407432
+    },
+    {
+      "id": "wd-Q137718780",
+      "qid": "Q137718780",
+      "title": "Bhartha Mahasayulaku Wignyapthi",
+      "year": 2026,
+      "released": "2026-01-13",
       "lang": "te",
       "india": true,
       "sitelinks": 2,
       "providers": [],
-      "tmdbId": 1439713
+      "tmdbId": 1442975
     },
     {
       "id": "wd-Q124301053",
@@ -964,6 +964,19 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -980,19 +993,6 @@
       ],
       "tmdbId": 1439594,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

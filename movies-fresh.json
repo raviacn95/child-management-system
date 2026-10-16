@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-16T11:27:17.615Z",
+  "generatedAt": "2026-10-16T16:41:25.444Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -98,7 +98,7 @@
       "released": "2026-08-26",
       "lang": "hi",
       "india": true,
-      "sitelinks": 8,
+      "sitelinks": 7,
       "providers": [],
       "tmdbId": 1213243,
       "providersSource": "tmdb"
@@ -612,17 +612,6 @@
       "tmdbId": 1260210
     },
     {
-      "id": "wd-Q138497144",
-      "qid": "Q138497144",
-      "title": "Korpur",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": []
-    },
-    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -865,6 +854,30 @@
       }
     },
     {
+      "id": "wd-Q137713080",
+      "qid": "Q137713080",
+      "title": "Anaganaga Oka Raju",
+      "year": 2026,
+      "released": "2026-01-14",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1407432
+    },
+    {
+      "id": "wd-Q137718780",
+      "qid": "Q137718780",
+      "title": "Bhartha Mahasayulaku Wignyapthi",
+      "year": 2026,
+      "released": "2026-01-13",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1442975
+    },
+    {
       "id": "wd-Q135647565",
       "qid": "Q135647565",
       "title": "Mana Shankara Vara Prasad Garu",
@@ -893,18 +906,6 @@
       ],
       "tmdbId": 1022453,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",

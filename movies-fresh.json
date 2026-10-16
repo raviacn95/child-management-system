@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-16T04:34:41.778Z",
+  "generatedAt": "2026-10-16T11:27:17.615Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -42,6 +42,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q131102878",
+      "qid": "Q131102878",
+      "title": "Vvan: Force Of The Forrest",
+      "year": 2026,
+      "released": "2026-09-25",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 5,
+      "providers": [],
+      "tmdbId": 1384514
+    },
+    {
       "id": "wd-Q131900904",
       "qid": "Q131900904",
       "title": "Heart of the Beast",
@@ -74,7 +86,7 @@
       "released": "2026-09-10",
       "lang": "en",
       "india": false,
-      "sitelinks": 23,
+      "sitelinks": 24,
       "providers": [],
       "tmdbId": 1755291
     },
@@ -424,6 +436,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q121302107",
+      "qid": "Q121302107",
+      "title": "KD: The Devil",
+      "year": 2026,
+      "released": "2026-04-30",
+      "lang": "kn",
+      "india": true,
+      "sitelinks": 4,
+      "providers": [],
+      "tmdbId": 1103473
+    },
+    {
       "id": "wd-Q139496302",
       "qid": "Q139496302",
       "title": "Kara",
@@ -663,18 +687,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q138510258",
-      "qid": "Q138510258",
-      "title": "Masthishka Maranam",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1444032
-    },
-    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -851,18 +863,6 @@
       "watchIds": {
         "netflix": "81915745"
       }
-    },
-    {
-      "id": "wd-Q137713080",
-      "qid": "Q137713080",
-      "title": "Anaganaga Oka Raju",
-      "year": 2026,
-      "released": "2026-01-14",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1407432
     },
     {
       "id": "wd-Q135647565",

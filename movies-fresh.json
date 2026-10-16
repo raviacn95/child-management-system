@@ -1,9 +1,21 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-15T21:24:58.373Z",
+  "generatedAt": "2026-10-16T04:34:41.778Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
+    {
+      "id": "wd-Q138307614",
+      "qid": "Q138307614",
+      "title": "Emperor vs Sarat Chandra",
+      "year": 2026,
+      "released": "2026-10-16",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1538861
+    },
     {
       "id": "wd-Q141475414",
       "qid": "Q141475414",
@@ -576,6 +588,17 @@
       "tmdbId": 1260210
     },
     {
+      "id": "wd-Q138497144",
+      "qid": "Q138497144",
+      "title": "Korpur",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": []
+    },
+    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -638,6 +661,18 @@
       ],
       "tmdbId": 1625582,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q138510258",
+      "qid": "Q138510258",
+      "title": "Masthishka Maranam",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1444032
     },
     {
       "id": "wd-Q126488898",
@@ -757,18 +792,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137802630",
-      "qid": "Q137802630",
-      "title": "Hok Kolorob",
-      "year": 2026,
-      "released": "2026-01-23",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1536901
-    },
-    {
       "id": "wd-Q124566659",
       "qid": "Q124566659",
       "title": "Mercy",
@@ -809,18 +832,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137799437",
-      "qid": "Q137799437",
-      "title": "Happy Patel: Khatarnak Jasoos",
-      "year": 2026,
-      "released": "2026-01-16",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1282440
-    },
-    {
       "id": "wd-Q131189949",
       "qid": "Q131189949",
       "title": "The Rip",
@@ -854,16 +865,16 @@
       "tmdbId": 1407432
     },
     {
-      "id": "wd-Q137718780",
-      "qid": "Q137718780",
-      "title": "Bhartha Mahasayulaku Wignyapthi",
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
       "year": 2026,
-      "released": "2026-01-13",
+      "released": "2026-01-12",
       "lang": "te",
       "india": true,
       "sitelinks": 2,
       "providers": [],
-      "tmdbId": 1442975
+      "tmdbId": 1439713
     },
     {
       "id": "wd-Q124301053",
@@ -982,18 +993,6 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1616166
-    },
-    {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1594670
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-16T23:37:26.805Z",
+  "generatedAt": "2026-10-17T04:29:39.232Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -512,6 +512,17 @@
       }
     },
     {
+      "id": "wd-Q137570236",
+      "qid": "Q137570236",
+      "title": "Bindusagar",
+      "year": 2026,
+      "released": "2026-04-17",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": []
+    },
+    {
       "id": "wd-Q116677364",
       "qid": "Q116677364",
       "title": "Michael",
@@ -601,17 +612,6 @@
       "tmdbId": 1260210
     },
     {
-      "id": "wd-Q138497144",
-      "qid": "Q138497144",
-      "title": "Korpur",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": []
-    },
-    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -674,30 +674,6 @@
       ],
       "tmdbId": 1625582,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q138562396",
-      "qid": "Q138562396",
-      "title": "Son Of",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1669290
-    },
-    {
-      "id": "wd-Q138510258",
-      "qid": "Q138510258",
-      "title": "Masthishka Maranam",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1444032
     },
     {
       "id": "wd-Q126488898",
@@ -878,6 +854,18 @@
       }
     },
     {
+      "id": "wd-Q137713080",
+      "qid": "Q137713080",
+      "title": "Anaganaga Oka Raju",
+      "year": 2026,
+      "released": "2026-01-14",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1407432
+    },
+    {
       "id": "wd-Q135647565",
       "qid": "Q135647565",
       "title": "Mana Shankara Vara Prasad Garu",
@@ -906,6 +894,18 @@
       ],
       "tmdbId": 1022453,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137575105",
+      "qid": "Q137575105",
+      "title": "Nari Choritro Bejay Jotil",
+      "year": 2026,
+      "released": "2026-01-09",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",

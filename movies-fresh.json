@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-17T04:29:39.232Z",
+  "generatedAt": "2026-10-17T10:47:15.510Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -36,7 +36,7 @@
       "released": "2026-10-01",
       "lang": "en",
       "india": false,
-      "sitelinks": 28,
+      "sitelinks": 29,
       "providers": [],
       "tmdbId": 1248832,
       "providersSource": "tmdb"
@@ -384,6 +384,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q139149095",
+      "qid": "Q139149095",
+      "title": "Saptadingar Guptodhon",
+      "year": 2026,
+      "released": "2026-05-15",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1441301
+    },
+    {
       "id": "wd-Q124246549",
       "qid": "Q124246549",
       "title": "The Mandalorian and Grogu",
@@ -510,17 +522,6 @@
       "watchIds": {
         "appletv": "movie/umc.cmc.35h034299h2gv3oha94mx52uz"
       }
-    },
-    {
-      "id": "wd-Q137570236",
-      "qid": "Q137570236",
-      "title": "Bindusagar",
-      "year": 2026,
-      "released": "2026-04-17",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": []
     },
     {
       "id": "wd-Q116677364",
@@ -676,6 +677,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q138562396",
+      "qid": "Q138562396",
+      "title": "Son Of",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1669290
+    },
+    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -708,6 +721,18 @@
       ],
       "tmdbId": 1275574,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137874897",
+      "qid": "Q137874897",
+      "title": "OCD",
+      "year": 2026,
+      "released": "2026-02-06",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -854,18 +879,6 @@
       }
     },
     {
-      "id": "wd-Q137713080",
-      "qid": "Q137713080",
-      "title": "Anaganaga Oka Raju",
-      "year": 2026,
-      "released": "2026-01-14",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1407432
-    },
-    {
       "id": "wd-Q135647565",
       "qid": "Q135647565",
       "title": "Mana Shankara Vara Prasad Garu",
@@ -894,18 +907,6 @@
       ],
       "tmdbId": 1022453,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",

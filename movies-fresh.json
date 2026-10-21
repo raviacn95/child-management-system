@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-21T11:52:06.946Z",
+  "generatedAt": "2026-10-21T17:14:31.821Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -15,6 +15,18 @@
       "sitelinks": 3,
       "providers": [],
       "tmdbId": 1538861
+    },
+    {
+      "id": "wd-Q133255153",
+      "qid": "Q133255153",
+      "title": "Jailer 2",
+      "year": 2026,
+      "released": "2026-10-15",
+      "lang": "ta",
+      "india": true,
+      "sitelinks": 5,
+      "providers": [],
+      "tmdbId": 1234139
     },
     {
       "id": "wd-Q141475414",
@@ -585,7 +597,7 @@
       "released": "2026-03-19",
       "lang": "hi",
       "india": true,
-      "sitelinks": 14,
+      "sitelinks": 15,
       "providers": [
         {
           "platformId": "netflix",
@@ -674,18 +686,6 @@
       ],
       "tmdbId": 1625582,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q138562396",
-      "qid": "Q138562396",
-      "title": "Son Of",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1669290
     },
     {
       "id": "wd-Q126488898",

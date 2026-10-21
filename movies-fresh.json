@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-21T17:14:31.821Z",
+  "generatedAt": "2026-10-21T21:44:37.113Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -19,7 +19,7 @@
     {
       "id": "wd-Q133255153",
       "qid": "Q133255153",
-      "title": "Jailer 2",
+      "title": "Jailer 3",
       "year": 2026,
       "released": "2026-10-15",
       "lang": "ta",
@@ -27,6 +27,18 @@
       "sitelinks": 5,
       "providers": [],
       "tmdbId": 1234139
+    },
+    {
+      "id": "wd-Q130345436",
+      "qid": "Q130345436",
+      "title": "Street Fighter",
+      "year": 2026,
+      "released": "2026-10-12",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [],
+      "tmdbId": 1153576
     },
     {
       "id": "wd-Q141475414",
@@ -64,18 +76,6 @@
       "sitelinks": 5,
       "providers": [],
       "tmdbId": 1384514
-    },
-    {
-      "id": "wd-Q131900904",
-      "qid": "Q131900904",
-      "title": "Heart of the Beast",
-      "year": 2026,
-      "released": "2026-09-24",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [],
-      "tmdbId": 1263337
     },
     {
       "id": "wd-Q129255849",
@@ -612,18 +612,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q134435699",
-      "qid": "Q134435699",
-      "title": "Aadu 3",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1260210
-    },
-    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -866,16 +854,28 @@
       }
     },
     {
-      "id": "wd-Q135647565",
-      "qid": "Q135647565",
-      "title": "Mana Shankara Vara Prasad Garu",
+      "id": "wd-Q137713080",
+      "qid": "Q137713080",
+      "title": "Anaganaga Oka Raju",
       "year": 2026,
-      "released": "2026-01-12",
+      "released": "2026-01-14",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1407432
+    },
+    {
+      "id": "wd-Q137718780",
+      "qid": "Q137718780",
+      "title": "Bhartha Mahasayulaku Wignyapthi",
+      "year": 2026,
+      "released": "2026-01-13",
       "lang": "te",
       "india": true,
       "sitelinks": 2,
       "providers": [],
-      "tmdbId": 1439713
+      "tmdbId": 1442975
     },
     {
       "id": "wd-Q124301053",

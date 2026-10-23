@@ -76,7 +76,7 @@
     "jsdom": "^30.0.1",
     "lint-staged": "^17.5.1",
     "msw": "^2.15.0",
-    "oxlint": "^1.81.0",
+    "oxlint": "^1.86.0",
     "prettier": "^3.9.6",
     "rollup-plugin-visualizer": "^7.1.1",
     "sharp": "^0.35.4",

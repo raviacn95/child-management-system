@@ -1,0 +1,12 @@
+title = "Willow"
+
+[extend]
+useDefault = true
+
+# Storage key names look like API keys to the generic-api-key rule.
+[[allowlists]]
+description = "localStorage key names, not credentials"
+regexes = [
+  '''willow-affiliate-ids-v1''',
+  '''willow-experience-v1''',
+]

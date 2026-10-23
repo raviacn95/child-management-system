@@ -58,6 +58,33 @@ export type ApplicationStatus =
   | 'enrolled'
   | 'declined'
 export type InvoiceStatus = 'draft' | 'sent' | 'paid' | 'overdue' | 'partial'
+export type CloseTaskId =
+  | 'lock-attendance'
+  | 'post-extras'
+  | 'staff-hours'
+  | 'issue-invoices'
+  | 'gst-review'
+  | 'chase-overdue'
+  | 'inventory-count'
+  | 'ratio-check'
+  | 'reporting-pack'
+  | 'period-lock'
+export type CloseTaskStatus = 'not_started' | 'in_progress' | 'complete' | 'blocked' | 'at_risk'
+
+export interface CloseTaskNote {
+  id: CloseTaskId
+  status: CloseTaskStatus
+  note?: string
+  completedAt?: string
+}
+
+export interface ClosePeriod {
+  period: string
+  siteId: string
+  tasks: CloseTaskNote[]
+  lockedAt?: string
+  lockedBy?: string
+}
 export type IncidentSeverity = 'low' | 'medium' | 'high'
 export type AllergySeverity = 'mild' | 'moderate' | 'severe'
 export type DocStatus = 'pending' | 'approved' | 'expired'
@@ -787,4 +814,5 @@ export interface AppState {
   ottAccounts: OttAccount[]
   preferAdFree?: boolean
   auditLog: AuditEntry[]
+  closePeriods: ClosePeriod[]
 }

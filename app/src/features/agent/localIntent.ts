@@ -7,6 +7,7 @@ export type TitleFinder = (title: string, year?: number) => MovieTitle | null
 
 const ADULT = /\b(porn\w*|erotic\w*|nsfw|xxx|nude\w*|sex\w*|18\+|adult (movie|film|content|shelf)s?)/i
 const PAIR = /\b(pair|link|connect)\b.*\b(tv|television|phone|mobile|fire ?(tv|stick)|remote)\b/i
+const CLOSE = /\b(close (the )?(month|books)|month[- ]?end( close)?|close checklist)\b/i
 const NAV = /^(?:please\s+)?(?:go(?: back)? to|open|show(?: me)?|take me to|switch to|navigate to|bring up)\s+(?:the\s+|my\s+)?(.+?)(?:\s+(?:page|screen|tab|section))?(?:\s+please)?$/i
 const PLAY = /^(?:please\s+)?(?:play|watch|stream|put on|start)\s+(.+?)(?:\s+please)?$/i
 const ON_SUFFIX = /\s+on\s+([\w+ ]+)$/i
@@ -40,7 +41,7 @@ const PAGE_WORDS: [RegExp, AgentPage][] = [
   [/^(attendance|check ?in)$/, 'attendance'],
   [/^(daily care|care log|diary)$/, 'daily-care'],
   [/^(health|health records)$/, 'health'],
-  [/^(billing|fees|invoices)$/, 'billing'],
+  [/^(billing|fees|invoices|close month|month[- ]end|close the books|close checklist)$/, 'billing'],
   [/^(staff|ratios|staff and ratios)$/, 'staff'],
   [/^(rooms|classrooms?)$/, 'classrooms'],
   [/^(transport|vans?|van routes|bus)$/, 'transport'],
@@ -216,6 +217,7 @@ export function localIntent(raw: string, find: TitleFinder, strict = false): Age
   if (text.length < 2) return null
   if (ADULT.test(lower)) return { say: ADULT_SAY, action: { type: 'none' } }
   if (PAIR.test(lower)) return navigate('tv-link')
+  if (CLOSE.test(lower)) return navigate('billing')
   const nav = text.match(NAV)
   if (nav) {
     const page = first(PAGE_WORDS, nav[1].toLowerCase())

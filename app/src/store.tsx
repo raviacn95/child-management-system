@@ -8,6 +8,10 @@ import type {
   ApplicationStatus,
   AttendanceMethod,
   Child,
+  ClosePeriod,
+  CloseTaskId,
+  CloseTaskNote,
+  CloseTaskStatus,
   CountryCode,
   DailyLog,
   Incident,
@@ -111,6 +115,7 @@ function migrate(parsed: AppState): AppState {
     parentFeedRatings: next.parentFeedRatings ?? [],
     ottAccounts: (next.ottAccounts ?? []).map((a) => ({ ...a, adTier: a.adTier ?? 'unknown' })),
     preferAdFree: next.preferAdFree ?? true,
+    closePeriods: next.closePeriods ?? [],
     children: next.children.map((c) => ({ ...c, interests: c.interests ?? [] })),
   }
 }
@@ -206,6 +211,8 @@ interface StoreApi {
   touchOtt: (id: string) => void
   setPreferAdFree: (on: boolean) => void
   logAudit: (action: string, details: string) => void
+  setCloseTask: (period: string, taskId: CloseTaskId, status: CloseTaskStatus, note?: string) => void
+  lockClosePeriod: (period: string, locked: boolean) => void
 }
 
 const Ctx = createContext<StoreApi | null>(null)
@@ -791,6 +798,61 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           ...s,
           quickOrders: (s.quickOrders ?? []).map((o) => (o.id === id ? nextWebhook(o) : o)),
         })),
+      setCloseTask: (period, taskId, status, note) =>
+        patch((s) => {
+          const siteId = s.currentSiteId
+          const list = s.closePeriods ?? []
+          const existing = list.find((p) => p.period === period && p.siteId === siteId)
+          if (existing?.lockedAt && taskId !== 'period-lock') return s
+          const cleaned = note?.replace(/PIN\s*\d+/gi, 'PIN').replace(/\b\d{4,}\b/g, '[number]').trim().slice(0, 120)
+          const row: CloseTaskNote = {
+            id: taskId,
+            status,
+            note: cleaned || undefined,
+            completedAt: status === 'complete' ? new Date().toISOString() : undefined,
+          }
+          const nextPeriod: ClosePeriod = existing
+            ? {
+                ...existing,
+                tasks: existing.tasks.some((t) => t.id === taskId)
+                  ? existing.tasks.map((t) => (t.id === taskId ? { ...t, ...row } : t))
+                  : [...existing.tasks, row],
+              }
+            : { period, siteId, tasks: [row] }
+          return {
+            ...s,
+            closePeriods: existing
+              ? list.map((p) => (p.period === period && p.siteId === siteId ? nextPeriod : p))
+              : [nextPeriod, ...list],
+            auditLog: prependAudit(
+              s.auditLog,
+              makeAudit(s.currentUserId, 'close.task', `${period} ${taskId} ${status}`),
+            ),
+          }
+        }),
+      lockClosePeriod: (period, locked) =>
+        patch((s) => {
+          const siteId = s.currentSiteId
+          const list = s.closePeriods ?? []
+          const existing = list.find((p) => p.period === period && p.siteId === siteId)
+          const nextPeriod: ClosePeriod = {
+            period,
+            siteId,
+            tasks: existing?.tasks ?? [],
+            lockedAt: locked ? new Date().toISOString() : undefined,
+            lockedBy: locked ? (s.currentUserId ?? undefined) : undefined,
+          }
+          return {
+            ...s,
+            closePeriods: existing
+              ? list.map((p) => (p.period === period && p.siteId === siteId ? { ...p, ...nextPeriod } : p))
+              : [nextPeriod, ...list],
+            auditLog: prependAudit(
+              s.auditLog,
+              makeAudit(s.currentUserId, locked ? 'close.lock' : 'close.reopen', period),
+            ),
+          }
+        }),
     }
   }, [state])
 

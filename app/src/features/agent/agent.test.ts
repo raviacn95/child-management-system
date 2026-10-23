@@ -22,6 +22,9 @@ describe('local intent', () => {
     expect(localIntent('settings', find)?.action).toEqual({ type: 'navigate', page: 'settings' })
     expect(localIntent('watch TV', find)?.action).toEqual({ type: 'navigate', page: 'tv' })
     expect(localIntent('Pair my TV', find)).toEqual({ say: 'Opening Link phone and TV.', action: { type: 'navigate', page: 'tv-link' } })
+    expect(localIntent('close month', find)?.action).toEqual({ type: 'navigate', page: 'billing' })
+    expect(localIntent('open the close checklist', find)?.action).toEqual({ type: 'navigate', page: 'billing' })
+    expect(localIntent('month-end close', find)?.action).toEqual({ type: 'navigate', page: 'billing' })
   })
 
   it('turns movie wishes into filters', () => {

@@ -11,6 +11,7 @@ import { ShoppingEssentialsShelf } from '../features/shopping/ShoppingEssentials
 import { today } from '../data/seed'
 import { packOf } from '../data/country'
 import { ageYears, bmiProfile, childName, money } from '../lib'
+import { CloseMonthCard } from '../features/close/CloseMonthCard'
 import { useStore } from '../store'
 
 export function Dashboard() {
@@ -123,6 +124,7 @@ export function Dashboard() {
           </div>
         </section>
         <aside className="space-y-4">
+          {user.role === 'director' ? <CloseMonthCard /> : null}
           <div className="card p-5">
             <h2 className="font-display text-xl">Needs attention</h2>
             <ul className="mt-3 space-y-3 text-sm">

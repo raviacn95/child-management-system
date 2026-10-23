@@ -1,5 +1,6 @@
 import { Badge, Button, PageHead, Stat } from '../components/ui'
 import { packOf } from '../data/country'
+import { CloseMonthPanel } from '../features/close/CloseMonthPanel'
 import { childName, money } from '../lib'
 import { useStore } from '../store'
 
@@ -31,6 +32,7 @@ export function Billing() {
           .slice(0, 4)
           .join(', ')}.`}
       />
+      {user.role === 'director' ? <CloseMonthPanel /> : null}
       <div className="mb-6 grid gap-4 sm:grid-cols-3">
         <Stat label="Outstanding" value={rupee(outstanding)} />
         <Stat label="Collected (sample)" value={rupee(invoices.reduce((s, i) => s + i.paid, 0))} />

@@ -1,5 +1,6 @@
 import { PageHead, Stat } from '../components/ui'
 import { today } from '../data/seed'
+import { CloseMonthCard } from '../features/close/CloseMonthCard'
 import { money } from '../lib'
 import { packOf } from '../data/country'
 import { useStore } from '../store'
@@ -37,6 +38,9 @@ export function Reports() {
           value={state.vaccinations.filter((v) => v.status === 'complete').length}
         />
         <Stat label="Incidents logged" value={state.incidents.length} />
+      </div>
+      <div className="mb-6">
+        <CloseMonthCard />
       </div>
       <section className="card p-5">
         <h2 className="font-display text-xl">Enrollment by room</h2>

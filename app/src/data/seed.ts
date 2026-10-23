@@ -763,6 +763,7 @@ export function createSeed(): AppState {
     parentFeedRatings: [],
     ottAccounts: [],
     auditLog: [],
+    closePeriods: [],
   }
   return applyWorkerRun(state)
 }

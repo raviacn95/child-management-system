@@ -108,6 +108,7 @@ export type AgentReply = z.infer<typeof agentReplySchema>
 export type AgentSource = 'local' | 'ai' | 'offline'
 export type AgentTurn = AgentReply & { source: AgentSource }
 
-export const HELP_SAY = 'I can open Willow pages and find movies. Try "Hindi comedy movies", "play Drishyam", or "open Learning".'
+export const HELP_SAY =
+  'I can open Willow pages, report centre counts, and find movies. Try "how is close going", "overdue invoices", or "Hindi comedy movies".'
 export const ADULT_SAY = 'I only find family titles. Adult titles stay on their own 18+ shelf.'
 export const PRIVATE_SAY = 'Leave out names, numbers, and health details, then try again.'

@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { titles } from '../movies/catalog'
 import { agentEndpoint, askAgent, safeAgentUrl } from './client'
 import { localIntent } from './localIntent'
+import { opsIntent, type OpsSnapshot } from './opsIntent'
 import { describeFilters, findMovies, matchTitle, searchLinks, searchPhrase } from './movieSearch'
 import { pagePath } from './pages'
 import { privateReason, rosterNames } from './privacy'
@@ -141,6 +142,36 @@ describe('privacy screen', () => {
     expect(privateReason('Drishyam (2013) and Drishyam 2 (2021)', names)).toBeNull()
     expect(privateReason('my son has a peanut allergy', names)).toBe('details')
     expect(privateReason('a cosy film for a rainy evening', names)).toBeNull()
+    expect(privateReason('what is the pickup pin', names)).toBe('details')
+    expect(privateReason('ask the guardian', names)).toBe('details')
+  })
+})
+
+const OPS: OpsSnapshot = {
+  enrolled: 12,
+  presentToday: 9,
+  overdueInvoices: 3,
+  invoiceCount: 20,
+  closeDone: 4,
+  closeTotal: 9,
+  closeLocked: false,
+  ratioAlerts: 1,
+  lowStock: 2,
+}
+
+describe('ops intent', () => {
+  it('answers centre counts without names', () => {
+    expect(opsIntent('how many overdue invoices', OPS)).toEqual({
+      say: '3 overdue of 20 invoices this month. Opening Billing.',
+      action: { type: 'navigate', page: 'billing' },
+    })
+    expect(opsIntent('how is close going', OPS)).toEqual({
+      say: 'Close is 4 of 9 tasks. Opening Billing.',
+      action: { type: 'navigate', page: 'billing' },
+    })
+    expect(opsIntent('how many are checked in today', OPS)?.action).toEqual({ type: 'navigate', page: 'attendance' })
+    expect(opsIntent('ratio alert', OPS)?.say).toMatch(/1 room short/)
+    expect(opsIntent('Hindi comedy movies', OPS)).toBeNull()
   })
 })
 
@@ -175,8 +206,11 @@ describe('agent client', () => {
 describe('runAgent', () => {
   it('answers simple asks on the device without calling the AI', async () => {
     const fetcher = jsonFetch({})
-    const turn = await runAgent('Hindi comedy movies', { find, names: [], endpoint: '/a', fetcher })
-    expect(turn.source).toBe('local')
+    expect(await runAgent('how is close going', { find, names: [], endpoint: '/a', fetcher, ops: OPS })).toMatchObject({
+      source: 'local',
+      action: { type: 'navigate', page: 'billing' },
+    })
+    expect(await runAgent('Hindi comedy movies', { find, names: [], endpoint: '/a', fetcher })).toMatchObject({ source: 'local' })
     expect(fetcher).not.toHaveBeenCalled()
   })
 

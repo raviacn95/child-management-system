@@ -8,6 +8,7 @@ import { freshToCatalogTitles } from '../movies/freshShelf'
 import { agentEndpoint } from './client'
 import { matchTitle, type WatchContext } from './movieSearch'
 import { PAGE_LABEL, pagePath } from './pages'
+import { opsSnapshot } from './opsSnapshot'
 import { rosterNames } from './privacy'
 import { runAgent } from './runAgent'
 import type { AgentTurn } from './schema'
@@ -32,6 +33,7 @@ export function useAgent() {
   const { state } = useStore()
   const role = state.users.find((u) => u.id === state.currentUserId)?.role ?? 'parent'
   const names = useMemo(() => rosterNames({ children: state.children, users: state.users }), [state.children, state.users])
+  const ops = useMemo(() => opsSnapshot(state), [state])
   const endpoint = useMemo(() => agentEndpoint(), [])
   const [turn, setTurn] = useState<AgentTurn | null>(null)
   const [busy, setBusy] = useState(false)
@@ -42,7 +44,7 @@ export function useAgent() {
       const id = ++seq.current
       setBusy(true)
       const pool = [...titles, ...freshToCatalogTitles(loadFreshCache()?.feed)]
-      const raw = await runAgent(text, { find: (q, year) => matchTitle(q, year, pool), names, endpoint })
+      const raw = await runAgent(text, { find: (q, year) => matchTitle(q, year, pool), names, endpoint, ops })
       if (id !== seq.current) return null
       const path = raw.action.type === 'navigate' ? pagePath(raw.action.page, role, isTvMode()) : null
       const next: AgentTurn =
@@ -54,7 +56,7 @@ export function useAgent() {
       track(`agent_${next.source}_${next.action.type}`)
       return { turn: next, path }
     },
-    [names, endpoint, role],
+    [names, endpoint, role, ops],
   )
 
   const reset = useCallback(() => {

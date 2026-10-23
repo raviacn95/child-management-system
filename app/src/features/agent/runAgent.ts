@@ -1,5 +1,6 @@
 import { askAgent } from './client'
 import { localIntent, type TitleFinder } from './localIntent'
+import { opsIntent, type OpsSnapshot } from './opsIntent'
 import { privateReason } from './privacy'
 import { HELP_SAY, PRIVATE_SAY, type AgentReply, type AgentTurn } from './schema'
 
@@ -8,6 +9,7 @@ export type AgentDeps = {
   names: readonly string[]
   endpoint: string
   fetcher?: typeof fetch
+  ops?: OpsSnapshot
 }
 
 const MAX_TEXT = 200
@@ -19,6 +21,8 @@ function fallback(guess: AgentReply | null, say: string): AgentTurn {
 /** Device rules first; the AI only sees requests the device could not answer and that carry no private details. */
 export async function runAgent(raw: string, deps: AgentDeps): Promise<AgentTurn> {
   const text = raw.replace(/\s+/g, ' ').trim().slice(0, MAX_TEXT)
+  const ops = deps.ops ? opsIntent(text, deps.ops) : null
+  if (ops) return { ...ops, source: 'local' }
   const sure = localIntent(text, deps.find, true)
   if (sure) return { ...sure, source: 'local' }
   const guess = localIntent(text, deps.find, false)

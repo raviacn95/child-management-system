@@ -2,7 +2,7 @@ import type { AppState } from '../../types'
 
 /** Same rule as the server's PRIVATE check in supabase/functions/willow-agent/agent.mts. */
 const PRIVATE =
-  /@[a-z0-9.-]+\.[a-z]{2,}|\+?\(?\d[\d\s().-]{7,}\d|\b\d{5,6}\b|\b(?!19\d\d|20\d\d)\d{4}\b|allerg|medical|medicat|diagnos|prescri|date of birth|\bdob\b|birthday|password|passcode|\botp\b|aadhaar|passport/i
+  /@[a-z0-9.-]+\.[a-z]{2,}|\+?\(?\d[\d\s().-]{7,}\d|\b\d{5,6}\b|\b(?!19\d\d|20\d\d)\d{4}\b|allerg|medical|medicat|diagnos|prescri|date of birth|\bdob\b|birthday|password|passcode|\botp\b|aadhaar|passport|pickup pin|guardian|emergency contact|last[- ]?4/i
 const MIN_NAME = 3
 
 /** First and last names of children and users on this device, lowercased, for blocking before any AI call. */

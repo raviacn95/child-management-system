@@ -1,21 +1,9 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-25T04:44:01.932Z",
+  "generatedAt": "2026-10-25T16:24:04.482Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
-    {
-      "id": "wd-Q124409386",
-      "qid": "Q124409386",
-      "title": "Klara and the Sun",
-      "year": 2026,
-      "released": "2026-10-22",
-      "lang": "en",
-      "india": true,
-      "sitelinks": 20,
-      "providers": [],
-      "tmdbId": 858035
-    },
     {
       "id": "wd-Q138307614",
       "qid": "Q138307614",
@@ -27,6 +15,18 @@
       "sitelinks": 3,
       "providers": [],
       "tmdbId": 1538861
+    },
+    {
+      "id": "wd-Q124409386",
+      "qid": "Q124409386",
+      "title": "Klara and the Sun",
+      "year": 2026,
+      "released": "2026-10-15",
+      "lang": "en",
+      "india": true,
+      "sitelinks": 20,
+      "providers": [],
+      "tmdbId": 858035
     },
     {
       "id": "wd-Q133255153",
@@ -613,15 +613,16 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q138497144",
-      "qid": "Q138497144",
-      "title": "Korpur",
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
       "year": 2026,
       "released": "2026-03-19",
-      "lang": "bn",
+      "lang": "ml",
       "india": true,
       "sitelinks": 2,
-      "providers": []
+      "providers": [],
+      "tmdbId": 1260210
     },
     {
       "id": "wd-Q107105860",
@@ -686,30 +687,6 @@
       ],
       "tmdbId": 1625582,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q138510258",
-      "qid": "Q138510258",
-      "title": "Masthishka Maranam",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1444032
-    },
-    {
-      "id": "wd-Q138562396",
-      "qid": "Q138562396",
-      "title": "Son Of",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1669290
     },
     {
       "id": "wd-Q126488898",
@@ -890,6 +867,18 @@
       }
     },
     {
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
+      "year": 2026,
+      "released": "2026-01-12",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1439713
+    },
+    {
       "id": "wd-Q124301053",
       "qid": "Q124301053",
       "title": "The RajaSaab",
@@ -994,6 +983,18 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1616166
+    },
+    {
+      "id": "wd-Q137843190",
+      "qid": "Q137843190",
+      "title": "Psych Siddhartha",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1594670
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

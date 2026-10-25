@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-24T23:17:08.574Z",
+  "generatedAt": "2026-10-25T04:44:01.932Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -613,18 +613,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q134435699",
-      "qid": "Q134435699",
-      "title": "Aadu 3",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1260210
-    },
-    {
       "id": "wd-Q138497144",
       "qid": "Q138497144",
       "title": "Korpur",
@@ -698,6 +686,30 @@
       ],
       "tmdbId": 1625582,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q138510258",
+      "qid": "Q138510258",
+      "title": "Masthishka Maranam",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1444032
+    },
+    {
+      "id": "wd-Q138562396",
+      "qid": "Q138562396",
+      "title": "Son Of",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1669290
     },
     {
       "id": "wd-Q126488898",
@@ -876,18 +888,6 @@
       "watchIds": {
         "netflix": "81915745"
       }
-    },
-    {
-      "id": "wd-Q135647565",
-      "qid": "Q135647565",
-      "title": "Mana Shankara Vara Prasad Garu",
-      "year": 2026,
-      "released": "2026-01-12",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1439713
     },
     {
       "id": "wd-Q124301053",

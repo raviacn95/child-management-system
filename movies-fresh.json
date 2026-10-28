@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-28T05:45:05.462Z",
+  "generatedAt": "2026-10-28T12:58:47.295Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -536,17 +536,6 @@
       }
     },
     {
-      "id": "wd-Q137570236",
-      "qid": "Q137570236",
-      "title": "Bindusagar",
-      "year": 2026,
-      "released": "2026-04-17",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": []
-    },
-    {
       "id": "wd-Q116677364",
       "qid": "Q116677364",
       "title": "Michael",
@@ -722,6 +711,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137874897",
+      "qid": "Q137874897",
+      "title": "OCD",
+      "year": 2026,
+      "released": "2026-02-06",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1062545
+    },
+    {
       "id": "wd-Q131763755",
       "qid": "Q131763755",
       "title": "Mardaani 3",
@@ -805,6 +806,18 @@
       "providersSource": "tmdb"
     },
     {
+      "id": "wd-Q137802630",
+      "qid": "Q137802630",
+      "title": "Hok Kolorob",
+      "year": 2026,
+      "released": "2026-01-23",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1536901
+    },
+    {
       "id": "wd-Q124566659",
       "qid": "Q124566659",
       "title": "Mercy",
@@ -866,18 +879,6 @@
       }
     },
     {
-      "id": "wd-Q137713080",
-      "qid": "Q137713080",
-      "title": "Anaganaga Oka Raju",
-      "year": 2026,
-      "released": "2026-01-14",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1407432
-    },
-    {
       "id": "wd-Q124301053",
       "qid": "Q124301053",
       "title": "The RajaSaab",
@@ -894,18 +895,6 @@
       ],
       "tmdbId": 1022453,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",
@@ -994,6 +983,18 @@
       ],
       "tmdbId": 1439594,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137843190",
+      "qid": "Q137843190",
+      "title": "Psych Siddhartha",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1594670
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-02T11:12:33.830Z",
+  "generatedAt": "2026-11-02T21:43:13.284Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -536,6 +536,17 @@
       }
     },
     {
+      "id": "wd-Q137570236",
+      "qid": "Q137570236",
+      "title": "Bindusagar",
+      "year": 2026,
+      "released": "2026-04-17",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": []
+    },
+    {
       "id": "wd-Q116677364",
       "qid": "Q116677364",
       "title": "Michael",
@@ -613,18 +624,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q134435699",
-      "qid": "Q134435699",
-      "title": "Aadu 3",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1260210
-    },
-    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -647,6 +646,21 @@
       "providersSource": "tmdb",
       "watchIds": {
         "appletv": "movie/umc.cmc.7jxdlxvz304lj3iwhtrhbe8fv"
+      }
+    },
+    {
+      "id": "wd-Q124355470",
+      "qid": "Q124355470",
+      "title": "Peaky Blinders: The Immortal Man",
+      "year": 2026,
+      "released": "2026-03-06",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [],
+      "tmdbId": 875828,
+      "watchIds": {
+        "netflix": "81319485"
       }
     },
     {
@@ -700,27 +714,6 @@
       ],
       "tmdbId": 1275574,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q130375767",
-      "qid": "Q130375767",
-      "title": "War Machine",
-      "year": 2026,
-      "released": "2026-02-12",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "wikidata",
-      "tmdbId": 1265609,
-      "watchIds": {
-        "netflix": "81768525"
-      }
     },
     {
       "id": "wd-Q131763755",
@@ -806,18 +799,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137802630",
-      "qid": "Q137802630",
-      "title": "Hok Kolorob",
-      "year": 2026,
-      "released": "2026-01-23",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1536901
-    },
-    {
       "id": "wd-Q124566659",
       "qid": "Q124566659",
       "title": "Mercy",
@@ -858,18 +839,6 @@
       "providersSource": "tmdb"
     },
     {
-      "id": "wd-Q137799437",
-      "qid": "Q137799437",
-      "title": "Happy Patel: Khatarnak Jasoos",
-      "year": 2026,
-      "released": "2026-01-16",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1282440
-    },
-    {
       "id": "wd-Q131189949",
       "qid": "Q131189949",
       "title": "The Rip",
@@ -891,6 +860,18 @@
       }
     },
     {
+      "id": "wd-Q137713080",
+      "qid": "Q137713080",
+      "title": "Anaganaga Oka Raju",
+      "year": 2026,
+      "released": "2026-01-14",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1407432
+    },
+    {
       "id": "wd-Q124301053",
       "qid": "Q124301053",
       "title": "The RajaSaab",
@@ -907,6 +888,18 @@
       ],
       "tmdbId": 1022453,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137575105",
+      "qid": "Q137575105",
+      "title": "Nari Choritro Bejay Jotil",
+      "year": 2026,
+      "released": "2026-01-09",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",

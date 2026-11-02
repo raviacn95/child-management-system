@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-02T00:46:15.210Z",
+  "generatedAt": "2026-11-02T11:12:33.830Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -650,27 +650,6 @@
       }
     },
     {
-      "id": "wd-Q124355470",
-      "qid": "Q124355470",
-      "title": "Peaky Blinders: The Immortal Man",
-      "year": 2026,
-      "released": "2026-03-06",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "tmdbId": 875828,
-      "providersSource": "tmdb",
-      "watchIds": {
-        "netflix": "81319485"
-      }
-    },
-    {
       "id": "wd-Q138381591",
       "qid": "Q138381591",
       "title": "The Kerala Story 2: Goes Beyond",
@@ -721,6 +700,27 @@
       ],
       "tmdbId": 1275574,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q130375767",
+      "qid": "Q130375767",
+      "title": "War Machine",
+      "year": 2026,
+      "released": "2026-02-12",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "wikidata",
+      "tmdbId": 1265609,
+      "watchIds": {
+        "netflix": "81768525"
+      }
     },
     {
       "id": "wd-Q131763755",
@@ -804,6 +804,18 @@
       "providers": [],
       "tmdbId": 1437714,
       "providersSource": "tmdb"
+    },
+    {
+      "id": "wd-Q137802630",
+      "qid": "Q137802630",
+      "title": "Hok Kolorob",
+      "year": 2026,
+      "released": "2026-01-23",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "tmdbId": 1536901
     },
     {
       "id": "wd-Q124566659",
@@ -983,18 +995,6 @@
       ],
       "tmdbId": 1439594,
       "providersSource": "tmdb"
-    },
-    {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "tmdbId": 1594670
     }
   ],
   "providersCheckedAt": "2026-10-02T10:21:42.019Z"

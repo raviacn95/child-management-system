@@ -1,5 +1,8 @@
 name: Refresh new movies
 
+# Publishes app titles and Indian streaming channels to gh-pages movies-fresh.json.
+# The app polls that file. TMDB_API_KEY must be a repository secret; without it, titles
+# still refresh and earlier channels are carried forward. Do not commit the key.
 on:
   schedule:
     - cron: '17 */3 * * *'

@@ -47,9 +47,16 @@ jobs:
       - run: npm run icons
       - run: npm run lint
       - run: npm run test
+      - name: Seed the movie list from the live site when it is newer
+        continue-on-error: true
+        working-directory: .
+        run: |
+          git fetch --depth 1 origin gh-pages
+          git show FETCH_HEAD:movies-fresh.json > /tmp/live-movies.json
+          node app/scripts/keep-newer-feed.mjs /tmp/live-movies.json app/public/movies-fresh.json
       - name: Refresh this year's movie list
         continue-on-error: true
-        timeout-minutes: 3
+        timeout-minutes: 8
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         run: node scripts/fetch-fresh-movies.mjs public/movies-fresh.json

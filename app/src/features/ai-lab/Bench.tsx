@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { Button, inputClass } from '../../components/ui'
 import type { MemoryDoc } from './corpus'
 import type { TraceNode } from './debug'
-import { casesFromNotes, evaluateRetrieval, recall, remember, vectorPreview, type StoredMemory } from './expose'
+import { casesFromNotes, compareEmbedderScores, evaluateRetrieval, recall, remember, vectorPreview, type StoredMemory } from './expose'
 import { searchMemories } from './rag'
+import { TraceView } from './TraceView'
+import { VectorBars } from './VectorBars'
 
 export function EngineeringBench({
   memories,
@@ -25,7 +27,6 @@ export function EngineeringBench({
   const preview = vectorPreview(question)
   const kept = memories.filter((memory) => memory.childIds.includes(childId)).length
   const remembered = recall(store, recallQuery)
-  const scored = evaluateRetrieval(memories, childId, casesFromNotes(memories, childId))
 
   return (
     <div className="space-y-4">
@@ -52,13 +53,14 @@ export function EngineeringBench({
       </section>
       <section>
         <h3 className="font-semibold">Embeddings</h3>
-        <p className="mt-1 text-muted">
-          {preview.dim} dimensions. First values: {preview.head.join(', ')}
-        </p>
+        <p className="mt-1 text-muted">{preview.dim} dimensions for this question.</p>
+        <VectorBars values={preview.values} />
       </section>
       <section>
         <h3 className="font-semibold">Agents</h3>
-        <p className="mt-1">{trace.map((node) => node.label).join(' → ')}</p>
+        <div className="mt-1">
+          <TraceView nodes={trace} />
+        </div>
       </section>
       <section>
         <h3 className="font-semibold">Memory</h3>
@@ -79,19 +81,43 @@ export function EngineeringBench({
           ))}
         </ul>
       </section>
-      <section>
-        <h3 className="font-semibold">Evaluation</h3>
-        <p className="mt-1">
-          Hit@1 {Math.round(scored.hitAt1 * 100)}%. Hit@3 {Math.round(scored.hitAt3 * 100)}%.
-        </p>
-        <ul className="mt-1 space-y-1 text-muted">
-          {scored.rows.map((row) => (
-            <li key={row.question}>
-              {row.pass ? 'pass' : 'miss'} · {row.question} · rank {row.rank ?? '—'} · {row.top || 'no note'}
-            </li>
-          ))}
-        </ul>
-      </section>
+      <EvaluationBench memories={memories} childId={childId} />
     </div>
+  )
+}
+
+export function EvaluationBench({ memories, childId }: { memories: MemoryDoc[]; childId: string }) {
+  const scored = evaluateRetrieval(memories, childId, casesFromNotes(memories, childId))
+  const compared = compareEmbedderScores(scored.hitAt1, scored.hitAt3)
+  return (
+    <section>
+      <h3 className="font-semibold">Evaluation</h3>
+      <table className="mt-1 w-full text-left">
+        <thead className="text-muted">
+          <tr>
+            <th className="py-1 pr-3 font-medium">Embedder</th>
+            <th className="py-1 pr-3 font-medium">Hit@1</th>
+            <th className="py-1 font-medium">Hit@3</th>
+          </tr>
+        </thead>
+        <tbody>
+          {compared.map((row) => (
+            <tr key={row.id}>
+              <td className="py-1 pr-3">{row.label}</td>
+              <td className="py-1 pr-3">{row.hitAt1 == null ? 'not measured' : `${Math.round(row.hitAt1 * 100)}%`}</td>
+              <td className="py-1">{row.hitAt3 == null ? 'not measured' : `${Math.round(row.hitAt3 * 100)}%`}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p className="mt-2 text-muted">The future row uses the same questions once an API embedder replaces the hash. It is not called from this browser.</p>
+      <ul className="mt-1 space-y-1 text-muted">
+        {scored.rows.map((row) => (
+          <li key={row.question}>
+            {row.pass ? 'pass' : 'miss'} · {row.question} · rank {row.rank ?? '—'} · {row.top || 'no note'}
+          </li>
+        ))}
+      </ul>
+    </section>
   )
 }

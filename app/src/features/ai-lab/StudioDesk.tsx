@@ -3,7 +3,9 @@ import { Badge, Button, Field, PageHead, inputClass } from '../../components/ui'
 import { today } from '../../data/seed'
 import { childName } from '../../lib'
 import { useStore } from '../../store'
-import { EngineeringBench } from './Bench'
+import { EngineeringBench, EvaluationBench } from './Bench'
+import { TraceView } from './TraceView'
+import { VectorBars } from './VectorBars'
 import { buildMemories } from './corpus'
 import { agentTrace, compareEmbedders, nearestNotes, retrievalDebug } from './debug'
 import { expandObservation } from './enrich'
@@ -21,9 +23,10 @@ const LABS = [
   { id: 'recommend', level: 'Beginner', title: 'Activity ranker', learns: 'Each feature adds points. The sort is the model.' },
   { id: 'copilot', level: 'Intermediate', title: 'Childhood copilot', learns: 'Hash the note, search by cosine, answer only from hits.' },
   { id: 'bench', level: 'Intermediate', title: 'Engineering bench', learns: 'Retrieval, ranking, embeddings, agents, memory, and evaluation on the same notes.' },
-  { id: 'retrieve', level: 'Intermediate', title: 'Retrieval debugger', learns: 'Question, then the notes cosine search returned, then the answer.' },
-  { id: 'explore', level: 'Intermediate', title: 'Embedding explorer', learns: 'Pick a note. The nearest notes are the ones with the highest cosine.' },
-  { id: 'agent', level: 'Intermediate', title: 'Teacher planner', learns: 'The loop says what it still needs, calls that tool, then writes the plan.' },
+  { id: 'retrieve', level: 'Intermediate', title: 'Retrieval debugger', learns: 'Retrieved notes, similarity scores, and the words that made a note win.' },
+  { id: 'explore', level: 'Intermediate', title: 'Vector explorer', learns: 'Each note is 32 bars. The nearest notes are the closest vectors.' },
+  { id: 'agent', level: 'Intermediate', title: 'Agent trace', learns: 'Each card is one decision: what the planner still needs, then the tool it calls.' },
+  { id: 'eval', level: 'Expert', title: 'Evaluation bench', learns: 'Same questions for the feature hash and for a future API embedding. Only the hash is scored.' },
   { id: 'risk', level: 'Intermediate', title: 'Pattern watch', learns: 'Compare two time windows. The line is a pattern, not a diagnosis.' },
   { id: 'sentiment', level: 'Intermediate', title: 'Message tone', learns: 'A classifier labels text already in the centre.' },
   { id: 'graph', level: 'Advanced', title: 'Memory graph', learns: 'People, activities, and notes become edges you can join.' },
@@ -293,6 +296,7 @@ export function StudioDesk() {
                     {retrieved.retrieved.map((row) => (
                       <li key={row.id}>
                         rank {row.rank} · {row.date} · {row.text} · similarity {row.score.toFixed(2)}
+                        <div>{row.why}</div>
                       </li>
                     ))}
                   </ul>
@@ -318,6 +322,8 @@ export function StudioDesk() {
                   </Button>
                 ))}
               </div>
+              <VectorBars values={selectedNote.vector} />
+              <p className="text-muted">32 dimensions. Green is a positive vote. Rose is a negative vote.</p>
               <p>
                 <span className="font-semibold">Nearest notes.</span>
               </p>
@@ -333,13 +339,7 @@ export function StudioDesk() {
           {lab === 'agent' ? (
             <>
               <input className={inputClass} value={prompt} onChange={(event) => setPrompt(event.target.value)} />
-              <ol className="space-y-1">
-                {trace.map((node, index) => (
-                  <li key={`${node.label}-${index}`}>
-                    <span className="font-semibold">{node.label}.</span> {node.detail}
-                  </li>
-                ))}
-              </ol>
+              <TraceView nodes={trace} />
               <ol className="list-decimal pl-5">
                 {plan.schedule.map((block) => (
                   <li key={block}>{block}</li>
@@ -503,6 +503,7 @@ export function StudioDesk() {
               <p className="text-muted">{room.caution}</p>
             </>
           ) : null}
+          {lab === 'eval' && child ? <EvaluationBench memories={memories} childId={child.id} /> : null}
           {lab === 'models' ? (
             <>
               <table className="w-full text-left">

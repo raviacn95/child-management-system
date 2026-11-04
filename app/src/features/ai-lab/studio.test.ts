@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { createSeed, today } from '../../data/seed'
 import { buildMemories, type MemoryDoc } from './corpus'
 import { agentTrace, compareEmbedders, nearestNotes, retrievalDebug } from './debug'
-import { casesFromNotes, evaluateRetrieval, recall, remember, vectorPreview } from './expose'
+import { casesFromNotes, compareEmbedderScores, evaluateRetrieval, recall, remember, vectorPreview, whyNote } from './expose'
 import { cosine, embed } from './embed'
 import { expandObservation } from './enrich'
 import { memoryEdges, queryMemoryGraph, skillLinks } from './graph'
@@ -191,6 +191,7 @@ describe('ai studio', () => {
     expect(debug.question).toMatch(/sharing toys/)
     expect(debug.retrieved.length).toBeGreaterThan(0)
     expect(debug.retrieved[0].rank).toBe(1)
+    expect(debug.retrieved[0].why).toMatch(/shar/i)
     expect(debug.retrieved[0].score).toBeGreaterThanOrEqual(debug.retrieved.at(-1)!.score)
     expect(debug.answer).toMatch(/shared/i)
   })
@@ -261,6 +262,9 @@ describe('ai studio', () => {
     expect(recall(stored, 'block city')[0].text).toBe('built a block city')
     expect(remember(stored, '   ')).toBe(stored)
     expect(vectorPreview('block city').dim).toBe(32)
+    expect(vectorPreview('block city').values).toHaveLength(32)
+    expect(whyNote('zebra pasture', 'bottle and nap', 0.1)).toMatch(/ranks low/)
+    expect(compareEmbedderScores(0.75, 1).find((row) => row.id === 'future')).toMatchObject({ ran: false, hitAt1: null })
     expect(casesFromNotes(memories, 'c-leo').length).toBeGreaterThan(0)
   })
 

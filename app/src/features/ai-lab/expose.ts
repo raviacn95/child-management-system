@@ -1,5 +1,5 @@
 import type { MemoryDoc } from './corpus'
-import { EMBED_DIM, contentTokens, cosine, embed } from './embed'
+import { EMBED_DIM, contentTokens, cosine, embed, textOverlaps } from './embed'
 import { searchMemories } from './rag'
 
 export interface EvalCase {
@@ -61,7 +61,22 @@ export function recall(store: StoredMemory[], query: string, k = 3) {
     .slice(0, k)
 }
 
+export function whyNote(query: string, text: string, score: number) {
+  const shared = textOverlaps(query, text)
+  if (shared.length) return `Chosen because these words match: ${shared.join(', ')}.`
+  if (score > 0.2) return 'No shared words. The hash landed both texts on the same dimensions, so this score is a collision.'
+  return 'Few shared dimensions, so this note ranks low.'
+}
+
 export function vectorPreview(text: string, dims = 8) {
   const vector = embed(text)
-  return { dim: vector.length || EMBED_DIM, head: vector.slice(0, dims).map((value) => Number(value.toFixed(3))) }
+  const values = vector.map((value) => Number(value.toFixed(3)))
+  return { dim: vector.length || EMBED_DIM, head: values.slice(0, dims), values }
+}
+
+export function compareEmbedderScores(hitAt1: number, hitAt3: number) {
+  return [
+    { id: 'feature-hash', label: 'Feature hash', ran: true, hitAt1, hitAt3 },
+    { id: 'future', label: 'Future API embedding', ran: false, hitAt1: null as number | null, hitAt3: null as number | null },
+  ]
 }

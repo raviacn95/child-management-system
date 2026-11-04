@@ -1,6 +1,7 @@
 import type { MemoryDoc } from './corpus'
 import { cosine, embed } from './embed'
 import type { ToolStep } from './plan'
+import { whyNote } from './expose'
 import { answerQuestion, searchMemories } from './rag'
 
 export interface RetrievedNote {
@@ -18,6 +19,7 @@ export function retrievalDebug(question: string, memories: MemoryDoc[], childId:
     text: hit.doc.text,
     score: Number(hit.score.toFixed(3)),
     rank: index + 1,
+    why: whyNote(question, hit.doc.text, hit.score),
   }))
   return { question: question.trim(), retrieved, answer: grounded.answer, caution: grounded.caution }
 }

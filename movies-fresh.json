@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-04T15:05:36.149Z",
+  "generatedAt": "2026-11-04T17:16:15.742Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -684,6 +684,24 @@
       "tmdbId": 1582770
     },
     {
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1260210
+    },
+    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -967,19 +985,6 @@
       "tmdbId": 1022453
     },
     {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1445278
-    },
-    {
       "id": "wd-Q136673072",
       "qid": "Q136673072",
       "title": "Ikkis",
@@ -1068,5 +1073,5 @@
       "tmdbId": 1616166
     }
   ],
-  "providersCheckedAt": "2026-11-04T15:05:36.149Z"
+  "providersCheckedAt": "2026-11-04T17:16:15.742Z"
 }

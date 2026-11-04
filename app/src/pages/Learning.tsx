@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Button, Field, PageHead, inputClass } from '../components/ui'
 import { ChannelPack } from '../features/learning/ChannelPack'
@@ -61,6 +62,10 @@ export function Learning() {
         title={t('learning.title')}
         subtitle={`${packOf(state.countryCode).name} domains: ${packOf(state.countryCode).learningDomains.join(', ')}.`}
       />
+      <Link to="/learning/brain" className="card mb-6 block p-4">
+        <h2 className="font-display text-xl">Brain Feed</h2>
+        <p className="mt-1 text-sm text-muted">Fifty kid-friendly cards a day. About ten seconds each, with a simpler explanation and a why chain.</p>
+      </Link>
       <section className="card mb-6 p-4" data-testid="grok-learning-coach">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>

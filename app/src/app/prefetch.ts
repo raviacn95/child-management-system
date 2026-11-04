@@ -17,6 +17,7 @@ export const PAGE_LOADERS: Record<string, () => Promise<unknown>> = {
   '/messages': () => import('../pages/Messages'),
   '/calendar': () => import('../pages/Calendar'),
   '/learning': () => import('../pages/Learning'),
+  '/learning/brain': () => import('../pages/BrainFeed'),
   '/parent-feed': () => import('../pages/ParentFeed'),
   '/movies': () => import('../pages/Movies'),
   '/tv': () => import('../pages/TvHome'),

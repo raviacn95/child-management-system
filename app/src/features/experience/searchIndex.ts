@@ -18,6 +18,7 @@ const PAGES: SearchHit[] = [
   { id: 'p-studio', title: 'AI Studio', group: 'Pages', href: '/studio' },
   { id: 'p-movies', title: 'Movies', group: 'Pages', href: '/movies' },
   { id: 'p-learning', title: 'Learning packs', group: 'Pages', href: '/learning' },
+  { id: 'p-brain', title: 'Brain Feed', group: 'Pages', href: '/learning/brain' },
   { id: 'p-parent', title: 'Parent growth hub', group: 'Pages', href: '/parent-feed' },
   { id: 'p-meals', title: 'Meals & grocery', group: 'Pages', href: '/meals' },
   { id: 'p-reports', title: 'Reports', group: 'Pages', href: '/reports' },

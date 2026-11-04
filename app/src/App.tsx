@@ -32,6 +32,7 @@ const Health = lazy(() => import('./pages/Health').then((m) => ({ default: m.Hea
 const HubPage = lazy(() => import('./pages/Hub').then((m) => ({ default: m.HubPage })))
 const Inventory = lazy(() => import('./pages/Inventory').then((m) => ({ default: m.Inventory })))
 const Learning = lazy(() => import('./pages/Learning').then((m) => ({ default: m.Learning })))
+const BrainFeedPage = lazy(() => import('./pages/BrainFeed').then((m) => ({ default: m.BrainFeedPage })))
 const Login = lazy(() => import('./pages/Login').then((m) => ({ default: m.Login })))
 const GetApp = lazy(() => import('./pages/GetApp').then((m) => ({ default: m.GetApp })))
 const PricingPage = lazy(() => import('./pages/Pricing').then((m) => ({ default: m.PricingPage })))
@@ -120,6 +121,7 @@ function AppRoutes() {
           <Route path="/messages" element={<Messages />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/learning" element={<Learning />} />
+          <Route path="/learning/brain" element={<BrainFeedPage />} />
           <Route path="/parent-feed" element={<ParentFeedPage />} />
           <Route path="/movies" element={<MoviesPage />} />
           <Route path="/tv" element={<TvHome />} />

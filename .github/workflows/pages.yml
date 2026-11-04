@@ -1,5 +1,7 @@
 name: Deploy GitHub Pages
 
+# The site job publishes GitHub Pages as soon as the web build is ready.
+# Movie refresh lives in movies-feed.yml. The Android APK is a shell and does not block the site.
 on:
   push:
     branches: [main]
@@ -13,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  site:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -54,12 +56,6 @@ jobs:
           git fetch --depth 1 origin gh-pages
           git show FETCH_HEAD:movies-fresh.json > /tmp/live-movies.json
           node app/scripts/keep-newer-feed.mjs /tmp/live-movies.json app/public/movies-fresh.json
-      - name: Refresh this year's movie list
-        continue-on-error: true
-        timeout-minutes: 8
-        env:
-          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
-        run: node scripts/fetch-fresh-movies.mjs public/movies-fresh.json
       - run: npm run build
         env:
           VITE_FLIPKART_AFFILIATE_ID: ${{ vars.VITE_FLIPKART_AFFILIATE_ID || secrets.VITE_FLIPKART_AFFILIATE_ID }}
@@ -74,44 +70,19 @@ jobs:
           VITE_SALES_EMAIL: ${{ vars.VITE_SALES_EMAIL || secrets.VITE_SALES_EMAIL }}
           VITE_SALES_WHATSAPP: ${{ vars.VITE_SALES_WHATSAPP || secrets.VITE_SALES_WHATSAPP }}
           VITE_AGENT_URL: ${{ vars.VITE_AGENT_URL }}
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
-      - uses: android-actions/setup-android@v3
-        continue-on-error: true
-        with:
-          packages: platform-tools platforms;android-36 build-tools;35.0.0
-      - name: Point Gradle at the Android SDK
-        working-directory: app/android
-        continue-on-error: true
-        run: |
-          test -n "$ANDROID_SDK_ROOT"
-          printf 'sdk.dir=%s\n' "$ANDROID_SDK_ROOT" > local.properties
-          cat local.properties
-      - name: Sync Capacitor Android project
-        working-directory: app
-        continue-on-error: true
-        env:
-          WILLOW_LIVE_SHELL: '1'
-        run: |
-          npx cap sync android
-          node scripts/strip-android-compressed-assets.mjs
-      - name: Assemble Android APK
-        working-directory: app/android
-        continue-on-error: true
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon --stacktrace
-      - name: Keep previous live release for crash fallback
+      - name: Keep the live APK and the previous release
         continue-on-error: true
         working-directory: .
         run: |
-          git fetch origin gh-pages:gh-pages
-          mkdir -p /tmp/willow-prev app/dist/releases/previous
-          git archive gh-pages | tar -x -C /tmp/willow-prev
+          git fetch --depth 1 origin gh-pages
+          mkdir -p /tmp/willow-prev app/dist/releases/previous app/dist/downloads
+          git archive FETCH_HEAD | tar -x -C /tmp/willow-prev
           rsync -a --delete --exclude 'releases' /tmp/willow-prev/ app/dist/releases/previous/
-          printf '{"fallback":"previous"}\n' > app/dist/release.json
+          if [ -s /tmp/willow-prev/downloads/willow.apk ]; then
+            cp -f /tmp/willow-prev/downloads/willow.apk app/dist/downloads/willow.apk
+            cp -f /tmp/willow-prev/downloads/willow.apk app/dist/downloads/willow-movies.apk
+          fi
+          printf 'releases/\n*.map\n' > app/dist/.gitignore
       - name: Stamp the live release for every installed app
         working-directory: app
         env:
@@ -120,20 +91,57 @@ jobs:
           WILLOW_RELEASE_NAME: Willow live ${{ github.run_number }} - web, Android, and PWA update
           WILLOW_RELEASE_CHANGES: ${{ vars.WILLOW_RELEASE_CHANGES || 'Latest Willow UI, playback, reliability, and performance improvements.' }}
         run: node scripts/write-release.mjs dist/release.json
-      - name: Publish phone and Fire Stick APKs into the live site
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: app/dist
+          force_orphan: false
+          exclude_assets: ''
+
+  android:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+        working-directory: app
+      - run: npm run build
+        working-directory: app
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools platforms;android-36 build-tools;35.0.0
+      - name: Point Gradle at the Android SDK
+        working-directory: app/android
+        run: |
+          test -n "$ANDROID_SDK_ROOT"
+          printf 'sdk.dir=%s\n' "$ANDROID_SDK_ROOT" > local.properties
+      - name: Sync Capacitor Android project
+        working-directory: app
+        env:
+          WILLOW_LIVE_SHELL: '1'
+        run: |
+          npx cap sync android
+          node scripts/strip-android-compressed-assets.mjs
+      - name: Assemble Android APK
+        working-directory: app/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+      - name: Publish phone and Fire Stick APKs
         working-directory: .
         run: |
           mkdir -p app/dist/downloads
-          BUILT=app/android/app/build/outputs/apk/debug/app-debug.apk
-          CHECKED=app/public/downloads/willow.apk
-          if [ -s "$BUILT" ]; then SRC="$BUILT"
-          elif [ -s "$CHECKED" ]; then SRC="$CHECKED"
-          else echo "No willow.apk was built or checked in"; exit 1
-          fi
-          cp -f "$SRC" app/dist/downloads/willow.apk
-          cp -f "$SRC" app/dist/downloads/willow-movies.apk
-          printf 'releases/\n*.map\n' > app/dist/.gitignore
-          ls -lh app/dist/downloads
+          cp -f app/android/app/build/outputs/apk/debug/app-debug.apk app/dist/downloads/willow.apk
+          cp -f app/dist/downloads/willow.apk app/dist/downloads/willow-movies.apk
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: willow-live-${{ github.run_number }}
@@ -145,12 +153,6 @@ jobs:
             Android phone APK: willow.apk (install like any app).
             Fire Stick copy: willow-movies.apk (same binary).
             Live site for phone, Windows, and Fire Stick: https://raviacn95.github.io/child-management-system/
-            The APK is a shell. After this build, later website deploys update installed apps without a new APK.
+            The APK is a shell. The site job publishes the web app without waiting for this build.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: app/dist
-          force_orphan: false
-          exclude_assets: ''

@@ -12,11 +12,12 @@ export interface RetrievedNote {
 
 export function retrievalDebug(question: string, memories: MemoryDoc[], childId: string, name: string) {
   const grounded = answerQuestion(question, memories, childId, name)
-  const retrieved = searchMemories(question, memories, childId, 4).map((hit) => ({
+  const retrieved = searchMemories(question, memories, childId, 4).map((hit, index) => ({
     id: hit.doc.id,
     date: hit.doc.date,
     text: hit.doc.text,
     score: Number(hit.score.toFixed(3)),
+    rank: index + 1,
   }))
   return { question: question.trim(), retrieved, answer: grounded.answer, caution: grounded.caution }
 }

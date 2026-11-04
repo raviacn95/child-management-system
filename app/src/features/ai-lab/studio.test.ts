@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { createSeed, today } from '../../data/seed'
 import { buildMemories, type MemoryDoc } from './corpus'
 import { agentTrace, compareEmbedders, nearestNotes, retrievalDebug } from './debug'
+import { casesFromNotes, evaluateRetrieval, recall, remember, vectorPreview } from './expose'
 import { cosine, embed } from './embed'
 import { expandObservation } from './enrich'
 import { memoryEdges, queryMemoryGraph, skillLinks } from './graph'
@@ -189,6 +190,7 @@ describe('ai studio', () => {
     const debug = retrievalDebug('When did he first start sharing toys?', memories, 'c-leo', 'Leo')
     expect(debug.question).toMatch(/sharing toys/)
     expect(debug.retrieved.length).toBeGreaterThan(0)
+    expect(debug.retrieved[0].rank).toBe(1)
     expect(debug.retrieved[0].score).toBeGreaterThanOrEqual(debug.retrieved.at(-1)!.score)
     expect(debug.answer).toMatch(/shared/i)
   })
@@ -240,6 +242,26 @@ describe('ai studio', () => {
     expect(bake.rows.find((row) => row.id === 'openai')).toMatchObject({ ran: false, listPricePerMillion: 0.02, accuracy: null })
     expect(bake.rows.find((row) => row.id === 'gemini')).toMatchObject({ ran: false, listPricePerMillion: 0.2, accuracy: null })
     expect(bake.rows.find((row) => row.id === 'bge')).toMatchObject({ ran: false, listPricePerMillion: 0.001, accuracy: null })
+  })
+
+  it('scores a gold set and keeps a note that was just written', () => {
+    const docs: MemoryDoc[] = [
+      { id: 'a', childIds: ['c'], date: '2026-01-01', kind: 'note', text: 'built a block city', vector: embed('built a block city'), skills: [] },
+      { id: 'b', childIds: ['c'], date: '2026-01-02', kind: 'note', text: 'bottle and nap', vector: embed('bottle and nap'), skills: [] },
+    ]
+    const scored = evaluateRetrieval(docs, 'c', [
+      { question: 'block', expect: 'built a block city' },
+      { question: 'nap', expect: 'bottle and nap' },
+      { question: 'zebra', expect: 'missing note' },
+    ])
+    expect(scored.rows.map((row) => row.rank)).toEqual([1, 1, null])
+    expect(scored.hitAt1).toBeCloseTo(2 / 3)
+    expect(scored.hitAt3).toBeCloseTo(2 / 3)
+    const stored = remember(remember([], 'built a block city'), 'bottle and nap')
+    expect(recall(stored, 'block city')[0].text).toBe('built a block city')
+    expect(remember(stored, '   ')).toBe(stored)
+    expect(vectorPreview('block city').dim).toBe(32)
+    expect(casesFromNotes(memories, 'c-leo').length).toBeGreaterThan(0)
   })
 
   it('uses the centre date helper so the suite stays wired to seed data', () => {

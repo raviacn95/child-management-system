@@ -3,6 +3,7 @@ import { Badge, Button, Field, PageHead, inputClass } from '../../components/ui'
 import { today } from '../../data/seed'
 import { childName } from '../../lib'
 import { useStore } from '../../store'
+import { EngineeringBench } from './Bench'
 import { buildMemories } from './corpus'
 import { agentTrace, compareEmbedders, nearestNotes, retrievalDebug } from './debug'
 import { expandObservation } from './enrich'
@@ -19,6 +20,7 @@ const LABS = [
   { id: 'observe', level: 'Beginner', title: 'Observation expander', learns: 'A lexicon maps a short note onto classroom language.' },
   { id: 'recommend', level: 'Beginner', title: 'Activity ranker', learns: 'Each feature adds points. The sort is the model.' },
   { id: 'copilot', level: 'Intermediate', title: 'Childhood copilot', learns: 'Hash the note, search by cosine, answer only from hits.' },
+  { id: 'bench', level: 'Intermediate', title: 'Engineering bench', learns: 'Retrieval, ranking, embeddings, agents, memory, and evaluation on the same notes.' },
   { id: 'retrieve', level: 'Intermediate', title: 'Retrieval debugger', learns: 'Question, then the notes cosine search returned, then the answer.' },
   { id: 'explore', level: 'Intermediate', title: 'Embedding explorer', learns: 'Pick a note. The nearest notes are the ones with the highest cosine.' },
   { id: 'agent', level: 'Intermediate', title: 'Teacher planner', learns: 'The loop says what it still needs, calls that tool, then writes the plan.' },
@@ -275,6 +277,9 @@ export function StudioDesk() {
               <p className="text-muted">{copilot.caution}</p>
             </>
           ) : null}
+          {lab === 'bench' && child ? (
+            <EngineeringBench memories={memories} childId={child.id} question={question} onQuestion={setQuestion} trace={trace} />
+          ) : null}
           {lab === 'retrieve' && retrieved ? (
             <>
               <input className={inputClass} value={question} onChange={(event) => setQuestion(event.target.value)} />
@@ -287,7 +292,7 @@ export function StudioDesk() {
                   <ul className="mt-1 space-y-1 text-muted">
                     {retrieved.retrieved.map((row) => (
                       <li key={row.id}>
-                        {row.date} · {row.text} · similarity {row.score.toFixed(2)}
+                        rank {row.rank} · {row.date} · {row.text} · similarity {row.score.toFixed(2)}
                       </li>
                     ))}
                   </ul>

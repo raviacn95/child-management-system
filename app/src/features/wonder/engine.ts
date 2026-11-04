@@ -271,7 +271,7 @@ export function energyMeter(moods: string[]): { band: EnergyBand; label: string;
     if (/wiggl|tired|excit|curious/.test(text)) return 1
     return 0
   })
-  const avg = heat.reduce((sum, n) => sum + n, 0) / heat.length
+  const avg = heat.reduce<number>((sum, n) => sum + n, 0) / heat.length
   if (avg >= 1.4) {
     return {
       band: 'overstimulated',

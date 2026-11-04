@@ -9,7 +9,7 @@ const STOP = new Set([
   'led', 'become', 'becoming', 'more',
 ])
 
-export function tokenize(text: string) {
+export function tokenize(text: string): string[] {
   return text.toLowerCase().match(/[a-z0-9']+/g) ?? []
 }
 

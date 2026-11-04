@@ -6,7 +6,13 @@ import { memoryRelay, type Transport } from './transport'
 
 const a = { id: 'AAAAAAAAAAAAAAAAAAAAAA', name: 'Phone' }
 const b = { id: 'BBBBBBBBBBBBBBBBBBBBBB', name: 'TV' }
-const tick = () => new Promise((resolve) => setTimeout(resolve, 5))
+async function settle(done: () => boolean) {
+  const start = Date.now()
+  while (!done()) {
+    if (Date.now() - start > 2000) return
+    await new Promise((resolve) => setTimeout(resolve, 10))
+  }
+}
 
 function recordingTransport(inner: Transport) {
   const sent: string[] = []
@@ -27,8 +33,9 @@ describe('encrypted channel', () => {
     const rightGot: string[] = []
     left.listen((msg) => leftGot.push(msg.type))
     right.listen((msg) => rightGot.push(msg.type))
+    await Promise.all([left.ready(), right.ready()])
     await left.send({ type: 'ping' })
-    await tick()
+    await settle(() => rightGot.length > 0)
     expect(rightGot).toEqual(['ping'])
     expect(leftGot).toEqual([])
     expect(rec.sent[0]).toMatch(/^w1\./)
@@ -43,8 +50,9 @@ describe('encrypted channel', () => {
     const got: string[] = []
     const receiver = openChannel({ ...spec, self: b, peerId: a.id, transport: relay(spec.topic) })
     receiver.listen((msg) => got.push(msg.type))
+    await Promise.all([sender.ready(), receiver.ready()])
     await sender.send({ type: 'ping' })
-    await tick()
+    await settle(() => got.length > 0)
     await receiver.receive(rec.sent[0])
     const key = await importAesKey(spec.key)
     const stale = await seal(key, spec.topic, { v: 1, ts: Date.now() - 120_000, n: 'abcdefghijklmnop', from: a, msg: { type: 'ping' } })

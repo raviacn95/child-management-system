@@ -1,9 +1,73 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-02T10:21:42.019Z",
+  "generatedAt": "2026-11-03T18:10:11.514Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
+    {
+      "id": "wd-Q138307614",
+      "qid": "Q138307614",
+      "title": "Emperor vs Sarat Chandra",
+      "year": 2026,
+      "released": "2026-10-16",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "tmdbId": 1538861
+    },
+    {
+      "id": "wd-Q124409386",
+      "qid": "Q124409386",
+      "title": "Klara and the Sun",
+      "year": 2026,
+      "released": "2026-10-15",
+      "lang": "en",
+      "india": true,
+      "sitelinks": 21,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 858035
+    },
+    {
+      "id": "wd-Q133255153",
+      "qid": "Q133255153",
+      "title": "Jailer 3",
+      "year": 2026,
+      "released": "2026-10-15",
+      "lang": "ta",
+      "india": true,
+      "sitelinks": 6,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1234139
+    },
+    {
+      "id": "wd-Q130345436",
+      "qid": "Q130345436",
+      "title": "Street Fighter",
+      "year": 2026,
+      "released": "2026-10-12",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 25,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1153576
+    },
+    {
+      "id": "wd-Q141475414",
+      "qid": "Q141475414",
+      "title": "Drishyam: The Conclusion",
+      "year": 2026,
+      "released": "2026-10-02",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 4,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1269325
+    },
     {
       "id": "wd-Q129677718",
       "qid": "Q129677718",
@@ -12,10 +76,23 @@
       "released": "2026-10-01",
       "lang": "en",
       "india": false,
-      "sitelinks": 23,
+      "sitelinks": 31,
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1248832
+    },
+    {
+      "id": "wd-Q131102878",
+      "qid": "Q131102878",
+      "title": "Vvan: Force Of The Forrest",
+      "year": 2026,
+      "released": "2026-09-25",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 5,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1384514
     },
     {
       "id": "wd-Q129255849",
@@ -26,9 +103,27 @@
       "lang": "ta",
       "india": true,
       "sitelinks": 3,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        }
+      ],
       "providersSource": "tmdb",
       "tmdbId": 1317872
+    },
+    {
+      "id": "wd-Q141168534",
+      "qid": "Q141168534",
+      "title": "NAZA",
+      "year": 2026,
+      "released": "2026-09-10",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 25,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1755291
     },
     {
       "id": "wd-Q123740702",
@@ -38,23 +133,10 @@
       "released": "2026-08-26",
       "lang": "hi",
       "india": true,
-      "sitelinks": 8,
+      "sitelinks": 7,
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1213243
-    },
-    {
-      "id": "wd-Q132256832",
-      "qid": "Q132256832",
-      "title": "The Dog Stars",
-      "year": 2026,
-      "released": "2026-08-26",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 22,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1384216
     },
     {
       "id": "wd-Q138716562",
@@ -64,8 +146,13 @@
       "released": "2026-08-21",
       "lang": "ml",
       "india": true,
-      "sitelinks": 3,
-      "providers": [],
+      "sitelinks": 4,
+      "providers": [
+        {
+          "platformId": "hotstar",
+          "kind": "stream"
+        }
+      ],
       "providersSource": "tmdb",
       "tmdbId": 1508168
     },
@@ -95,8 +182,17 @@
       "released": "2026-08-09",
       "lang": "en",
       "india": false,
-      "sitelinks": 28,
-      "providers": [],
+      "sitelinks": 29,
+      "providers": [
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        },
+        {
+          "platformId": "prime",
+          "kind": "rent"
+        }
+      ],
       "providersSource": "tmdb",
       "tmdbId": 1101383
     },
@@ -124,6 +220,10 @@
       "sitelinks": 3,
       "providers": [
         {
+          "platformId": "sonyliv",
+          "kind": "stream"
+        },
+        {
           "platformId": "sunnxt",
           "kind": "stream"
         }
@@ -139,8 +239,17 @@
       "released": "2026-07-29",
       "lang": "en",
       "india": false,
-      "sitelinks": 54,
-      "providers": [],
+      "sitelinks": 56,
+      "providers": [
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        },
+        {
+          "platformId": "prime",
+          "kind": "rent"
+        }
+      ],
       "providersSource": "tmdb",
       "tmdbId": 969681
     },
@@ -152,7 +261,7 @@
       "released": "2026-07-25",
       "lang": "en",
       "india": false,
-      "sitelinks": 24,
+      "sitelinks": 28,
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1204680
@@ -165,10 +274,18 @@
       "released": "2026-07-08",
       "lang": "en",
       "india": false,
-      "sitelinks": 32,
-      "providers": [],
+      "sitelinks": 33,
+      "providers": [
+        {
+          "platformId": "hotstar",
+          "kind": "stream"
+        }
+      ],
       "providersSource": "tmdb",
-      "tmdbId": 1108427
+      "tmdbId": 1108427,
+      "watchIds": {
+        "appletv": "movie/umc.cmc.6iwbg2fxayjdbyw9trffmbyo8"
+      }
     },
     {
       "id": "wd-Q131547207",
@@ -178,7 +295,7 @@
       "released": "2026-07-06",
       "lang": "en",
       "india": false,
-      "sitelinks": 66,
+      "sitelinks": 68,
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1368337
@@ -252,6 +369,10 @@
       "sitelinks": 38,
       "providers": [
         {
+          "platformId": "hotstar",
+          "kind": "stream"
+        },
+        {
           "platformId": "appletv",
           "kind": "rent"
         },
@@ -261,7 +382,10 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1275779
+      "tmdbId": 1275779,
+      "watchIds": {
+        "appletv": "movie/umc.cmc.1i56xrk36gdembwgd2qfll4qi"
+      }
     },
     {
       "id": "wd-Q133573186",
@@ -289,7 +413,7 @@
       "released": "2026-05-21",
       "lang": "ml",
       "india": true,
-      "sitelinks": 4,
+      "sitelinks": 5,
       "providers": [
         {
           "platformId": "prime",
@@ -307,7 +431,7 @@
       "released": "2026-05-18",
       "lang": "en",
       "india": false,
-      "sitelinks": 31,
+      "sitelinks": 32,
       "providers": [
         {
           "platformId": "prime",
@@ -325,7 +449,7 @@
       "released": "2026-05-18",
       "lang": "en",
       "india": false,
-      "sitelinks": 27,
+      "sitelinks": 28,
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1401459
@@ -346,7 +470,10 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1228710
+      "tmdbId": 1228710,
+      "watchIds": {
+        "appletv": "movie/umc.cmc.31m58rsmdk9f165zgt7vawkxk"
+      }
     },
     {
       "id": "wd-Q139665854",
@@ -380,6 +507,19 @@
       "tmdbId": 1301421
     },
     {
+      "id": "wd-Q121302107",
+      "qid": "Q121302107",
+      "title": "KD: The Devil",
+      "year": 2026,
+      "released": "2026-04-30",
+      "lang": "kn",
+      "india": true,
+      "sitelinks": 4,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1103473
+    },
+    {
       "id": "wd-Q139496302",
       "qid": "Q139496302",
       "title": "Kara",
@@ -408,6 +548,10 @@
       "sitelinks": 34,
       "providers": [
         {
+          "platformId": "hotstar",
+          "kind": "stream"
+        },
+        {
           "platformId": "appletv",
           "kind": "rent"
         },
@@ -417,7 +561,10 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 931285
+      "tmdbId": 931285,
+      "watchIds": {
+        "appletv": "movie/umc.cmc.1450gnnq7lxnn3lg6dyp362a9"
+      }
     },
     {
       "id": "wd-Q134611972",
@@ -427,7 +574,7 @@
       "released": "2026-04-20",
       "lang": "en",
       "india": false,
-      "sitelinks": 36,
+      "sitelinks": 37,
       "providers": [
         {
           "platformId": "hotstar",
@@ -435,7 +582,23 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1314481
+      "tmdbId": 1314481,
+      "watchIds": {
+        "appletv": "movie/umc.cmc.35h034299h2gv3oha94mx52uz"
+      }
+    },
+    {
+      "id": "wd-Q137570236",
+      "qid": "Q137570236",
+      "title": "Bindusagar",
+      "year": 2026,
+      "released": "2026-04-17",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1496445
     },
     {
       "id": "wd-Q116677364",
@@ -461,7 +624,10 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 936075
+      "tmdbId": 936075,
+      "watchIds": {
+        "appletv": "movie/umc.cmc.655k6wal020m8folvcy526dff"
+      }
     },
     {
       "id": "wd-Q138948459",
@@ -485,7 +651,12 @@
       "lang": "",
       "india": true,
       "sitelinks": 3,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
       "providersSource": "tmdb",
       "tmdbId": 1376856
     },
@@ -497,7 +668,7 @@
       "released": "2026-03-19",
       "lang": "hi",
       "india": true,
-      "sitelinks": 14,
+      "sitelinks": 15,
       "providers": [
         {
           "platformId": "netflix",
@@ -510,19 +681,6 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1582770
-    },
-    {
-      "id": "wd-Q138497144",
-      "qid": "Q138497144",
-      "title": "Korpur",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1493079
     },
     {
       "id": "wd-Q134435699",
@@ -550,7 +708,7 @@
       "released": "2026-03-18",
       "lang": "en",
       "india": false,
-      "sitelinks": 46,
+      "sitelinks": 47,
       "providers": [
         {
           "platformId": "prime",
@@ -562,7 +720,10 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 687163
+      "tmdbId": 687163,
+      "watchIds": {
+        "appletv": "movie/umc.cmc.7jxdlxvz304lj3iwhtrhbe8fv"
+      }
     },
     {
       "id": "wd-Q124355470",
@@ -580,7 +741,10 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 875828
+      "tmdbId": 875828,
+      "watchIds": {
+        "netflix": "81319485"
+      }
     },
     {
       "id": "wd-Q138381591",
@@ -601,37 +765,6 @@
       "tmdbId": 1625582
     },
     {
-      "id": "wd-Q138510258",
-      "qid": "Q138510258",
-      "title": "Masthishka Maranam",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1444032
-    },
-    {
-      "id": "wd-Q138562396",
-      "qid": "Q138562396",
-      "title": "Son Of",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1669290
-    },
-    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -639,10 +772,13 @@
       "released": "2026-02-20",
       "lang": "en",
       "india": false,
-      "sitelinks": 22,
+      "sitelinks": 23,
       "providers": [],
       "providersSource": "tmdb",
-      "tmdbId": 467905
+      "tmdbId": 467905,
+      "watchIds": {
+        "appletv": "movie/umc.cmc.6ulh30ntityj9dv8x4x2r4a5y"
+      }
     },
     {
       "id": "wd-Q137783833",
@@ -661,24 +797,6 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1275574
-    },
-    {
-      "id": "wd-Q130375767",
-      "qid": "Q130375767",
-      "title": "War Machine",
-      "year": 2026,
-      "released": "2026-02-12",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 22,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1265609
     },
     {
       "id": "wd-Q131763755",
@@ -714,7 +832,10 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1171145
+      "tmdbId": 1171145,
+      "watchIds": {
+        "appletv": "movie/umc.cmc.5ehogrykfkoxztizi9hjo9pd8"
+      }
     },
     {
       "id": "wd-Q134083296",
@@ -724,7 +845,7 @@
       "released": "2026-01-24",
       "lang": "en",
       "india": false,
-      "sitelinks": 25,
+      "sitelinks": 27,
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 950028
@@ -737,7 +858,7 @@
       "released": "2026-01-23",
       "lang": "hi",
       "india": true,
-      "sitelinks": 7,
+      "sitelinks": 8,
       "providers": [
         {
           "platformId": "netflix",
@@ -756,22 +877,14 @@
       "lang": "bn",
       "india": true,
       "sitelinks": 4,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "hotstar",
+          "kind": "ads"
+        }
+      ],
       "providersSource": "tmdb",
       "tmdbId": 1437714
-    },
-    {
-      "id": "wd-Q137802630",
-      "qid": "Q137802630",
-      "title": "Hok Kolorob",
-      "year": 2026,
-      "released": "2026-01-23",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1536901
     },
     {
       "id": "wd-Q124566659",
@@ -814,24 +927,6 @@
       "tmdbId": 1617536
     },
     {
-      "id": "wd-Q137799437",
-      "qid": "Q137799437",
-      "title": "Happy Patel: Khatarnak Jasoos",
-      "year": 2026,
-      "released": "2026-01-16",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1282440
-    },
-    {
       "id": "wd-Q131189949",
       "qid": "Q131189949",
       "title": "The Rip",
@@ -847,32 +942,17 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1306368
+      "tmdbId": 1306368,
+      "watchIds": {
+        "netflix": "81915745"
+      }
     },
     {
-      "id": "wd-Q137713080",
-      "qid": "Q137713080",
-      "title": "Anaganaga Oka Raju",
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
       "year": 2026,
-      "released": "2026-01-14",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1407432
-    },
-    {
-      "id": "wd-Q137718780",
-      "qid": "Q137718780",
-      "title": "Bhartha Mahasayulaku Wignyapthi",
-      "year": 2026,
-      "released": "2026-01-13",
+      "released": "2026-01-12",
       "lang": "te",
       "india": true,
       "sitelinks": 2,
@@ -883,7 +963,7 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1442975
+      "tmdbId": 1439713
     },
     {
       "id": "wd-Q124301053",
@@ -893,11 +973,11 @@
       "released": "2026-01-09",
       "lang": "te",
       "india": true,
-      "sitelinks": 5,
+      "sitelinks": 6,
       "providers": [
         {
           "platformId": "hotstar",
-          "kind": "stream"
+          "kind": "ads"
         }
       ],
       "providersSource": "tmdb",
@@ -937,7 +1017,10 @@
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1515729
+      "tmdbId": 1515729,
+      "watchIds": {
+        "netflix": "82188226"
+      }
     },
     {
       "id": "wd-Q116701310",
@@ -958,19 +1041,6 @@
       "tmdbId": 1069567
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -989,23 +1059,18 @@
       "tmdbId": 1439594
     },
     {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
       "year": 2026,
       "released": "2026-01-01",
-      "lang": "te",
+      "lang": "hi",
       "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "prime",
-          "kind": "stream"
-        }
-      ],
+      "sitelinks": 3,
+      "providers": [],
       "providersSource": "tmdb",
-      "tmdbId": 1594670
+      "tmdbId": 1616166
     }
   ],
-  "providersCheckedAt": "2026-10-02T10:21:42.019Z"
+  "providersCheckedAt": "2026-11-03T18:10:11.514Z"
 }

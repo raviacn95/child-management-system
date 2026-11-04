@@ -50,6 +50,9 @@ const TransportPage = lazy(() => import('./pages/Transport').then((m) => ({ defa
 const StaffPage = lazy(() => import('./pages/Staff').then((m) => ({ default: m.StaffPage })))
 const Workers = lazy(() => import('./pages/Workers').then((m) => ({ default: m.Workers })))
 const LinkTvPage = lazy(() => import('./pages/LinkTv').then((m) => ({ default: m.LinkTvPage })))
+const LivePage = lazy(() => import('./pages/Live').then((m) => ({ default: m.LivePage })))
+const WonderPage = lazy(() => import('./pages/Wonder').then((m) => ({ default: m.WonderPage })))
+const StudioPage = lazy(() => import('./pages/Studio').then((m) => ({ default: m.StudioPage })))
 const RemotePage = lazy(() => import('./pages/Remote').then((m) => ({ default: m.RemotePage })))
 const TvLinkPage = lazy(() => import('./pages/TvLink').then((m) => ({ default: m.TvLinkPage })))
 
@@ -100,6 +103,9 @@ function AppRoutes() {
           }
         >
           <Route path="/" element={<Dashboard />} />
+          <Route path="/live" element={<LivePage />} />
+          <Route path="/wonder" element={<WonderPage />} />
+          <Route path="/studio" element={<StudioPage />} />
           <Route path="/hub" element={<HubPage />} />
           <Route path="/grow" element={<Grow />} />
           <Route path="/children" element={<ChildrenPage />} />

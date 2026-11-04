@@ -51,6 +51,16 @@ export function Dashboard() {
             : `${present.length} children in the building · ${rooms.length} rooms open · ${pack.name}`
         }
       />
+      <p className="mb-4 text-sm">
+        <Link className="font-semibold text-pine" to="/wonder">
+          Open Wonder
+        </Link>{' '}
+        captures, understands, and preserves childhood. The{' '}
+        <Link className="font-semibold text-pine" to="/live">
+          live desk
+        </Link>{' '}
+        runs the daycare.
+      </p>
       <p className="mb-4 text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
         Grove · Cinema · Harbor —{' '}
         <Link className="text-pine" to="/hub">

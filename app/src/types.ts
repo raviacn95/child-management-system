@@ -815,4 +815,56 @@ export interface AppState {
   preferAdFree?: boolean
   auditLog: AuditEntry[]
   closePeriods: ClosePeriod[]
+  wonder: WonderBook
+}
+
+export interface WonderMoment {
+  id: string
+  childId: string
+  at: string
+  text: string
+  authorId: string
+}
+
+export interface WonderPlay {
+  id: string
+  date: string
+  a: string
+  b: string
+}
+
+export interface WonderWord {
+  id: string
+  childId: string
+  date: string
+  word: string
+}
+
+export interface WonderFirst {
+  id: string
+  childId: string
+  date: string
+  title: string
+}
+
+export interface WonderPing {
+  id: string
+  childId: string
+  at: string
+  personName: string
+  ready: boolean
+}
+
+export interface WonderVisit {
+  userId: string
+  day: string
+}
+
+export interface WonderBook {
+  moments: WonderMoment[]
+  plays: WonderPlay[]
+  words: WonderWord[]
+  firsts: WonderFirst[]
+  pings: WonderPing[]
+  visits: WonderVisit[]
 }

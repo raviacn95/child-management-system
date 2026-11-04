@@ -9,6 +9,12 @@ describe('RBAC', () => {
     expect(canSee('parent', 'erotic')).toBe(true)
     expect(canSee('teacher', 'erotic')).toBe(false)
     expect(canSee('parent', 'hub')).toBe(true)
+    expect(canSee('parent', 'live')).toBe(true)
+    expect(canSee('teacher', 'live')).toBe(true)
+    expect(canSee('parent', 'wonder')).toBe(true)
+    expect(canSee('teacher', 'wonder')).toBe(true)
+    expect(canSee('parent', 'studio')).toBe(true)
+    expect(canSee('teacher', 'studio')).toBe(true)
     expect(canSee('teacher', 'hub')).toBe(true)
   })
 

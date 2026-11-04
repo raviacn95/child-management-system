@@ -3,6 +3,9 @@ export const en = {
   tagline: 'Childcare OS',
   nav: {
     dashboard: 'Home',
+    live: 'Live desk',
+    wonder: 'Wonder',
+    studio: 'AI Studio',
     hub: 'Tonight',
     grow: 'Grow at home',
     children: 'Children',
@@ -84,6 +87,9 @@ export const hi = {
   tagline: 'बाल देखभाल OS',
   nav: {
     dashboard: 'होम',
+    live: 'लाइव डेस्क',
+    wonder: 'वंडर',
+    studio: 'एआई स्टूडियो',
     hub: 'टुनाइट',
     grow: 'घर पर बढ़ो',
     children: 'बच्चे',
@@ -161,6 +167,9 @@ export const hi = {
 }
 
 const NAV_REST = {
+  live: 'Live desk',
+  wonder: 'Wonder',
+  studio: 'AI Studio',
   grow: 'Grow at home',
   children: 'Children',
   workers: 'Teacher workers',

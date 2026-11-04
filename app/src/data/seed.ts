@@ -497,6 +497,32 @@ export function createSeed(): AppState {
         photos: 2,
         authorId: 's-nina',
       },
+      {
+        id: 'd-leo-year',
+        childId: 'c-leo',
+        date: `${Number(t.slice(0, 4)) - 1}${t.slice(4)}`,
+        meals: [{ time: '12:00', type: 'Lunch', items: 'Dal and rice', amount: 'all' }],
+        naps: [{ start: '13:00', end: '14:10' }],
+        diapers: [],
+        mood: 'Proud',
+        activities: ['Painted a rainbow'],
+        notes: 'Said a new word while the paint was still wet.',
+        photos: 4,
+        authorId: 's-jordan',
+      },
+      {
+        id: 'd-leo-long',
+        childId: 'c-leo',
+        date: today(-3),
+        meals: [{ time: '12:10', type: 'Lunch', items: 'Rice and dal', amount: 'all' }],
+        naps: [{ start: '13:00', end: '15:15' }],
+        diapers: [],
+        mood: 'Calm',
+        activities: ['Puzzle table'],
+        notes: 'Finished a puzzle on his own.',
+        photos: 1,
+        authorId: 's-jordan',
+      },
     ],
     medications: [
       {
@@ -764,6 +790,36 @@ export function createSeed(): AppState {
     ottAccounts: [],
     auditLog: [],
     closePeriods: [],
+    wonder: {
+      moments: [
+        {
+          id: 'wm1',
+          childId: 'c-leo',
+          at: `${t}T11:40:00`,
+          text: 'Shared a toy with Ava without being asked.',
+          authorId: 'u-jordan',
+        },
+        {
+          id: 'wm2',
+          childId: 'c-ava',
+          at: `${today(-1)}T10:15:00`,
+          text: 'Said thank you when a friend passed the crayons.',
+          authorId: 'u-jordan',
+        },
+      ],
+      plays: [
+        { id: 'wp1', date: today(-12), a: 'c-leo', b: 'c-ava' },
+        { id: 'wp2', date: today(-2), a: 'c-leo', b: 'c-ava' },
+        { id: 'wp3', date: t, a: 'c-leo', b: 'c-hana' },
+      ],
+      words: [
+        { id: 'ww1', childId: 'c-leo', date: `${Number(t.slice(0, 4)) - 1}${t.slice(4)}`, word: 'helicopter' },
+        { id: 'ww2', childId: 'c-leo', date: today(-3), word: 'puzzle' },
+      ],
+      firsts: [],
+      pings: [],
+      visits: [{ userId: 'u-priya', day: today(-10) }],
+    },
   }
   return applyWorkerRun(state)
 }

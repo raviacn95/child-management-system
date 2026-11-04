@@ -23,7 +23,12 @@ export function closeSignals(state: AppState, period: string, siteId: string): C
   const attendedIds = new Set(
     state.attendance.filter((a) => inPeriod(a.date, period) && enrolled.some((c) => c.id === a.childId)).map((a) => a.childId),
   )
-  const invoices = state.invoices.filter((inv) => inPeriod(inv.issuedDate, period) || inPeriod(inv.dueDate, period))
+  const invoices = state.invoices.filter(
+    (inv) =>
+      inPeriod(inv.issuedDate, period) ||
+      inPeriod(inv.dueDate, period) ||
+      (inv.status === 'overdue' && inv.dueDate.slice(0, 7) <= period),
+  )
   const rooms = state.classrooms.filter((r) => r.siteId === siteId)
   const present = enrolled.filter((c) =>
     state.attendance.some((a) => a.childId === c.id && a.date === today() && a.checkIn && !a.checkOut),

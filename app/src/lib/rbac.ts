@@ -2,6 +2,9 @@ import type { Role } from '../types'
 
 export const MODULE_KEYS = [
   'dashboard',
+  'live',
+  'wonder',
+  'studio',
   'hub',
   'grow',
   'children',
@@ -34,6 +37,9 @@ export type ModuleKey = (typeof MODULE_KEYS)[number]
 
 const TEACHER: ModuleKey[] = [
   'dashboard',
+  'live',
+  'wonder',
+  'studio',
   'hub',
   'children',
   'attendance',
@@ -57,6 +63,9 @@ const TEACHER: ModuleKey[] = [
 
 const PARENT: ModuleKey[] = [
   'dashboard',
+  'live',
+  'wonder',
+  'studio',
   'hub',
   'children',
   'daily-care',

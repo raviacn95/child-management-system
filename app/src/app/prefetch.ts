@@ -1,5 +1,8 @@
 export const PAGE_LOADERS: Record<string, () => Promise<unknown>> = {
   '/': () => import('../pages/Dashboard'),
+  '/live': () => import('../pages/Live'),
+  '/wonder': () => import('../pages/Wonder'),
+  '/studio': () => import('../pages/Studio'),
   '/hub': () => import('../pages/Hub'),
   '/grow': () => import('../pages/Grow'),
   '/children': () => import('../pages/Children'),

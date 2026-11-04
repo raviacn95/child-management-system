@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
 import { createShopCatalog } from './data/catalog'
-import { createSeed } from './data/seed'
+import { createSeed, today } from './data/seed'
 import { convertInr, holidayDate, packOf } from './data/country'
 import type {
   AppState,
@@ -27,6 +27,7 @@ import type {
   ParentFeedProfile,
   OttAccount,
   Role,
+  WonderFirst,
 } from './types'
 import { nextWebhook } from './lib/autoOrder'
 import { applyWorkerRun } from './workers/engine'
@@ -116,7 +117,9 @@ function migrate(parsed: AppState): AppState {
     ottAccounts: (next.ottAccounts ?? []).map((a) => ({ ...a, adTier: a.adTier ?? 'unknown' })),
     preferAdFree: next.preferAdFree ?? true,
     closePeriods: next.closePeriods ?? [],
+    wonder: next.wonder?.moments?.length ? next.wonder : seeded.wonder,
     children: next.children.map((c) => ({ ...c, interests: c.interests ?? [] })),
+    dailyLogs: mergeDemoLogs(next.dailyLogs, seeded.dailyLogs),
   }
 }
 
@@ -157,6 +160,42 @@ function persist(state: AppState) {
 
 function uid(prefix: string) {
   return `${prefix}-${Math.random().toString(36).slice(2, 8)}`
+}
+
+function mergeDemoLogs(current: DailyLog[] | undefined, seeded: DailyLog[]) {
+  const rows = current ?? []
+  const ids = new Set(rows.map((row) => row.id))
+  const extra = seeded.filter((row) => (row.id === 'd-leo-year' || row.id === 'd-leo-long') && !ids.has(row.id))
+  return extra.length ? [...extra, ...rows] : rows
+}
+
+function cleanMood(mood: string) {
+  return mood.replace(/[^a-zA-Z\s'-]/g, '').trim().slice(0, 32)
+}
+
+function withTodayLog(state: AppState, childId: string, edit: (log: DailyLog) => DailyLog): AppState {
+  const date = today()
+  const existing = state.dailyLogs.find((log) => log.childId === childId && log.date === date)
+  if (!existing) {
+    const created: DailyLog = {
+      id: uid('d'),
+      childId,
+      date,
+      meals: [],
+      naps: [],
+      diapers: [],
+      mood: '',
+      activities: [],
+      notes: '',
+      photos: 0,
+      authorId: state.currentUserId ?? 's-jordan',
+    }
+    return { ...state, dailyLogs: [edit(created), ...state.dailyLogs] }
+  }
+  return {
+    ...state,
+    dailyLogs: state.dailyLogs.map((log) => (log.id === existing.id ? edit(log) : log)),
+  }
 }
 
 interface StoreApi {
@@ -213,6 +252,15 @@ interface StoreApi {
   logAudit: (action: string, details: string) => void
   setCloseTask: (period: string, taskId: CloseTaskId, status: CloseTaskStatus, note?: string) => void
   lockClosePeriod: (period: string, locked: boolean) => void
+  setTodayMood: (childId: string, mood: string) => void
+  toggleNap: (childId: string) => void
+  addMagicMoment: (childId: string, text: string) => void
+  addPlayLink: (a: string, b: string) => void
+  addSpokenWord: (childId: string, word: string) => void
+  keepFirsts: (firsts: WonderFirst[]) => void
+  pingArrival: (childId: string, personName: string) => void
+  markPingReady: (id: string) => void
+  noteWonderVisit: () => void
 }
 
 const Ctx = createContext<StoreApi | null>(null)
@@ -226,7 +274,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }
 
   const api = useMemo<StoreApi>(() => {
-    const patch = (fn: (s: AppState) => AppState) => commit(fn(state))
+    const patch = (fn: (s: AppState) => AppState) => {
+      setState((current) => {
+        const next = fn(current)
+        if (next === current) return current
+        persist(next)
+        return next
+      })
+    }
 
     return {
       state,
@@ -853,6 +908,96 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             ),
           }
         }),
+      setTodayMood: (childId, mood) => {
+        const cleaned = cleanMood(mood)
+        if (!cleaned) return
+        patch((s) => withTodayLog(s, childId, (log) => ({ ...log, mood: cleaned })))
+      },
+      toggleNap: (childId) => {
+        const time = new Date().toTimeString().slice(0, 5)
+        patch((s) =>
+          withTodayLog(s, childId, (log) => {
+            const open = log.naps.find((nap) => nap.start && !nap.end)
+            const naps = open
+              ? log.naps.map((nap) => (nap === open ? { ...nap, end: time } : nap))
+              : [...log.naps, { start: time, end: '' }]
+            return { ...log, naps }
+          }),
+        )
+      },
+      addMagicMoment: (childId, text) => {
+        const cleaned = text.replace(/\s+/g, ' ').trim().slice(0, 140)
+        if (!cleaned) return
+        patch((s) => ({
+          ...s,
+          wonder: {
+            ...s.wonder,
+            moments: [
+              { id: uid('wm'), childId, at: new Date().toISOString(), text: cleaned, authorId: s.currentUserId ?? 'staff' },
+              ...s.wonder.moments,
+            ],
+          },
+        }))
+      },
+      addPlayLink: (a, b) => {
+        if (!a || !b || a === b) return
+        patch((s) => ({
+          ...s,
+          wonder: {
+            ...s.wonder,
+            plays: [{ id: uid('wp'), date: today(), a, b }, ...s.wonder.plays],
+          },
+        }))
+      },
+      addSpokenWord: (childId, word) => {
+        const cleaned = word.replace(/[^a-zA-Z'-]/g, '').slice(0, 24)
+        if (!cleaned) return
+        patch((s) => ({
+          ...s,
+          wonder: {
+            ...s.wonder,
+            words: [{ id: uid('ww'), childId, date: today(), word: cleaned }, ...s.wonder.words],
+          },
+        }))
+      },
+      keepFirsts: (firsts) => {
+        patch((s) => {
+          const have = new Set(s.wonder.firsts.map((item) => `${item.childId}|${item.title}`))
+          const extra = firsts.filter((item) => !have.has(`${item.childId}|${item.title}`))
+          if (!extra.length) return s
+          return { ...s, wonder: { ...s.wonder, firsts: [...extra, ...s.wonder.firsts] } }
+        })
+      },
+      pingArrival: (childId, personName) => {
+        const name = personName.replace(/\s+/g, ' ').trim().slice(0, 40) || 'A parent'
+        patch((s) => ({
+          ...s,
+          wonder: {
+            ...s.wonder,
+            pings: [
+              { id: uid('ping'), childId, at: new Date().toISOString(), personName: name, ready: false },
+              ...s.wonder.pings.filter((ping) => ping.childId !== childId),
+            ],
+          },
+        }))
+      },
+      markPingReady: (id) => {
+        patch((s) => ({
+          ...s,
+          wonder: {
+            ...s.wonder,
+            pings: s.wonder.pings.map((ping) => (ping.id === id ? { ...ping, ready: true } : ping)),
+          },
+        }))
+      },
+      noteWonderVisit: () => {
+        const day = today()
+        patch((s) => {
+          const userId = s.currentUserId
+          if (!userId || s.wonder.visits.some((visit) => visit.userId === userId && visit.day === day)) return s
+          return { ...s, wonder: { ...s.wonder, visits: [{ userId, day }, ...s.wonder.visits] } }
+        })
+      },
     }
   }, [state])
 

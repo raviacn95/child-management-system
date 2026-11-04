@@ -3,7 +3,7 @@ import type { Role } from '../types'
 type GroupId = 'home' | 'watch' | 'care' | 'centre' | 'more'
 
 const GROUPS: { id: GroupId; label: string; keys: string[] }[] = [
-  { id: 'home', label: 'Home', keys: ['hub', 'dashboard'] },
+  { id: 'home', label: 'Home', keys: ['hub', 'dashboard', 'live', 'wonder', 'studio'] },
   { id: 'watch', label: 'Watch & learn', keys: ['movies', 'tv', 'ott', 'learning', 'parent-feed', 'grow'] },
   {
     id: 'care',

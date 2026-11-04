@@ -13,6 +13,9 @@ export type SearchHit = {
 const PAGES: SearchHit[] = [
   { id: 'p-hub', title: 'Household Hub', group: 'Pages', href: '/hub' },
   { id: 'p-home', title: 'Home dashboard', group: 'Pages', href: '/' },
+  { id: 'p-live', title: 'Live desk', group: 'Pages', href: '/live' },
+  { id: 'p-wonder', title: 'Wonder family book', group: 'Pages', href: '/wonder' },
+  { id: 'p-studio', title: 'AI Studio', group: 'Pages', href: '/studio' },
   { id: 'p-movies', title: 'Movies', group: 'Pages', href: '/movies' },
   { id: 'p-learning', title: 'Learning packs', group: 'Pages', href: '/learning' },
   { id: 'p-parent', title: 'Parent growth hub', group: 'Pages', href: '/parent-feed' },

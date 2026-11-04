@@ -4,6 +4,7 @@ import { today } from '../../data/seed'
 import { childName } from '../../lib'
 import { useStore } from '../../store'
 import { buildMemories } from './corpus'
+import { agentTrace, compareEmbedders, nearestNotes, retrievalDebug } from './debug'
 import { expandObservation } from './enrich'
 import { memoryEdges, queryMemoryGraph, skillLinks } from './graph'
 import { planClassroom, simulateRoom } from './plan'
@@ -18,7 +19,9 @@ const LABS = [
   { id: 'observe', level: 'Beginner', title: 'Observation expander', learns: 'A lexicon maps a short note onto classroom language.' },
   { id: 'recommend', level: 'Beginner', title: 'Activity ranker', learns: 'Each feature adds points. The sort is the model.' },
   { id: 'copilot', level: 'Intermediate', title: 'Childhood copilot', learns: 'Hash the note, search by cosine, answer only from hits.' },
-  { id: 'agent', level: 'Intermediate', title: 'Teacher planner', learns: 'Call tools, then write the schedule from those results.' },
+  { id: 'retrieve', level: 'Intermediate', title: 'Retrieval debugger', learns: 'Question, then the notes cosine search returned, then the answer.' },
+  { id: 'explore', level: 'Intermediate', title: 'Embedding explorer', learns: 'Pick a note. The nearest notes are the ones with the highest cosine.' },
+  { id: 'agent', level: 'Intermediate', title: 'Teacher planner', learns: 'The loop says what it still needs, calls that tool, then writes the plan.' },
   { id: 'risk', level: 'Intermediate', title: 'Pattern watch', learns: 'Compare two time windows. The line is a pattern, not a diagnosis.' },
   { id: 'sentiment', level: 'Intermediate', title: 'Message tone', learns: 'A classifier labels text already in the centre.' },
   { id: 'graph', level: 'Advanced', title: 'Memory graph', learns: 'People, activities, and notes become edges you can join.' },
@@ -27,7 +30,8 @@ const LABS = [
   { id: 'vision', level: 'Advanced', title: 'Artwork sampler', learns: 'Count colours and edge changes, then compare two samples.' },
   { id: 'skills', level: 'Advanced', title: 'Skill links', learns: 'Skills that share a note become a link.' },
   { id: 'timeline', level: 'Expert', title: 'Memory timeline', learns: 'Retrieval plus an ordered chain of related notes.' },
-  { id: 'simulate', level: 'Expert', title: 'Room simulator', learns: 'Counts in, bottlenecks out. A sketch, not a forecast.' },
+  { id: 'simulate', level: 'Expert', title: 'Room simulator', learns: 'Each child has an energy number. It changes at arrival, play, lunch, rest, and pickup.' },
+  { id: 'models', level: 'Expert', title: 'Model swap', learns: 'Cost, latency, and accuracy. Only the local hash runs. The others stay uncalled.' },
 ] as const
 
 type LabId = (typeof LABS)[number]['id']
@@ -70,6 +74,7 @@ export function StudioDesk() {
   const [weather, setWeather] = useState<Weather>('rainy')
   const [age, setAge] = useState(4)
   const [prompt, setPrompt] = useState('Plan tomorrow for an energetic classroom.')
+  const [noteId, setNoteId] = useState('')
   const [sample, setSample] = useState('Thank you, that was a wonderful morning.')
   const [roomSize, setRoomSize] = useState(20)
   const [teachers, setTeachers] = useState(4)
@@ -136,6 +141,22 @@ export function StudioDesk() {
     teachers: Math.max(state.staff.filter((person) => person.status === 'active').length, 1),
   })
   const room = simulateRoom({ children: roomSize, teachers, absentStaff: absent, weather })
+  const trace = agentTrace(prompt, plan)
+  const retrieved = child ? retrievalDebug(question, memories, child.id, child.firstName) : null
+  const childNotes = child
+    ? memories
+        .filter((memory) => memory.childIds.includes(child.id))
+        .slice()
+        .sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id))
+        .slice(0, 8)
+    : []
+  const selectedNote =
+    childNotes.find((memory) => memory.id === noteId) ??
+    childNotes
+      .map((memory) => ({ memory, top: child ? (nearestNotes(memory.id, memories, child.id, 1)[0]?.score ?? 0) : 0 }))
+      .sort((a, b) => b.top - a.top || b.memory.date.localeCompare(a.memory.date))[0]?.memory
+  const neighbours = selectedNote && child ? nearestNotes(selectedNote.id, memories, child.id, 3) : []
+  const bake = compareEmbedders()
   const watch = developmentSignals({
     today: today(),
     observations: state.observations
@@ -254,16 +275,66 @@ export function StudioDesk() {
               <p className="text-muted">{copilot.caution}</p>
             </>
           ) : null}
-          {lab === 'agent' ? (
+          {lab === 'retrieve' && retrieved ? (
             <>
-              <input className={inputClass} value={prompt} onChange={(event) => setPrompt(event.target.value)} />
+              <input className={inputClass} value={question} onChange={(event) => setQuestion(event.target.value)} />
+              <ol className="space-y-2">
+                <li>
+                  <span className="font-semibold">Question.</span> {retrieved.question}
+                </li>
+                <li>
+                  <span className="font-semibold">Retrieved notes.</span>
+                  <ul className="mt-1 space-y-1 text-muted">
+                    {retrieved.retrieved.map((row) => (
+                      <li key={row.id}>
+                        {row.date} · {row.text} · similarity {row.score.toFixed(2)}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+                <li>
+                  <span className="font-semibold">Final answer.</span> {retrieved.answer}
+                </li>
+              </ol>
+              <p className="text-muted">{retrieved.caution}</p>
+            </>
+          ) : null}
+          {lab === 'explore' && selectedNote ? (
+            <>
+              <div className="flex flex-wrap gap-2">
+                {childNotes.map((memory) => (
+                  <Button
+                    key={memory.id}
+                    type="button"
+                    variant={memory.id === selectedNote.id ? 'soft' : 'ghost'}
+                    onClick={() => setNoteId(memory.id)}
+                  >
+                    {memory.text}
+                  </Button>
+                ))}
+              </div>
+              <p>
+                <span className="font-semibold">Nearest notes.</span>
+              </p>
               <ul className="space-y-1">
-                {plan.steps.map((step) => (
-                  <li key={step.tool}>
-                    <span className="font-semibold">{step.tool}</span> → {step.result}
+                {neighbours.map((row) => (
+                  <li key={row.id}>
+                    {row.text} <span className="text-muted">similarity {row.score.toFixed(2)}</span>
                   </li>
                 ))}
               </ul>
+            </>
+          ) : null}
+          {lab === 'agent' ? (
+            <>
+              <input className={inputClass} value={prompt} onChange={(event) => setPrompt(event.target.value)} />
+              <ol className="space-y-1">
+                {trace.map((node, index) => (
+                  <li key={`${node.label}-${index}`}>
+                    <span className="font-semibold">{node.label}.</span> {node.detail}
+                  </li>
+                ))}
+              </ol>
               <ol className="list-decimal pl-5">
                 {plan.schedule.map((block) => (
                   <li key={block}>{block}</li>
@@ -411,7 +482,14 @@ export function StudioDesk() {
                   </select>
                 </Field>
               </div>
-              <p>{room.energy}. Ratio {room.ratio ?? '—'}:1.</p>
+              <p>{room.energy}. Ratio {room.ratio ?? '—'}:1. {room.peak}</p>
+              <ol className="list-decimal pl-5">
+                {room.ticks.map((tick) => (
+                  <li key={tick.block}>
+                    {tick.block}: {tick.note}
+                  </li>
+                ))}
+              </ol>
               <ul className="list-disc pl-5">
                 {room.bottlenecks.map((line) => (
                   <li key={line}>{line}</li>
@@ -420,10 +498,52 @@ export function StudioDesk() {
               <p className="text-muted">{room.caution}</p>
             </>
           ) : null}
+          {lab === 'models' ? (
+            <>
+              <table className="w-full text-left">
+                <thead className="text-muted">
+                  <tr>
+                    <th className="py-1 pr-3 font-medium">Model</th>
+                    <th className="py-1 pr-3 font-medium">Cost / 1M tokens</th>
+                    <th className="py-1 pr-3 font-medium">Latency</th>
+                    <th className="py-1 font-medium">Accuracy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bake.rows.map((row) => (
+                    <tr key={row.id}>
+                      <td className="py-1 pr-3">{row.label}</td>
+                      <td className="py-1 pr-3">{price(row.listPricePerMillion)}</td>
+                      <td className="py-1 pr-3">{row.latencyMs == null ? 'not measured' : `${row.latencyMs} ms`}</td>
+                      <td className="py-1">{row.accuracy == null ? 'not measured' : `${Math.round(row.accuracy * 100)}%`}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <ul className="space-y-1 text-muted">
+                {bake.rows.map((row) => (
+                  <li key={row.id}>{row.note}</li>
+                ))}
+              </ul>
+              <ul className="space-y-1">
+                {bake.probe.map((row) => (
+                  <li key={row.question}>
+                    {row.question} → {row.hit}
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
         </div>
       </section>
     </div>
   )
+}
+
+function price(amount: number) {
+  if (amount === 0) return '$0'
+  if (amount < 0.01) return `$${amount}`
+  return `$${amount.toFixed(2)}`
 }
 
 function Citations({ rows }: { rows: { id: string; date: string; text: string }[] }) {

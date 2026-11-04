@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { createSeed, today } from '../../data/seed'
-import { buildMemories } from './corpus'
+import { buildMemories, type MemoryDoc } from './corpus'
+import { agentTrace, compareEmbedders, nearestNotes, retrievalDebug } from './debug'
 import { cosine, embed } from './embed'
 import { expandObservation } from './enrich'
 import { memoryEdges, queryMemoryGraph, skillLinks } from './graph'
@@ -147,17 +148,32 @@ describe('ai studio', () => {
     })
     expect(plan.steps.map((step) => step.tool)).toEqual([
       'read_attendance',
+      'read_weather',
       'read_moods',
       'read_naps',
-      'read_weather',
       'read_ratio',
+      'write_schedule',
     ])
+    expect(plan.steps.every((step) => step.reason.length > 0)).toBe(true)
     expect(plan.schedule.join(' ')).toMatch(/indoors/i)
     expect(plan.schedule.join(' ')).toMatch(/High-energy/)
+    const weatherOnly = planClassroom({
+      prompt: 'What is the weather?',
+      present: 12,
+      moods: [],
+      napMinutes: [],
+      weather: 'sunny',
+      teachers: 2,
+    })
+    expect(weatherOnly.steps.map((step) => step.tool)).toEqual(['read_weather'])
+    expect(weatherOnly.schedule).toEqual([])
     const room = simulateRoom({ children: 20, teachers: 4, absentStaff: 2, weather: 'rainy' })
     expect(room.ratio).toBe(10)
+    expect(room.ticks.map((tick) => tick.block)).toEqual(['Arrival', 'Morning', 'Lunch', 'Rest', 'Afternoon', 'Pickup'])
+    expect(room.ticks[1].high).toBe(20)
     expect(room.bottlenecks.join(' ')).toMatch(/8:1/)
     expect(room.bottlenecks.join(' ')).toMatch(/Rain/)
+    expect(room.bottlenecks.join(' ')).toMatch(/Morning crowd/)
   })
 
   it('reads colours and edge changes from pixels', () => {
@@ -167,6 +183,63 @@ describe('ai studio', () => {
     expect(plain.complexity).toBe(0)
     expect(split.colors).toEqual(expect.arrayContaining(['red', 'blue']))
     expect(compareArtwork(plain, split).complexityDelta).toBeGreaterThan(0)
+  })
+
+  it('shows retrieved notes and scores before the answer', () => {
+    const debug = retrievalDebug('When did he first start sharing toys?', memories, 'c-leo', 'Leo')
+    expect(debug.question).toMatch(/sharing toys/)
+    expect(debug.retrieved.length).toBeGreaterThan(0)
+    expect(debug.retrieved[0].score).toBeGreaterThanOrEqual(debug.retrieved.at(-1)!.score)
+    expect(debug.answer).toMatch(/shared/i)
+  })
+
+  it('ranks the nearest note above an unrelated one', () => {
+    const docs: MemoryDoc[] = [
+      { id: 'a', childIds: ['c'], date: '2026-01-01', kind: 'note', text: 'built a block city', vector: embed('built a block city'), skills: [] },
+      { id: 'b', childIds: ['c'], date: '2026-01-02', kind: 'note', text: 'block city towers', vector: embed('block city towers'), skills: [] },
+      { id: 'c', childIds: ['c'], date: '2026-01-03', kind: 'note', text: 'bottle and nap', vector: embed('bottle and nap'), skills: [] },
+    ]
+    const near = nearestNotes('a', docs, 'c', 2)
+    expect(near.map((row) => row.id)).toEqual(['b', 'c'])
+    expect(near[0].score).toBeGreaterThan(near[1].score)
+  })
+
+  it('traces the planner from the goal to the plan', () => {
+    const plan = planClassroom({
+      prompt: 'Plan tomorrow for an energetic classroom.',
+      present: 12,
+      moods: ['Curious and focused'],
+      napMinutes: [80],
+      weather: 'rainy',
+      teachers: 2,
+    })
+    expect(agentTrace('Plan tomorrow for an energetic classroom.', plan).map((node) => node.label)).toEqual([
+      'Goal',
+      'Need attendance',
+      'Call read_attendance',
+      'Need weather',
+      'Call read_weather',
+      'Need moods',
+      'Call read_moods',
+      'Need naps',
+      'Call read_naps',
+      'Need ratio',
+      'Call read_ratio',
+      'Enough information',
+      'Generate plan',
+    ])
+  })
+
+  it('measures the local embedder and leaves cloud models uncalled', () => {
+    const bake = compareEmbedders()
+    const hash = bake.rows.find((row) => row.id === 'feature-hash')!
+    expect(hash.ran).toBe(true)
+    expect(hash.listPricePerMillion).toBe(0)
+    expect(hash.latencyMs).toBeGreaterThanOrEqual(0)
+    expect(hash.accuracy).toBe(1)
+    expect(bake.rows.find((row) => row.id === 'openai')).toMatchObject({ ran: false, listPricePerMillion: 0.02, accuracy: null })
+    expect(bake.rows.find((row) => row.id === 'gemini')).toMatchObject({ ran: false, listPricePerMillion: 0.2, accuracy: null })
+    expect(bake.rows.find((row) => row.id === 'bge')).toMatchObject({ ran: false, listPricePerMillion: 0.001, accuracy: null })
   })
 
   it('uses the centre date helper so the suite stays wired to seed data', () => {

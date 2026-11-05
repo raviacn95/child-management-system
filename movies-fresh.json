@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-05T06:49:57.526Z",
+  "generatedAt": "2026-11-05T17:25:30.639Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -94,6 +94,19 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1384514
+    },
+    {
+      "id": "wd-Q131900904",
+      "qid": "Q131900904",
+      "title": "Heart of the Beast",
+      "year": 2026,
+      "released": "2026-09-24",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1263337
     },
     {
       "id": "wd-Q129255849",
@@ -360,35 +373,6 @@
       "tmdbId": 1081003
     },
     {
-      "id": "wd-Q126683577",
-      "qid": "Q126683577",
-      "title": "Disclosure Day",
-      "year": 2026,
-      "released": "2026-06-10",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 38,
-      "providers": [
-        {
-          "platformId": "hotstar",
-          "kind": "stream"
-        },
-        {
-          "platformId": "appletv",
-          "kind": "rent"
-        },
-        {
-          "platformId": "prime",
-          "kind": "rent"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1275779,
-      "watchIds": {
-        "appletv": "movie/umc.cmc.1i56xrk36gdembwgd2qfll4qi"
-      }
-    },
-    {
       "id": "wd-Q133573186",
       "qid": "Q133573186",
       "title": "Peddi",
@@ -589,19 +573,6 @@
       }
     },
     {
-      "id": "wd-Q137570236",
-      "qid": "Q137570236",
-      "title": "Bindusagar",
-      "year": 2026,
-      "released": "2026-04-17",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1496445
-    },
-    {
       "id": "wd-Q116677364",
       "qid": "Q116677364",
       "title": "Michael",
@@ -682,6 +653,24 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1582770
+    },
+    {
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1260210
     },
     {
       "id": "wd-Q107105860",
@@ -780,6 +769,19 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1275574
+    },
+    {
+      "id": "wd-Q137874897",
+      "qid": "Q137874897",
+      "title": "OCD",
+      "year": 2026,
+      "released": "2026-02-06",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -931,24 +933,6 @@
       }
     },
     {
-      "id": "wd-Q135647565",
-      "qid": "Q135647565",
-      "title": "Mana Shankara Vara Prasad Garu",
-      "year": 2026,
-      "released": "2026-01-12",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "zee5",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1439713
-    },
-    {
       "id": "wd-Q124301053",
       "qid": "Q124301053",
       "title": "The RajaSaab",
@@ -965,19 +949,6 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1022453
-    },
-    {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",
@@ -1066,7 +1037,29 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1616166
+    },
+    {
+      "id": "wd-Q137843190",
+      "qid": "Q137843190",
+      "title": "Psych Siddhartha",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        },
+        {
+          "platformId": "aha",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1594670
     }
   ],
-  "providersCheckedAt": "2026-11-05T06:49:57.526Z"
+  "providersCheckedAt": "2026-11-05T17:25:30.639Z"
 }

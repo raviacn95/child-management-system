@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-05T17:25:30.639Z",
+  "generatedAt": "2026-11-05T23:39:07.496Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -94,19 +94,6 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1384514
-    },
-    {
-      "id": "wd-Q131900904",
-      "qid": "Q131900904",
-      "title": "Heart of the Beast",
-      "year": 2026,
-      "released": "2026-09-24",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1263337
     },
     {
       "id": "wd-Q129255849",
@@ -573,6 +560,19 @@
       }
     },
     {
+      "id": "wd-Q137570236",
+      "qid": "Q137570236",
+      "title": "Bindusagar",
+      "year": 2026,
+      "released": "2026-04-17",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1496445
+    },
+    {
       "id": "wd-Q116677364",
       "qid": "Q116677364",
       "title": "Michael",
@@ -653,24 +653,6 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1582770
-    },
-    {
-      "id": "wd-Q134435699",
-      "qid": "Q134435699",
-      "title": "Aadu 3",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "zee5",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1260210
     },
     {
       "id": "wd-Q107105860",
@@ -771,17 +753,25 @@
       "tmdbId": 1275574
     },
     {
-      "id": "wd-Q137874897",
-      "qid": "Q137874897",
-      "title": "OCD",
+      "id": "wd-Q130375767",
+      "qid": "Q130375767",
+      "title": "War Machine",
       "year": 2026,
-      "released": "2026-02-06",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
+      "released": "2026-02-12",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
       "providersSource": "tmdb",
-      "tmdbId": 1062545
+      "tmdbId": 1265609,
+      "watchIds": {
+        "netflix": "81768525"
+      }
     },
     {
       "id": "wd-Q131763755",
@@ -933,6 +923,24 @@
       }
     },
     {
+      "id": "wd-Q137713080",
+      "qid": "Q137713080",
+      "title": "Anaganaga Oka Raju",
+      "year": 2026,
+      "released": "2026-01-14",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1407432
+    },
+    {
       "id": "wd-Q124301053",
       "qid": "Q124301053",
       "title": "The RajaSaab",
@@ -949,6 +957,19 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1022453
+    },
+    {
+      "id": "wd-Q137575105",
+      "qid": "Q137575105",
+      "title": "Nari Choritro Bejay Jotil",
+      "year": 2026,
+      "released": "2026-01-09",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",
@@ -1008,6 +1029,19 @@
       "tmdbId": 1069567
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1024,42 +1058,7 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1439594
-    },
-    {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "prime",
-          "kind": "stream"
-        },
-        {
-          "platformId": "aha",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1594670
     }
   ],
-  "providersCheckedAt": "2026-11-05T17:25:30.639Z"
+  "providersCheckedAt": "2026-11-05T23:39:07.496Z"
 }

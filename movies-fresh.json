@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-06T06:50:09.544Z",
+  "generatedAt": "2026-11-06T16:46:28.085Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -83,6 +83,19 @@
       "tmdbId": 1248832
     },
     {
+      "id": "wd-Q131523413",
+      "qid": "Q131523413",
+      "title": "Verity",
+      "year": 2026,
+      "released": "2026-10-01",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1283515
+    },
+    {
       "id": "wd-Q131102878",
       "qid": "Q131102878",
       "title": "Vvan: Force Of The Forrest",
@@ -91,7 +104,12 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 5,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "rent"
+        }
+      ],
       "providersSource": "tmdb",
       "tmdbId": 1384514
     },
@@ -287,19 +305,6 @@
       "watchIds": {
         "appletv": "movie/umc.cmc.6iwbg2fxayjdbyw9trffmbyo8"
       }
-    },
-    {
-      "id": "wd-Q131547207",
-      "qid": "Q131547207",
-      "title": "The Odyssey",
-      "year": 2026,
-      "released": "2026-07-06",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 68,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1368337
     },
     {
       "id": "wd-Q131760998",
@@ -706,24 +711,6 @@
       "tmdbId": 1625582
     },
     {
-      "id": "wd-Q138510258",
-      "qid": "Q138510258",
-      "title": "Masthishka Maranam",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1444032
-    },
-    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -777,6 +764,19 @@
       "watchIds": {
         "netflix": "81768525"
       }
+    },
+    {
+      "id": "wd-Q137874897",
+      "qid": "Q137874897",
+      "title": "OCD",
+      "year": 2026,
+      "released": "2026-02-06",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -865,19 +865,6 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1437714
-    },
-    {
-      "id": "wd-Q137802630",
-      "qid": "Q137802630",
-      "title": "Hok Kolorob",
-      "year": 2026,
-      "released": "2026-01-23",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1536901
     },
     {
       "id": "wd-Q124566659",
@@ -1034,6 +1021,19 @@
       "tmdbId": 1069567
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1052,18 +1052,27 @@
       "tmdbId": 1439594
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
+      "id": "wd-Q137843190",
+      "qid": "Q137843190",
+      "title": "Psych Siddhartha",
       "year": 2026,
       "released": "2026-01-01",
-      "lang": "hi",
+      "lang": "te",
       "india": true,
-      "sitelinks": 3,
-      "providers": [],
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        },
+        {
+          "platformId": "aha",
+          "kind": "stream"
+        }
+      ],
       "providersSource": "tmdb",
-      "tmdbId": 1616166
+      "tmdbId": 1594670
     }
   ],
-  "providersCheckedAt": "2026-11-06T06:50:09.544Z"
+  "providersCheckedAt": "2026-11-06T16:46:28.085Z"
 }

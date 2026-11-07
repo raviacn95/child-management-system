@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-07T06:00:24.973Z",
+  "generatedAt": "2026-11-07T13:04:54.941Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -265,6 +265,10 @@
           "kind": "rent"
         },
         {
+          "platformId": "zee5",
+          "kind": "rent"
+        },
+        {
           "platformId": "prime",
           "kind": "rent"
         }
@@ -473,7 +477,7 @@
       "released": "2026-05-07",
       "lang": "en",
       "india": false,
-      "sitelinks": 28,
+      "sitelinks": 29,
       "providers": [
         {
           "platformId": "prime",
@@ -492,7 +496,12 @@
       "lang": "kn",
       "india": true,
       "sitelinks": 4,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
       "providersSource": "tmdb",
       "tmdbId": 1103473
     },
@@ -563,19 +572,6 @@
       "watchIds": {
         "appletv": "movie/umc.cmc.35h034299h2gv3oha94mx52uz"
       }
-    },
-    {
-      "id": "wd-Q137570236",
-      "qid": "Q137570236",
-      "title": "Bindusagar",
-      "year": 2026,
-      "released": "2026-04-17",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1496445
     },
     {
       "id": "wd-Q116677364",
@@ -660,6 +656,24 @@
       "tmdbId": 1582770
     },
     {
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1260210
+    },
+    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -722,6 +736,19 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1625582
+    },
+    {
+      "id": "wd-Q138562396",
+      "qid": "Q138562396",
+      "title": "Son Of",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1669290
     },
     {
       "id": "wd-Q126488898",
@@ -826,7 +853,12 @@
       "lang": "en",
       "india": false,
       "sitelinks": 27,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
       "providersSource": "tmdb",
       "tmdbId": 950028
     },
@@ -907,6 +939,24 @@
       "tmdbId": 1617536
     },
     {
+      "id": "wd-Q137799437",
+      "qid": "Q137799437",
+      "title": "Happy Patel: Khatarnak Jasoos",
+      "year": 2026,
+      "released": "2026-01-16",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1282440
+    },
+    {
       "id": "wd-Q131189949",
       "qid": "Q131189949",
       "title": "The Rip",
@@ -944,19 +994,6 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1022453
-    },
-    {
-      "id": "wd-Q137575105",
-      "qid": "Q137575105",
-      "title": "Nari Choritro Bejay Jotil",
-      "year": 2026,
-      "released": "2026-01-09",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1445278
     },
     {
       "id": "wd-Q136673072",
@@ -1045,29 +1082,7 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1439594
-    },
-    {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "prime",
-          "kind": "stream"
-        },
-        {
-          "platformId": "aha",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1594670
     }
   ],
-  "providersCheckedAt": "2026-11-07T06:00:24.973Z"
+  "providersCheckedAt": "2026-11-07T13:04:54.941Z"
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-07T13:04:54.941Z",
+  "generatedAt": "2026-11-07T19:26:23.752Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -112,6 +112,32 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1384514
+    },
+    {
+      "id": "wd-Q131900904",
+      "qid": "Q131900904",
+      "title": "Heart of the Beast",
+      "year": 2026,
+      "released": "2026-09-24",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        },
+        {
+          "platformId": "zee5",
+          "kind": "rent"
+        },
+        {
+          "platformId": "prime",
+          "kind": "rent"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1263337
     },
     {
       "id": "wd-Q129255849",
@@ -574,6 +600,19 @@
       }
     },
     {
+      "id": "wd-Q137570236",
+      "qid": "Q137570236",
+      "title": "Bindusagar",
+      "year": 2026,
+      "released": "2026-04-17",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1496445
+    },
+    {
       "id": "wd-Q116677364",
       "qid": "Q116677364",
       "title": "Michael",
@@ -738,19 +777,6 @@
       "tmdbId": 1625582
     },
     {
-      "id": "wd-Q138562396",
-      "qid": "Q138562396",
-      "title": "Son Of",
-      "year": 2026,
-      "released": "2026-02-27",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1669290
-    },
-    {
       "id": "wd-Q126488898",
       "qid": "Q126488898",
       "title": "How to Make a Killing",
@@ -822,27 +848,6 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1339876
-    },
-    {
-      "id": "wd-Q126394034",
-      "qid": "Q126394034",
-      "title": "Crime 101",
-      "year": 2026,
-      "released": "2026-01-28",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [
-        {
-          "platformId": "prime",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1171145,
-      "watchIds": {
-        "appletv": "movie/umc.cmc.5ehogrykfkoxztizi9hjo9pd8"
-      }
     },
     {
       "id": "wd-Q134083296",
@@ -939,24 +944,6 @@
       "tmdbId": 1617536
     },
     {
-      "id": "wd-Q137799437",
-      "qid": "Q137799437",
-      "title": "Happy Patel: Khatarnak Jasoos",
-      "year": 2026,
-      "released": "2026-01-16",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1282440
-    },
-    {
       "id": "wd-Q131189949",
       "qid": "Q131189949",
       "title": "The Rip",
@@ -976,6 +963,24 @@
       "watchIds": {
         "netflix": "81915745"
       }
+    },
+    {
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
+      "year": 2026,
+      "released": "2026-01-12",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1439713
     },
     {
       "id": "wd-Q124301053",
@@ -1053,19 +1058,6 @@
       "tmdbId": 1069567
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1082,7 +1074,20 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1439594
+    },
+    {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
     }
   ],
-  "providersCheckedAt": "2026-11-07T13:04:54.941Z"
+  "providersCheckedAt": "2026-11-07T19:26:23.752Z"
 }

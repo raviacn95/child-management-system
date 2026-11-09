@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-08T00:38:43.128Z",
+  "generatedAt": "2026-11-09T06:34:59.214Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -96,19 +96,6 @@
       "tmdbId": 1248832
     },
     {
-      "id": "wd-Q131523413",
-      "qid": "Q131523413",
-      "title": "Verity",
-      "year": 2026,
-      "released": "2026-10-01",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1283515
-    },
-    {
       "id": "wd-Q131102878",
       "qid": "Q131102878",
       "title": "Vvan: Force Of The Forrest",
@@ -156,6 +143,19 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1755291
+    },
+    {
+      "id": "wd-Q141336617",
+      "qid": "Q141336617",
+      "title": "You Can See Everything",
+      "year": 2026,
+      "released": "2026-09-06",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1765072
     },
     {
       "id": "wd-Q123740702",
@@ -566,6 +566,27 @@
       }
     },
     {
+      "id": "wd-Q132672651",
+      "qid": "Q132672651",
+      "title": "Apex",
+      "year": 2026,
+      "released": "2026-04-24",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1318447,
+      "watchIds": {
+        "netflix": "81763251"
+      }
+    },
+    {
       "id": "wd-Q134611972",
       "qid": "Q134611972",
       "title": "The Devil Wears Prada 2",
@@ -585,6 +606,19 @@
       "watchIds": {
         "appletv": "movie/umc.cmc.35h034299h2gv3oha94mx52uz"
       }
+    },
+    {
+      "id": "wd-Q137570236",
+      "qid": "Q137570236",
+      "title": "Bindusagar",
+      "year": 2026,
+      "released": "2026-04-17",
+      "lang": "",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1496445
     },
     {
       "id": "wd-Q116677364",
@@ -767,40 +801,6 @@
       "tmdbId": 1275574
     },
     {
-      "id": "wd-Q130375767",
-      "qid": "Q130375767",
-      "title": "War Machine",
-      "year": 2026,
-      "released": "2026-02-12",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1265609,
-      "watchIds": {
-        "netflix": "81768525"
-      }
-    },
-    {
-      "id": "wd-Q137874897",
-      "qid": "Q137874897",
-      "title": "OCD",
-      "year": 2026,
-      "released": "2026-02-06",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1062545
-    },
-    {
       "id": "wd-Q131763755",
       "qid": "Q131763755",
       "title": "Mardaani 3",
@@ -973,6 +973,24 @@
       "tmdbId": 1022453
     },
     {
+      "id": "wd-Q137575105",
+      "qid": "Q137575105",
+      "title": "Nari Choritro Bejay Jotil",
+      "year": 2026,
+      "released": "2026-01-09",
+      "lang": "bn",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1445278
+    },
+    {
       "id": "wd-Q136673072",
       "qid": "Q136673072",
       "title": "Ikkis",
@@ -1059,29 +1077,7 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1616166
-    },
-    {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "prime",
-          "kind": "stream"
-        },
-        {
-          "platformId": "aha",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1594670
     }
   ],
-  "providersCheckedAt": "2026-11-08T00:38:43.128Z"
+  "providersCheckedAt": "2026-11-09T06:34:59.214Z"
 }

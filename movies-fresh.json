@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-10T03:35:16.595Z",
+  "generatedAt": "2026-11-10T14:55:08.017Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -116,7 +116,7 @@
       "released": "2026-09-25",
       "lang": "hi",
       "india": true,
-      "sitelinks": 5,
+      "sitelinks": 6,
       "providers": [
         {
           "platformId": "prime",
@@ -418,6 +418,19 @@
       "tmdbId": 847742
     },
     {
+      "id": "wd-Q134548431",
+      "qid": "Q134548431",
+      "title": "La bola negra",
+      "year": 2026,
+      "released": "2026-05-21",
+      "lang": "es",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1422041
+    },
+    {
       "id": "wd-Q112040381",
       "qid": "Q112040381",
       "title": "Masters of the Universe",
@@ -566,27 +579,6 @@
       }
     },
     {
-      "id": "wd-Q132672651",
-      "qid": "Q132672651",
-      "title": "Apex",
-      "year": 2026,
-      "released": "2026-04-24",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1318447,
-      "watchIds": {
-        "netflix": "81763251"
-      }
-    },
-    {
       "id": "wd-Q134611972",
       "qid": "Q134611972",
       "title": "The Devil Wears Prada 2",
@@ -688,6 +680,24 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1582770
+    },
+    {
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1260210
     },
     {
       "id": "wd-Q107105860",
@@ -1064,29 +1074,7 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1616166
-    },
-    {
-      "id": "wd-Q137843190",
-      "qid": "Q137843190",
-      "title": "Psych Siddhartha",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "prime",
-          "kind": "stream"
-        },
-        {
-          "platformId": "aha",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1594670
     }
   ],
-  "providersCheckedAt": "2026-11-10T03:35:16.595Z"
+  "providersCheckedAt": "2026-11-10T14:55:08.017Z"
 }

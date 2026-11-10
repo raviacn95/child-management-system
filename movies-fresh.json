@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-10T14:55:08.017Z",
+  "generatedAt": "2026-11-10T21:18:35.723Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -156,6 +156,19 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1755291
+    },
+    {
+      "id": "wd-Q141336617",
+      "qid": "Q141336617",
+      "title": "You Can See Everything",
+      "year": 2026,
+      "released": "2026-09-06",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 24,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1765072
     },
     {
       "id": "wd-Q123740702",
@@ -418,19 +431,6 @@
       "tmdbId": 847742
     },
     {
-      "id": "wd-Q134548431",
-      "qid": "Q134548431",
-      "title": "La bola negra",
-      "year": 2026,
-      "released": "2026-05-21",
-      "lang": "es",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1422041
-    },
-    {
       "id": "wd-Q112040381",
       "qid": "Q112040381",
       "title": "Masters of the Universe",
@@ -682,24 +682,6 @@
       "tmdbId": 1582770
     },
     {
-      "id": "wd-Q134435699",
-      "qid": "Q134435699",
-      "title": "Aadu 3",
-      "year": 2026,
-      "released": "2026-03-19",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "zee5",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1260210
-    },
-    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -762,6 +744,24 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1625582
+    },
+    {
+      "id": "wd-Q138510258",
+      "qid": "Q138510258",
+      "title": "Masthishka Maranam",
+      "year": 2026,
+      "released": "2026-02-27",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1444032
     },
     {
       "id": "wd-Q126488898",
@@ -1076,5 +1076,5 @@
       "tmdbId": 1616166
     }
   ],
-  "providersCheckedAt": "2026-11-10T14:55:08.017Z"
+  "providersCheckedAt": "2026-11-10T21:18:35.723Z"
 }

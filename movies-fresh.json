@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-11T06:26:20.245Z",
+  "generatedAt": "2026-11-11T17:09:49.109Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -849,6 +849,10 @@
         {
           "platformId": "zee5",
           "kind": "stream"
+        },
+        {
+          "platformId": "prime",
+          "kind": "rent"
         }
       ],
       "providersSource": "tmdb",
@@ -952,22 +956,22 @@
       }
     },
     {
-      "id": "wd-Q135647565",
-      "qid": "Q135647565",
-      "title": "Mana Shankara Vara Prasad Garu",
+      "id": "wd-Q137713080",
+      "qid": "Q137713080",
+      "title": "Anaganaga Oka Raju",
       "year": 2026,
-      "released": "2026-01-12",
-      "lang": "te",
+      "released": "2026-01-14",
+      "lang": "",
       "india": true,
       "sitelinks": 2,
       "providers": [
         {
-          "platformId": "zee5",
+          "platformId": "netflix",
           "kind": "stream"
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1439713
+      "tmdbId": 1407432
     },
     {
       "id": "wd-Q124301053",
@@ -1045,6 +1049,19 @@
       "tmdbId": 1069567
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1061,20 +1078,7 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1439594
-    },
-    {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
     }
   ],
-  "providersCheckedAt": "2026-11-11T06:26:20.245Z"
+  "providersCheckedAt": "2026-11-11T17:09:49.109Z"
 }

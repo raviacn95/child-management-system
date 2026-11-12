@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-11T17:09:49.109Z",
+  "generatedAt": "2026-11-12T00:45:37.002Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -184,6 +184,19 @@
       "tmdbId": 1213243
     },
     {
+      "id": "wd-Q132256832",
+      "qid": "Q132256832",
+      "title": "The Dog Stars",
+      "year": 2026,
+      "released": "2026-08-26",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1384216
+    },
+    {
       "id": "wd-Q138716562",
       "qid": "Q138716562",
       "title": "Bethlehem Kudumba Unit",
@@ -314,27 +327,6 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1204680
-    },
-    {
-      "id": "wd-Q118996994",
-      "qid": "Q118996994",
-      "title": "Moana",
-      "year": 2026,
-      "released": "2026-07-08",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 33,
-      "providers": [
-        {
-          "platformId": "hotstar",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1108427,
-      "watchIds": {
-        "appletv": "movie/umc.cmc.6iwbg2fxayjdbyw9trffmbyo8"
-      }
     },
     {
       "id": "wd-Q131760998",
@@ -956,24 +948,6 @@
       }
     },
     {
-      "id": "wd-Q137713080",
-      "qid": "Q137713080",
-      "title": "Anaganaga Oka Raju",
-      "year": 2026,
-      "released": "2026-01-14",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1407432
-    },
-    {
       "id": "wd-Q124301053",
       "qid": "Q124301053",
       "title": "The RajaSaab",
@@ -1049,19 +1023,6 @@
       "tmdbId": 1069567
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1078,7 +1039,38 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1439594
+    },
+    {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
+      "id": "wd-Q138504859",
+      "qid": "Q138504859",
+      "title": "Accused",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1389149
     }
   ],
-  "providersCheckedAt": "2026-11-11T17:09:49.109Z"
+  "providersCheckedAt": "2026-11-12T00:45:37.002Z"
 }

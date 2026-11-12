@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T11:16:14.458Z",
+  "generatedAt": "2026-11-12T19:55:48.639Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -52,7 +52,12 @@
       "lang": "ta",
       "india": true,
       "sitelinks": 6,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "prime",
+          "kind": "stream"
+        }
+      ],
       "providersSource": "tmdb",
       "tmdbId": 1234139
     },
@@ -571,6 +576,27 @@
       }
     },
     {
+      "id": "wd-Q132672651",
+      "qid": "Q132672651",
+      "title": "Apex",
+      "year": 2026,
+      "released": "2026-04-24",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 23,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1318447,
+      "watchIds": {
+        "netflix": "81763251"
+      }
+    },
+    {
       "id": "wd-Q134611972",
       "qid": "Q134611972",
       "title": "The Devil Wears Prada 2",
@@ -589,35 +615,6 @@
       "tmdbId": 1314481,
       "watchIds": {
         "appletv": "movie/umc.cmc.35h034299h2gv3oha94mx52uz"
-      }
-    },
-    {
-      "id": "wd-Q116677364",
-      "qid": "Q116677364",
-      "title": "Michael",
-      "year": 2026,
-      "released": "2026-04-10",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 46,
-      "providers": [
-        {
-          "platformId": "hotstar",
-          "kind": "stream"
-        },
-        {
-          "platformId": "appletv",
-          "kind": "rent"
-        },
-        {
-          "platformId": "prime",
-          "kind": "rent"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 936075,
-      "watchIds": {
-        "appletv": "movie/umc.cmc.655k6wal020m8folvcy526dff"
       }
     },
     {
@@ -1023,37 +1020,6 @@
       "tmdbId": 1069567
     },
     {
-      "id": "wd-Q138504859",
-      "qid": "Q138504859",
-      "title": "Accused",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1389149
-    },
-    {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1070,7 +1036,38 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1439594
+    },
+    {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
+      "id": "wd-Q138504859",
+      "qid": "Q138504859",
+      "title": "Accused",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1389149
     }
   ],
-  "providersCheckedAt": "2026-11-12T11:16:14.458Z"
+  "providersCheckedAt": "2026-11-12T19:55:48.639Z"
 }

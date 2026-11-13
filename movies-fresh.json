@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-13T01:50:40.623Z",
+  "generatedAt": "2026-11-13T11:01:29.306Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -671,6 +671,24 @@
       "tmdbId": 1582770
     },
     {
+      "id": "wd-Q134435699",
+      "qid": "Q134435699",
+      "title": "Aadu 3",
+      "year": 2026,
+      "released": "2026-03-19",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1260210
+    },
+    {
       "id": "wd-Q107105860",
       "qid": "Q107105860",
       "title": "Project Hail Mary",
@@ -703,7 +721,7 @@
       "released": "2026-03-06",
       "lang": "en",
       "india": false,
-      "sitelinks": 23,
+      "sitelinks": 24,
       "providers": [
         {
           "platformId": "netflix",
@@ -767,19 +785,6 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1275574
-    },
-    {
-      "id": "wd-Q137874897",
-      "qid": "Q137874897",
-      "title": "OCD",
-      "year": 2026,
-      "released": "2026-02-06",
-      "lang": "bn",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1062545
     },
     {
       "id": "wd-Q131763755",
@@ -1015,19 +1020,6 @@
       "tmdbId": 1069567
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1044,6 +1036,19 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1439594
+    },
+    {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
     },
     {
       "id": "wd-Q138504859",
@@ -1064,5 +1069,5 @@
       "tmdbId": 1389149
     }
   ],
-  "providersCheckedAt": "2026-11-13T01:50:40.623Z"
+  "providersCheckedAt": "2026-11-13T11:01:29.306Z"
 }

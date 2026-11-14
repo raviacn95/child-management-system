@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-14T18:05:27.718Z",
+  "generatedAt": "2026-11-14T22:26:20.966Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -88,6 +88,24 @@
       "tmdbId": 1269325
     },
     {
+      "id": "wd-Q141610759",
+      "qid": "Q141610759",
+      "title": "Baththa",
+      "year": 2026,
+      "released": "2026-10-01",
+      "lang": "",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1515692
+    },
+    {
       "id": "wd-Q129677718",
       "qid": "Q129677718",
       "title": "Digger",
@@ -95,7 +113,7 @@
       "released": "2026-10-01",
       "lang": "en",
       "india": false,
-      "sitelinks": 31,
+      "sitelinks": 32,
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1248832
@@ -936,24 +954,6 @@
       }
     },
     {
-      "id": "wd-Q135647565",
-      "qid": "Q135647565",
-      "title": "Mana Shankara Vara Prasad Garu",
-      "year": 2026,
-      "released": "2026-01-12",
-      "lang": "te",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [
-        {
-          "platformId": "zee5",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1439713
-    },
-    {
       "id": "wd-Q124301053",
       "qid": "Q124301053",
       "title": "The RajaSaab",
@@ -1042,24 +1042,6 @@
       "tmdbId": 1616166
     },
     {
-      "id": "wd-Q136759525",
-      "qid": "Q136759525",
-      "title": "Chatha Pacha: The Ring of Rowdies",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1439594
-    },
-    {
       "id": "wd-Q138504859",
       "qid": "Q138504859",
       "title": "Accused",
@@ -1076,7 +1058,25 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1389149
+    },
+    {
+      "id": "wd-Q136759525",
+      "qid": "Q136759525",
+      "title": "Chatha Pacha: The Ring of Rowdies",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1439594
     }
   ],
-  "providersCheckedAt": "2026-11-14T18:05:27.718Z"
+  "providersCheckedAt": "2026-11-14T22:26:20.966Z"
 }

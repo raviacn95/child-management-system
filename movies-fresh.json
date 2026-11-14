@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-14T01:27:28.935Z",
+  "generatedAt": "2026-11-14T10:28:45.180Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -130,6 +130,32 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1384514
+    },
+    {
+      "id": "wd-Q131900904",
+      "qid": "Q131900904",
+      "title": "Heart of the Beast",
+      "year": 2026,
+      "released": "2026-09-24",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 25,
+      "providers": [
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        },
+        {
+          "platformId": "zee5",
+          "kind": "rent"
+        },
+        {
+          "platformId": "prime",
+          "kind": "rent"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1263337
     },
     {
       "id": "wd-Q129255849",
@@ -576,27 +602,6 @@
       }
     },
     {
-      "id": "wd-Q132672651",
-      "qid": "Q132672651",
-      "title": "Apex",
-      "year": 2026,
-      "released": "2026-04-24",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1318447,
-      "watchIds": {
-        "netflix": "81763251"
-      }
-    },
-    {
       "id": "wd-Q134611972",
       "qid": "Q134611972",
       "title": "The Devil Wears Prada 2",
@@ -1015,6 +1020,24 @@
       "tmdbId": 1069567
     },
     {
+      "id": "wd-Q136759525",
+      "qid": "Q136759525",
+      "title": "Chatha Pacha: The Ring of Rowdies",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1439594
+    },
+    {
       "id": "wd-Q138504859",
       "qid": "Q138504859",
       "title": "Accused",
@@ -1044,25 +1067,7 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1616166
-    },
-    {
-      "id": "wd-Q136759525",
-      "qid": "Q136759525",
-      "title": "Chatha Pacha: The Ring of Rowdies",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1439594
     }
   ],
-  "providersCheckedAt": "2026-11-14T01:27:28.935Z"
+  "providersCheckedAt": "2026-11-14T10:28:45.180Z"
 }

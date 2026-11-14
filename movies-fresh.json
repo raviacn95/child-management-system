@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-14T10:28:45.180Z",
+  "generatedAt": "2026-11-14T18:05:27.718Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -82,7 +82,7 @@
       "released": "2026-10-02",
       "lang": "hi",
       "india": true,
-      "sitelinks": 4,
+      "sitelinks": 5,
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1269325
@@ -116,7 +116,7 @@
     {
       "id": "wd-Q131102878",
       "qid": "Q131102878",
-      "title": "Vvan: Force Of The Forrest",
+      "title": "The Vvaan: Force of the Forrest",
       "year": 2026,
       "released": "2026-09-25",
       "lang": "hi",
@@ -215,19 +215,6 @@
       "tmdbId": 1213243
     },
     {
-      "id": "wd-Q132256832",
-      "qid": "Q132256832",
-      "title": "The Dog Stars",
-      "year": 2026,
-      "released": "2026-08-26",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1384216
-    },
-    {
       "id": "wd-Q138716562",
       "qid": "Q138716562",
       "title": "Bethlehem Kudumba Unit",
@@ -275,10 +262,6 @@
       "providers": [
         {
           "platformId": "appletv",
-          "kind": "rent"
-        },
-        {
-          "platformId": "prime",
           "kind": "rent"
         }
       ],
@@ -602,6 +585,27 @@
       }
     },
     {
+      "id": "wd-Q132672651",
+      "qid": "Q132672651",
+      "title": "Apex",
+      "year": 2026,
+      "released": "2026-04-24",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 24,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1318447,
+      "watchIds": {
+        "netflix": "81763251"
+      }
+    },
+    {
       "id": "wd-Q134611972",
       "qid": "Q134611972",
       "title": "The Devil Wears Prada 2",
@@ -621,19 +625,6 @@
       "watchIds": {
         "appletv": "movie/umc.cmc.35h034299h2gv3oha94mx52uz"
       }
-    },
-    {
-      "id": "wd-Q137570236",
-      "qid": "Q137570236",
-      "title": "Bindusagar",
-      "year": 2026,
-      "released": "2026-04-17",
-      "lang": "",
-      "india": true,
-      "sitelinks": 2,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1496445
     },
     {
       "id": "wd-Q138948459",
@@ -945,6 +936,24 @@
       }
     },
     {
+      "id": "wd-Q135647565",
+      "qid": "Q135647565",
+      "title": "Mana Shankara Vara Prasad Garu",
+      "year": 2026,
+      "released": "2026-01-12",
+      "lang": "te",
+      "india": true,
+      "sitelinks": 2,
+      "providers": [
+        {
+          "platformId": "zee5",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1439713
+    },
+    {
       "id": "wd-Q124301053",
       "qid": "Q124301053",
       "title": "The RajaSaab",
@@ -1020,6 +1029,19 @@
       "tmdbId": 1069567
     },
     {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1054,20 +1076,7 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1389149
-    },
-    {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
     }
   ],
-  "providersCheckedAt": "2026-11-14T10:28:45.180Z"
+  "providersCheckedAt": "2026-11-14T18:05:27.718Z"
 }

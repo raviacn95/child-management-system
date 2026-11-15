@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-14T22:26:20.966Z",
+  "generatedAt": "2026-11-15T06:35:34.650Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -88,24 +88,6 @@
       "tmdbId": 1269325
     },
     {
-      "id": "wd-Q141610759",
-      "qid": "Q141610759",
-      "title": "Baththa",
-      "year": 2026,
-      "released": "2026-10-01",
-      "lang": "",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1515692
-    },
-    {
       "id": "wd-Q129677718",
       "qid": "Q129677718",
       "title": "Digger",
@@ -174,6 +156,24 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1263337
+    },
+    {
+      "id": "wd-Q140897986",
+      "qid": "Q140897986",
+      "title": "Dorothy",
+      "year": 2026,
+      "released": "2026-09-11",
+      "lang": "",
+      "india": true,
+      "sitelinks": 4,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1578079
     },
     {
       "id": "wd-Q129255849",
@@ -1029,6 +1029,24 @@
       "tmdbId": 1069567
     },
     {
+      "id": "wd-Q136759525",
+      "qid": "Q136759525",
+      "title": "Chatha Pacha: The Ring of Rowdies",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "ml",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1439594
+    },
+    {
       "id": "wd-Q137805148",
       "qid": "Q137805148",
       "title": "Not a Hero",
@@ -1058,25 +1076,7 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1389149
-    },
-    {
-      "id": "wd-Q136759525",
-      "qid": "Q136759525",
-      "title": "Chatha Pacha: The Ring of Rowdies",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "ml",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1439594
     }
   ],
-  "providersCheckedAt": "2026-11-14T22:26:20.966Z"
+  "providersCheckedAt": "2026-11-15T06:35:34.650Z"
 }

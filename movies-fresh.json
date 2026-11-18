@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-17T16:02:11.487Z",
+  "generatedAt": "2026-11-18T00:58:18.046Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -1011,19 +1011,6 @@
       }
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q116701310",
       "qid": "Q116701310",
       "title": "Lakadbaggha 1/2 Movie",
@@ -1040,6 +1027,24 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1069567
+    },
+    {
+      "id": "wd-Q138504859",
+      "qid": "Q138504859",
+      "title": "Accused",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1389149
     },
     {
       "id": "wd-Q136759525",
@@ -1060,23 +1065,18 @@
       "tmdbId": 1439594
     },
     {
-      "id": "wd-Q138504859",
-      "qid": "Q138504859",
-      "title": "Accused",
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
       "year": 2026,
       "released": "2026-01-01",
       "lang": "hi",
       "india": true,
       "sitelinks": 3,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
+      "providers": [],
       "providersSource": "tmdb",
-      "tmdbId": 1389149
+      "tmdbId": 1616166
     }
   ],
-  "providersCheckedAt": "2026-11-17T16:02:11.487Z"
+  "providersCheckedAt": "2026-11-18T00:58:18.046Z"
 }

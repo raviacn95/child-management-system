@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-19T20:39:44.871Z",
+  "generatedAt": "2026-11-20T02:20:31.096Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -271,7 +271,7 @@
       "released": "2026-08-09",
       "lang": "en",
       "india": false,
-      "sitelinks": 29,
+      "sitelinks": 30,
       "providers": [
         {
           "platformId": "appletv",
@@ -1073,5 +1073,5 @@
       "tmdbId": 1389149
     }
   ],
-  "providersCheckedAt": "2026-11-19T20:39:44.871Z"
+  "providersCheckedAt": "2026-11-20T02:20:31.096Z"
 }

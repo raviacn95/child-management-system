@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-20T20:23:45.681Z",
+  "generatedAt": "2026-11-21T02:17:36.313Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -25,7 +25,7 @@
       "released": "2026-10-28",
       "lang": "en",
       "india": false,
-      "sitelinks": 28,
+      "sitelinks": 29,
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1300968
@@ -1047,19 +1047,6 @@
       "tmdbId": 1439594
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1616166
-    },
-    {
       "id": "wd-Q138504859",
       "qid": "Q138504859",
       "title": "Accused",
@@ -1076,7 +1063,20 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1389149
+    },
+    {
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [],
+      "providersSource": "tmdb",
+      "tmdbId": 1616166
     }
   ],
-  "providersCheckedAt": "2026-11-20T20:23:45.681Z"
+  "providersCheckedAt": "2026-11-21T02:17:36.313Z"
 }

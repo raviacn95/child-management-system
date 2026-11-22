@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-22T01:21:01.395Z",
+  "generatedAt": "2026-11-22T19:42:36.416Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -112,6 +112,28 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1248832
+    },
+    {
+      "id": "wd-Q131523413",
+      "qid": "Q131523413",
+      "title": "Verity",
+      "year": 2026,
+      "released": "2026-10-01",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 24,
+      "providers": [
+        {
+          "platformId": "appletv",
+          "kind": "rent"
+        },
+        {
+          "platformId": "prime",
+          "kind": "rent"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1283515
     },
     {
       "id": "wd-Q131102878",
@@ -280,6 +302,10 @@
       "providers": [
         {
           "platformId": "appletv",
+          "kind": "rent"
+        },
+        {
+          "platformId": "prime",
           "kind": "rent"
         }
       ],
@@ -762,22 +788,6 @@
       "tmdbId": 1625582
     },
     {
-      "id": "wd-Q126488898",
-      "qid": "Q126488898",
-      "title": "How to Make a Killing",
-      "year": 2026,
-      "released": "2026-02-20",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 467905,
-      "watchIds": {
-        "appletv": "movie/umc.cmc.6ulh30ntityj9dv8x4x2r4a5y"
-      }
-    },
-    {
       "id": "wd-Q137783833",
       "qid": "Q137783833",
       "title": "O'Romeo",
@@ -1078,5 +1088,5 @@
       "tmdbId": 1389149
     }
   ],
-  "providersCheckedAt": "2026-11-22T01:21:01.395Z"
+  "providersCheckedAt": "2026-11-22T19:42:36.416Z"
 }

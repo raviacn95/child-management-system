@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-22T19:42:36.416Z",
+  "generatedAt": "2026-11-23T12:48:15.102Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -240,6 +240,27 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1765072
+    },
+    {
+      "id": "wd-Q133852597",
+      "qid": "Q133852597",
+      "title": "The Whisper Man",
+      "year": 2026,
+      "released": "2026-08-28",
+      "lang": "en",
+      "india": false,
+      "sitelinks": 24,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 860508,
+      "watchIds": {
+        "netflix": "81278442"
+      }
     },
     {
       "id": "wd-Q123740702",
@@ -824,27 +845,6 @@
       "tmdbId": 1339876
     },
     {
-      "id": "wd-Q126394034",
-      "qid": "Q126394034",
-      "title": "Crime 101",
-      "year": 2026,
-      "released": "2026-01-28",
-      "lang": "en",
-      "india": false,
-      "sitelinks": 23,
-      "providers": [
-        {
-          "platformId": "prime",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1171145,
-      "watchIds": {
-        "appletv": "movie/umc.cmc.5ehogrykfkoxztizi9hjo9pd8"
-      }
-    },
-    {
       "id": "wd-Q134083296",
       "qid": "Q134083296",
       "title": "The Invite",
@@ -1088,5 +1088,5 @@
       "tmdbId": 1389149
     }
   ],
-  "providersCheckedAt": "2026-11-22T19:42:36.416Z"
+  "providersCheckedAt": "2026-11-23T12:48:15.102Z"
 }

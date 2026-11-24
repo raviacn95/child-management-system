@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-23T12:48:15.102Z",
+  "generatedAt": "2026-11-24T23:54:57.548Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -283,7 +283,7 @@
       "released": "2026-08-21",
       "lang": "ml",
       "india": true,
-      "sitelinks": 4,
+      "sitelinks": 5,
       "providers": [
         {
           "platformId": "hotstar",
@@ -1088,5 +1088,5 @@
       "tmdbId": 1389149
     }
   ],
-  "providersCheckedAt": "2026-11-23T12:48:15.102Z"
+  "providersCheckedAt": "2026-11-24T23:54:57.548Z"
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-25T19:18:33.574Z",
+  "generatedAt": "2026-11-26T03:35:24.943Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -99,6 +99,24 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1269325
+    },
+    {
+      "id": "wd-Q141610759",
+      "qid": "Q141610759",
+      "title": "Baththa",
+      "year": 2026,
+      "released": "2026-10-01",
+      "lang": "",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1515692
     },
     {
       "id": "wd-Q129677718",
@@ -347,28 +365,6 @@
       "tmdbId": 1709391
     },
     {
-      "id": "wd-Q140836374",
-      "qid": "Q140836374",
-      "title": "DC",
-      "year": 2026,
-      "released": "2026-08-07",
-      "lang": "",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [
-        {
-          "platformId": "sonyliv",
-          "kind": "stream"
-        },
-        {
-          "platformId": "sunnxt",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1479832
-    },
-    {
       "id": "wd-Q113244935",
       "qid": "Q113244935",
       "title": "Spider-Man: Brand New Day",
@@ -434,12 +430,7 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 7,
-      "providers": [
-        {
-          "platformId": "zee5",
-          "kind": "stream"
-        }
-      ],
+      "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1155818
     },
@@ -1021,9 +1012,9 @@
       }
     },
     {
-      "id": "wd-Q116701310",
-      "qid": "Q116701310",
-      "title": "Lakadbaggha 1/2 Movie",
+      "id": "wd-Q138504859",
+      "qid": "Q138504859",
+      "title": "Accused",
       "year": 2026,
       "released": "2026-01-01",
       "lang": "hi",
@@ -1031,12 +1022,12 @@
       "sitelinks": 3,
       "providers": [
         {
-          "platformId": "appletv",
-          "kind": "rent"
+          "platformId": "netflix",
+          "kind": "stream"
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1069567
+      "tmdbId": 1389149
     },
     {
       "id": "wd-Q137805148",
@@ -1070,9 +1061,9 @@
       "tmdbId": 1439594
     },
     {
-      "id": "wd-Q138504859",
-      "qid": "Q138504859",
-      "title": "Accused",
+      "id": "wd-Q116701310",
+      "qid": "Q116701310",
+      "title": "Lakadbaggha 1/2 Movie",
       "year": 2026,
       "released": "2026-01-01",
       "lang": "hi",
@@ -1080,12 +1071,12 @@
       "sitelinks": 3,
       "providers": [
         {
-          "platformId": "netflix",
-          "kind": "stream"
+          "platformId": "appletv",
+          "kind": "rent"
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1389149
+      "tmdbId": 1069567
     }
   ],
   "providersCheckedAt": "2026-11-25T19:18:33.574Z"

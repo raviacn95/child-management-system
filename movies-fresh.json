@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-27T12:24:55.060Z",
+  "generatedAt": "2026-11-27T23:28:12.621Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -101,9 +101,32 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 5,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
       "providersSource": "tmdb",
       "tmdbId": 1269325
+    },
+    {
+      "id": "wd-Q141610759",
+      "qid": "Q141610759",
+      "title": "Baththa",
+      "year": 2026,
+      "released": "2026-10-01",
+      "lang": "",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1515692
     },
     {
       "id": "wd-Q129677718",
@@ -347,31 +370,14 @@
       "lang": "hi",
       "india": true,
       "sitelinks": 8,
-      "providers": [],
-      "providersSource": "tmdb",
-      "tmdbId": 1709391
-    },
-    {
-      "id": "wd-Q140836374",
-      "qid": "Q140836374",
-      "title": "DC",
-      "year": 2026,
-      "released": "2026-08-07",
-      "lang": "",
-      "india": true,
-      "sitelinks": 3,
       "providers": [
         {
           "platformId": "sonyliv",
           "kind": "stream"
-        },
-        {
-          "platformId": "sunnxt",
-          "kind": "stream"
         }
       ],
       "providersSource": "tmdb",
-      "tmdbId": 1479832
+      "tmdbId": 1709391
     },
     {
       "id": "wd-Q113244935",
@@ -462,6 +468,10 @@
       "india": false,
       "sitelinks": 38,
       "providers": [
+        {
+          "platformId": "hotstar",
+          "kind": "stream"
+        },
         {
           "platformId": "appletv",
           "kind": "rent"
@@ -1048,6 +1058,24 @@
       "tmdbId": 1069567
     },
     {
+      "id": "wd-Q138504859",
+      "qid": "Q138504859",
+      "title": "Accused",
+      "year": 2026,
+      "released": "2026-01-01",
+      "lang": "hi",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1389149
+    },
+    {
       "id": "wd-Q136759525",
       "qid": "Q136759525",
       "title": "Chatha Pacha: The Ring of Rowdies",
@@ -1077,25 +1105,7 @@
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1616166
-    },
-    {
-      "id": "wd-Q138504859",
-      "qid": "Q138504859",
-      "title": "Accused",
-      "year": 2026,
-      "released": "2026-01-01",
-      "lang": "hi",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1389149
     }
   ],
-  "providersCheckedAt": "2026-11-27T12:24:55.060Z"
+  "providersCheckedAt": "2026-11-27T23:28:12.621Z"
 }

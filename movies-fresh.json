@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-27T23:28:12.621Z",
+  "generatedAt": "2026-11-28T07:52:11.693Z",
   "year": 2026,
   "source": "Wikidata (CC0) — films released this year, ranked by Wikipedia coverage; streaming data: JustWatch via TMDB",
   "titles": [
@@ -25,7 +25,7 @@
       "released": "2026-10-28",
       "lang": "en",
       "india": false,
-      "sitelinks": 30,
+      "sitelinks": 31,
       "providers": [],
       "providersSource": "tmdb",
       "tmdbId": 1300968
@@ -109,24 +109,6 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1269325
-    },
-    {
-      "id": "wd-Q141610759",
-      "qid": "Q141610759",
-      "title": "Baththa",
-      "year": 2026,
-      "released": "2026-10-01",
-      "lang": "",
-      "india": true,
-      "sitelinks": 3,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
-      "providersSource": "tmdb",
-      "tmdbId": 1515692
     },
     {
       "id": "wd-Q129677718",
@@ -378,6 +360,28 @@
       ],
       "providersSource": "tmdb",
       "tmdbId": 1709391
+    },
+    {
+      "id": "wd-Q140836374",
+      "qid": "Q140836374",
+      "title": "DC",
+      "year": 2026,
+      "released": "2026-08-07",
+      "lang": "",
+      "india": true,
+      "sitelinks": 3,
+      "providers": [
+        {
+          "platformId": "sonyliv",
+          "kind": "stream"
+        },
+        {
+          "platformId": "sunnxt",
+          "kind": "stream"
+        }
+      ],
+      "providersSource": "tmdb",
+      "tmdbId": 1479832
     },
     {
       "id": "wd-Q113244935",
@@ -1058,22 +1062,17 @@
       "tmdbId": 1069567
     },
     {
-      "id": "wd-Q138504859",
-      "qid": "Q138504859",
-      "title": "Accused",
+      "id": "wd-Q137805148",
+      "qid": "Q137805148",
+      "title": "Not a Hero",
       "year": 2026,
       "released": "2026-01-01",
       "lang": "hi",
       "india": true,
       "sitelinks": 3,
-      "providers": [
-        {
-          "platformId": "netflix",
-          "kind": "stream"
-        }
-      ],
+      "providers": [],
       "providersSource": "tmdb",
-      "tmdbId": 1389149
+      "tmdbId": 1616166
     },
     {
       "id": "wd-Q136759525",
@@ -1094,18 +1093,23 @@
       "tmdbId": 1439594
     },
     {
-      "id": "wd-Q137805148",
-      "qid": "Q137805148",
-      "title": "Not a Hero",
+      "id": "wd-Q138504859",
+      "qid": "Q138504859",
+      "title": "Accused",
       "year": 2026,
       "released": "2026-01-01",
       "lang": "hi",
       "india": true,
       "sitelinks": 3,
-      "providers": [],
+      "providers": [
+        {
+          "platformId": "netflix",
+          "kind": "stream"
+        }
+      ],
       "providersSource": "tmdb",
-      "tmdbId": 1616166
+      "tmdbId": 1389149
     }
   ],
-  "providersCheckedAt": "2026-11-27T23:28:12.621Z"
+  "providersCheckedAt": "2026-11-28T07:52:11.693Z"
 }
